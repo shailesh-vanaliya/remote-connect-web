@@ -1,0 +1,275 @@
+.result-item-section {
+    display: flex;
+}
+.result-item-section span {
+    margin: 5px;
+    font-size: 14px;
+    font-weight: 400;
+}
+.result-item-section > h4 {
+    font-weight: bold;
+    margin: 0px;
+    font-size: 15px;
+}
+span.label.label-success.has-been {
+    padding: 2px 28px 2px 7px;
+}
+.result-case-extended-info {
+    margin-left: 0px;
+}
+.result-case-extended-info-link {
+    font-size: 14px;
+    margin: 8px 15px 0 0px;
+}
+.embed h4 {
+    font-size: 16px;
+}
+.embed {
+    width: 31%;
+    font-size: 16px !important;
+}
+.result-case-extended-info-link a {
+     color: #2571ff;
+    font-weight: 500;
+}
+.login-box a img {
+    width: 200px;
+}
+
+.select2 {
+    min-width: 100%;
+}
+
+.content-header > h1 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 600;
+}
+.badge.badge-success.bg-green.pull-right {
+    padding: 10px 8px;
+    margin: 5px 0 16px 0;
+}
+.external-event.bg-info.ui-draggable.ui-draggable-handle {
+    background: transparent;
+    box-shadow: none;
+}
+
+.badge {
+
+    display: inline-block;
+    min-width: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #777;
+    border-radius: 10px;
+
+}
+.login-page, .register-page {
+    height: auto;
+    /*background: #537786;*/
+}
+.skin-black .main-header .navbar {
+    background-color:
+        #537786;
+}
+.skin-black .main-header .logo {
+
+    background-color:#537786;
+    color: #333;
+    border-bottom: 0 solid    transparent;
+    border-right: 1px solid #eee;
+    padding: 5px 0;
+    display: inline-table;
+
+}
+.main-header .logo .logo-lg img {
+    width: 184px;
+
+}
+.skin-black .main-header .navbar .nav > li > a:hover, .skin-black .main-header .navbar .nav > li > a:active, .skin-black .main-header .navbar .nav > li > a:focus, .skin-black .main-header .navbar .nav .open > a, .skin-black .main-header .navbar .nav .open > a:hover, .skin-black .main-header .navbar .nav .open > a:focus, .skin-black .main-header .navbar .nav > .active > a {
+    background: #537786;color:#999;
+}
+/*.hidden-xs {
+    color:#FFF;
+}*/
+.skin-black .main-header .logo:hover {
+    background-color:
+        #537786;
+}
+.navbar-custom-menu:hover {
+    background: #537786;
+
+}
+/*.navbar-nav > li > a {
+    padding-top: 39px;
+    padding-bottom: 39px;
+}*/
+/*.main-header .sidebar-toggle {
+    float: left;
+    background-color: transparent;
+    background-image: none;
+    padding: 39px 15px;
+    font-family: fontAwesome;
+}
+*/
+
+.external-event.bg-info.ui-draggable.ui-draggable-handle span b {
+    font-size: 15px;
+    font-weight: bold;
+}
+.box-header {
+    color: #444;
+    display: block;
+    padding: 10px 10px 0 10px;
+    position: relative;
+}
+.badge.badge-success.bg-blue-gradient {
+    background:transparent !important;
+    color:  #000;
+    font-weight: bold;
+    font-size: 18px;
+}
+.box {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 1px solid #d2d6de;
+    border-top-color: rgb(210, 214, 222);
+    margin-bottom: 6px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+.form-group {
+    margin-bottom: 8px;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+.external-event.bg-info.ui-draggable.ui-draggable-handle span {
+    font-size: 13px;
+    font-weight: 400;
+}
+.box-body.crod-table {
+    padding: 0;
+}
+.btn.focus, .btn:focus, .btn:hover {
+    color: #fff;
+    text-decoration: none;
+}
+.login-box, .register-box {
+    width: 360px;
+    margin: 4% auto;
+    /*background: #3c8dbc;*/
+    border: solid 5px #00b3df;
+    /*border: solid 5px #3c8dbc;*/
+}
+.login-logo, .register-logo {
+    font-size: 35px; text-align: center; margin: 0; font-weight: 300;
+
+}
+.login-box-body, .register-box-body {
+    background:#fff;
+    padding: 0 20px 30px 20px;
+    border-top: 0;
+    color: #666;
+}
+.login-box-msg, .register-box-msg {
+    margin: 0;
+    text-align: center;
+    padding: 0 20px 20px 20px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #00b3df;
+}
+
+.panel-primary {
+    border-color:
+        #337ab7;
+    margin: 0 0px;
+}
+
+.box-header > .fa, .box-header > .glyphicon, .box-header > .ion, .box-header .box-title {
+    display: inline-block;
+    font-size: 16px;
+    margin: 0;
+    line-height: 1;
+    font-weight: bold;
+}
+.btn-primary{
+    font-size: 14px;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a, .nav-tabs-custom > .nav-tabs > li.active:hover > a {
+
+    background-color: #fff;
+    color: #155b94;
+    font-size: 14px;
+    font-weight: bold;
+
+}
+
+.nav-tabs-custom > .nav-tabs > li > a {
+
+    color: #444;
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: bold;
+
+}
+.callout.callout-warning p {
+
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+
+}
+
+.callout.callout-warning a {
+
+    font-size: 16px;
+    font-weight: bold;
+
+}
+
+.bg-yellow, .callout.callout-warning, .alert-warning, .label-warning, .modal-warning .modal-body {
+    background-color: #f39c12 !important;
+}
+.text-right {
+
+    text-align: right;
+    margin: 0;
+
+}
+@media (max-width: 767px) {
+    .skin-black .main-header .logo{
+        padding: 0px;
+        display: inline;
+    }
+    .main-header {
+        position: relative;
+        max-height: 60px;}
+    .main-header .logo .logo-lg img {
+        width: 122px;
+
+    }
+    .main-header {
+        position: relative;
+        max-height: 200px;
+    }
+    .skin-black .main-header .logo {
+
+        padding: 0px;
+        display: block;
+
+    }
+    main-header .sidebar-toggle {
+        padding: 15px 15px !important;
+    }
+}
