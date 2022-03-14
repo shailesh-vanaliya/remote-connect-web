@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Device;
+use App\Models\DeviceMap;
 use Illuminate\Http\Request;
 use Auth;
 class DeviceController extends Controller
@@ -75,6 +76,11 @@ class DeviceController extends Controller
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
                 return redirect("admin/device/create")->withErrors($validator)->withInput();
+            }
+            $count = DeviceMap::where('MODEM_ID', $request->all('modem_id'))
+            ->where('secret_key', $request->all('secret_key'))->count();
+            if($count == 0){
+                return redirect('admin/device/create')->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;

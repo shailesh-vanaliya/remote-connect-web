@@ -1,6 +1,6 @@
 <div class="box-body">
     <div class="form-group {{ $errors->has('MQTT_ID') ? 'has-error' : ''}}">
-        <label for="MQTT_ID" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Mqtt Id' }}</label>
+        <label for="MQTT_ID" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'MQTT Id' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="MQTT_ID" type="text" id="MQTT_ID" value="{{ isset($devicemap->MQTT_ID) ? $devicemap->MQTT_ID : ''}}">
             {!! $errors->first('MQTT_ID', '<p class="help-block">:message</p>') !!}
@@ -13,11 +13,11 @@
             {!! $errors->first('MODEM_ID', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('seceret_key') ? 'has-error' : ''}}">
-        <label for="seceret_key" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Seceret Key' }}</label>
+    <div class="form-group {{ $errors->has('secret_key') ? 'has-error' : ''}}">
+        <label for="secret_key" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Seceret Key' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
-            <input class="form-control" name="seceret_key" type="text" id="seceret_key" value="{{ isset($devicemap->seceret_key) ? $devicemap->seceret_key : ''}}">
-            {!! $errors->first('seceret_key', '<p class="help-block">:message</p>') !!}
+            <input class="form-control" name="secret_key" type="text" id="secret_key" value="{{ isset($devicemap->secret_key) ? $devicemap->secret_key : ''}}">
+            {!! $errors->first('secret_key', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group {{ $errors->has('max_user_acess') ? 'has-error' : ''}}">
@@ -77,7 +77,7 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
+    <div class="form-group row">
+        <input class="btn btn-primary col-lg-1 col-md-9 col-sm-12 pull-right" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
     </div>
 </div>

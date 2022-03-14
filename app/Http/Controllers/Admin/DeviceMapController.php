@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-
+use Auth;
 use App\Models\DeviceMap;
 use Illuminate\Http\Request;
 
@@ -23,7 +23,7 @@ class DeviceMapController extends Controller
         if (!empty($keyword)) {
             $data['devicemap'] = DeviceMap::where('MQTT_ID', 'LIKE', "%$keyword%")
                 ->orWhere('MODEM_ID', 'LIKE', "%$keyword%")
-                ->orWhere('seceret_key', 'LIKE', "%$keyword%")
+                ->orWhere('secret_key', 'LIKE', "%$keyword%")
                 ->orWhere('max_user_acess', 'LIKE', "%$keyword%")
                 ->orWhere('IMEI_No', 'LIKE', "%$keyword%")
                 ->orWhere('SIM_No', 'LIKE', "%$keyword%")
@@ -36,15 +36,15 @@ class DeviceMapController extends Controller
         } else {
             $data['devicemap'] = DeviceMap::latest()->paginate($perPage);
         }
-        $data['title']     = 'Edit Setting';
-        $data['pagetitle'] = 'Edit Setting';
+        $data['title']     = 'Device Map';
+        $data['pagetitle'] = 'Device Map';
         // $data['js']        = ['admin/user.js', 'jquery.validate.min.js'];
         // $data['funinit']   = ['User.init()'];
         $data['header']    = [
-            'title'      => 'Edit Setting',
+            'title'      => 'Device Map',
             'breadcrumb' => [
-                'Home'     => 'Edit Setting',
-                'Settings' => 'Edit Setting',
+                'Home'     => 'Device Map',
+                'Settings' => 'Device Map',
             ],
         ];
         return view('admin.device-map.index', $data);
@@ -57,15 +57,15 @@ class DeviceMapController extends Controller
      */
     public function create()
     {
-        $data['title']     = 'Edit Setting';
-        $data['pagetitle'] = 'Edit Setting';
+        $data['title']     = 'Device Map';
+        $data['pagetitle'] = 'Device Map';
         $data['js']        = ['admin/user.js', 'jquery.validate.min.js'];
         $data['funinit']   = ['User.init()'];
         $data['header']    = [
-            'title'      => 'Edit Setting',
+            'title'      => 'Device Map',
             'breadcrumb' => [
-                'Home'     => 'Edit Setting',
-                'Settings' => 'Edit Setting',
+                'Home'     => 'Device Map',
+                'Settings' => 'Device Map',
             ],
         ];
         return view('admin.device-map.create',$data);
@@ -82,7 +82,8 @@ class DeviceMapController extends Controller
     {
         
         $requestData = $request->all();
-        
+        $requestData['created_by'] = Auth::guard('admin')->user()->id;
+        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
         DeviceMap::create($requestData);
 
         return redirect('admin/device-map')->with('session_error', 'DeviceMap added!');
@@ -98,15 +99,15 @@ class DeviceMapController extends Controller
     public function show($id)
     {
         $data['devicemap'] = DeviceMap::findOrFail($id);
-        $data['title']     = 'Edit Setting';
-        $data['pagetitle'] = 'Edit Setting';
+        $data['title']     = 'Device Map';
+        $data['pagetitle'] = 'Device Map';
         $data['js']        = ['admin/user.js', 'jquery.validate.min.js'];
         $data['funinit']   = ['User.init()'];
         $data['header']    = [
-            'title'      => 'Edit Setting',
+            'title'      => 'Device Map',
             'breadcrumb' => [
-                'Home'     => 'Edit Setting',
-                'Settings' => 'Edit Setting',
+                'Home'     => 'Device Map',
+                'Settings' => 'Device Map',
             ],
         ];
         return view('admin.device-map.show', $data);
@@ -122,15 +123,15 @@ class DeviceMapController extends Controller
     public function edit($id)
     {
         $data['devicemap'] = DeviceMap::findOrFail($id);
-        $data['title']     = 'Edit Setting';
-        $data['pagetitle'] = 'Edit Setting';
+        $data['title']     = 'Device Map';
+        $data['pagetitle'] = 'Device Map';
         $data['js']        = ['admin/user.js', 'jquery.validate.min.js'];
         $data['funinit']   = ['User.init()'];
         $data['header']    = [
-            'title'      => 'Edit Setting',
+            'title'      => 'Device Map',
             'breadcrumb' => [
-                'Home'     => 'Edit Setting',
-                'Settings' => 'Edit Setting',
+                'Home'     => 'Device Map',
+                'Settings' => 'Device Map',
             ],
         ];
         return view('admin.device-map.edit', $data);
@@ -148,11 +149,12 @@ class DeviceMapController extends Controller
     {
         
         $requestData = $request->all();
-        
+        $requestData['created_by'] = Auth::guard('admin')->user()->id;
+        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
         $devicemap = DeviceMap::findOrFail($id);
         $devicemap->update($requestData);
 
-        return redirect('admin/device-map')->with('session_error', 'DeviceMap updated!');
+        return redirect('admin/device-map')->with('session_success', 'subscription_status!');
     }
 
     /**

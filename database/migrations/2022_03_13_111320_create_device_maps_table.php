@@ -16,7 +16,7 @@ class CreateDeviceMapsTable extends Migration
             $table->increments('id');
             $table->string('MQTT_ID');
             $table->string('MODEM_ID');
-            $table->string('seceret_key');
+            $table->string('secret_key');
             $table->integer('max_user_acess');
             $table->bigInteger('IMEI_No');
             $table->bigInteger('SIM_No');

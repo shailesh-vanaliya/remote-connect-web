@@ -22,7 +22,6 @@
 <link href="{{ URL::asset($dynamicUrl.'css/select2.min.css') }}" rel="stylesheet" />
 <script src="{{ URL::asset($dynamicUrl.'js/select2.min.js') }}"></script>
 <link rel="icon" href="{{ asset('/public/img/favicon.png') }}">
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 <style>
     #cards {

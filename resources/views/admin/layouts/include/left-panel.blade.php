@@ -29,16 +29,18 @@ return redirect('login');
             </li>
             
             @if(Auth::guard('admin')->user()->role != 'USER')
+            <li class="{{ ($currRoute == 'device-map.create' || $currRoute == 'device-map.show' || $currRoute == 'device-map.edit' || $currRoute == 'device-map.index') ? 'active': '' }}">
+                <a href="{{ url('/admin/device-map') }}">
+                    <i class="fa fa-map"></i><span> Device Map</span>
+                </a>
+            </li>
+
             <li class="{{ ($currRoute == 'users.create' || $currRoute == 'users.show' || $currRoute == 'users.edit' || $currRoute == 'users.index') ? 'active': '' }}">
                 <a href="{{ url('/admin/users') }}">
                     <i class="fa fa-users"></i><span> Users</span>
                 </a>
             </li>
-            <li class="{{ ($currRoute == 'device-map.create' || $currRoute == 'device-map.show' || $currRoute == 'device-map.edit' || $currRoute == 'device-map.index') ? 'active': '' }}">
-                <a href="{{ url('/admin/device-map') }}">
-                    <i class="fa fa-users"></i><span> Device Map</span>
-                </a>
-            </li>
+         
             @endif
             @endif
         </ul>
