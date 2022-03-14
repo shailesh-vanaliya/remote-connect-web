@@ -40,21 +40,24 @@ class AdminController extends Controller
     public function index()
     {
 
-        try {
+        // try {
 
 
-            $eeee = MQTT::publish('shailesh/1', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
-            $eeee = MQTT::publish('shailesh/2', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
-            $eeee = MQTT::publish('shailesh/3', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
-            $eeee = MQTT::publish('shailesh/4', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
-            $eeee = MQTT::publish('shailesh/5', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
-            $eeee = MQTT::publish('shailesh/6', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
-            $eeee = MQTT::publish('shailesh/7', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
-            $eeee = MQTT::publish('shailesh/8', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
-            $eeee = MQTT::publish('shailesh/9', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
+        //     $eeee = MQTT::publish('shailesh/1', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
+        //     $eeee = MQTT::publish('shailesh/2', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
+        //     $eeee = MQTT::publish('shailesh/3', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
+        //     $eeee = MQTT::publish('shailesh/4', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
+        //     $eeee = MQTT::publish('shailesh/5', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
+        //     $eeee = MQTT::publish('shailesh/6', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
+        //     $eeee = MQTT::publish('shailesh/7', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
+        //     $eeee = MQTT::publish('shailesh/8', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
+        //     $eeee = MQTT::publish('shailesh/9', '{"data":"1","user":"Login Email id","timestamp":"2022-03-05 11:29:38.865053","Modem id":"*MODEM_ID"}');
+        // } catch (\Exception $e) {
+        //     dd($e->getMessage());
+        // }
+
+
+        
         // echo app_path() . '\Http\Controllers\Admin\phpMQTT.php';exit;
 
         //         $server   = 'm2m.iiotconnect.in';

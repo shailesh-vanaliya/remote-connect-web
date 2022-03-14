@@ -102,7 +102,7 @@
                 </ul>
                 @endif
                 <div class="box-header">
-                    <h3 class="box-title">Modbus slave address mapping list</h3>
+                    <h3 class="box-title">Device list</h3>
                     <a href="{{ url('/admin/device/create') }}" class="pull-right btn btn-success btn-sm" title="Add New Unit">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                     </a>

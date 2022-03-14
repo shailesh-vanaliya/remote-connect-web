@@ -18,8 +18,8 @@
       </div>
       @endif
       <br/>
-      <!-- <form role="form" method="post" autocomplete="off" class="loginFrm" id="loginFrm" action="{{ route('register') }}"> -->
-      <form method="POST" action="{{ url('/register') }}" accept-charset="UTF-8" class="form-horizontal1 loginFrm" enctype="multipart/form-data">
+      
+       <form method="POST" action="{{ url('/register') }}" accept-charset="UTF-8" class="form-horizontal1 loginFrm" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="form-group has-feedback">
           <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First name">
@@ -45,6 +45,7 @@
 
         <div class="form-group row has-feedback">
           <div class="col-md-12">
+            <a href="login" class="btn btn-secondary btn-flat pull-left">Back</a>
             <button type="submit" class="btn btn-primary btn-flat pull-right">Sign Up</button>
           </div>
         </div>

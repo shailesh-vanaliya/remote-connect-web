@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\{
     SettingController,
     UserController,
     DeviceController,
+    DeviceMapController,
 };
 
 /*
@@ -46,6 +47,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::post('/admin-setting', [SettingController::class, 'setting'])->name('setting');
     Route::get('/admin-setting', [SettingController::class, 'setting'])->name('setting');
     Route::resource('device', DeviceController::class);
+    Route::resource('device-map', DeviceMapController::class);
 });
 
 // Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illuminate\Routing\Router $route) {
@@ -60,6 +62,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
 //     $route->match(['DELETE', 'post'], '/user/delete/{id}', 'Admin\UserController@destroy')
 //         ->name('user_delete')->where('id', '[0-9]+');
 // });
+
 
 
 

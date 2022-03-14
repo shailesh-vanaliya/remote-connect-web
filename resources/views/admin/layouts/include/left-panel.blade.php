@@ -34,6 +34,11 @@ return redirect('login');
                     <i class="fa fa-users"></i><span> Users</span>
                 </a>
             </li>
+            <li class="{{ ($currRoute == 'device-map.create' || $currRoute == 'device-map.show' || $currRoute == 'device-map.edit' || $currRoute == 'device-map.index') ? 'active': '' }}">
+                <a href="{{ url('/admin/device-map') }}">
+                    <i class="fa fa-users"></i><span> Device Map</span>
+                </a>
+            </li>
             @endif
             @endif
         </ul>
