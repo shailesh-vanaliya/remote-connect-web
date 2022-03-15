@@ -102,7 +102,13 @@
                 </ul>
                 @endif
                 <div class="box-header">
+                <div class="form-group col-lg-9 col-sm-12">
                     <h3 class="box-title">Device list</h3>
+                </div>
+                    <div class="form-group col-lg-2 col-sm-12">
+                        {{ Form::select('search', $location , empty(request('search')) ? null : request('search') , array('class' => 'form-control search', 'id' => 'search')) }}
+                    </div>
+
                     <a href="{{ url('/admin/device/create') }}" class="pull-right btn btn-success btn-sm" title="Add New Unit">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                     </a>
@@ -140,7 +146,7 @@
                                 <td>{{ $item->machine_type }}</td>
                                 <td>{{ $item->latitude }}</td>
                                 <td>{{ $item->longitude }}</td>
-                                 <td>
+                                <td>
                                     <!-- <a href="{{ url('/admin/device/' . $item->id) }}" title="View Device"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> </button></a> -->
                                     <a href="{{ url('/admin/device/' . $item->id . '/edit') }}" title="Edit Device"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </button></a>
                                     <form method="POST" action="{{ url('/admin/device' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">

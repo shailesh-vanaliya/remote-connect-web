@@ -95,15 +95,15 @@ class UserController extends Controller
     public function create()
     {
         $data['header'] = [
-            'title' => 'Users List',
+            'title' => 'Users Create',
             'breadcrumb' => [
                 'Home' => route('admin_dashboard'),
                 'Users' => '',
                 'List' => '',
             ],
         ];
-        $data['pagetitle'] = 'Users List';
-        $data['title'] = 'Users List';
+        $data['pagetitle'] = 'Users Create';
+        $data['title'] = 'Users Create';
 
         return view('admin.users.create', $data);
     }

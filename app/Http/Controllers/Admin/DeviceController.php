@@ -39,6 +39,17 @@ class DeviceController extends Controller
         }
         $data['pagetitle'] = 'Device';
         $data['title'] = 'Device';
+        $location = Device::select(
+            // DB::raw("CONCAT(interface,' (Device No : ',device_no,')') AS interface"),
+            'location',
+            'id',
+        )->orderBy('id', 'asc')
+            ->pluck('location', 'id')->toArray();
+            $agentRecord[''] = '- - Select Location - -';
+            // print_r($location);
+            // exit;
+            $data['location'] = $agentRecord + $location;
+
         return view('admin.device.index', $data);
     }
 
@@ -77,9 +88,9 @@ class DeviceController extends Controller
             if ($validator->fails()) {
                 return redirect("admin/device/create")->withErrors($validator)->withInput();
             }
-            $count = DeviceMap::where('MODEM_ID', $request->all('modem_id'))
+           $mapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))
             ->where('secret_key', $request->all('secret_key'))->count();
-            if($count == 0){
+            if($mapCount == 0){
                 return redirect('admin/device/create')->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
@@ -145,6 +156,11 @@ class DeviceController extends Controller
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
                 return redirect("admin/device/$id/edit")->withErrors($validator)->withInput();
+            }
+           $mapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))
+            ->where('secret_key', $request->all('secret_key'))->count();
+            if($mapCount == 0){
+                return redirect(`admin/device/$id/edit`)->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;

@@ -48,20 +48,21 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::get('/admin-setting', [SettingController::class, 'setting'])->name('setting');
     Route::resource('device', DeviceController::class);
     Route::resource('device-map', DeviceMapController::class);
+    Route::get('/users/list', [UserController::class, 'index'])->name('user_list');
 });
 
-// Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illuminate\Routing\Router $route) {
+Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illuminate\Routing\Router $route) {
 //     $route->get('/users/list', [UserController::class, 'index'])->name('user_list');
 //     $route->get('/users/change-status/{id}', 'Admin\UserController@statusChange')->name('user_change_status');
 //     $route->match(['get', 'post'], '/user/add', 'Admin\UserController@create')
 //         ->name('user_create');
-//     $route->match(['get', 'post'], '/user/edit/{id}', 'Admin\UserController@edit')
-//         ->name('user_edit')->where('id', '[0-9]+');
+    $route->match(['get', 'post'], '/user/edit/{id}', 'Admin\UserController@edit')
+        ->name('user_edit')->where('id', '[0-9]+');
 //     $route->match(['get', 'post'], '/user/show/{id}', 'Admin\UserController@show')
 //         ->name('user_view')->where('id', '[0-9]+');
 //     $route->match(['DELETE', 'post'], '/user/delete/{id}', 'Admin\UserController@destroy')
 //         ->name('user_delete')->where('id', '[0-9]+');
-// });
+});
 
 
 
