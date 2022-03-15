@@ -102,9 +102,9 @@
                 </ul>
                 @endif
                 <div class="box-header">
-                <div class="form-group col-lg-9 col-sm-12">
-                    <h3 class="box-title">Device list</h3>
-                </div>
+                    <div class="form-group col-lg-9 col-sm-12">
+                        <h3 class="box-title">Device list</h3>
+                    </div>
                     <div class="form-group col-lg-2 col-sm-12">
                         {{ Form::select('search', $location , empty(request('search')) ? null : request('search') , array('class' => 'form-control search', 'id' => 'search')) }}
                     </div>
@@ -164,6 +164,22 @@
         </div>
     </div>
 </section>
-
+<script>
+    $(document).ready(function() {
+        $('#search').change(function() {
+            console.log($('#search :selected').text());
+            let serachValue = $('#search :selected').val();
+            var pathname = window.location.pathname; 
+            var url = window.location.href; 
+            var origin = window.location.origin;
+            let rurl  = origin+pathname + "?search="+serachValue;
+            if(serachValue !=  undefined && serachValue != ''){
+                window.location.replace(rurl);
+            }else{
+                window.location.replace(origin+pathname);
+            }
+        });
+    });
+</script>
 
 @endsection

@@ -36,7 +36,7 @@
                 <th>MQTT ID</th>
                 <th>MODEM ID</th>
                 <th>Seceret Key</th>
-                <th>Max User Acess</th>
+                <th>Max User Access</th>
                 <th>IMEI No</th>
                 <th>SIM No</th>
                 <th>SIM Plan</th>
@@ -53,7 +53,7 @@
                 <td>{{ $item->MQTT_ID }}</td>
                 <td>{{ $item->MODEM_ID }}</td>
                 <td>{{ $item->secret_key }}</td>
-                <td>{{ $item->max_user_acess }}</td>
+                <td>{{ $item->max_user_access }}</td>
                 <td>{{ $item->IMEI_No }}</td>
                 <td>{{ $item->SIM_No }}</td>
                 <td>{{ $item->SIM_Plan }}</td>
@@ -114,7 +114,7 @@
                                 <th>MQTT ID</th>
                                 <th>MODEM ID</th>
                                 <th>Seceret Key</th>
-                                <th>Max User Acess</th>
+                                <th>Max User Access</th>
                                 <th>IMEI No</th>
                                 <th>SIM No</th>
                                 <th>SIM Plan</th>
@@ -130,7 +130,7 @@
                                 <td>{{ $item->MQTT_ID }}</td>
                                 <td>{{ $item->MODEM_ID }}</td>
                                 <td>{{ $item->secret_key }}</td>
-                                <td>{{ $item->max_user_acess }}</td>
+                                <td>{{ $item->max_user_access }}</td>
                                 <td>{{ $item->IMEI_No }}</td>
                                 <td>{{ $item->SIM_No }}</td>
                                 <td>{{ $item->SIM_Plan }}</td>

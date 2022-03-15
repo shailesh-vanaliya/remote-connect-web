@@ -20,11 +20,11 @@
             {!! $errors->first('secret_key', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('max_user_acess') ? 'has-error' : ''}}">
-        <label for="max_user_acess" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Max User Acess' }}</label>
+    <div class="form-group {{ $errors->has('max_user_access') ? 'has-error' : ''}}">
+        <label for="max_user_access" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Max User Access' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
-            <input class="form-control" name="max_user_acess" type="number" id="max_user_acess" value="{{ isset($devicemap->max_user_acess) ? $devicemap->max_user_acess : ''}}">
-            {!! $errors->first('max_user_acess', '<p class="help-block">:message</p>') !!}
+            <input class="form-control" name="max_user_access" type="number" id="max_user_access" value="{{ isset($devicemap->max_user_access) ? $devicemap->max_user_access : ''}}">
+            {!! $errors->first('max_user_access', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group {{ $errors->has('IMEI_No') ? 'has-error' : ''}}">

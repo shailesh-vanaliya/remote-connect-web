@@ -30,7 +30,7 @@
                                     <tr>
                                         <th>ID</th><td>{{ $devicemap->id }}</td>
                                     </tr>
-                                    <tr><th> MQTT ID </th><td> {{ $devicemap->MQTT_ID }} </td></tr><tr><th> MODEM ID </th><td> {{ $devicemap->MODEM_ID }} </td></tr><tr><th> Seceret Key </th><td> {{ $devicemap->secret_key }} </td></tr><tr><th> Max User Acess </th><td> {{ $devicemap->max_user_acess }} </td></tr><tr><th> IMEI No </th><td> {{ $devicemap->IMEI_No }} </td></tr><tr><th> SIM No </th><td> {{ $devicemap->SIM_No }} </td></tr><tr><th> SIM Plan </th><td> {{ $devicemap->SIM_Plan }} </td></tr><tr><th> Subscription Expire Date </th><td> {{ $devicemap->subscription_expire_date }} </td></tr><tr><th> Subscription Tatus </th><td> {{ $devicemap->subscription_status }} </td></tr><tr><th> Created By </th><td> {{ $devicemap->created_by }} </td></tr>
+                                    <tr><th> MQTT ID </th><td> {{ $devicemap->MQTT_ID }} </td></tr><tr><th> MODEM ID </th><td> {{ $devicemap->MODEM_ID }} </td></tr><tr><th> Seceret Key </th><td> {{ $devicemap->secret_key }} </td></tr><tr><th> Max User Access </th><td> {{ $devicemap->max_user_access }} </td></tr><tr><th> IMEI No </th><td> {{ $devicemap->IMEI_No }} </td></tr><tr><th> SIM No </th><td> {{ $devicemap->SIM_No }} </td></tr><tr><th> SIM Plan </th><td> {{ $devicemap->SIM_Plan }} </td></tr><tr><th> Subscription Expire Date </th><td> {{ $devicemap->subscription_expire_date }} </td></tr><tr><th> Subscription Tatus </th><td> {{ $devicemap->subscription_status }} </td></tr><tr><th> Created By </th><td> {{ $devicemap->created_by }} </td></tr>
                                 </tbody>
                         </table>
                     </div>

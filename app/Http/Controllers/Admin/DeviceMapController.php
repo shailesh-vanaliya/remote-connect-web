@@ -24,7 +24,7 @@ class DeviceMapController extends Controller
             $data['devicemap'] = DeviceMap::where('MQTT_ID', 'LIKE', "%$keyword%")
                 ->orWhere('MODEM_ID', 'LIKE', "%$keyword%")
                 ->orWhere('secret_key', 'LIKE', "%$keyword%")
-                ->orWhere('max_user_acess', 'LIKE', "%$keyword%")
+                ->orWhere('max_user_access', 'LIKE', "%$keyword%")
                 ->orWhere('IMEI_No', 'LIKE', "%$keyword%")
                 ->orWhere('SIM_No', 'LIKE', "%$keyword%")
                 ->orWhere('SIM_Plan', 'LIKE', "%$keyword%")
