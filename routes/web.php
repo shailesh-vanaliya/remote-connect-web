@@ -46,6 +46,9 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::post('/admin-change-password', [SettingController::class, 'changepwd'])->name('change_password');
     Route::post('/admin-setting', [SettingController::class, 'setting'])->name('setting');
     Route::get('/admin-setting', [SettingController::class, 'setting'])->name('setting');
+    Route::get('/device/device-detail/{id}', [DeviceController::class, 'deviceDetail'])->name('device-detail');
+    Route::post('uploadFile', [DeviceController::class, 'uploadFile'])->name('uploadFile');
+    Route::post('connectServer', [DeviceController::class, 'connectServer'])->name('connectServer');
     Route::resource('device', DeviceController::class);
     Route::resource('device-map', DeviceMapController::class);
     Route::get('/users/list', [UserController::class, 'index'])->name('user_list');

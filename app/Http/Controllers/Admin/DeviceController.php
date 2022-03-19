@@ -9,6 +9,8 @@ use App\Models\Device;
 use App\Models\DeviceMap;
 use Illuminate\Http\Request;
 use Auth;
+use PhpMqtt\Client\Facades\MQTT;
+
 class DeviceController extends Controller
 {
     /**
@@ -21,36 +23,66 @@ class DeviceController extends Controller
         $keyword = $request->get('search');
         $perPage = 100;
 
-        if (!empty($keyword)) {
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
             $data['device'] = Device::where('modem_id', 'LIKE', "%$keyword%")
-                ->orWhere('secret_key', 'LIKE', "%$keyword%")
-                ->orWhere('project_name', 'LIKE', "%$keyword%")
-                ->orWhere('customer_name', 'LIKE', "%$keyword%")
-                ->orWhere('region', 'LIKE', "%$keyword%")
                 ->orWhere('location', 'LIKE', "%$keyword%")
-                ->orWhere('machine_type', 'LIKE', "%$keyword%")
-                ->orWhere('latitude', 'LIKE', "%$keyword%")
-                ->orWhere('longitude', 'LIKE', "%$keyword%")
-                ->orWhere('created_by', 'LIKE', "%$keyword%")
                 ->orWhere('updated_by', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
+                $location = Device::select(
+                    'location',
+                    'location',
+                )->pluck('location', 'location')->toArray();
         } else {
-            $data['device'] = Device::latest()->paginate($perPage);
+            if ($keyword) {
+                $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
+                    ->Where('location', 'LIKE', "%$keyword%")
+                    ->latest()->paginate($perPage);
+            } else {
+                $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
+                    ->latest()->paginate($perPage);
+            }
+            $location = Device::select(
+                'location',
+                'location',
+            )->where('created_by', Auth::guard('admin')->user()->id)->pluck('location', 'location')->toArray();
         }
         $data['pagetitle'] = 'Device';
         $data['title'] = 'Device';
-        $location = Device::select(
-            // DB::raw("CONCAT(interface,' (Device No : ',device_no,')') AS interface"),
-            'location',
-            'id',
-        )->orderBy('id', 'asc')
-            ->pluck('location', 'id')->toArray();
-            $agentRecord[''] = '- - Select Location - -';
-            // print_r($location);
-            // exit;
-            $data['location'] = $agentRecord + $location;
+        
+        $agentRecord[''] = '- - Select Location - -';
+        // print_r($location);
+        // exit;
+        $data['location'] = $agentRecord + $location;
 
         return view('admin.device.index', $data);
+    }
+    /**
+     * Display a deviceDetail of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function deviceDetail($id)
+    {
+        $keyword = "";
+
+        $data['device'] = Device::where('modem_id', 'LIKE', "%$keyword%")
+            ->orWhere('secret_key', 'LIKE', "%$keyword%")
+            ->orWhere('project_name', 'LIKE', "%$keyword%")
+            ->orWhere('customer_name', 'LIKE', "%$keyword%")
+            ->orWhere('region', 'LIKE', "%$keyword%")
+            ->orWhere('location', 'LIKE', "%$keyword%")
+            ->orWhere('machine_type', 'LIKE', "%$keyword%")
+            ->orWhere('latitude', 'LIKE', "%$keyword%")
+            ->orWhere('longitude', 'LIKE', "%$keyword%")
+            ->orWhere('created_by', 'LIKE', "%$keyword%")
+            ->orWhere('updated_by', 'LIKE', "%$keyword%")
+            ->latest()->get();
+        $data['deviceDetail'] = Device::findOrFail($id);
+        $data['pagetitle'] = 'Device';
+        $data['title'] = 'Device';
+        //  print_r($data['deviceDetail']);
+        //  exit;
+        return view('admin.device.details', $data);
     }
 
     /**
@@ -88,9 +120,9 @@ class DeviceController extends Controller
             if ($validator->fails()) {
                 return redirect("admin/device/create")->withErrors($validator)->withInput();
             }
-           $mapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))
-            ->where('secret_key', $request->all('secret_key'))->count();
-            if($mapCount == 0){
+            $mapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))
+                ->where('secret_key', $request->all('secret_key'))->count();
+            if ($mapCount == 0) {
                 return redirect('admin/device/create')->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
@@ -157,9 +189,9 @@ class DeviceController extends Controller
             if ($validator->fails()) {
                 return redirect("admin/device/$id/edit")->withErrors($validator)->withInput();
             }
-           $mapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))
-            ->where('secret_key', $request->all('secret_key'))->count();
-            if($mapCount == 0){
+            $mapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))
+                ->where('secret_key', $request->all('secret_key'))->count();
+            if ($mapCount == 0) {
                 return redirect(`admin/device/$id/edit`)->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
@@ -185,5 +217,67 @@ class DeviceController extends Controller
         Device::destroy($id);
 
         return redirect('admin/device')->with('flash_message', 'Device deleted!');
+    }
+
+    public function uploadFile(Request $request)
+    {
+
+        $requestData = $request->all();
+
+        try {
+            $rules = [
+                "logo" => "required",
+            ];
+            $id = $requestData['deviceId'];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect("admin/device/device-detail/$id")->with('session_error', 'Please select files!')->withInput();
+                // return redirect("admin/device/device-detail/$id")->withErrors($validator)->withInput();
+            }
+            if ($request->hasFile('logo')) {
+                // $old_photo = $requestData['old_photo'];
+                // unlink(asset('/public/uploads/device/' . $requestData['old_photo']));
+                $files2 = $request->file('logo');
+                $logo = time() . $files2->getClientOriginalName();
+                $files2->move(public_path() . '/uploads/device/', $logo);
+                $device = Device::findOrFail($requestData['deviceId']);
+                $device['img'] = $logo;
+                $device->save();
+            }
+            return redirect("admin/device/device-detail/$id")->with('session_success', 'Image updated successfully!')->withInput();
+        } catch (\Exception $e) {
+            return redirect(`admin/device`)->with('session_error', $e->getMessage());
+        }
+    }
+    public function connectServer(Request $request)
+    {
+
+        $requestData = $request->all();
+        // print_r($requestData);exit;
+        $id = $requestData['deviceId'];
+        try {
+            $data = array(
+                'data' => ($requestData['connect'] == 'connect' ? 1 : 0),
+                'secure' => (isset($requestData['secure']) && $requestData['secure'] == 'on' ? 1 : 0),
+                'timestamp' => date('Y-m-d H:i:s.u'),
+                'user' => Auth::guard('admin')->user()->email,
+                'Modem id' => $requestData['modem_id'],
+            );
+
+            MQTT::publish('shailesh/1', json_encode($data));
+
+            // {"data":1,"user":*Login Email id,"timestamp":"2022-03-05 11:29:38.865053",
+            // "Modem id":"*MODEM_ID"}
+
+            if ($requestData['connect'] ==  'connect') {
+                return redirect("admin/device/device-detail/$id")->with('session_success', 'Device connected successfully!')->withInput();
+            } else if ($requestData['connect'] ==  'disconnect') {
+                return redirect("admin/device/device-detail/$id")->with('session_success', 'Device disconnect successfully!')->withInput();
+            } else {
+                return redirect("admin/device/device-detail/$id")->with('session_error', 'Some think will be wrong!')->withInput();
+            }
+        } catch (\Exception $e) {
+            return redirect(`admin/device`)->with('session_error', $e->getMessage());
+        }
     }
 }
