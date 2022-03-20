@@ -14,7 +14,7 @@
                     </p>
                     <p class="">Modem ID: {{$deviceDetail->modem_id }}
                     </p>
-                    <p class="">Status: Online (From Device Table)
+                    <p class="">Status: <i class="fa-solid fa fa-circle" style="color: {{ $status == 1 ? 'green' : 'red'  }}"></i>    
 
                     </p>
                 </div>

@@ -9,6 +9,7 @@ use App\Models\Device;
 use App\Models\DeviceMap;
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 use PhpMqtt\Client\Facades\MQTT;
 
 class DeviceController extends Controller
@@ -65,21 +66,36 @@ class DeviceController extends Controller
     {
         $keyword = "";
 
-        $data['device'] = Device::where('modem_id', 'LIKE', "%$keyword%")
-            ->orWhere('secret_key', 'LIKE', "%$keyword%")
-            ->orWhere('project_name', 'LIKE', "%$keyword%")
-            ->orWhere('customer_name', 'LIKE', "%$keyword%")
-            ->orWhere('region', 'LIKE', "%$keyword%")
-            ->orWhere('location', 'LIKE', "%$keyword%")
-            ->orWhere('machine_type', 'LIKE', "%$keyword%")
-            ->orWhere('latitude', 'LIKE', "%$keyword%")
-            ->orWhere('longitude', 'LIKE', "%$keyword%")
-            ->orWhere('created_by', 'LIKE', "%$keyword%")
-            ->orWhere('updated_by', 'LIKE', "%$keyword%")
-            ->latest()->get();
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['device'] = Device::where('modem_id', 'LIKE', "%$keyword%")
+                ->orWhere('location', 'LIKE', "%$keyword%")
+                ->orWhere('updated_by', 'LIKE', "%$keyword%")
+                ->latest()->get();
+        } else {
+            if ($keyword) {
+                $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
+                    ->Where('location', 'LIKE', "%$keyword%")
+                    ->latest()->get();
+            } else {
+                $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
+                    ->latest()->get();
+            }
+        }
         $data['deviceDetail'] = Device::findOrFail($id);
+        $map = "";
+        $status = 0;
+         if( isset($data['deviceDetail']) && $data['deviceDetail']->secret_key){
+           $map = DeviceMap::where('secret_key' , $data['deviceDetail']->secret_key)
+            ->where('modem_id' , $data['deviceDetail']->modem_id)->first();
+            if($map){
+                $statusRes =  DB::table('device_status')->where('Client_id', $map->MQTT_ID)->first();
+                $status = ($statusRes ) ? $statusRes->Status : 0;
+            }
+         }
+
         $data['pagetitle'] = 'Device';
         $data['title'] = 'Device';
+        $data['status'] = $status;
         //  print_r($data['deviceDetail']);
         //  exit;
         return view('admin.device.details', $data);
@@ -249,6 +265,7 @@ class DeviceController extends Controller
             return redirect(`admin/device`)->with('session_error', $e->getMessage());
         }
     }
+    
     public function connectServer(Request $request)
     {
 
