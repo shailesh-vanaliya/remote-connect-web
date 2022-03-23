@@ -34,6 +34,7 @@ class UserController extends Controller
         $data['users'] = User::select('users.*')
             ->where('users.role', User::ROLES['ADMIN'])
             ->orWhere('users.role', User::ROLES['USER'])
+            ->orWhere('users.role', User::ROLES['ENG'])
             ->latest('created_at')
             ->get();
 

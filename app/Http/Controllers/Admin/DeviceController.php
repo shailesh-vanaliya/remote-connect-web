@@ -68,19 +68,23 @@ class DeviceController extends Controller
 
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
             $data['device'] = Device::where('modem_id', 'LIKE', "%$keyword%")
-                ->orWhere('location', 'LIKE', "%$keyword%")
-                ->orWhere('updated_by', 'LIKE', "%$keyword%")
+                ->where('id', '!=', $id)
+                // ->orWhere('location', 'LIKE', "%$keyword%")
+                // ->orWhere('updated_by', 'LIKE', "%$keyword%")
                 ->latest()->get();
         } else {
             if ($keyword) {
                 $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
+                     ->where('id', '!=', $id)
                     ->Where('location', 'LIKE', "%$keyword%")
                     ->latest()->get();
             } else {
                 $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
+                ->where('id', '!=', $id)
                     ->latest()->get();
             }
         }
+       
         $data['deviceDetail'] = Device::findOrFail($id);
         $map = "";
         $status = 0;

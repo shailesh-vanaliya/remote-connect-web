@@ -20,6 +20,7 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable;
     const ROLES = [
         'USER' => 'USER',
+        'ENG' => 'ENG',
         'SUPERADMIN'    => 'SUPERADMIN',
         'ADMIN'    => 'ADMIN',
     ];

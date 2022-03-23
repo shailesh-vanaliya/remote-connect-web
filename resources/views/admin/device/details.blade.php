@@ -14,7 +14,7 @@
                     </p>
                     <p class="">Modem ID: {{$deviceDetail->modem_id }}
                     </p>
-                    <p class="">Status: <i class="fa-solid fa fa-circle" style="color: {{ $status == 1 ? 'green' : 'red'  }}"></i>    
+                    <p class="">Status: <i class="fa-solid fa fa-circle" style="color: {{ $status == 1 ? 'green' : 'red'  }}"></i>      {{ $status == 1 ? 'Online' : 'Offline'  }}
 
                     </p>
                 </div>
@@ -93,7 +93,10 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->modem_id }}</td>
                                         <td>{{ $item->secret_key }}</td>
-                                        <td>{{ $item->project_name }}</td>
+                                        <td>   <a href="{{ url('/admin/device/device-detail/' . $item->id ) }}" title="View Device">
+                                    {{ $item->project_name }}
+                                    </a>
+                                </td>
                                         <td>{{ $item->customer_name }}</td>
                                         <td>{{ $item->region }}</td>
                                         <td>{{ $item->location }}</td>

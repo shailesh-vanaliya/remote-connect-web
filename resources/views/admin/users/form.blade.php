@@ -45,7 +45,7 @@
     <div class="form-group {{ $errors->has('role') ? 'has-error' : ''}}">
         <label for="role" class="control-label">{{ 'role' }}</label>
         <select name="role" class="form-control" id="role">
-            @foreach (json_decode('{"ADMIN": "ADMIN", "USER": "USER"}', true) as $optionKey => $optionValue)
+            @foreach (json_decode('{"ADMIN": "ADMIN", "USER": "USER","ENG": "ENG"}', true) as $optionKey => $optionValue)
             <option value="{{ $optionKey }}" {{ (isset($user->role) && $user->role == $optionKey) ? 'selected' : ''}}>{{ $optionValue }}</option>
             @endforeach
         </select>
