@@ -2,28 +2,28 @@
     <div class="form-group {{ $errors->has('modem_id') ? 'has-error' : ''}}">
         <label for="modem_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Modem Id' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
-            <input class="form-control" name="modem_id" type="text" id="modem_id" value="{{ isset($device->modem_id) ? $device->modem_id : ''}}">
+            <input class="form-control" name="modem_id" type="text" maxlength="10" id="modem_id" value="{{ isset($device->modem_id) ? $device->modem_id : ''}}">
             {!! $errors->first('modem_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group {{ $errors->has('secret_key') ? 'has-error' : ''}}">
         <label for="secret_key" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Secret Key' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
-            <input class="form-control" name="secret_key" type="text" id="secret_key" value="{{ isset($device->secret_key) ? $device->secret_key : ''}}">
+            <input class="form-control" name="secret_key" maxlength="5" type="text" id="secret_key" value="{{ isset($device->secret_key) ? $device->secret_key : ''}}">
             {!! $errors->first('secret_key', '<p class="help-block">:message</p>') !!}
         </div>
         </div>
         <div class="form-group {{ $errors->has('project_name') ? 'has-error' : ''}}">
             <label for="project_name" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Project Name' }}</label>
             <div class="col-lg-4 col-md-9 col-sm-12">
-                <input class="form-control" name="project_name" type="text" id="project_name" value="{{ isset($device->project_name) ? $device->project_name : ''}}">
+                <input class="form-control" name="project_name" maxlength="50" type="text" id="project_name" value="{{ isset($device->project_name) ? $device->project_name : ''}}">
                 {!! $errors->first('project_name', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
         <div class="form-group {{ $errors->has('customer_name') ? 'has-error' : ''}}">
             <label for="customer_name" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Customer Name' }}</label>
             <div class="col-lg-4 col-md-9 col-sm-12">
-                <input class="form-control" name="customer_name" type="text" id="customer_name" value="{{ isset($device->customer_name) ? $device->customer_name : ''}}">
+                <input class="form-control" name="customer_name" maxlength="30" type="text" id="customer_name" value="{{ isset($device->customer_name) ? $device->customer_name : ''}}">
                 {!! $errors->first('customer_name', '<p class="help-block">:message</p>') !!}
             </div>
         </div>
