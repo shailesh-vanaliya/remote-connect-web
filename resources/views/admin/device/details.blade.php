@@ -14,7 +14,8 @@
                     </p>
                     <p class="">Modem ID: {{$deviceDetail->modem_id }}
                     </p>
-                    <p class="">Status: <i class="fa-solid fa fa-circle" style="color: {{ $status == 1 ? 'green' : 'red'  }}"></i>      {{ $status == 1 ? 'Online' : 'Offline'  }}
+                    <p class="">Status: <i class="fa-solid fa fa-circle" style="color: {{ $deviceDetail->Status == 1 ? 'green' : 'red'  }}"></i> {{ $status == 1 ? 'Online' : 'Offline'  }}
+                        <!-- <p class="">Status: <i class="fa-solid fa fa-circle" style="color: {{ $status == 1 ? 'green' : 'red'  }}"></i>      {{ $status == 1 ? 'Online' : 'Offline'  }} -->
 
                     </p>
                 </div>
@@ -61,6 +62,9 @@
                                     </div>
                                     <input type="hidden" name="deviceId" value="{{$deviceDetail->id }}">
                                     <input type="hidden" name="modem_id" value="{{$deviceDetail->modem_id }}">
+                                    <input type="hidden" name="MQTT_ID" value="{{ $deviceDetail->MQTT_ID }}">
+                                    <input type="hidden" name="statusId" value="{{ $deviceDetail->statusId }}">
+                                    <input type="hidden" name="secret_key" value="{{$deviceDetail->secret_key }}">
                                     {{ csrf_field() }}
                                     <button type="submit" name="connect" value="connect" class="btn btn-success">Connect</button>
                                     <button type="submit" name="connect" value="disconnect" class="btn btn-danger">Disconnect</button>
@@ -93,10 +97,10 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->modem_id }}</td>
                                         <td>{{ $item->secret_key }}</td>
-                                        <td>   <a href="{{ url('/admin/device/device-detail/' . $item->id ) }}" title="View Device">
-                                    {{ $item->project_name }}
-                                    </a>
-                                </td>
+                                        <td> <a href="{{ url('/admin/device/device-detail/' . $item->id ) }}" title="View Device">
+                                                {{ $item->project_name }}
+                                            </a>
+                                        </td>
                                         <td>{{ $item->customer_name }}</td>
                                         <td>{{ $item->region }}</td>
                                         <td>{{ $item->location }}</td>

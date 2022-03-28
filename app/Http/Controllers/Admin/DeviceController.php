@@ -25,23 +25,71 @@ class DeviceController extends Controller
         $perPage = 100;
 
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-            $data['device'] = Device::where('modem_id', 'LIKE', "%$keyword%")
-                ->orWhere('location', 'LIKE', "%$keyword%")
-                ->orWhere('updated_by', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
-                $location = Device::select(
-                    'location',
-                    'location',
-                )->pluck('location', 'location')->toArray();
+            // $data['device'] = Device::where('modem_id', 'LIKE', "%$keyword%")
+            //     ->orWhere('location', 'LIKE', "%$keyword%")
+            //     ->orWhere('updated_by', 'LIKE', "%$keyword%")
+            //     ->latest()->paginate($perPage);
+
+            $subQuery =  Device::select(
+                'devices.modem_id as modem_id',
+                'devices.secret_key as  secret_key',
+                'devices.id',
+                'devices.location',
+                'device_map.MQTT_ID',
+                'device_map.MODEM_ID',
+                'device_map.max_user_access',
+                'device_map.IMEI_No',
+                'device_status.Status',
+                'devices.*',
+            );
+            // $subQuery->where('device.modem_id', 'LIKE', "%$keyword%");
+            $subQuery->Join('device_map', function ($join) {
+                $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
+                $join->on('device_map.secret_key', '=', 'devices.secret_key');
+            });
+            $subQuery->Join('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+            $subQuery->orWhere('devices.location', 'LIKE', "%$keyword%");
+            $subQuery->orWhere('devices.updated_by', 'LIKE', "%$keyword%");
+            $data['device'] =  $subQuery->latest('devices.created_at')->paginate($perPage);
+            //             echo "<pre/>";
+            // print_r($data['device']);
+            // exit;
+            $location = Device::select(
+                'location',
+                'location',
+            )->pluck('location', 'location')->toArray();
         } else {
+            // if ($keyword) {
+            //     $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
+            //         ->Where('location', 'LIKE', "%$keyword%")
+            //         ->latest()->paginate($perPage);
+            // } else {
+            // $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
+            //     ->latest()->paginate($perPage);
+            $subQuery =  Device::select(
+                'devices.modem_id as modem_id',
+                'devices.secret_key as  secret_key',
+                'devices.id',
+                'devices.location',
+                'device_map.MQTT_ID',
+                'device_map.MODEM_ID',
+                'device_map.max_user_access',
+                'device_map.IMEI_No',
+                'device_status.Status',
+                'devices.*',
+            );
             if ($keyword) {
-                $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
-                    ->Where('location', 'LIKE', "%$keyword%")
-                    ->latest()->paginate($perPage);
-            } else {
-                $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
-                    ->latest()->paginate($perPage);
+                $subQuery->orWhere('devices.location', 'LIKE', "%$keyword%");
+                $subQuery->orWhere('devices.updated_by', 'LIKE', "%$keyword%");
             }
+            $subQuery->where('devices.created_by', Auth::guard('admin')->user()->id);
+            $subQuery->Join('device_map', function ($join) {
+                $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
+                $join->on('device_map.secret_key', '=', 'devices.secret_key');
+            });
+            $subQuery->Join('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+            $data['device'] =  $subQuery->latest('devices.created_at')->paginate($perPage);
+
             $location = Device::select(
                 'location',
                 'location',
@@ -49,7 +97,7 @@ class DeviceController extends Controller
         }
         $data['pagetitle'] = 'Device';
         $data['title'] = 'Device';
-        
+
         $agentRecord[''] = '- - Select Location - -';
         // print_r($location);
         // exit;
@@ -67,41 +115,108 @@ class DeviceController extends Controller
         $keyword = "";
 
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-            $data['device'] = Device::where('modem_id', 'LIKE', "%$keyword%")
-                ->where('id', '!=', $id)
-                // ->orWhere('location', 'LIKE', "%$keyword%")
-                // ->orWhere('updated_by', 'LIKE', "%$keyword%")
-                ->latest()->get();
+            // $data['device'] = Device::where('modem_id', 'LIKE', "%$keyword%")
+            //     ->where('id', '!=', $id)
+            // ->latest()->get();
+            $subQuery =  Device::select(
+                'devices.modem_id as modem_id',
+                'devices.secret_key as  secret_key',
+                'devices.id',
+                'devices.location',
+                'device_map.MQTT_ID',
+                'device_map.MODEM_ID',
+                'device_map.max_user_access',
+                'device_map.IMEI_No',
+                'device_status.Status',
+                'devices.*',
+            );
+            $subQuery->Join('device_map', function ($join) {
+                $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
+                $join->on('device_map.secret_key', '=', 'devices.secret_key');
+            });
+            $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+            $subQuery->where('devices.id', '!=', $id);
+            $data['device'] =  $subQuery->get();
         } else {
+            // if ($keyword) {
+            //     $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
+            //         ->where('id', '!=', $id)
+            //         ->Where('location', 'LIKE', "%$keyword%")
+            //         ->latest()->get();
+            // } else {
+            //     $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
+            //         ->where('id', '!=', $id)
+            //         ->latest()->get();
+            // }
+            $subQuery =  Device::select(
+                'devices.modem_id as modem_id',
+                'devices.secret_key as  secret_key',
+                'devices.id',
+                'devices.location',
+                'device_map.MQTT_ID',
+                'device_map.MODEM_ID',
+                'device_map.max_user_access',
+                'device_map.IMEI_No',
+                'device_status.Status',
+                'devices.*',
+            );
             if ($keyword) {
-                $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
-                     ->where('id', '!=', $id)
-                    ->Where('location', 'LIKE', "%$keyword%")
-                    ->latest()->get();
-            } else {
-                $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
-                ->where('id', '!=', $id)
-                    ->latest()->get();
+                $subQuery->Where('devices.location', 'LIKE', "%$keyword%");
+            }
+            $subQuery->Join('device_map', function ($join) {
+                $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
+                $join->on('device_map.secret_key', '=', 'devices.secret_key');
+            });
+            $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+            $subQuery->where('devices.created_by', Auth::guard('admin')->user()->id);
+            $subQuery->where('devices.id', '!=', $id);
+            $data['device'] =  $subQuery->get();
+        }
+        // print_r( $data['device']);
+        // exit;
+        $data['deviceDetail'] = Device::findOrFail($id);
+         $subQuery =  Device::select(
+            'devices.modem_id as modem_id',
+            'devices.secret_key as  secret_key',
+            'devices.id',
+            'devices.location',
+            'device_map.MQTT_ID',
+            'device_map.MODEM_ID',
+            'device_map.max_user_access',
+            'device_map.IMEI_No',
+            'device_status.Status',
+            'device_status.id as statusId',
+            'devices.*',
+        );
+     
+        $subQuery->Join('device_map', function ($join) {
+            $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
+            $join->on('device_map.secret_key', '=', 'devices.secret_key');
+        });
+
+        $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+        $subQuery->where('devices.id', '=', $id);
+        $data['deviceDetail'] =  $subQuery->first();
+        if(empty($data['deviceDetail'])){
+            return redirect('admin/device')->with('session_error', 'Sorry, Device details not found!');
+        }
+        // print_r( $data['deviceDetail']);
+        // exit;
+        $map = "";
+        $status = 0;
+        if (isset($data['deviceDetail']) && $data['deviceDetail']->secret_key) {
+            $map = DeviceMap::where('secret_key', $data['deviceDetail']->secret_key)
+                ->where('modem_id', $data['deviceDetail']->modem_id)->first();
+            if ($map) {
+                $statusRes =  DB::table('device_status')->where('Client_id', $map->MQTT_ID)->first();
+                $status = ($statusRes) ? $statusRes->Status : 0;
             }
         }
        
-        $data['deviceDetail'] = Device::findOrFail($id);
-        $map = "";
-        $status = 0;
-         if( isset($data['deviceDetail']) && $data['deviceDetail']->secret_key){
-           $map = DeviceMap::where('secret_key' , $data['deviceDetail']->secret_key)
-            ->where('modem_id' , $data['deviceDetail']->modem_id)->first();
-            if($map){
-                $statusRes =  DB::table('device_status')->where('Client_id', $map->MQTT_ID)->first();
-                $status = ($statusRes ) ? $statusRes->Status : 0;
-            }
-         }
-
         $data['pagetitle'] = 'Device';
         $data['title'] = 'Device';
         $data['status'] = $status;
-        //  print_r($data['deviceDetail']);
-        //  exit;
+     
         return view('admin.device.details', $data);
     }
 
@@ -269,10 +384,9 @@ class DeviceController extends Controller
             return redirect(`admin/device`)->with('session_error', $e->getMessage());
         }
     }
-    
+
     public function connectServer(Request $request)
     {
-
         $requestData = $request->all();
         // print_r($requestData);exit;
         $id = $requestData['deviceId'];
@@ -285,15 +399,16 @@ class DeviceController extends Controller
                 'Modem id' => $requestData['modem_id'],
             );
 
-            MQTT::publish('shailesh/1', json_encode($data));
-
+            MQTT::publish('REMOTE/ENABLE/'.$requestData['MQTT_ID'], json_encode($data));
+            DB::table('device_status')->where('id', $requestData['statusId'])
+            ->update(['Status' => $requestData['connect'] == 'connect' ? 1 : 0]);
             // {"data":1,"user":*Login Email id,"timestamp":"2022-03-05 11:29:38.865053",
             // "Modem id":"*MODEM_ID"}
 
             if ($requestData['connect'] ==  'connect') {
                 return redirect("admin/device/device-detail/$id")->with('session_success', 'Device connected successfully!')->withInput();
             } else if ($requestData['connect'] ==  'disconnect') {
-                return redirect("admin/device/device-detail/$id")->with('session_success', 'Device disconnect successfully!')->withInput();
+                return redirect("admin/device/device-detail/$id")->with('session_success', 'Device disconnected successfully!')->withInput();
             } else {
                 return redirect("admin/device/device-detail/$id")->with('session_error', 'Some think will be wrong!')->withInput();
             }
