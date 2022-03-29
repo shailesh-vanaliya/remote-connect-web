@@ -40,6 +40,10 @@ class DeviceController extends Controller
                 'device_map.max_user_access',
                 'device_map.IMEI_No',
                 'device_status.Status',
+                'remote.MACHINE_NO',
+                'remote.MACHINE_LOCAL_IP',
+                'remote.MACHINE_LOCAL_PORT',
+                'remote.MACHINE_REMOTE_PORT',
                 'devices.*',
             );
             // $subQuery->where('device.modem_id', 'LIKE', "%$keyword%");
@@ -48,6 +52,7 @@ class DeviceController extends Controller
                 $join->on('device_map.secret_key', '=', 'devices.secret_key');
             });
             $subQuery->Join('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+            $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $subQuery->orWhere('devices.location', 'LIKE', "%$keyword%");
             $subQuery->orWhere('devices.updated_by', 'LIKE', "%$keyword%");
             $data['device'] =  $subQuery->latest('devices.created_at')->paginate($perPage);
@@ -88,6 +93,7 @@ class DeviceController extends Controller
                 $join->on('device_map.secret_key', '=', 'devices.secret_key');
             });
             $subQuery->Join('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+            $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $data['device'] =  $subQuery->latest('devices.created_at')->paginate($perPage);
 
             $location = Device::select(
@@ -186,6 +192,11 @@ class DeviceController extends Controller
             'device_map.IMEI_No',
             'device_status.Status',
             'device_status.id as statusId',
+            'remote.MACHINE_NO',
+            'remote.MACHINE_LOCAL_IP',
+            'remote.MACHINE_LOCAL_PORT',
+            'remote.MACHINE_REMOTE_PORT',
+            'remote.STATUS',
             'devices.*',
         );
      
@@ -195,6 +206,7 @@ class DeviceController extends Controller
         });
 
         $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+        $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
         $subQuery->where('devices.id', '=', $id);
         $data['deviceDetail'] =  $subQuery->first();
         if(empty($data['deviceDetail'])){
