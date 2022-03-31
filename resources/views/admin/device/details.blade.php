@@ -79,6 +79,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Model Id</th>
                                         <th>Modem Id</th>
                                         <th>Secret Key</th>
                                         <th>Project Name</th>
@@ -95,6 +96,7 @@
                                     @foreach($device as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->model_id }}</td>
                                         <td>{{ $item->modem_id }}</td>
                                         <td>{{ $item->secret_key }}</td>
                                         <td> <a href="{{ url('/admin/device/device-detail/' . $item->id ) }}" title="View Device">

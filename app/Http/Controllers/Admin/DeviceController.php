@@ -31,12 +31,8 @@ class DeviceController extends Controller
             //     ->latest()->paginate($perPage);
 
             $subQuery =  Device::select(
-                'devices.modem_id as modem_id',
-                'devices.secret_key as  secret_key',
-                'devices.id',
-                'devices.location',
                 'device_map.MQTT_ID',
-                'device_map.MODEM_ID',
+                // 'device_map.MODEM_ID',
                 'device_map.max_user_access',
                 'device_map.IMEI_No',
                 'device_status.Status',
@@ -55,6 +51,7 @@ class DeviceController extends Controller
             $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $subQuery->orWhere('devices.location', 'LIKE', "%$keyword%");
             $subQuery->orWhere('devices.updated_by', 'LIKE', "%$keyword%");
+            $subQuery->groupBy('devices.id');
             $data['device'] =  $subQuery->latest('devices.created_at')->paginate($perPage);
             //             echo "<pre/>";
             // print_r($data['device']);
@@ -72,12 +69,12 @@ class DeviceController extends Controller
             // $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
             //     ->latest()->paginate($perPage);
             $subQuery =  Device::select(
-                'devices.modem_id as modem_id',
-                'devices.secret_key as  secret_key',
-                'devices.id',
-                'devices.location',
+                // 'devices.modem_id as modem_id',
+                // 'devices.secret_key as  secret_key',
+                // 'devices.id',
+                // 'devices.location',
                 'device_map.MQTT_ID',
-                'device_map.MODEM_ID',
+                // 'device_map.MODEM_ID',
                 'device_map.max_user_access',
                 'device_map.IMEI_No',
                 'device_status.Status',
@@ -94,6 +91,7 @@ class DeviceController extends Controller
             });
             $subQuery->Join('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
             $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
+            $subQuery->groupBy('devices.id');
             $data['device'] =  $subQuery->latest('devices.created_at')->paginate($perPage);
 
             $location = Device::select(
@@ -125,12 +123,12 @@ class DeviceController extends Controller
             //     ->where('id', '!=', $id)
             // ->latest()->get();
             $subQuery =  Device::select(
-                'devices.modem_id as modem_id',
-                'devices.secret_key as  secret_key',
-                'devices.id',
-                'devices.location',
+                // 'devices.modem_id as modem_id',
+                // 'devices.secret_key as  secret_key',
+                // 'devices.id',
+                // 'devices.location',
                 'device_map.MQTT_ID',
-                'device_map.MODEM_ID',
+                // 'device_map.MODEM_ID',
                 'device_map.max_user_access',
                 'device_map.IMEI_No',
                 'device_status.Status',
@@ -142,6 +140,7 @@ class DeviceController extends Controller
             });
             $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
             $subQuery->where('devices.id', '!=', $id);
+            $subQuery->groupBy('devices.id');
             $data['device'] =  $subQuery->get();
         } else {
             // if ($keyword) {
@@ -182,12 +181,12 @@ class DeviceController extends Controller
         // exit;
         $data['deviceDetail'] = Device::findOrFail($id);
          $subQuery =  Device::select(
-            'devices.modem_id as modem_id',
-            'devices.secret_key as  secret_key',
-            'devices.id',
-            'devices.location',
+            // 'devices.modem_id as modem_id',
+            // 'devices.secret_key as  secret_key',
+            // 'devices.id',
+            // 'devices.location',
             'device_map.MQTT_ID',
-            'device_map.MODEM_ID',
+            // 'device_map.MODEM_ID',
             'device_map.max_user_access',
             'device_map.IMEI_No',
             'device_status.Status',
@@ -208,6 +207,7 @@ class DeviceController extends Controller
         $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
         $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
         $subQuery->where('devices.id', '=', $id);
+        $subQuery->groupBy('devices.id');
         $data['deviceDetail'] =  $subQuery->first();
         if(empty($data['deviceDetail'])){
             return redirect('admin/device')->with('session_error', 'Sorry, Device details not found!');

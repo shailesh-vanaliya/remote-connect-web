@@ -22,7 +22,7 @@ return redirect('login');
                 </a>
             </li>
            
-            <li class="{{ ($currRoute == 'device.create' || $currRoute == 'device.show' || $currRoute == 'device.edit' || $currRoute == 'device.index') ? 'active': '' }}">
+            <li class="{{ ($currRoute == 'device.create'  ||   $currRoute == 'device-detail' || $currRoute == 'device.show' || $currRoute == 'device.edit' || $currRoute == 'device.index') ? 'active': '' }}">
                 <a href="{{ url('/admin/device') }}">
                     <i class="fa fa-server"></i> <span>Device</span>
                 </a>
