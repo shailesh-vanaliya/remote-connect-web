@@ -353,7 +353,7 @@ class DeviceController extends Controller
     {
         Device::destroy($id);
 
-        return redirect('admin/device')->with('flash_message', 'Device deleted!');
+        return redirect('admin/device')->with('session_success', 'Device deleted!');
     }
 
     public function uploadFile(Request $request)
@@ -404,8 +404,8 @@ class DeviceController extends Controller
             );
             $res = MQTT::publish('REMOTE/ENABLE/'.$requestData['MQTT_ID'], json_encode($data));
          
-            DB::table('device_status')->where('id', $requestData['statusId'])
-            ->update(['Status' => $requestData['connect'] == 'connect' ? 1 : 0]);
+            // DB::table('device_status')->where('id', $requestData['statusId'])
+            // ->update(['Status' => $requestData['connect'] == 'connect' ? 1 : 0]);
           
             if ($requestData['connect'] ==  'connect') {
                 return redirect("admin/device/device-detail/$id")->with('session_success', 'Device connected successfully!')->withInput();
