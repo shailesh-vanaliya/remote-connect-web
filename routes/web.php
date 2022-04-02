@@ -47,6 +47,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::post('/admin-setting', [SettingController::class, 'setting'])->name('setting');
     Route::get('/admin-setting', [SettingController::class, 'setting'])->name('setting');
     Route::get('/device/device-detail/{id}', [DeviceController::class, 'deviceDetail'])->name('device-detail');
+    Route::post('/updateName', [DeviceController::class, 'updateName'])->name('updateName');
     Route::post('uploadFile', [DeviceController::class, 'uploadFile'])->name('uploadFile');
     Route::post('connectServer', [DeviceController::class, 'connectServer'])->name('connectServer');
     Route::resource('device', DeviceController::class);

@@ -175,7 +175,7 @@ class DeviceMapController extends Controller
         try {
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
-                return redirect("admin/device-map/create")->withErrors($validator)->withInput();
+                return redirect("admin/device-map/$4id/edit")->withErrors($validator)->withInput();
             }
 
             $requestData = $request->all();
@@ -185,7 +185,7 @@ class DeviceMapController extends Controller
             return redirect('admin/device-map')->with('session_success', 'Device Map updated!');
 
         } catch (\Exception $e) {
-            return redirect('admin/device-map/create')->with('session_error', $e->getMessage());
+            return redirect('admin/device-map/$4id/edit')->with('session_error', $e->getMessage());
         }
 
     }
@@ -203,4 +203,7 @@ class DeviceMapController extends Controller
 
         return redirect('admin/device-map')->with('session_error', 'DeviceMap deleted!');
     }
+
+
+   
 }

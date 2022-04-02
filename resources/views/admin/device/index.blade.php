@@ -144,9 +144,13 @@
                                     {{ $item->secret_key }}
                                 </td>
                                 <td>
-                                <a href="{{ url('/admin/device/device-detail/' . $item->id ) }}" title="View Device">
-                                    {{ $item->project_name }}
+                                    @if($item->subscription_status == 'Active')
+                                    <a href="{{ url('/admin/device/device-detail/' . $item->id ) }}" title="View Device">
+                                        {{ $item->project_name }}
                                     </a>
+                                    @else
+                                    {{ $item->project_name }}
+                                    @endif
                                 </td>
                                 <td>{{ $item->customer_name }}</td>
                                 <td>{{ $item->region }}</td>
@@ -177,14 +181,14 @@
         $('#search').change(function() {
             console.log($('#search :selected').text());
             let serachValue = $('#search :selected').val();
-            var pathname = window.location.pathname; 
-            var url = window.location.href; 
+            var pathname = window.location.pathname;
+            var url = window.location.href;
             var origin = window.location.origin;
-            let rurl  = origin+pathname + "?search="+serachValue;
-            if(serachValue !=  undefined && serachValue != ''){
+            let rurl = origin + pathname + "?search=" + serachValue;
+            if (serachValue != undefined && serachValue != '') {
                 window.location.replace(rurl);
-            }else{
-                window.location.replace(origin+pathname);
+            } else {
+                window.location.replace(origin + pathname);
             }
         });
     });

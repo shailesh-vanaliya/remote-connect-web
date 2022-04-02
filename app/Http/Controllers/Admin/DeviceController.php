@@ -40,6 +40,7 @@ class DeviceController extends Controller
                 'remote.MACHINE_LOCAL_IP',
                 'remote.MACHINE_LOCAL_PORT',
                 'remote.MACHINE_REMOTE_PORT',
+                'device_map.subscription_status',
                 'devices.*',
             );
             // $subQuery->where('device.modem_id', 'LIKE', "%$keyword%");
@@ -432,4 +433,23 @@ class DeviceController extends Controller
             return redirect(`admin/device`)->with('session_error', $e->getMessage());
         }
     }
+
+    public function updateName(Request $request)
+    {
+        try {
+        //  print_r($request->all());
+        //  exit;
+            $requestData = $request->all();
+            DB::table('remote')->where('id', $requestData['deviceid'])
+            ->update(['device_name' => $requestData['device_name']]);
+$id = $requestData['deviceIds'];
+            // $request->session()->flash('session_success', 'Device name updated Successfully');
+            // return Redirect::to($_SERVER['HTTP_REFERER']);
+            return redirect("admin/device/device-detail/$id")->with('session_success', 'Device name updated Successfully')->withInput();
+        } catch (\Exception $e) {
+            $request->session()->flash('session_error', $e->getMessage());
+        }
+    }
+
+
 }

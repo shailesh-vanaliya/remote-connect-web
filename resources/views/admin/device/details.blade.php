@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 @section('content')
 @section('title', $pagetitle )
- 
+
 <section class="content">
     <div class="row">
         <div class="col-md-12">
@@ -16,7 +16,7 @@
                         <span class="">Status: <span style="padding: 0px  7%  0px  0px ;"> <i class="fa-solid fa fa-circle" style="color: {{ $deviceDetail->Status == 1 ? '#008D4C' : '#DD4B39'  }}"></i> {{ $status == 1 ? 'Online' : 'Offline'  }}</span> </span>
                     </div>
                     <a href="{{ url('/admin/device') }}" title="Back"><button class="btn btn-warning btn-sm pull-right"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                    
+
                 </div>
 
                 <div class="invoice1">
@@ -72,9 +72,9 @@
                                         </div>
 
                                         <div class="col-md-5" style="padding: 4px;font-size: 17px;">
-                                            <button type="submit" {{$deviceDetail->Status == 0 ? 'disabled' : ''}} name="connect" value="connect" class="btn btn-success" style="padding-left: 10px;">Connect</button>
+                                            <button type="submit" {{$deviceDetail->Status == 1 ? 'disabled' : ''}} name="connect" value="connect" class="btn btn-success" style="padding-left: 10px;">Connect</button>
                                             <button type="submit" {{$deviceDetail->Status == 0 ? 'disabled' : ''}} name="connect" value="disconnect" class="btn btn-danger" style="padding-left: 10px;">Disconnect</button>
-                                            <button type="button"  name="connect"  class="btn btn-default" style="padding-left: 10px;"><a href='{{ url("/admin/device/device-detail/$deviceDetail->id") }}' title="Back">Refresh</a></button>
+                                            <button type="button" name="connect" class="btn btn-default" style="padding-left: 10px;"><a href='{{ url("/admin/device/device-detail/$deviceDetail->id") }}' title="Back">Refresh</a></button>
                                         </div>
                                     </div>
                                 </form>
@@ -89,7 +89,7 @@
                                             <th>Assign URL</th>
                                             <th>Assign PORT</th>
                                             <th>Local IP</th>
-                                            <th>Stats</th>
+                                            <th>Status</th>
                                             <th>Updated Time</th>
                                             <th>Action</th>
                                         </tr>
@@ -103,12 +103,17 @@
                                             <td>{{ $item->MACHINE_REMOTE_PORT }}</td>
                                             <td>{{ $item->MACHINE_LOCAL_IP }}</td>
                                             @if($item->STATUS == 1)
-                                            <td style="color: green;">Online</td>
+                                            <td style="background: green;color:#fff;">Online</td>
                                             @else
-                                            <td style="color: red;">Offline</td>
+                                            <td style="background: red;color:#fff;">Offline</td>
                                             @endif
                                             <td>{{ date('d-m-Y h:m:s', strtotime($item->updated_at)); }}</td>
-                                            <td>aa</td>
+                                            <td>
+                                                <a href="javascript:;" class="modelName" title="Edit Device Name" data-id={{ $item->id }} data-device={{ $item->device_name }}>
+                                                    <button class="btn btn-primary  btn-sm">
+                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> </button></a>
+                                                <!-- <a data-toggle="modal" href="#updateNameModel" title="Edit Device Name"><button class="btn btn-primary modelName btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </button></a> -->
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -200,5 +205,53 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="updateNameModel" tabindex="-1" role="updateNameModel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Update device name</h4>
+                </div>
+                <form action="{{ route('updateName') }}" enctype="multipart/form-data" method="POST" class="form-horizontal" id="addNewEvent">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{ csrf_field() }}
+                                <div class="form-group row">
+                                    <label for="device_name" class="col-form-label text-right col-lg-4 col-sm-12">{{ 'Please device name' }}</label>
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <input class="form-control device_name" require type="text" id="device_name" name="device_name" value="">
+                                        <input class="form-control modem_id" require type="hidden" id="modem_id" name="modem_id" value="{{ $deviceDetail->modem_id }}">
+                                        <input class="form-control deviceid" require type="hidden" id="deviceid" name="deviceid" value="{{ $deviceDetail->deviceid }}">
+                                        <input type="hidden" name="deviceIds" value="{{ $deviceDetail->id }}">
+
+                                        {!! $errors->first('device_name', '<p class="help-block">:message</p>') !!}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-primary m-l newEventModel" type="submit">Submit</button>
+                        <button class="btn btn-sm btn-secondary pull-right m-l" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.modelName').click(function() {
+                $('#updateNameModel').modal('show');
+                $('.deviceid').val($(this).attr('data-id'));
+                $('.device_name').val($(this).attr('data-device'));
+            });
+        });
+    </script>
+
 </section>
 @endsection
