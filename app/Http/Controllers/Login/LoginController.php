@@ -43,8 +43,10 @@ class LoginController extends Controller
                 $password = $request->input('password');
                 $objUsers = new User();
                 if (Auth::guard('admin')->attempt(['email' => $email, 'password' => $password, 'status' => 'Active'])) {
+                    $user = User::Where(['email' => $email, 'status' => 'Active'])->first();
+ 
                     // if (Auth::guard('admin')->attempt(['email' => $email, 'password' => $password, 'status' => 'Active', 'role' => 'SUPERADMIN'])) {
-                    $request->session()->flash('session_success', 'Logged in successfully..!');
+                    $request->session()->flash('session_success', 'Welcome ' . $user['full_name'] . " " . "..!");
                     return redirect(route('admin_dashboard'));
                 } elseif (Auth::guard('admin')->attempt(['email' => $email, 'password' => $password, 'status' => 'Active', 'role' => 'ADMIN'])) {
                     //     $request->session()->flash('session_success', 'Logged in successfully..!');
