@@ -50,7 +50,7 @@ return [
 
             // A specific client id to be used for the connection. If omitted,
             // a random client id will be generated for each new connection.
-            'client_id' => "shailesh-Sub",
+            'client_id' => "web_admin",
 
             // Whether a clean session shall be used and requested by the client.
             // A clean session will let the broker forget about subscriptions and
@@ -85,8 +85,8 @@ return [
 
                 // Credentials used for authentication and authorization.
                 'auth' => [
-                    'username' => 'shailesh',
-                    'password' => 'shailesh',
+                    'username' => 'web_admin',
+                    'password' => 'web#123',
                     // $username = 'shailesh';
                     // $password = 'shailesh';
                 ],

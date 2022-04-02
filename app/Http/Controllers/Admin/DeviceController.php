@@ -82,7 +82,6 @@ class DeviceController extends Controller
             );
             if ($keyword) {
                 $subQuery->orWhere('devices.location', 'LIKE', "%$keyword%");
-                $subQuery->orWhere('devices.updated_by', 'LIKE', "%$keyword%");
             }
             $subQuery->where('devices.created_by', Auth::guard('admin')->user()->id);
             $subQuery->Join('device_map', function ($join) {
@@ -123,12 +122,7 @@ class DeviceController extends Controller
             //     ->where('id', '!=', $id)
             // ->latest()->get();
             $subQuery =  Device::select(
-                // 'devices.modem_id as modem_id',
-                // 'devices.secret_key as  secret_key',
-                // 'devices.id',
-                // 'devices.location',
                 'device_map.MQTT_ID',
-                // 'device_map.MODEM_ID',
                 'device_map.max_user_access',
                 'device_map.IMEI_No',
                 'device_status.Status',
@@ -177,16 +171,10 @@ class DeviceController extends Controller
             $subQuery->where('devices.id', '!=', $id);
             $data['device'] =  $subQuery->get();
         }
-        // print_r( $data['device']);
-        // exit;
+        
         $data['deviceDetail'] = Device::findOrFail($id);
          $subQuery =  Device::select(
-            // 'devices.modem_id as modem_id',
-            // 'devices.secret_key as  secret_key',
-            // 'devices.id',
-            // 'devices.location',
             'device_map.MQTT_ID',
-            // 'device_map.MODEM_ID',
             'device_map.max_user_access',
             'device_map.IMEI_No',
             'device_status.Status',
@@ -212,8 +200,11 @@ class DeviceController extends Controller
         if(empty($data['deviceDetail'])){
             return redirect('admin/device')->with('session_error', 'Sorry, Device details not found!');
         }
-        // print_r( $data['deviceDetail']);
-        // exit;
+
+        
+        $data['remote'] = array();
+        $data['remote'] = DB::table('remote')->where('MQTT_ID', $data['deviceDetail']->MQTT_ID)->orderBy('MACHINE_NO','asc')->get()->toArray();
+ 
         $map = "";
         $status = 0;
         if (isset($data['deviceDetail']) && $data['deviceDetail']->secret_key) {
@@ -341,7 +332,6 @@ class DeviceController extends Controller
             if ($mapCount == 0) {
                 return redirect(`admin/device/$id/edit`)->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
-            $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             $device = Device::findOrFail($id);
             $device->update($requestData);
@@ -403,20 +393,20 @@ class DeviceController extends Controller
         // print_r($requestData);exit;
         $id = $requestData['deviceId'];
         try {
+
             $data = array(
                 'data' => ($requestData['connect'] == 'connect' ? 1 : 0),
                 'secure' => (isset($requestData['secure']) && $requestData['secure'] == 'on' ? 1 : 0),
+                'ip' => (isset($requestData['secure']) && $requestData['secure'] == 'on' ? $request->ip() : ""),
                 'timestamp' => date('Y-m-d H:i:s.u'),
                 'user' => Auth::guard('admin')->user()->email,
                 'Modem id' => $requestData['modem_id'],
             );
-
-            MQTT::publish('REMOTE/ENABLE/'.$requestData['MQTT_ID'], json_encode($data));
+            $res = MQTT::publish('REMOTE/ENABLE/'.$requestData['MQTT_ID'], json_encode($data));
+         
             DB::table('device_status')->where('id', $requestData['statusId'])
             ->update(['Status' => $requestData['connect'] == 'connect' ? 1 : 0]);
-            // {"data":1,"user":*Login Email id,"timestamp":"2022-03-05 11:29:38.865053",
-            // "Modem id":"*MODEM_ID"}
-
+          
             if ($requestData['connect'] ==  'connect') {
                 return redirect("admin/device/device-detail/$id")->with('session_success', 'Device connected successfully!')->withInput();
             } else if ($requestData['connect'] ==  'disconnect') {

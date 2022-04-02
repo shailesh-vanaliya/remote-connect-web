@@ -7,6 +7,7 @@ use App\Http\Requests;
 use Auth;
 use App\Models\DeviceMap;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DeviceMapController extends Controller
 {
@@ -36,6 +37,7 @@ class DeviceMapController extends Controller
         } else {
             $data['devicemap'] = DeviceMap::latest()->paginate($perPage);
         }
+
         $data['title']     = 'Device Map';
         $data['pagetitle'] = 'Device Map';
         // $data['js']        = ['admin/user.js', 'jquery.validate.min.js'];
@@ -68,7 +70,7 @@ class DeviceMapController extends Controller
                 'Settings' => 'Device Map',
             ],
         ];
-        return view('admin.device-map.create',$data);
+        return view('admin.device-map.create', $data);
     }
 
     /**
@@ -80,13 +82,28 @@ class DeviceMapController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        $requestData['created_by'] = Auth::guard('admin')->user()->id;
-        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
-        DeviceMap::create($requestData);
+        $rules = [
+            "model_no" => "required",
+            "MQTT_ID" => "required",
+            "MODEM_ID" => "required",
+            "secret_key" => "required",
+        ];
 
-        return redirect('admin/device-map')->with('session_error', 'DeviceMap added!');
+        try {
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect("admin/device-map/create")->withErrors($validator)->withInput();
+            }
+
+            $requestData = $request->all();
+            $requestData['created_by'] = Auth::guard('admin')->user()->id;
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            DeviceMap::create($requestData);
+
+            return redirect('admin/device-map')->with('session_success', 'DeviceMap added!');
+        } catch (\Exception $e) {
+            return redirect('admin/device-map/create')->with('session_error', $e->getMessage());
+        }
     }
 
     /**
@@ -147,14 +164,30 @@ class DeviceMapController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $requestData = $request->all();
-        $requestData['created_by'] = Auth::guard('admin')->user()->id;
-        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
-        $devicemap = DeviceMap::findOrFail($id);
-        $devicemap->update($requestData);
 
-        return redirect('admin/device-map')->with('session_success', 'subscription_status!');
+        $rules = [
+            "model_no" => "required",
+            "MQTT_ID" => "required",
+            "MODEM_ID" => "required",
+            "secret_key" => "required",
+        ];
+
+        try {
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect("admin/device-map/create")->withErrors($validator)->withInput();
+            }
+
+            $requestData = $request->all();
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            $devicemap = DeviceMap::findOrFail($id);
+            $devicemap->update($requestData);
+            return redirect('admin/device-map')->with('session_success', 'Device Map updated!');
+
+        } catch (\Exception $e) {
+            return redirect('admin/device-map/create')->with('session_error', $e->getMessage());
+        }
+
     }
 
     /**

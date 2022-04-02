@@ -111,6 +111,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Model No</th>
                                 <th>MQTT ID</th>
                                 <th>MODEM ID</th>
                                 <th>Seceret Key</th>
@@ -127,6 +128,7 @@
                             @foreach($devicemap as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->model_no }}</td> ------------{{$item->id}}
                                 <td>{{ $item->MQTT_ID }}</td>
                                 <td>{{ $item->MODEM_ID }}</td>
                                 <td>{{ $item->secret_key }}</td>

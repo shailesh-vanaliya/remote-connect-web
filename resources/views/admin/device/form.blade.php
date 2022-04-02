@@ -2,7 +2,7 @@
     <div class="form-group {{ $errors->has('model_no') ? 'has-error' : ''}}">
         <label for="model_no" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Model No' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
-            <input class="form-control" name="model_no" maxlength="15" type="text" id="model_no" value="{{ isset($device->model_no) ? $device->model_no : ''}}">
+            <input class="form-control" readonly name="model_no" maxlength="15" type="text" id="model_no" value="{{ isset($device->model_no) ? $device->model_no : ''}}">
             {!! $errors->first('model_no', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
@@ -37,19 +37,49 @@
     <div class="form-group {{ $errors->has('region') ? 'has-error' : ''}}">
         <label for="region" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Region' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
-        <select name="region" class="form-control" id="region" >
-            @foreach (json_decode('{"Gujrat": "Gujrat",
-                 "maharastra": "maharastra",
-                 "Kheda": "Kheda",
-                 "Anand ": "Anand ",
-                 "rajkot": "rajkot",
-                 "Ahmedabad": "Ahmedabad",
-                 "Botad": "Botad",
-                 "Bhavnagar": "Bhavnagar"
+            <select name="region" class="form-control" id="region">
+                @foreach (json_decode('{"Gujrat": "Gujrat",
+                "Andaman and Nicobar Islands": "Andaman and Nicobar Islands",
+                "Andhra Pradesh": "Andhra Pradesh",
+                "Arunachal Pradesh": "Arunachal Pradesh",
+                "Assam": "Assam",
+                "Bihar": "Bihar",
+                "Chandigarh": "Chandigarh",
+                "Chhattisgarh": "Chhattisgarh",
+                "Dadra and Nagar Haveli": "Dadra and Nagar Haveli",
+                "Daman and Diu": "Daman and Diu",
+                "Delhi": "Delhi",
+                "Goa": "Goa",
+                "Gujarat": "Gujarat",
+                "Haryana": "Haryana",
+                "Himachal Pradesh": "Himachal Pradesh",
+                "Jammu and Kashmir": "Jammu and Kashmir",
+                "Jharkhand": "Jharkhand",
+                "Karnataka": "Karnataka",
+                "Kerala": "Kerala",
+                "Ladakh": "Ladakh",
+                "Lakshadweep": "Lakshadweep",
+                "Madhya Pradesh": "Madhya Pradesh",
+                "Maharashtra": "Maharashtra",
+                "Manipur": "Manipur",
+                "Meghalaya": "Meghalaya",
+                "Mizoram": "Mizoram",
+                "Nagaland": "Nagaland",
+                "Odisha": "Odisha",
+                "Puducherry": "Puducherry",
+                "Punjab": "Punjab",
+                "Rajasthan": "Rajasthan",
+                "Sikkim": "Sikkim",
+                "Tamil Nadu": "Tamil Nadu",
+                "Telangana": "Telangana",
+                "Tripura": "Tripura",
+                "Uttar Pradesh": "Uttar Pradesh",
+                "Uttarakhand": "Uttarakhand",
+                "West Bengal": "West Bengal"
                 }', true) as $optionKey => $optionValue)
                 <option value="{{ $optionKey }}" {{ (isset($setting->region) && $setting->region == $optionKey) ? 'selected' : ''}}>{{ $optionValue }}</option>
-            @endforeach
-        </select>
+                @endforeach
+            </select>
             <!-- <input class="form-control" name="region" type="text" id="region" value="{{ isset($device->region) ? $device->region : ''}}"> -->
             {!! $errors->first('region', '<p class="help-block">:message</p>') !!}
         </div>
