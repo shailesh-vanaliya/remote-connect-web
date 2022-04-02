@@ -263,6 +263,13 @@ class DeviceController extends Controller
             if ($mapCount == 0) {
                 return redirect('admin/device/create')->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
+
+            $modemMapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))->count();
+            $modemCount = Device::where('modem_id', $request->all('modem_id'))->count();
+            if ($modemCount <= $modemMapCount) {
+                return redirect('admin/device/create')->with('session_error', 'Sorry, maximum user device limit exceed, contact to admin!')->withInput();
+            }
+ 
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             Device::create($requestData);
@@ -332,6 +339,13 @@ class DeviceController extends Controller
             if ($mapCount == 0) {
                 return redirect(`admin/device/$id/edit`)->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
+
+            $modemMapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))->count();
+            $modemCount = Device::where('modem_id', $request->all('modem_id'))->count();
+            if ($modemCount <= $modemMapCount) {
+                return redirect('admin/device/create')->with('session_error', 'Sorry, maximum user device limit exceed, contact to admin!')->withInput();
+            }
+            
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             $device = Device::findOrFail($id);
             $device->update($requestData);
