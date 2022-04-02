@@ -410,7 +410,7 @@ class DeviceController extends Controller
             if ($requestData['connect'] ==  'connect') {
                 return redirect("admin/device/device-detail/$id")->with('session_success', 'Device connected successfully!')->withInput();
             } else if ($requestData['connect'] ==  'disconnect') {
-                return redirect("admin/device/device-detail/$id")->with('session_success', 'Device disconnected successfully!')->withInput();
+                return redirect("admin/device/device-detail/$id")->with('session_error', 'Device disconnected successfully!')->withInput();
             } else {
                 return redirect("admin/device/device-detail/$id")->with('session_error', 'Some think will be wrong!')->withInput();
             }

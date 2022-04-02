@@ -84,10 +84,10 @@
                                         <tr>
                                             <th>No.</th>
                                             <th>Device Name</th>
-                                            <th>Remote URL</th>
-                                            <th>REMOTE PORT</th>
-                                            <th>LOCAL IP</th>
-                                            <th>STATUS</th>
+                                            <th>Assign URL</th>
+                                            <th>Assign PORT</th>
+                                            <th>Local IP</th>
+                                            <th>Stats</th>
                                             <th>Updated Time</th>
                                             <th>Action</th>
                                         </tr>
