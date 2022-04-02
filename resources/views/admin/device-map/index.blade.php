@@ -119,7 +119,7 @@
                                 <th>IMEI No</th>
                                 <th>SIM No</th>
                                 <th>SIM Plan</th>
-                                <th>Subscription Expire Date</th>
+                                <th>Subscription <br/>Expire Date</th>
                                 <th>Subscription Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -128,7 +128,7 @@
                             @foreach($devicemap as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->model_no }}</td> ------------{{$item->id}}
+                                <td>{{ $item->model_no }}</td>
                                 <td>{{ $item->MQTT_ID }}</td>
                                 <td>{{ $item->MODEM_ID }}</td>
                                 <td>{{ $item->secret_key }}</td>
@@ -138,9 +138,9 @@
                                 <td>{{ $item->SIM_Plan }}</td>
                                 <td>{{ $item->subscription_expire_date }}</td>
                                 <td>{{ $item->subscription_status }}</td>
-                                <td>
+                                <td class="actionTd" style="display: flex;">
                                     <a href="{{ url('/admin/device-map/' . $item->id) }}" title="View DeviceMap"><button class="btn btn-info btn-sm faIcon"><i class="fa fa-eye " aria-hidden="true"></i> </button></a>
-                                    <a href="{{ url('/admin/device-map/' . $item->id . '/edit') }}" title="Edit DeviceMap"><button class="btn btn-primary btn-sm faIcon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </button></a>
+                                   &nbsp; <a href="{{ url('/admin/device-map/' . $item->id . '/edit') }}" title="Edit DeviceMap"><button class="btn btn-primary btn-sm faIcon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </button></a>&nbsp;
 
                                     <form method="POST" action="{{ url('/admin/device-map' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
