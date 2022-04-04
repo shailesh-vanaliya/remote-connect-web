@@ -103,9 +103,13 @@
                                             <td>{{ $item->MACHINE_REMOTE_PORT }}</td>
                                             <td>{{ $item->MACHINE_LOCAL_IP }}</td>
                                             @if($item->STATUS == 1)
-                                            <td style="background: green;color:#fff;">Online</td>
+                                            <td >
+                                            <span style="background: green;color:#fff;padding:5px;font-size: 13px;">Online</span>
+                                        </td>
                                             @else
-                                            <td style="background: red;color:#fff;">Offline</td>
+                                            <td >
+                                            <span style="background: red;color:#fff;padding:5px;font-size: 13px;">Offline</span>
+                                        </td>
                                             @endif
                                             <td>{{ date('d-m-Y h:m:s', strtotime($item->updated_at)); }}</td>
                                             <td>
