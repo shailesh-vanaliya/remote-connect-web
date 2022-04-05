@@ -4,16 +4,17 @@
 
 <section class="content">
     <div class="row">
+        
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <!-- <h3 class="box-title">Project : {{$deviceDetail->project_name }}  </h3> -->
                     <div class="box-title" style="display: unset;font-size: 17px; line-height: unset;">
-                        <span class="">Project : <span style="padding: 0px  7%  0px  0px ;">{{$deviceDetail->project_name }}</span>
+                        <span class="">Project : <span style="padding: 0px  7%  0px  0px ;">{{ $deviceDetail->project_name }}</span>
                         </span>
                         <span class="">Modem ID: <span style="padding: 0px  7%  0px  0px ;">{{$deviceDetail->modem_id }} </span>
                         </span>
-                        <span class="">Status: <span style="padding: 0px  7%  0px  0px ;"> <i class="fa-solid fa fa-circle" style="color: {{ $deviceDetail->Status == 1 ? '#008D4C' : '#DD4B39'  }}"></i> {{ $status == 1 ? 'Online' : 'Offline'  }}</span> </span>
+                        <span class="">Status: <span style="padding: 0px  7%  0px  0px ;"> <i class="fa-solid fa fa-circle" style="color: {{ $deviceDetail->STATUS == 1 ? '#008D4C' : '#DD4B39'  }}"></i> {{ $deviceDetail->STATUS == 1 ? 'Online' : 'Offline'  }}</span> </span>
                     </div>
                     <a href="{{ url('/admin/device') }}" title="Back"><button class="btn btn-warning btn-sm pull-right"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
 
@@ -72,8 +73,8 @@
                                         </div>
 
                                         <div class="col-md-5" style="padding: 4px;font-size: 17px;">
-                                            <button type="submit" {{$deviceDetail->Status == 1 ? 'disabled' : ''}} name="connect" value="connect" class="btn btn-success" style="padding-left: 10px;">Connect</button>
-                                            <button type="submit" {{$deviceDetail->Status == 0 ? 'disabled' : ''}} name="connect" value="disconnect" class="btn btn-danger" style="padding-left: 10px;">Disconnect</button>
+                                            <button type="submit" {{$deviceDetail->STATUS == 1 ? 'disabled' : ''}} name="connect" value="connect" class="btn btn-success" style="padding-left: 10px;">Connect</button>
+                                            <button type="submit" {{$deviceDetail->STATUS == 0 ? 'disabled' : ''}} name="connect" value="disconnect" class="btn btn-danger" style="padding-left: 10px;">Disconnect</button>
                                             <button type="button" name="connect" class="btn btn-default" style="padding-left: 10px;"><a href='{{ url("/admin/device/device-detail/$deviceDetail->id") }}' title="Back">Refresh</a></button>
                                         </div>
                                     </div>
