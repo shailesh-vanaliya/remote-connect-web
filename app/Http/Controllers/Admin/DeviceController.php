@@ -77,6 +77,7 @@ class DeviceController extends Controller
                 'device_map.MQTT_ID',
                 // 'device_map.MODEM_ID',
                 'device_map.max_user_access',
+                'device_map.subscription_status',
                 'device_map.IMEI_No',
                 'device_status.Status',
                 'devices.*',
