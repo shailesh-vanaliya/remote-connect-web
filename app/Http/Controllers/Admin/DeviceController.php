@@ -265,9 +265,9 @@ class DeviceController extends Controller
                 return redirect('admin/device/create')->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
 
-            $modemMapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))->count();
+            $modemMapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))->first();
             $modemCount = Device::where('modem_id', $request->all('modem_id'))->count();
-            if ($modemCount <= $modemMapCount) {
+            if ( isset($modemMapCount) &&  $modemCount >= $modemMapCount->max_user_access) {
                 return redirect('admin/device/create')->with('session_error', 'Sorry, maximum user device limit exceed, contact to admin!')->withInput();
             }
  
@@ -341,10 +341,11 @@ class DeviceController extends Controller
                 return redirect(`admin/device/$id/edit`)->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
 
-            $modemMapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))->count();
+            $modemMapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))->first();
+           
             $modemCount = Device::where('modem_id', $request->all('modem_id'))->count();
-            if ($modemCount <= $modemMapCount) {
-                return redirect('admin/device/create')->with('session_error', 'Sorry, maximum user device limit exceed, contact to admin!')->withInput();
+            if ( isset($modemMapCount) &&  $modemCount >= $modemMapCount->max_user_access) {
+                return redirect("admin/device/$id/edit")->with('session_error', 'Sorry, maximum user device limit exceed, contact to admin!')->withInput();
             }
             
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
@@ -353,7 +354,7 @@ class DeviceController extends Controller
 
             return redirect('admin/device')->with('session_success', 'Device updated!');
         } catch (\Exception $e) {
-            return redirect('admin/device/create')->with('session_error', $e->getMessage());
+            return redirect(`admin/device/$id/edit`)->with('session_error', $e->getMessage());
         }
     }
 

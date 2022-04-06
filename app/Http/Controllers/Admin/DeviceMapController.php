@@ -175,7 +175,7 @@ class DeviceMapController extends Controller
         try {
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
-                return redirect("admin/device-map/$4id/edit")->withErrors($validator)->withInput();
+                return redirect("admin/device-map/$id/edit")->withErrors($validator)->withInput();
             }
 
             $requestData = $request->all();
