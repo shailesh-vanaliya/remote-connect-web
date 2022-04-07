@@ -87,7 +87,8 @@
     <div class="form-group {{ $errors->has('location') ? 'has-error' : ''}}">
         <label for="location" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Location' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
-            <input class="form-control" name="location" type="text" id="location" value="{{ isset($device->location) ? $device->location : ''}}">
+            <input class="form-control" name="location" type="text" id="location" placeholder="Enter a location" autocomplete="on" runat="server" value="{{ isset($device->location) ? $device->location : ''}}">
+            <!-- <input id="searchTextField" type="text" size="50" placeholder="Enter a location" autocomplete="on" runat="server" /> -->
             {!! $errors->first('location', '<p class="help-block">:message</p>') !!}
         </div>
     </div>

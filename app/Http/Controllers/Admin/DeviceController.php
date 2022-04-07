@@ -180,7 +180,7 @@ class DeviceController extends Controller
             'device_map.max_user_access',
             'device_map.IMEI_No',
             'device_status.Status',
-            'device_status.id as statusId',
+            'device_status.id as device_status_id',
             'remote.MACHINE_NO',
             'remote.MACHINE_LOCAL_IP',
             'remote.MACHINE_LOCAL_PORT',
@@ -199,6 +199,8 @@ class DeviceController extends Controller
         $subQuery->where('devices.id', '=', $id);
         $subQuery->groupBy('devices.id');
         $data['deviceDetail'] =  $subQuery->first();
+        // print_r($data['deviceDetail']);
+        // exit;
         if(empty($data['deviceDetail'])){
             return redirect('admin/device')->with('session_error', 'Sorry, Device details not found!');
         }
