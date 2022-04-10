@@ -23,7 +23,28 @@ class DeviceController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 100;
-
+        $collected_items = Device::whereNotNull('latitude')->whereNotNull('longitude')
+        ->get()->toArray();
+        $mainArray = [];
+        foreach ($collected_items as $key => $values) {
+            // print_r($values['location']);
+            // exit;
+            $tempArray = array($values['location'], $values['latitude'], $values['longitude'], $values['id']);
+            $mainArray[$key] = $tempArray;
+        }
+// print_r($mainArray);
+// exit;
+        // $locationList = array(
+        //     array('chandigarh', 30.7333, 76.7794, 8),
+        //     array('Panjab', 31.1471, 75.3412, 6),
+        //     array('Ahmadabad', 23.0225, 72.5714, 4),
+        //     array('Baroda', 22.3072, 73.1812, 5),
+        //     array('chennai', 13.0827, 80.2707, 3),
+        //     array('bangalore', 12.9716, 77.5946, 2),
+        //     array('mumbai', 19.0760, 72.8777, 1)
+        // );
+//         print_r($locationList);
+ 
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
             // $data['device'] = Device::where('modem_id', 'LIKE', "%$keyword%")
             //     ->orWhere('location', 'LIKE', "%$keyword%")
@@ -173,9 +194,9 @@ class DeviceController extends Controller
             $subQuery->where('devices.id', '!=', $id);
             $data['device'] =  $subQuery->get();
         }
-        
+
         $data['deviceDetail'] = Device::findOrFail($id);
-         $subQuery =  Device::select(
+        $subQuery =  Device::select(
             'device_map.MQTT_ID',
             'device_map.max_user_access',
             'device_map.IMEI_No',
@@ -188,7 +209,7 @@ class DeviceController extends Controller
             'remote.STATUS',
             'devices.*',
         );
-     
+
         $subQuery->Join('device_map', function ($join) {
             $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
             $join->on('device_map.secret_key', '=', 'devices.secret_key');
@@ -201,14 +222,14 @@ class DeviceController extends Controller
         $data['deviceDetail'] =  $subQuery->first();
         // print_r($data['deviceDetail']);
         // exit;
-        if(empty($data['deviceDetail'])){
+        if (empty($data['deviceDetail'])) {
             return redirect('admin/device')->with('session_error', 'Sorry, Device details not found!');
         }
 
-        
+
         $data['remote'] = array();
-        $data['remote'] = DB::table('remote')->where('MQTT_ID', $data['deviceDetail']->MQTT_ID)->orderBy('MACHINE_NO','asc')->get()->toArray();
- 
+        $data['remote'] = DB::table('remote')->where('MQTT_ID', $data['deviceDetail']->MQTT_ID)->orderBy('MACHINE_NO', 'asc')->get()->toArray();
+
         $map = "";
         $status = 0;
         if (isset($data['deviceDetail']) && $data['deviceDetail']->secret_key) {
@@ -219,11 +240,11 @@ class DeviceController extends Controller
                 $status = ($statusRes) ? $statusRes->Status : 0;
             }
         }
-       
+
         $data['pagetitle'] = 'Device';
         $data['title'] = 'Device';
         $data['status'] = $status;
-     
+
         return view('admin.device.details', $data);
     }
 
@@ -270,10 +291,10 @@ class DeviceController extends Controller
 
             $modemMapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))->first();
             $modemCount = Device::where('modem_id', $request->all('modem_id'))->count();
-            if ( isset($modemMapCount) &&  $modemCount >= $modemMapCount->max_user_access) {
+            if (isset($modemMapCount) &&  $modemCount >= $modemMapCount->max_user_access) {
                 return redirect('admin/device/create')->with('session_error', 'Sorry, maximum user device limit exceed, contact to admin!')->withInput();
             }
- 
+
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             Device::create($requestData);
@@ -345,12 +366,12 @@ class DeviceController extends Controller
             }
 
             $modemMapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))->first();
-           
+
             $modemCount = Device::where('modem_id', $request->all('modem_id'))->count();
-            if ( isset($modemMapCount) &&  $modemCount >= $modemMapCount->max_user_access) {
+            if (isset($modemMapCount) &&  $modemCount >= $modemMapCount->max_user_access) {
                 return redirect("admin/device/$id/edit")->with('session_error', 'Sorry, maximum user device limit exceed, contact to admin!')->withInput();
             }
-            
+
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             $device = Device::findOrFail($id);
             $device->update($requestData);
@@ -421,11 +442,11 @@ class DeviceController extends Controller
                 'user' => Auth::guard('admin')->user()->email,
                 'Modem id' => $requestData['modem_id'],
             );
-            $res = MQTT::publish('REMOTE/ENABLE/'.$requestData['MQTT_ID'], json_encode($data));
-         
+            $res = MQTT::publish('REMOTE/ENABLE/' . $requestData['MQTT_ID'], json_encode($data));
+
             // DB::table('device_status')->where('id', $requestData['statusId'])
             // ->update(['Status' => $requestData['connect'] == 'connect' ? 1 : 0]);
-          
+
             if ($requestData['connect'] ==  'connect') {
                 return redirect("admin/device/device-detail/$id")->with('session_success', 'Device connected successfully!')->withInput();
             } else if ($requestData['connect'] ==  'disconnect') {
@@ -441,12 +462,12 @@ class DeviceController extends Controller
     public function updateName(Request $request)
     {
         try {
-        //  print_r($request->all());
-        //  exit;
+            //  print_r($request->all());
+            //  exit;
             $requestData = $request->all();
             DB::table('remote')->where('id', $requestData['deviceid'])
-            ->update(['device_name' => $requestData['device_name']]);
-$id = $requestData['deviceIds'];
+                ->update(['device_name' => $requestData['device_name']]);
+            $id = $requestData['deviceIds'];
             // $request->session()->flash('session_success', 'Device name updated Successfully');
             // return Redirect::to($_SERVER['HTTP_REFERER']);
             return redirect("admin/device/device-detail/$id")->with('session_success', 'Device name updated Successfully')->withInput();
@@ -455,5 +476,41 @@ $id = $requestData['deviceIds'];
         }
     }
 
+    public function ajaxAction(Request $request)
+    {
+        $collegeId = Auth::guard('admin')->user()->id;
+        $action = $request->input('action');
+        switch ($action) {
+            case 'getLocation':
+                $this->_getLocationList();
+                break;
+                break;
+        }
+        exit;
+    }
+
+
+    public function _getLocationList() {
+        // $locationList = array(
+        //     array('chandigarh', 30.7333, 76.7794, 8),
+        //     array('Panjab', 31.1471, 75.3412, 6),
+        //     array('Ahmadabad', 23.0225, 72.5714, 4),
+        //     array('Baroda', 22.3072, 73.1812, 5),
+        //     array('chennai', 13.0827, 80.2707, 3),
+        //     array('bangalore', 12.9716, 77.5946, 2),
+        //     array('mumbai', 19.0760, 72.8777, 1)
+        // );
+        $collected_items = Device::whereNotNull('latitude')
+        ->whereNotNull('longitude')->get()->toArray();
+        $locationList = [];
+        foreach ($collected_items as $key => $values) {
+            // print_r($values['location']);
+            // exit;
+            $tempArray = array("Modem Id : " . $values['modem_id'] ." <br /> Project Name : ".  $values['project_name']." <br /> Region : ".  $values['region'] ." <br /> Location : ". $values['location'], $values['latitude'], $values['longitude'], $values['id']);
+            $locationList[$key] = $tempArray;
+        }
+        echo json_encode($locationList);
+        exit;
+    }
 
 }

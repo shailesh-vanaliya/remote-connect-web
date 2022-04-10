@@ -53,6 +53,10 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::resource('device', DeviceController::class);
     Route::resource('device-map', DeviceMapController::class);
     Route::get('/users/list', [UserController::class, 'index'])->name('user_list');
+    Route::post('/device/ajaxAction', [DeviceController::class, 'ajaxAction'])->name('ajaxAction');
+
+    // Route::match(['get', 'post'], 'device/ajaxAction', ['as' => 'ajaxAction', 'uses' => 'CommonFormController@ajaxAction']);
+
 });
 
 Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illuminate\Routing\Router $route) {
