@@ -2,8 +2,8 @@
 @extends('admin.layouts.admin')
 @section('content')
 @section('title', $pagetitle )
-<!-- 
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDujLPXC7_jqMNn9KWpah2o1mYGUVbq2vk&libraries=places"></script>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtm6FhRz26-NQBaTZLSu8U3EMg20hYumQ&libraries=places"></script>
     <script>
         function initialize() {
           var input = document.getElementById('location');
@@ -20,7 +20,7 @@
         }
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
-  -->
+
     <!-- <input id="searchTextField" type="text" size="50" placeholder="Enter a location" autocomplete="on" runat="server" />  
     <input type="hidden" id="city2" name="city2" />
     <input type="hidden" id="cityLat" name="cityLat" />
