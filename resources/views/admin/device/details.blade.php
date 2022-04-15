@@ -73,8 +73,8 @@
                                         </div>
 
                                         <div class="col-md-5" style="padding: 4px;font-size: 17px;">
-                                            <button type="submit" {{$deviceDetail->Status == 1 ? 'disabled' : ''}} name="connect" value="connect" class="btn btn-success" style="padding-left: 10px;">Connect</button>
-                                            <button type="submit" {{$deviceDetail->Status == 0 ? 'disabled' : ''}} name="connect" value="disconnect" class="btn btn-danger" style="padding-left: 10px;">Disconnect</button>
+                                            <button type="submit" {{$deviceDetail->STATUS == 1 ? 'disabled' : ''}} name="connect" value="connect" class="btn btn-success" style="padding-left: 10px;">Connect</button>
+                                            <button type="submit" {{$deviceDetail->STATUS == 0 ? 'disabled' : ''}} name="connect" value="disconnect" class="btn btn-danger" style="padding-left: 10px;">Disconnect</button>
                                             <button type="button" name="connect" class="btn btn-default" style="padding-left: 10px;"><a href='{{ url("/admin/device/device-detail/$deviceDetail->id") }}' title="Back">Refresh</a></button>
                                         </div>
                                     </div>
@@ -105,11 +105,11 @@
                                             <td>{{ $item->MACHINE_LOCAL_IP }}</td>
                                             @if($item->STATUS == 1)
                                             <td >
-                                            <span style="background: green;color:#fff;padding:5px;font-size: 13px;border-radius: 10px;">Online</span>
+                                            <span style="background: green;color:#fff;padding:5px;font-size: 13px;border-radius: 5px;">Online</span>
                                         </td>
                                             @else
                                             <td >
-                                            <span style="background: red;color:#fff;padding:5px;font-size: 13px;border-radius: 10px;">Offline</span>
+                                            <span style="background: red;color:#fff;padding:5px;font-size: 13px;border-radius: 5px;">Offline</span>
                                         </td>
                                             @endif
                                             <td>{{ date('d-m-Y h:m:s', strtotime($item->updated_at)); }}</td>
