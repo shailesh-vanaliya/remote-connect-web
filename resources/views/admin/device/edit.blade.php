@@ -1,6 +1,25 @@
 @extends('admin.layouts.admin')
 @section('content')
 @section('title', $pagetitle )
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtm6FhRz26-NQBaTZLSu8U3EMg20hYumQ&libraries=places"></script>
+    <script>
+        function initialize() {
+          var input = document.getElementById('location');
+          var autocomplete = new google.maps.places.Autocomplete(input);
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var place = autocomplete.getPlace();
+                // console.log(place.formatted_address , " placeplace")
+                console.log(place.geometry.location.lat() , " placeplace")
+                // document.getElementById('location').value = place.formatted_address;
+                // document.getElementById('location').value = place.name;
+                document.getElementById('latitude').value = place.geometry.location.lat();
+                document.getElementById('longitude').value = place.geometry.location.lng();
+            });
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+
 <section class="content">
     <div class="row">
         <div class="col-md-12">

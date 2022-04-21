@@ -491,6 +491,7 @@ class DeviceController extends Controller
 
 
     public function _getLocationList() {
+       
         // $locationList = array(
         //     array('chandigarh', 30.7333, 76.7794, 8),
         //     array('Panjab', 31.1471, 75.3412, 6),
@@ -506,7 +507,8 @@ class DeviceController extends Controller
         foreach ($collected_items as $key => $values) {
             // print_r($values['location']);
             // exit;
-            $tempArray = array("Modem Id : " . $values['modem_id'] ." <br /> Project Name : ".  $values['project_name']." <br /> Region : ".  $values['region'] ." <br /> Location : ". $values['location'], $values['latitude'], $values['longitude'], $values['id']);
+            $url = url('/admin/device/device-detail/' .$values['id'] );
+            $tempArray = array("Modem Id : " . $values['modem_id'] ." <br /> Project Name : ".  $values['project_name']." <br /> Region : ".  $values['region'] ." <br /> Location : ". $values['location']." <br />  <a href='".$url."'>".'View details' .'</a>', $values['latitude'], $values['longitude'], $values['id']);
             $locationList[$key] = $tempArray;
         }
         echo json_encode($locationList);
