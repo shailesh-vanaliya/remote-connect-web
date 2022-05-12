@@ -4,7 +4,7 @@
 
 <section class="content">
     <div class="row">
-        <div class="box  col-md-12">
+        <div class="box col-md-12">
             <div class="box-header  ">
                 <div class="box-title" style="display: unset;font-size: 17px; line-height: unset;">
                     <span class="">Project : <span style="padding: 0px  7%  0px  0px ;">{{ $deviceDetail->project_name }}</span>

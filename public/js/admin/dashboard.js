@@ -66,10 +66,26 @@ var Dashboard = function() {
         // }
         
     }
+
+    var handleChart = function() {
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            },
+            url: site_url + "admin/dashboard/ajaxAction",
+            data: { 'action': 'getDashboard' },
+            success: function (data) {
+               console.log(data, " dasdsadsadasdsadas");
+            }
+        });
+    }
     return {
         init: function() {
-            // getLocationList();
             handleList();
-        }
+        },
+        initChart: function() {
+            handleChart();
+        },
     }
 }();

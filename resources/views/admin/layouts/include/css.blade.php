@@ -8,19 +8,26 @@
 ?>
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" rel="stylesheet">
 <link href="https://cdn.glitch.com/ a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Fic_nfc_black_48dp.png?v=1573158259618" rel="icon"/>
-<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/font-awesome/css/font-awesome.min.css') }}">
-<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/Ionicons/css/ionicons.min.css') }}">
-<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/jvectormap/jquery-jvectormap.css') }}">
+<!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/bootstrap/dist/css/bootstrap.min.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/font-awesome/css/font-awesome.min.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/fontawesome-free/css/all.min.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/Ionicons/css/ionicons.min.css') }}"> -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+<!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/jvectormap/jquery-jvectormap.css') }}"> -->
 <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/AdminLTE.min.css') }}">
-<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/custom.css') }}">
-<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/skins/_all-skins.min.css') }}">
-<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/datatables.net-bs/css/dataTables.bootstrap.css') }}">
-<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/datatables/dataTables.bootstrap.css') }}">
-<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}">
-<script src="{{ URL::asset($dynamicUrl.'plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
-<link href="{{ URL::asset($dynamicUrl.'css/select2.min.css') }}" rel="stylesheet" />
-<script src="{{ URL::asset($dynamicUrl.'js/select2.min.js') }}"></script>
+<!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/custom.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/skins/_all-skins.min.css') }}"> -->
+<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/datatables-bs4/css/dataTables.bootstrap4.css') }}">
+<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'css/dataTables.bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/datepicker/datepicker3.css') }}">
+<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/fontawesome-free/css/all.min.css') }}">
+<!-- <script src="{{ URL::asset($dynamicUrl.'plugins/jQuery/jQuery-2.1.4.min.js') }}"></script> -->
+<script src="{{ URL::asset($dynamicUrl.'plugins/jquery/jquery.min.js') }}"></script>
+<link href="{{ URL::asset($dynamicUrl.'plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
+<script src="{{ URL::asset($dynamicUrl.'plugins/select2/js/select2.min.js') }}"></script>
 <link rel="icon" href="{{ asset('/public/img/favicon.png') }}">
 
 <style>

@@ -178,6 +178,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Jenssegers\Mongodb\MongodbServiceProvider::class,
 
         // Aws\Laravel\AwsServiceProvider::class
     ],

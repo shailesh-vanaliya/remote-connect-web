@@ -239,7 +239,7 @@ class User extends Authenticatable
                 'title' => '',
                 'body' => 'Hello ',
                 'mailTitle' => 'forgot',
-                'subject' => 'Booking Management System: Forgot Password',
+                'subject' => 'IIot Connect: Forgot Password',
                 'data' => $user,
             ];
             $emailRes = \Mail::to($user['email'])
@@ -264,7 +264,7 @@ class User extends Authenticatable
 
             $details = [
                 'mailTitle' => 'register',
-                'subject' => 'Booking Management System: Registration Done!',
+                'subject' => 'IIot Connect: Registration Done!',
                 'data' => $user,
             ];
             $emailRes = \Mail::to($user['email'])

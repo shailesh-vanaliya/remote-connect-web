@@ -90,6 +90,27 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
         ],
+        // 'mongodb' => [
+		//     'driver'   => 'mongodb',
+		//     'host'     => env('DB_HOST', 'm2m.iiotconnect.in'),
+		//     'port'     => env('DB_PORT', 27017),
+		//     'database' => env('DB_DATABASE', 'GW11'),
+		//     'username' => env('DB_USERNAME', 'admin'),
+		//     'password' => env('DB_PASSWORD', 'admin@123'),
+		//     'options' => []
+		// ],
+
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'host' => env('MONGO_DB_HOST', 'm2m.iiotconnect.in'),
+            'port' => env('MONGO_DB_PORT', '27017'),
+            'database' => env('MONGO_DB_DATABASE'),
+            'username' => env('MONGO_DB_USERNAME'),
+            'password' => env('MONGO_DB_PASSWORD'),
+            'options' => [
+                'database' => 'admin'
+            ]
+        ],
 
     ],
 

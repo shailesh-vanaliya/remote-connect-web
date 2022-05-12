@@ -38,13 +38,6 @@ class DeleteFilesCron extends Command
      */
     public function handle()
     {
-        $file = new Filesystem;
-        $downloadPath = Config::get('constants.path.pdf_download');
-        $file->cleanDirectory($downloadPath);
-        // $file->cleanDirectory('E:/xampp7.4/htdocs/booking-management-system/public/uploads/signee_pdf/');
-        \Log::info("Delete Cron is working fine!");
-        $this->info($downloadPath);
-        \Log::info($downloadPath);
         $this->info('deletefile:cron command Run successfully!');
     }
 }

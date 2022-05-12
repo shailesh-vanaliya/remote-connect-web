@@ -4,6 +4,7 @@ use App\Console\Commands\DeleteFilesCron;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\{
     SettingController,
     UserController,
@@ -39,6 +40,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
 
     Route::resource('users', UserController::class);
     Route::get('admin-dashboard', [AdminController::class,  'index'])->name('admin_dashboard');
+    Route::get('dashboard', [DashboardController::class,  'index'])->name('dashboard');
     Route::post('/admin-dashboard', [AdminController::class, 'index']);
     Route::get('/admin-profile', [SettingController::class, 'profile'])->name('profile');
     Route::post('/admin-profile', [SettingController::class, 'profile'])->name('profile');
@@ -54,6 +56,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::resource('device-map', DeviceMapController::class);
     Route::get('/users/list', [UserController::class, 'index'])->name('user_list');
     Route::post('/device/ajaxAction', [DeviceController::class, 'ajaxAction'])->name('ajaxAction');
+    Route::post('/dashboard/ajaxAction', [DashboardController::class, 'ajaxAction'])->name('ajaxAction');
 
     // Route::match(['get', 'post'], 'device/ajaxAction', ['as' => 'ajaxAction', 'uses' => 'CommonFormController@ajaxAction']);
 
