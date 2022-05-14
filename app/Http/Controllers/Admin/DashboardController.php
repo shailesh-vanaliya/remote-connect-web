@@ -18,6 +18,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use App\Models\DemoMongo;
+use App\Models\DataLog;
 use DateTime;
 
 class DashboardController extends Controller
@@ -46,10 +47,13 @@ class DashboardController extends Controller
             echo  "==============  " ;
             // $resultdata = DemoMongo::where('sysv', '=', '24.16')->first();
 
-            $resultdata = 
-            DemoMongo::where('sysv', '24.16')
-        ->take(10)
-        ->get();
+            $resultdata = DemoMongo::where('sysv', '24.16')->take(10)->get();
+
+        $collection = DemoMongo::all();
+        $filtered = $collection->where('dtm', 'LIKE', "%2022-05-12%");
+        // $filtered = $collection->where('seq', "1818");
+        $resultdata =  $filtered->toArray();
+
 
             // $resultdata = DB::connection('mongodb')->collection('FT106')->where('sysv','24.16')->get()->toArray();
             // $resultdata = DB::connection('mongodb')->collection('FT106')->take(1);
@@ -67,14 +71,15 @@ class DashboardController extends Controller
             // $resultdata = DemoMongo::whereBetween('dtm', array($start, $stop))->get();
             // $resultdata = DB::collection('860987054429532')->whereBetween('updated_at', array($start, $stop))->get();
             // echo "dddddddddddd";exit;
-            print_r($resultdata);
+            // print_r($resultdata);
           
         } catch (\Exception $e) {
             echo "fdsf";exit;
             // dd($e->getMessage());
         }
        
-        echo "dsd";exit;
+    //    $res =  DataLog::where("modem_id", 'FT102/')->first();
+ 
         $locationList = array(
             array('chandigarh', 30.7333, 76.7794, 8),
             array('Panjab', 31.1471, 75.3412, 6),
@@ -107,7 +112,6 @@ class DashboardController extends Controller
         //     ->setLastWillTopic('shailesh/zzz')
         //     ->setLastWillMessage('client disconnect')
         //     ->setLastWillQualityOfService(1);
-
 
         // $mqtt = new MqttClient($server, $port, $client_id);
 

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MeterDashboardController;
 use App\Http\Controllers\Admin\{
     SettingController,
     UserController,
@@ -57,6 +58,9 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::get('/users/list', [UserController::class, 'index'])->name('user_list');
     Route::post('/device/ajaxAction', [DeviceController::class, 'ajaxAction'])->name('ajaxAction');
     Route::post('/dashboard/ajaxAction', [DashboardController::class, 'ajaxAction'])->name('ajaxAction');
+    Route::get('/meter-dashboard', [MeterDashboardController::class, 'index'])->name('meter_dashboard');
+    Route::post('/dashboard-meter/ajaxAction', [MeterDashboardController::class, 'ajaxAction'])->name('ajaxAction');
+
 
     // Route::match(['get', 'post'], 'device/ajaxAction', ['as' => 'ajaxAction', 'uses' => 'CommonFormController@ajaxAction']);
 
