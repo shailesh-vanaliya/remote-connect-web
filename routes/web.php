@@ -84,3 +84,5 @@ Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illum
 
 
 
+
+Route::resource('admin/organization', 'Admin\OrganizationController');
