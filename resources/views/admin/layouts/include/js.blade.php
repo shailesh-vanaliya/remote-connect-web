@@ -39,6 +39,9 @@
 
 <script src="{{ asset($dynamicUrl.'js/admin/customer.js') }}"></script>
 <script src="{{ asset($dynamicUrl.'js/jquery.validate.min.js') }}"></script>
+
+<script src="{{ asset($dynamicUrl.'js/jquery.canvasjs.min.js') }}"></script>
+
 @if(!empty($pluginjs))
     @foreach ($pluginjs as $pjs)
         <script src="{{ asset($dynamicUrl) }}/{{ $pjs }}"></script>

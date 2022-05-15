@@ -138,9 +138,9 @@ return redirect('login');
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ url('/admin/meter-dashboard') }}" class="nav-link">
               <i class="nav-icon far fa-circle text-info"></i>
-              <p>Informational</p>
+              <p>Pressure Dashboard</p>
             </a>
           </li>
         </ul>

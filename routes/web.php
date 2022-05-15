@@ -59,6 +59,8 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::post('/device/ajaxAction', [DeviceController::class, 'ajaxAction'])->name('ajaxAction');
     Route::post('/dashboard/ajaxAction', [DashboardController::class, 'ajaxAction'])->name('ajaxAction');
     Route::get('/meter-dashboard', [MeterDashboardController::class, 'index'])->name('meter_dashboard');
+    Route::post('meter-dashboard-export', [MeterDashboardController::class, 'meterDashboardExport'])->name('meter-dashboard-export');
+
     Route::post('/dashboard-meter/ajaxAction', [MeterDashboardController::class, 'ajaxAction'])->name('ajaxAction');
 
 

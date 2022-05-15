@@ -15,7 +15,8 @@
   .card-primary.card-outline {
     border-top: 3px solid #01a89d;
   }
-  .iconColor{
+
+  .iconColor {
     color: #fff;
   }
 
@@ -49,6 +50,9 @@
     width: 100%;
   } */
 </style>
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 <section class="content">
   <div class="container-fluid">
     <div class="row">
@@ -171,7 +175,7 @@
                           <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At:  {{ date('d/m/Y h:i:s A', strtotime($result->Timestamp)) }}
+                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->Timestamp)) }}
                         </p>
                       </div>
                     </div>
@@ -180,7 +184,7 @@
                       <!-- small card -->
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3  style="font-size: 3.2rem">{{ $result->WATER_VALVE1}}<sup style="font-size: 20px">%</sup></h3>
+                          <h3 style="font-size: 3.2rem">{{ $result->WATER_VALVE1}}<sup style="font-size: 20px">%</sup></h3>
                           <!-- <p style="margin: 0;margin-bottom: unset">Phase 1 to</p> -->
                           <p style="margin: 0;margin-bottom: unset">Water Valve1 </p>
                         </div>
@@ -188,7 +192,7 @@
                           <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At:  {{ date('d/m/Y h:i:s A', strtotime($result->Timestamp)) }}
+                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->Timestamp)) }}
                         </p>
                       </div>
                     </div>
@@ -204,7 +208,7 @@
                           <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At:  {{ date('d/m/Y h:i:s A', strtotime($result->Timestamp)) }}
+                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->Timestamp)) }}
                         </p>
                       </div>
                     </div>
@@ -595,32 +599,38 @@
                 </div> -->
               </div>
               <div class="mailbox-controls with-border text-center">
+              <form class="" method="POST" action="{{ url('/admin/meter-dashboard-export/') }}">
                 <div class="row">
                   <div class=" col-sm-12 col-md-1">
                     Filter
                   </div>
                   <div class=" col-sm-12 col-md-3">
-                    <input class="form-control startDate" id="startDate" type="datetime-local" placeholder="Search" aria-label="Search">
+                    <input class="form-control startDate" id="startDate" name="start" type="date" placeholder="Start Date" aria-label="Search">
+                    <!-- <input class="form-control startDate" id="startDate" type="datetime-local" placeholder="Search" aria-label="Search"> -->
                   </div>
                   <div class="col-sm-12 col-md-3">
-                    <input class="form-control endDate" id="endDate" type="datetime-local" placeholder="Search" aria-label="Search">
+                    <input class="form-control endDate" id="endDate" name="end" type="date" placeholder="End date" aria-label="Search">
+                    <!-- <input class="form-control endDate" id="endDate" type="datetime-local" placeholder="Search" aria-label="Search"> -->
                   </div>
                   <div class="col-sm-12 col-md-3">
-                    <button type="button" class="btn btn-default btn-sm" title="Filter">
+                    <button type="button" class="btn btn-default btn-sm search" title="Filter">
                       <i class="fas fa-check"></i>
                     </button> &nbsp;
-                    <button type="button" class="btn btn-default btn-sm" title="Reset">
+                    <button type="button" class="btn btn-default btn-sm reset" title="Reset">
                       <i class="fas fa-sync-alt"></i>
                     </button>&nbsp;
-                    <button type="button" class="btn btn-default btn-sm" title="Download">
-                      <i class="fas fa-download"> Export </i>
-                    </button>
+                    
+                      <button type="submit" class="btn btn-default btn-sm" title="Download">
+                      <input type="hidden" name="_token" value="{{ csrf_token() }}">   
+                        <i class="fas fa-download"> Export </i>
+                        <!-- <i class="fas fa-download"><a class="" style="margin-right: 5px;"  href="{{ route('meter-dashboard-export') }}"> Export </a>  </i> -->
+                      </button>
+                    
                   </div>
                 </div>
+                </form>
                 <!-- <form class="form-inline ml-3">
                   <div class="input-group input-group-sm">
-                  
-                    
                     <div class="input-group-append">
                       <button class="btn btn-navbar" type="submit">
                         <i class="fas fa-search"></i>
@@ -644,10 +654,12 @@
                 </button> -->
               </div>
               <div class="card-body">
+                <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+
                 <!-- <div class="chart">
                   <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div> -->
-                <div class="d-flex">
+                <!-- <div class="d-flex">
                   <p class="d-flex flex-column">
                     <span class="text-bold text-lg">820</span>
                     <span>Visitors Over Time</span>
@@ -663,17 +675,18 @@
                 <div class="position-relative mb-4">
                   <canvas id="visitors-chart" height="200"></canvas>
                 </div>
-
                 <div class="d-flex flex-row justify-content-end">
                   <span class="mr-2">
                     <i class="fas fa-square text-primary"></i> This Week
                   </span>
-
                   <span>
                     <i class="fas fa-square text-gray"></i> Last Week
                   </span>
-                </div>
+                </div> -->
               </div>
+              <div id="chartdiv" style="height: 400px; width: 100%;"></div>
+
+
               <!-- /.card-body -->
             </div>
             <!-- /.card -->

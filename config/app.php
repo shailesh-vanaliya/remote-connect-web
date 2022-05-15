@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'Europe/London',
+    'timezone' => 'Asia/Calcutta',
     // 'timezone' => 'UTC',
 
     /*
