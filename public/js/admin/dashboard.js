@@ -157,7 +157,7 @@ var Dashboard = function () {
                         resultX['x'] = new Date(outPut[i].Timestamp);
                         resultX['y'] = outPut[i].Temperature_PV;
                         arr[i] = resultX;
-                    } 
+                    }
                     console.log(arr)
                     if (arr) {
                         var options = {
@@ -195,351 +195,184 @@ var Dashboard = function () {
                                 color: "#F08080",
                                 yValueFormatString: "#,##0K",
                                 dataPoints: arr
-                                // dataPoints: outPut.common
-                                // dataPoints: [
-                                //     { x: new Date(2017, 10, 1, 14, 12), y: 63 },
-                                //     { x: new Date(2017, 10, 2, 11, 12), y: 69 },
-                                //     { x: new Date(2017, 10, 2, 11, 20), y: 61 },
-                                //     { x: new Date(2017, 10, 2, 11, 23), y: 61 },
-                                //     { x: new Date(2017, 10, 3, 10, 23), y: 65 },
-                                //     { x: new Date(2017, 10, 4, 12, 23), y: 70 },
-                                //     { x: new Date(2017, 10, 5, 12, 23), y: 71 },
-                                //     // { x: new Date(2017, 10, 6), y: 65 },
-                                //     // { x: new Date(2017, 10, 7), y: 73 },
-                                //     // { x: new Date(2017, 10, 8), y: 96 },
-                                //     // { x: new Date(2017, 10, 9), y: 84 },
-                                //     // { x: new Date(2017, 10, 10), y: 85 },
-                                //     // { x: new Date(2017, 10, 11), y: 86 },
-                                //     // { x: new Date(2017, 10, 12), y: 94 },
-                                //     // { x: new Date(2017, 10, 13), y: 97 },
-                                //     // { x: new Date(2017, 10, 14), y: 86 },
-                                //     // { x: new Date(2017, 10, 15), y: 89 },
-                                //     // { x: new Date(2018, 05, 15), y: 95 },
-                                //     // { x: new Date(2018, 10, 15), y: 84 },
-                                //     // { x: new Date(2020, 10, 15), y: 88 }
-                                // ]
                             },
-                                // {
-                                // 	type: "line",
-                                // 	showInLegend: true,
-                                // 	name: "Actual Sales",
-                                // 	lineDashType: "dash",
-                                // 	yValueFormatString: "#,##0K",
-                                // 	dataPoints: [
-                                // 		{ x: new Date(2017, 10, 1), y: 60 },
-                                // 		{ x: new Date(2017, 10, 2), y: 57 },
-                                // 		{ x: new Date(2017, 10, 3), y: 51 },
-                                // 		{ x: new Date(2017, 10, 4), y: 56 },
-                                // 		{ x: new Date(2017, 10, 5), y: 54 },
-                                // 		{ x: new Date(2017, 10, 6), y: 55 },
-                                // 		{ x: new Date(2017, 10, 7), y: 54 },
-                                // 		{ x: new Date(2017, 10, 8), y: 69 },
-                                // 		{ x: new Date(2017, 10, 9), y: 65 },
-                                // 		{ x: new Date(2017, 10, 10), y: 66 },
-                                // 		{ x: new Date(2017, 10, 11), y: 63 },
-                                // 		{ x: new Date(2017, 10, 12), y: 67 },
-                                // 		{ x: new Date(2017, 10, 13), y: 66 },
-                                // 		{ x: new Date(2017, 10, 14), y: 56 },
-                                // 		{ x: new Date(2017, 10, 15), y: 64 }
-                                // 	]
-                                // }
                             ]
                         };
                         $("#chartContainer").CanvasJSChart(options);
                     }
 
 
-                    // // console.log(outPut.Temperature_PV);
-                    // // console.log(outPut.Timestamps);
-                    // var visitorsChart = new Chart($visitorsChart, {
-                    //     data: {
-                    //         labels: [outPut.date],
-                    //         // labels: ['18th', '20th', '22nd', '24th', '26th', '28th', '30th'],
-                    //         // labels: ['2022-05-12', '2022-05-12', '2022-05-12', '2022-05-12', '2022-05-12', '2022-05-12', '2022-05-12', '2022-05-12', '2022-05-12', '2022-05-12', '2022-05-12', '2022-05-12', '2022-05-12', '2022-05-12', '2022-05-12'],
-                    //         datasets: [
-                    //             {
-                    //                 type: 'line',
-                    //                 // data: [outPut.temp],
-                    //                 data: [30,33,40,43,47,48,49,50,51,52,54,55,58,59,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87],
-                    //                 backgroundColor: 'transparent',
-                    //                 borderColor: '#007bff',
-                    //                 pointBorderColor: '#007bff',
-                    //                 pointBackgroundColor: '#007bff',
-                    //                 fill: false
-                    //                 // pointHoverBackgroundColor: '#007bff',
-                    //                 // pointHoverBorderColor    : '#007bff'
-                    //             },
-                    //             // {
-                    //             //   type: 'line',
-                    //             //   data: [60, 80, 70, 67, 80, 77, 100,111,145],
-                    //             //   backgroundColor: 'tansparent',
-                    //             //   borderColor: '#ced4da',
-                    //             //   pointBorderColor: '#ced4da',
-                    //             //   pointBackgroundColor: '#ced4da',
-                    //             //   fill: false
-                    //             //   // pointHoverBackgroundColor: '#ced4da',
-                    //             //   // pointHoverBorderColor    : '#ced4da'
-                    //             // }
-                    //         ]
-                    //     },
-                    //     options: {
-                    //         maintainAspectRatio: false,
-                    //         tooltips: {
-                    //             mode: mode,
-                    //             intersect: intersect
-                    //         },
-                    //         hover: {
-                    //             mode: mode,
-                    //             intersect: intersect
-                    //         },
-                    //         legend: {
-                    //             display: false
-                    //         },
-                    //         scales: {
-                    //             yAxes: [{
-                    //                 // display: false,
-                    //                 gridLines: {
-                    //                     display: true,
-                    //                     lineWidth: '4px',
-                    //                     color: 'rgba(0, 0, 0, .2)',
-                    //                     zeroLineColor: 'transparent'
-                    //                 },
-                    //                 ticks: $.extend({
-                    //                     beginAtZero: true,
-                    //                     suggestedMax: 200
-                    //                 }, ticksStyle)
-                    //             }],
-                    //             xAxes: [{
-                    //                 display: true,
-                    //                 gridLines: {
-                    //                     display: false
-                    //                 },
-                    //                 ticks: ticksStyle
-                    //             }]
-                    //         }
-                    //     }
-                    // })
                 }
             });
         }
 
 
         $('.search').click(function () {
-            getDate()
+            // getDate()
         });
         $('.reset').click(function () {
             $('#startDate').val('')
             $('#endDate').val('');
-            getDate()
+            // getDate()
         });
-        getDate();
+        // getDate();
     }
     var meterDashboardV3 = function () {
-        am5.ready(function () {
-
-            // Create root element
-            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-            var root = am5.Root.new("chartdiv");
-
-
-            // Set themes
-            // https://www.amcharts.com/docs/v5/concepts/themes/
-            root.setThemes([
-                am5themes_Animated.new(root)
-            ]);
-
-
-            // Create chart
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/
-            var chart = root.container.children.push(am5xy.XYChart.new(root, {
-                panX: true,
-                panY: true,
-                wheelX: "panX",
-                wheelY: "zoomX",
-                pinchZoomX: true
-            }));
-
-
-            // Add cursor
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-            var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
-                behavior: "none"
-            }));
-            cursor.lineY.set("visible", false);
-
-
-            // Generate random data
-            var date = new Date();
-            date.setHours(0, 0, 0, 0);
-            var value = 1000;
-            var volume = 100000;
-
-            function generateData() {
-                value = Math.round((Math.random() * 10 - 5) + value);
-                volume = Math.round((Math.random() * 1000 - 500) + volume);
-
-                am5.time.add(date, "day", 1);
-                // add another if it's saturday
-                if (date.getDay() == 6) {
-                    am5.time.add(date, "day", 1);
-                }
-                // add another if it's sunday
-                if (date.getDay() == 0) {
-                    am5.time.add(date, "day", 1);
-                }
-
-                return {
-                    date: date.getTime(),
-                    value: value,
-                    // volume: volume
-                };
+        $('#dateRange').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+              format: 'DD/MM/YYYY hh:mm A'
             }
+          })
 
-            function generateDatas(count) {
-                var data = [];
-                // for (var i = 0; i < count; ++i) {
-                //     data.push(generateData());
-                // }
-                // console.log(data, " datadatadata")
-                // return data;
-
-                let startDate = ($('#startDate').val() != undefined) ? $('#startDate').val() : '';
-                let endDate = ($('#endDate').val() != undefined) ? $('#endDate').val() : '';
-          
-                $.ajax({
-                    type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-                    },
-                    url: site_url + "admin/dashboard-meter/ajaxAction",
-                    data: { 'action': 'getChartData', 'endDate': endDate, 'startDate': startDate },
-                    success: function (out) {
-                        let outPut = JSON.parse(out);
-                        let arr = [];
-                        for (let i = 0; i < outPut.length; i++) {
-                            let resultX = {};
-                            resultX['date'] = new Date(outPut[i].Timestamp).getTime();
-                            resultX['value'] = outPut[i].Temperature_PV;
-                            arr[i] = resultX;
-                            data[i] = resultX;
-                        } 
-                        return arr;
-                    }
-                });
-                return data;
-            }
-
-            // Create axes
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-            var xAxis = chart.xAxes.push(am5xy.GaplessDateAxis.new(root, {
-                maxDeviation: 0,
-                baseInterval: {
-                    timeUnit: "day",
-                    count: 1
-                },
-                renderer: am5xy.AxisRendererX.new(root, {}),
-                tooltip: am5.Tooltip.new(root, {})
-            }));
-
-            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-                extraMin: 0.2,
-                renderer: am5xy.AxisRendererY.new(root, {})
-            }));
-
-
-            // Add series
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-            var series = chart.series.push(am5xy.LineSeries.new(root, {
-                name: "Series",
-                xAxis: xAxis,
-                yAxis: yAxis,
-                valueYField: "value",
-                valueXField: "date",
-                tooltip: am5.Tooltip.new(root, {
-                    labelText: "{valueY}"
-                })
-            }));
-
-            // y axis for volume
-            var volumeAxisRenderer = am5xy.AxisRendererY.new(root, {});
-            volumeAxisRenderer.grid.template.set("forceHidden", true);
-            volumeAxisRenderer.labels.template.set("forceHidden", true);
-
-            var volumeAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-                height: am5.percent(25),
-                y: am5.percent(100),
-                centerY: am5.percent(100),
-                panY: false,
-                renderer: volumeAxisRenderer
-            }));
-
-            // Add series
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-            var volumeSeries = chart.series.push(am5xy.ColumnSeries.new(root, {
-                name: "Volume Series",
-                xAxis: xAxis,
-                yAxis: volumeAxis,
-                valueYField: "volume",
-                valueXField: "date",
-                tooltip: am5.Tooltip.new(root, {
-                    labelText: "{valueY}"
-                })
-            }));
-
-            volumeSeries.columns.template.setAll({ fillOpacity: 0.8, strokeOpacity: 0, width: am5.percent(40) })
-
-            // Add scrollbar
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
-            chart.set("scrollbarX", am5.Scrollbar.new(root, {
-                orientation: "horizontal"
-            }));
-
-
-            // Set data
-            // var data = generateDatas(200);
-            // console.log(data ," datadatadatadatadata")
-            // if(data){
-            //     series.data.setAll(data);
-            //     volumeSeries.data.setAll(data);
-    
-            //     // Make stuff animate on load
-            //     // https://www.amcharts.com/docs/v5/concepts/animations/
-            //     series.appear(1000);
-            //     chart.appear(1000, 100);
-            // }
-
+        $('.search').click(function () {
+            getAmChart()
+        });
+        $('.reset').click(function () {
+            $('#startDate').val('')
+            $('#endDate').val('');
+            $('#dateRange').val('');
+            getAmChart()
+        });
+       
+        getAmChart();
+       
+        var root = am5.Root.new("chartdiv");
+        function getAmChart() {
+            console.log($('#dateRange').val() , " ============")
             let startDate = ($('#startDate').val() != undefined) ? $('#startDate').val() : '';
             let endDate = ($('#endDate').val() != undefined) ? $('#endDate').val() : '';
-   
+            let dateRange = ($('#dateRange').val() != undefined) ? $('#dateRange').val() : '';
+            
             $.ajax({
                 type: "POST",
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
                 url: site_url + "admin/dashboard-meter/ajaxAction",
-                data: { 'action': 'getChartData', 'endDate': endDate, 'startDate': startDate },
+                data: { 'action': 'getChartDataV2', 'endDate': endDate, 'startDate': startDate,'dateRange': dateRange },
                 success: function (out) {
-                    let outPut = JSON.parse(out);
-                    let arr = [];
-                    for (let i = 0; i < outPut.length; i++) {
-                        let resultX = {};
-                        resultX['date'] = new Date(outPut[i].Timestamp).getTime();
-                        resultX['value'] = outPut[i].Temperature_PV;
-                        arr[i] = resultX;
-                        // data[i] = resultX;
-                    } 
-                    console.log(arr)
-                  if(arr){
-                    series.data.setAll(arr);
-                    volumeSeries.data.setAll(arr);
-                    series.appear(1000);
-                    chart.appear(1000, 100);
-                  }
+                    let data = JSON.parse(out);
+                  
+                    // Set themes
+                    // https://www.amcharts.com/docs/v5/concepts/themes/
+                    root.setThemes([
+                        am5themes_Animated.new(root)
+                    ]);
+            
+                    root.dateFormatter.setAll({
+                        dateFormat: "yyyy-MM-dd HH:mm:ss",
+                        dateFields: ["valueX"]
+                    });
+                    // am5.ready(function () {
+                        root.container.children.clear()
+                        // Create chart
+                        // https://www.amcharts.com/docs/v5/charts/xy-chart/
+                        var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                            focusable: true,
+                            panX: true,
+                            panY: true,
+                            wheelX: "panX",
+                            wheelY: "zoomX",
+                            pinchZoomX: true
+                        }));
+                        
+                        var easing = am5.ease.linear;
+
+
+                        // Create axes
+                        // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+                        var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+                            maxDeviation: 0.1,
+                            groupData: false,
+                            baseInterval: {
+                                timeUnit: "second",
+                                count: 20
+                            },
+                            renderer: am5xy.AxisRendererX.new(root, {
+
+                            }),
+                            tooltip: am5.Tooltip.new(root, {})
+                        }));
+
+                        var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                            maxDeviation: 0.2,
+                            renderer: am5xy.AxisRendererY.new(root, {})
+                        }));
+
+
+                        // Add series
+                        // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+                        var series = chart.series.push(am5xy.LineSeries.new(root, {
+                            minBulletDistance: 10,
+                            connect: true,
+                            xAxis: xAxis,
+                            yAxis: yAxis,
+                            valueYField: "value",
+                            valueXField: "date",
+                            tooltip: am5.Tooltip.new(root, {
+                                pointerOrientation: "horizontal",
+                                labelText: "{valueY}"
+                            })
+                        }));
+
+                        series.fills.template.setAll({
+                            fillOpacity: 0.2,
+                            visible: true
+                        });
+
+                        series.strokes.template.setAll({
+                            strokeWidth: 1.5
+                        });
+
+
+                        // Set up data processor to parse string dates
+                        // https://www.amcharts.com/docs/v5/concepts/data/#Pre_processing_data
+                        series.data.processor = am5.DataProcessor.new(root, {
+                            dateFormat: "yyyy-MM-dd HH:mm:ss",
+                            dateFields: ["date"]
+                        });
+                        series.data.setAll([]);
+                        // chart.series.removeIndex(0).dispose();
+                        series.data.setAll(data);
+
+                        series.bullets.push(function () {
+                            var circle = am5.Circle.new(root, {
+                                radius: 4,
+                                fill: root.interfaceColors.get("background"),
+                                stroke: series.get("fill"),
+                                strokeWidth: 2
+                            })
+
+                            return am5.Bullet.new(root, {
+                                sprite: circle
+                            })
+                        });
+
+
+                        // Add cursor
+                        // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+                        var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+                            xAxis: xAxis,
+                            behavior: "none"
+                        }));
+                        cursor.lineY.set("visible", false);
+
+                        // add scrollbar
+                        chart.set("scrollbarX", am5.Scrollbar.new(root, {
+                            orientation: "horizontal"
+                        }));
+                        // Make stuff animate on load
+                        // https://www.amcharts.com/docs/v5/concepts/animations/
+                        chart.appear(1000, 100);
+                    // });
+
                 }
             });
 
+        }
 
-        });
     }
     return {
         init: function () {

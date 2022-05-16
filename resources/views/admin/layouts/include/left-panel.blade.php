@@ -143,6 +143,12 @@ return redirect('login');
               <p>Pressure Dashboard</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('/admin/organization') }}" class="nav-link">
+              <i class="nav-icon far fa-circle text-info"></i>
+              <p>Organization</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

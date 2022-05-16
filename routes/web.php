@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MeterDashboardController;
 use App\Http\Controllers\Admin\{
     SettingController,
+    OrganizationController,
     UserController,
     DeviceController,
     DeviceMapController,
@@ -62,7 +63,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::post('meter-dashboard-export', [MeterDashboardController::class, 'meterDashboardExport'])->name('meter-dashboard-export');
 
     Route::post('/dashboard-meter/ajaxAction', [MeterDashboardController::class, 'ajaxAction'])->name('ajaxAction');
-
+    Route::resource('organization', OrganizationController::class);
 
     // Route::match(['get', 'post'], 'device/ajaxAction', ['as' => 'ajaxAction', 'uses' => 'CommonFormController@ajaxAction']);
 
@@ -85,4 +86,3 @@ Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illum
 
 
 
-Route::resource('admin/organization', 'Admin\OrganizationController');

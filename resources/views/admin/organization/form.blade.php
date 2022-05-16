@@ -24,17 +24,6 @@
     <input class="form-control" name="max_user_limit" type="number" id="max_user_limit" value="{{ isset($organization->max_user_limit) ? $organization->max_user_limit : ''}}" >
     {!! $errors->first('max_user_limit', '<p class="help-block">:message</p>') !!}
 </div>
-<div class="form-group {{ $errors->has('created_by') ? 'has-error' : ''}}">
-    <label for="created_by" class="control-label">{{ 'Created By' }}</label>
-    <input class="form-control" name="created_by" type="number" id="created_by" value="{{ isset($organization->created_by) ? $organization->created_by : ''}}" >
-    {!! $errors->first('created_by', '<p class="help-block">:message</p>') !!}
-</div>
-<div class="form-group {{ $errors->has('updated_by') ? 'has-error' : ''}}">
-    <label for="updated_by" class="control-label">{{ 'Updated By' }}</label>
-    <input class="form-control" name="updated_by" type="number" id="updated_by" value="{{ isset($organization->updated_by) ? $organization->updated_by : ''}}" >
-    {!! $errors->first('updated_by', '<p class="help-block">:message</p>') !!}
-</div>
-
 
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">

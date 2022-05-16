@@ -37,9 +37,8 @@ class MeterDashboardController extends Controller
      */
     public function index()
     {
-echo microtime() . " ==== "; 
-echo time();
-exit;
+
+
         $start = date('Y-m-d h:i:s', strtotime(date('Y-m-d  h:i:s') . '-24 hours'));
         $end = date('Y-m-d h:i:s');
         $start = date('Y-m-d');
@@ -102,12 +101,15 @@ exit;
             case 'getChartData':
                 $this->_getChartData($request->input('startDate'), $request->input('endDate'));
                 break;
+            case 'getChartDataV2':
+                $this->_getChartDataV2($request->all());
+                break;
         }
         exit;
     }
 
 
-    public function _getChartData($start, $end)
+    public function _getChartData($start)
     {
 
         // $start = date('Y-m-d', strtotime(date('Y-m-d') . '-8 day'));
@@ -122,11 +124,12 @@ exit;
             $start = date('Y-m-d', strtotime($start));
             $end = date('Y-m-d', strtotime($end));
         }
-        $start = date('Y-m-d', strtotime(date('Y-m-d') . '-10 day'));
+        // $start = date('Y-m-d', strtotime(date('Y-m-d') . '-10 day'));
 
         $res =  DataLog::select(
             'Temperature_PV',
             'Timestamp',
+            // DB::raw('DATE_FORMAT(Timestamp, "%Y-%m-%d") as formatted_Timestamp')
             // 'Temperature_PV', 'Timestamp',
             // DB::raw('GROUP_CONCAT(DISTINCT Temperature_PV SEPARATOR ",") AS Temperature_PV'),
             // DB::raw('GROUP_CONCAT(DISTINCT Timestamp SEPARATOR ",") AS Timestamps'),
@@ -136,6 +139,7 @@ exit;
                 "(Timestamp >= ? AND Timestamp <= ?)",
                 [$start . " 00:00:00", $end . " 23:59:59"]
             )
+            ->orderBy('Timestamp','desc')
             // ->whereBetween('Timestamp', array($start, $end))
             // ->take(100)
             ->get()->toArray();
@@ -159,7 +163,42 @@ exit;
         // $result['date'] = $dateArray;
         // $result['common'] = $commonArray;
         // print_r($result);
-        echo json_encode($res);
+        echo json_encode( array_reverse($res));
+        exit;
+    }
+    public function _getChartDataV2($data)
+    {
+        // $explodeArray = explode(' - ',$data['dateRange']);
+        // $start = $explodeArray[0];
+        // $endA = $explodeArray[1];
+        // echo $endA . " ===  ";
+        // // exit;
+        // $start = date('Y-m-d h:i:s', strtotime($start));
+        //     $end = date('Y-m-d h:i:s', strtotime($endA));
+        // echo $start . " === " . $end;
+        // exit;
+        if (empty($start) && empty($end)) {
+            $start = date('Y-m-d')." 00:00:00";
+            $end = date('Y-m-d'). " 23:59:59";
+        } else {
+            $start = date('Y-m-d', strtotime($data['start']));
+            $end = date('Y-m-d', strtotime($data['end']));
+            // $start = date('Y-m-d h:i:s', strtotime(trim($explodeArray[0])));
+            // $end = date('Y-m-d h:i:s', strtotime(trim($explodeArray[1])));
+        }
+
+        $res =  DataLog::select(
+            'Temperature_PV as value',
+            'Timestamp as date',
+        )
+            ->where("modem_id", 'FT104/')
+            ->whereRaw(
+                "(Timestamp >= ? AND Timestamp <= ?)",
+                [$start . " 00:00:00", $end . " 23:59:59"]
+            )
+            ->orderBy('Timestamp','desc')
+            ->get()->toArray();
+        echo json_encode( array_reverse($res));
         exit;
     }
 

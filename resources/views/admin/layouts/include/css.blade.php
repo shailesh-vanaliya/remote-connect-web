@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/fontawesome-free/css/all.min.css') }}">
+<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/daterangepicker/daterangepicker.css') }}">
 <!-- <script src="{{ URL::asset($dynamicUrl.'plugins/jQuery/jQuery-2.1.4.min.js') }}"></script> -->
 <script src="{{ URL::asset($dynamicUrl.'plugins/jquery/jquery.min.js') }}"></script>
 <link href="{{ URL::asset($dynamicUrl.'plugins/select2/css/select2.min.css') }}" rel="stylesheet" />

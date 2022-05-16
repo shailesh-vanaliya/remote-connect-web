@@ -31,6 +31,8 @@
 <script src="{{ URL::asset($dynamicUrl.'plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ URL::asset($dynamicUrl.'plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ URL::asset($dynamicUrl.'plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset($dynamicUrl.'plugins/moment/moment.min.js') }}"></script>
+<script src="{{ URL::asset($dynamicUrl.'plugins/daterangepicker/daterangepicker.js') }}"></script>
 <!-- SlimScroll --> 
 <script src="{{ URL::asset($dynamicUrl.'js/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ URL::asset($dynamicUrl.'plugins/datepicker/bootstrap-datepicker.js') }}"></script>
@@ -41,6 +43,11 @@
 <script src="{{ asset($dynamicUrl.'js/jquery.validate.min.js') }}"></script>
 
 <script src="{{ asset($dynamicUrl.'js/jquery.canvasjs.min.js') }}"></script>
+<script src="{{ asset($dynamicUrl.'js/amcharts/index.js') }}"></script>
+<script src="{{ asset($dynamicUrl.'js/amcharts/xy.js') }}"></script>
+<script src="{{ asset($dynamicUrl.'js/amcharts/Animated.js') }}"></script>
+<script src="{{ asset($dynamicUrl.'js/amcharts/Responsive.js') }}"></script>
+
 
 @if(!empty($pluginjs))
     @foreach ($pluginjs as $pjs)

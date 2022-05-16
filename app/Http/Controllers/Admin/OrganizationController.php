@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-
+use Auth;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 
@@ -21,7 +21,7 @@ class OrganizationController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $organization = Organization::where('organization_name', 'LIKE', "%$keyword%")
+            $data['organization'] = Organization::where('organization_name', 'LIKE', "%$keyword%")
                 ->orWhere('user_count', 'LIKE', "%$keyword%")
                 ->orWhere('device_count', 'LIKE', "%$keyword%")
                 ->orWhere('max_device_limit', 'LIKE', "%$keyword%")
@@ -30,10 +30,19 @@ class OrganizationController extends Controller
                 ->orWhere('updated_by', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $organization = Organization::latest()->paginate($perPage);
+            $data['organization'] = Organization::latest()->paginate($perPage);
         }
-
-        return view('admin.organization.index', compact('organization'));
+        $data['pagetitle']             = 'Organization';
+        $data['js']                    = ['admin/organization.js'];
+        $data['funinit']               = [''];
+        $data['header']    = [
+            'title'      => 'Organizaion',
+            'breadcrumb' => [
+                'Organization'     => '',
+                'list' => '',
+            ],
+        ];
+        return view('admin.organization.index', $data);
     }
 
     /**
@@ -43,7 +52,17 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        return view('admin.organization.create');
+        $data['pagetitle']             = 'Organization';
+        $data['js']                    = ['admin/organization.js'];
+        $data['funinit']               = [''];
+        $data['header']    = [
+            'title'      => 'Organizaion',
+            'breadcrumb' => [
+                'Home'     => 'Organizaion',
+                'Create New Organization' => 'Create New Organization',
+            ],
+        ];
+        return view('admin.organization.create',$data);
     }
 
     /**
@@ -57,7 +76,8 @@ class OrganizationController extends Controller
     {
         
         $requestData = $request->all();
-        
+        $requestData['created_by'] = Auth::guard('admin')->user()->id;
+        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
         Organization::create($requestData);
 
         return redirect('admin/organization')->with('session_error', 'Organization added!');
@@ -72,9 +92,18 @@ class OrganizationController extends Controller
      */
     public function show($id)
     {
-        $organization = Organization::findOrFail($id);
-
-        return view('admin.organization.show', compact('organization'));
+        $data['organization'] = Organization::findOrFail($id);
+        $data['pagetitle']             = 'Organization';
+        $data['js']                    = ['admin/organization.js'];
+        $data['funinit']               = [''];
+        $data['header']    = [
+            'title'      => 'Organizaion',
+            'breadcrumb' => [
+                'Organization'     => 'Organizaion',
+                'View' => 'Organizaion',
+            ],
+        ];
+        return view('admin.organization.show', $data);
     }
 
     /**
@@ -86,9 +115,18 @@ class OrganizationController extends Controller
      */
     public function edit($id)
     {
-        $organization = Organization::findOrFail($id);
-
-        return view('admin.organization.edit', compact('organization'));
+        $data['organization'] = Organization::findOrFail($id);
+        $data['pagetitle']             = 'Organization';
+        $data['js']                    = ['admin/organization.js'];
+        $data['funinit']               = [''];
+        $data['header']    = [
+            'title'      => 'Organizaion',
+            'breadcrumb' => [
+                'Home'     => 'Organizaion',
+                'Settings' => 'Organizaion',
+            ],
+        ];
+        return view('admin.organization.edit', $data);
     }
 
     /**
@@ -103,7 +141,7 @@ class OrganizationController extends Controller
     {
         
         $requestData = $request->all();
-        
+        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
         $organization = Organization::findOrFail($id);
         $organization->update($requestData);
 
