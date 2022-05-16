@@ -69,15 +69,13 @@ class DeviceController extends Controller
                 $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
                 $join->on('device_map.secret_key', '=', 'devices.secret_key');
             });
-            $subQuery->Join('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+            $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
             $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $subQuery->orWhere('devices.location', 'LIKE', "%$keyword%");
             $subQuery->orWhere('devices.updated_by', 'LIKE', "%$keyword%");
             $subQuery->groupBy('devices.id');
             $data['device'] =  $subQuery->latest('devices.created_at')->paginate($perPage);
-            //             echo "<pre/>";
-            // print_r($data['device']);
-            // exit;
+           
             $location = Device::select(
                 'location',
                 'location',

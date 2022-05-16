@@ -20,7 +20,7 @@
 <!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/skins/_all-skins.min.css') }}"> -->
 <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/datatables-bs4/css/dataTables.bootstrap4.css') }}">
 <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'css/dataTables.bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/datepicker/datepicker3.css') }}">
+<!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/datepicker/datepicker3.css') }}"> -->
 <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/fontawesome-free/css/all.min.css') }}">
@@ -29,6 +29,7 @@
 <script src="{{ URL::asset($dynamicUrl.'plugins/jquery/jquery.min.js') }}"></script>
 <link href="{{ URL::asset($dynamicUrl.'plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
 <script src="{{ URL::asset($dynamicUrl.'plugins/select2/js/select2.min.js') }}"></script>
+<link  rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/toastr/toastr.min.css') }}"></link>
 <link rel="icon" href="{{ asset('/public/img/favicon.png') }}">
 
 <style>

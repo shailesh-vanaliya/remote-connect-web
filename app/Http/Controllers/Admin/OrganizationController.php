@@ -80,7 +80,7 @@ class OrganizationController extends Controller
         $requestData['updated_by'] = Auth::guard('admin')->user()->id;
         Organization::create($requestData);
 
-        return redirect('admin/organization')->with('session_error', 'Organization added!');
+        return redirect('admin/organization')->with('session_success', 'Organization added!');
     }
 
     /**
@@ -145,7 +145,7 @@ class OrganizationController extends Controller
         $organization = Organization::findOrFail($id);
         $organization->update($requestData);
 
-        return redirect('admin/organization')->with('session_error', 'Organization updated!');
+        return redirect('admin/organization')->with('session_success', 'Organization updated!');
     }
 
     /**
@@ -159,6 +159,6 @@ class OrganizationController extends Controller
     {
         Organization::destroy($id);
 
-        return redirect('admin/organization')->with('session_error', 'Organization deleted!');
+        return redirect('admin/organization')->with('session_success', 'Organization deleted!');
     }
 }

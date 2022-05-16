@@ -46,12 +46,12 @@ class MeterDashboardController extends Controller
 
         $res =  DataLog::select(
             'Temperature_PV',
-            'Timestamp',
+            'dtm',
         )
             ->where("modem_id", 'FT104/')
-            // ->whereBetween('Timestamp', array($start, $end))
-            ->where('Timestamp', '>=', $start)
-            ->where('Timestamp', '<=', $end)
+            // ->whereBetween('dtm', array($start, $end))
+            ->where('dtm', '>=', $start)
+            ->where('dtm', '<=', $end)
             ->get()->toArray();
 
 
@@ -60,12 +60,12 @@ class MeterDashboardController extends Controller
         // $toDate   = "2016-10-31";
 
         // $reservations = DataLog::whereRaw(
-        //     "(Timestamp >= ? AND Timestamp <= ?)",
+        //     "(dtm >= ? AND dtm <= ?)",
         //     [$start . " 00:00:00", $end . " 23:59:59"]
         // )->where("modem_id", 'FT104/')->get()->toArray();
         // print_r($reservations);
         // exit;
-        $result =  DataLog::where("modem_id", 'FT104/')->orderBy('Timestamp', 'desc')->first();
+        $result =  DataLog::where("modem_id", 'FT104/')->orderBy('dtm', 'desc')->first();
 
         // print_r($result);
         // exit;
@@ -74,7 +74,7 @@ class MeterDashboardController extends Controller
         // $dateArray = [];
         // foreach($res as $key => $val){
         //     $tempArray[$key] = $val['Temperature_PV'];
-        //     $dateArray[$key] = $val['Timestamp'];
+        //     $dateArray[$key] = $val['dtm'];
         // }
         // $result['temp'] = $tempArray; 
         // $result['date'] = $dateArray; 
@@ -128,19 +128,19 @@ class MeterDashboardController extends Controller
 
         $res =  DataLog::select(
             'Temperature_PV',
-            'Timestamp',
-            // DB::raw('DATE_FORMAT(Timestamp, "%Y-%m-%d") as formatted_Timestamp')
-            // 'Temperature_PV', 'Timestamp',
+            'dtm',
+            // DB::raw('DATE_FORMAT(dtm, "%Y-%m-%d") as formatted_dtm')
+            // 'Temperature_PV', 'dtm',
             // DB::raw('GROUP_CONCAT(DISTINCT Temperature_PV SEPARATOR ",") AS Temperature_PV'),
-            // DB::raw('GROUP_CONCAT(DISTINCT Timestamp SEPARATOR ",") AS Timestamps'),
+            // DB::raw('GROUP_CONCAT(DISTINCT dtm SEPARATOR ",") AS dtms'),
         )
             ->where("modem_id", 'FT104/')
             ->whereRaw(
-                "(Timestamp >= ? AND Timestamp <= ?)",
+                "(dtm >= ? AND dtm <= ?)",
                 [$start . " 00:00:00", $end . " 23:59:59"]
             )
-            ->orderBy('Timestamp','desc')
-            // ->whereBetween('Timestamp', array($start, $end))
+            ->orderBy('dtm','desc')
+            // ->whereBetween('dtm', array($start, $end))
             // ->take(100)
             ->get()->toArray();
 
@@ -151,12 +151,12 @@ class MeterDashboardController extends Controller
         // $commonArray = [];
         // foreach ($res as $key => $val) {
         //     // $tempArray[$key] = $val['Temperature_PV'];
-        //     // $dateArray[$key] = date('Y-m-d',strtotime($val['Timestamp']));
+        //     // $dateArray[$key] = date('Y-m-d',strtotime($val['dtm']));
 
         //     $tempArray['y'] = $val['Temperature_PV'];
-        //     $dateArray['x'] = $val['Timestamp'];
+        //     $dateArray['x'] = $val['dtm'];
         //     // $commonArray[$key]['x'] = (gmstrftime("%a %B %d %Y %X %Z"));
-        //     $commonArray[$key]['x'] = $val['Timestamp'];
+        //     $commonArray[$key]['x'] = $val['dtm'];
         //     $commonArray[$key]['y'] = $val['Temperature_PV'];
         // }
         // $result['temp'] = $tempArray;
@@ -189,14 +189,14 @@ class MeterDashboardController extends Controller
 
         $res =  DataLog::select(
             'Temperature_PV as value',
-            'Timestamp as date',
+            'dtm as date',
         )
             ->where("modem_id", 'FT104/')
             ->whereRaw(
-                "(Timestamp >= ? AND Timestamp <= ?)",
+                "(dtm >= ? AND dtm <= ?)",
                 [$start . " 00:00:00", $end . " 23:59:59"]
             )
-            ->orderBy('Timestamp','desc')
+            ->orderBy('dtm','desc')
             ->get()->toArray();
         echo json_encode( array_reverse($res));
         exit;

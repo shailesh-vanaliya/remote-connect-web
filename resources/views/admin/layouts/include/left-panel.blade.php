@@ -131,15 +131,15 @@ return redirect('login');
             </li>
             @endif
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="{{ url('/admin/dashboard') }}" class="nav-link">
-              <i class="nav-icon far fa-circle text-warning"></i>
+              <i class="nav-icon fas fa-tachometer-alt text-warning"></i>
               <p>Dashboard</p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="{{ url('/admin/meter-dashboard') }}" class="nav-link">
-              <i class="nav-icon far fa-circle text-info"></i>
+              <i class="nav-icon fas fa-tachometer-alt text-info"></i>
               <p>Pressure Dashboard</p>
             </a>
           </li>
@@ -147,6 +147,19 @@ return redirect('login');
             <a href="{{ url('/admin/organization') }}" class="nav-link">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>Organization</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/admin/notification') }}" class="nav-link">
+              <i class="nav-icon far fa-bell text-info"></i>
+              <p>Notification</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/admin/alert-configration') }}" class="nav-link">
+              <i class="nav-icon far fa-comments text-info"></i>
+              
+              <p>Alert Configuration</p>
             </a>
           </li>
         </ul>

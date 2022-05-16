@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\{
     UserController,
     DeviceController,
     DeviceMapController,
+    NotificationController,
+    AlertConfigurationController,
 };
 
 /*
@@ -64,6 +66,9 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
 
     Route::post('/dashboard-meter/ajaxAction', [MeterDashboardController::class, 'ajaxAction'])->name('ajaxAction');
     Route::resource('organization', OrganizationController::class);
+
+    Route::resource('notification', NotificationController::class);
+    Route::resource('alert-configration', AlertConfigurationController::class);
 
     // Route::match(['get', 'post'], 'device/ajaxAction', ['as' => 'ajaxAction', 'uses' => 'CommonFormController@ajaxAction']);
 

@@ -154,7 +154,7 @@ var Dashboard = function () {
                     let arr = [];
                     for (let i = 0; i < outPut.length; i++) {
                         let resultX = {};
-                        resultX['x'] = new Date(outPut[i].Timestamp);
+                        resultX['x'] = new Date(outPut[i].dtm);
                         resultX['y'] = outPut[i].Temperature_PV;
                         arr[i] = resultX;
                     }

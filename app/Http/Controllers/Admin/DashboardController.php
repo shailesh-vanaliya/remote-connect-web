@@ -44,7 +44,6 @@ class DashboardController extends Controller
             // $resultdata = DemoMongo::where('PRS_PV',"%{$searchValue}%")->get();
             $fieldName = "FLOW1";
             // $resultdata = DB::connection('mongodb')->collection('FT106')->get()->toArray();
-            echo  "==============  " ;
             // $resultdata = DemoMongo::where('sysv', '=', '24.16')->first();
 
             $resultdata = DemoMongo::where('sysv', '24.16')->take(10)->get();

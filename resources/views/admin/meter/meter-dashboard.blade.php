@@ -156,7 +156,7 @@
                           <i class="fa fa-thermometer-empty iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->Timestamp)) }}
+                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->dtmamp)) }}
                         </p>
                       </div>
                     </div>
@@ -173,7 +173,7 @@
                           <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->Timestamp)) }}
+                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->dtmamp)) }}
                         </p>
                       </div>
                     </div>
@@ -190,7 +190,7 @@
                           <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->Timestamp)) }}
+                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->dtmamp)) }}
                         </p>
                       </div>
                     </div>
@@ -206,7 +206,7 @@
                           <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->Timestamp)) }}
+                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->dtmamp)) }}
                         </p>
                       </div>
                     </div>
@@ -221,7 +221,7 @@
             <!-- STACKED BAR CHART -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Line to Neutral Voltage</h3>
+                <h3 class="card-title">Line Chart</h3>
 
                 <!-- <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -232,7 +232,7 @@
               <div class="mailbox-controls with-border text-center">
               <form class="" method="POST" action="{{ url('/admin/meter-dashboard-export/') }}">
                 <div class="row">
-                  <div class=" col-sm-12 col-md-1">
+                  <div class=" col-sm-12 col-md-1 mt-2">
                     Filter
                   </div>
                   <div class=" col-sm-12 col-md-3">
