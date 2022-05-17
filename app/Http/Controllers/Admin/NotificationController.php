@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -38,9 +43,8 @@ class NotificationController extends Controller
             $data['notification'] = Notification::latest()->paginate($perPage);
         }
         $data['pagetitle']             = 'Notification';
-        $data['js']                    = ['admin/dashboard.js'];
-        // $data['funinit']               = [''];
-        // $data['funinit']               = ['Dashboard.initMeter()'];
+        $data['js']                    = ['admin/notification.js'];
+        $data['funinit']               = ['Notification.init()'];
         return view('admin.notification.index', $data);
     }
 
@@ -86,9 +90,8 @@ class NotificationController extends Controller
     {
         $data['notification'] = Notification::findOrFail($id);
         $data['pagetitle']             = 'Notification';
-        $data['js']                    = ['admin/dashboard.js'];
-        // $data['funinit']               = [''];
-        // $data['funinit']               = ['Dashboard.initMeter()'];
+        $data['js']                    = ['admin/notification.js'];
+        $data['funinit']               = ['Notification.init()'];
         return view('admin.notification.show', $data);
     }
 
@@ -141,4 +144,29 @@ class NotificationController extends Controller
 
         return redirect('admin/notification')->with('session_success', 'Notification deleted!');
     }
+
+    
+    public function ajaxAction(Request $request)
+    {
+        $collegeId = Auth::guard('admin')->user()->id;
+        $action = $request->input('action');
+        switch ($action) {
+            case 'getNotification':
+                $this->_getUnreadNotification();
+                break;
+                break;
+        }
+        exit;
+    }
+
+
+    public function _getUnreadNotification() {
+       
+        $notificationList = Notification::where('is_read',0)->orderBy('id','desc')->get()->toArray();
+
+        echo json_encode($notificationList);
+        exit;
+    }
+
+
 }

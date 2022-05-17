@@ -14,6 +14,11 @@ use PhpMqtt\Client\Facades\MQTT;
 
 class DeviceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+    
     /**
      * Display a listing of the resource.
      *

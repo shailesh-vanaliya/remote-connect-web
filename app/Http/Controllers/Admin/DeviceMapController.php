@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class DeviceMapController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+    
     /**
      * Display a listing of the resource.
      *

@@ -69,6 +69,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
 
     Route::resource('notification', NotificationController::class);
     Route::resource('alert-configration', AlertConfigurationController::class);
+    Route::post('/notification/ajaxAction', [NotificationController::class, 'ajaxAction'])->name('ajaxAction');
 
     // Route::match(['get', 'post'], 'device/ajaxAction', ['as' => 'ajaxAction', 'uses' => 'CommonFormController@ajaxAction']);
 
