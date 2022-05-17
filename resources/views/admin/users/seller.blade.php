@@ -41,7 +41,7 @@
                                         <a href="{{ route('user_view', [ 'id' => $item->id ]) }}" title="View user"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
  
                                             
-                                        <a href="{{ route('user_edit', [ 'id' => $item->id ]) }}" title="Edit user"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+                                        <a href="{{ route('user_edit', [ 'id' => $item->id ]) }}" title="Edit user"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button></a>
                                             
 {{--                                            <form method="POST" action="{{ route('user_delete', [ 'id' => $item->id ]) }}" accept-charset="UTF-8" style="display:inline">--}}
 {{--                                                {{ method_field('DELETE') }}--}}

@@ -25,7 +25,7 @@
                             </p>
                             <p class=" ">
                                 <a href="{{ url('/admin/users/' ) }}" title="Back"><button class="btn  btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                                <a href="{{  url('/admin/users/' . $user->id . '/edit') }}" title="Edit user"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                <a href="{{  url('/admin/users/' . $user->id . '/edit') }}" title="Edit user"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt" aria-hidden="true"></i> Edit</button></a>
                             </p>
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">

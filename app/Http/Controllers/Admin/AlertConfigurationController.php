@@ -104,7 +104,7 @@ class AlertConfigurationController extends Controller
         $data['js']                    = ['admin/dashboard.js'];
         // $data['funinit']               = [''];
         // $data['funinit']               = ['Dashboard.initMeter()'];
-        return view('admin.alert-configration.edit', $data['alertconfigration']);
+        return view('admin.alert-configration.edit', $data);
     }
 
     /**

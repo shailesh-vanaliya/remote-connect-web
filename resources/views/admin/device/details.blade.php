@@ -133,7 +133,7 @@
                                         <td>
                                             <a href="javascript:;" class="modelName" title="Edit Device Name" data-id={{ $item->id }} data-device={{ $item->device_name }}>
                                                 <button class="btn btn-primary  btn-sm">
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> </button></a>
+                                                    <i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -257,7 +257,7 @@
                                             <td>
                                                 <a href="javascript:;" class="modelName" title="Edit Device Name" data-id={{ $item->id }} data-device={{ $item->device_name }}>
                                                     <button class="btn btn-primary  btn-sm">
-                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> </button></a>
+                                                        <i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
                                             </td>
                                         </tr>
                                         @endforeach
