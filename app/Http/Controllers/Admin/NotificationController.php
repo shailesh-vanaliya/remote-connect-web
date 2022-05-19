@@ -45,6 +45,13 @@ class NotificationController extends Controller
         $data['pagetitle']             = 'Notification';
         $data['js']                    = ['admin/notification.js'];
         $data['funinit']               = ['Notification.init()'];
+        $data['header']    = [
+            'title'      => 'Notification',
+            'breadcrumb' => [
+                'Notification'     => '',
+                'List' => '',
+            ],
+        ];
         return view('admin.notification.index', $data);
     }
 
@@ -55,6 +62,13 @@ class NotificationController extends Controller
      */
     public function create()
     {
+        $data['header']    = [
+            'title'      => 'Notification',
+            'breadcrumb' => [
+                'Home'     => 'Notification',
+                'Add' => 'Notification',
+            ],
+        ];
         $data['pagetitle']             = 'Notification';
         $data['js']                    = ['admin/dashboard.js'];
         // $data['funinit']               = [''];
@@ -92,6 +106,13 @@ class NotificationController extends Controller
         $data['pagetitle']             = 'Notification';
         $data['js']                    = ['admin/notification.js'];
         $data['funinit']               = ['Notification.init()'];
+        $data['header']    = [
+            'title'      => 'Notification',
+            'breadcrumb' => [
+                'Home'     => 'Notification',
+                'Show' => 'Notification',
+            ],
+        ];
         return view('admin.notification.show', $data);
     }
 
@@ -109,6 +130,13 @@ class NotificationController extends Controller
         $data['js']                    = ['admin/dashboard.js'];
         // $data['funinit']               = [''];
         // $data['funinit']               = ['Dashboard.initMeter()'];
+        $data['header']    = [
+            'title'      => 'Notification',
+            'breadcrumb' => [
+                'Home'     => 'Notification',
+                'Edit' => 'Notification',
+            ],
+        ];
         return view('admin.notification.edit', $data);
     }
 

@@ -41,7 +41,7 @@ class OrganizationController extends Controller
         $data['js']                    = ['admin/organization.js'];
         $data['funinit']               = [''];
         $data['header']    = [
-            'title'      => 'Organizaion',
+            'title'      => 'Organization',
             'breadcrumb' => [
                 'Organization'     => '',
                 'list' => '',
@@ -61,9 +61,9 @@ class OrganizationController extends Controller
         $data['js']                    = ['admin/organization.js'];
         $data['funinit']               = [''];
         $data['header']    = [
-            'title'      => 'Organizaion',
+            'title'      => 'Organization',
             'breadcrumb' => [
-                'Home'     => 'Organizaion',
+                'Home'     => 'Organization',
                 'Create New Organization' => 'Create New Organization',
             ],
         ];
@@ -102,10 +102,10 @@ class OrganizationController extends Controller
         $data['js']                    = ['admin/organization.js'];
         $data['funinit']               = [''];
         $data['header']    = [
-            'title'      => 'Organizaion',
+            'title'      => 'Organization',
             'breadcrumb' => [
-                'Organization'     => 'Organizaion',
-                'View' => 'Organizaion',
+                'Organization'     => 'Organization',
+                'View' => 'Organization',
             ],
         ];
         return view('admin.organization.show', $data);
@@ -125,10 +125,10 @@ class OrganizationController extends Controller
         $data['js']                    = ['admin/organization.js'];
         $data['funinit']               = [''];
         $data['header']    = [
-            'title'      => 'Organizaion',
+            'title'      => 'Organization',
             'breadcrumb' => [
-                'Home'     => 'Organizaion',
-                'Settings' => 'Organizaion',
+                'Home'     => 'Organization',
+                'Settings' => 'Organization',
             ],
         ];
         return view('admin.organization.edit', $data);

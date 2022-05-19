@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
 <!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/jvectormap/jquery-jvectormap.css') }}"> -->
-<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/AdminLTE.min.css') }}">
-<!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/custom.css') }}"> -->
+<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/adminlte.min.css') }}">
+<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/custom.css') }}">
 <!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/skins/_all-skins.min.css') }}"> -->
 <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/datatables-bs4/css/dataTables.bootstrap4.css') }}">
 <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'css/dataTables.bootstrap.min.css') }}">

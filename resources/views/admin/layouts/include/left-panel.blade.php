@@ -158,8 +158,13 @@ return redirect('login');
           <li class="nav-item">
             <a href="{{ url('/admin/alert-configration') }}" class="nav-link">
               <i class="nav-icon far fa-comments text-info"></i>
-              
               <p>Alert Configuration</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/admin/report') }}" class="nav-link">
+              <i class="nav-icon far fa-comment text-info"></i>
+              <p>Reports</p>
             </a>
           </li>
         </ul>

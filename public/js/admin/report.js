@@ -1,10 +1,48 @@
 var Report = function () {
     var handleList = function () {
 
-        $('.content').click(function () {
-            $('.deviceInfomation').show();
+        $('.device_type_id').change(function () {
+            var device_type_id = $('.device_type_id option:selected').val( );
+            // var that = $(this);
+                        //    loadingStart(that);
+            $.ajax({
+                type: "POST",
+                headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()},
+                url: site_url + "admin/report/ajaxAction",
+                data: {'action': 'getDevicelist', 'device_type_id': device_type_id},
+                success: function(data) {
+                    $("#device_id").html("");
+                    var data = JSON.parse(data);
+                    console.log(data, " datadata")
+                    var html = '<option value="">- - Choose Device - -</option>';
+                    $.each(data.deviceList, function(idx, val) {
+                        html += '<option value="' + val.id + '">' + val.modem_id + '('+val.modem_id + ')</option>';
+                    });
+                    $("#device_id").html(html);
+                }
+            });
         });
-
+        $('.device_id').change(function () {
+            var device_id = $('.device_id option:selected').val( );
+            var that = $(this);
+            loadingStart(that);
+            console.log($('input[name="_token"]').val())
+            // $.ajax({
+            //     type: "POST",
+            //     headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()},
+            //     url: site_url + "admin/report/ajaxAction",
+            //     data: {'action': 'get', 'device_type_id': device_type_id},
+            //     success: function(data) {
+            //         $("#device_id").html("");
+            //         var data = JSON.parse(data);
+            //         var html = '<option value="">- - Choose Device - -</option>';
+            //         $.each(data, function(idx, val) {
+            //             html += '<option value="' + val.id + '">' + val.modem_id + '('+val.modem_id + ')</option>';
+            //         });
+            //         $("#device_id").html(html);
+            //     }
+            // });
+        });
 
         //   function getLocationList() {
         $.ajax({
@@ -17,53 +55,37 @@ var Report = function () {
             success: function (data) {
                 var output = JSON.parse(data);
                 console.log(output)
-                var locations = output;
-
-                // var locations = [
-                //     ['chandigarh', 30.7333, 76.7794, 8],
-                //     ['Panjab', 31.1471, 75.3412, 6],
-                //     ['Ahmadabad', 23.0225, 72.5714, 4],
-                //     ['Baroda', 22.3072, 73.1812, 5],
-                //     ['chennai', 13.0827, 80.2707, 3],
-                //     ['bangalore ', 12.9716, 77.5946, 2],
-                //     ['mumbai', 19.0760, 72.8777, 1]
-                // ];
-                // console.log(locations , " locationslocations")
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 5,
-                    // panControl: false,
-                    // zoomControl: true,
-                    // zoomControlOptions: {
-                    //     style: google.maps.ZoomControlStyle.LARGE
-                    // },
-                    mapTypeControl: false,
-                    streetViewControl: false,
-                    overviewMapControl: true,
-                    rotateControl: false,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP,
-                    center: new google.maps.LatLng(20.5937, 78.9629),
-                });
-
-                var infowindow = new google.maps.InfoWindow();
-
-                var marker, i;
-
-                for (i = 0; i < locations.length; i++) {
-                    marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                        map: map
-                    });
-
-                    google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                        return function () {
-                            infowindow.setContent(locations[i][0]);
-                            infowindow.open(map, marker);
-                        }
-                    })(marker, i));
-                }
             }
         });
         // }
+
+     
+            
+                        $('.courseGet').change(function() {
+                            var course_type = $('#course_type :selected').val();
+                            var course_active = $("input[name='courseStatus']:checked").val();
+                            var that = $(this);
+                            loadingStart(that);
+                            $.ajax({
+                                type: "POST",
+                                headers: {
+                                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                                },
+                                url: site_url + "agentCommission/ajaxAction",
+                                data: {'action': 'getCourseFromType', 'data': {'course_type': course_type, 'course_active': course_active}},
+                                success: function(data) {
+                                    loadingEnd(that);
+                                    var data = JSON.parse(data);
+                                    $('#coursesForType').empty();
+                                    for (var i = 0; i < data.length; i++) {
+                                        //$('#coursesForType').append('<div><input type="checkbox" class="checkAction" checked name="course_id[]" id="course_id" value= ' + data[i]['id'] + '  />&nbsp;&nbsp;<span class="label-value-view">' + data[i]['course_code'] + ' : ' + data[i]['course_name'] + " " + "</span></div>");
+                                        $('#coursesForType').append('<div><input type="checkbox" class="checkAction" checked name="course_id[]" id= ' + data[i]['id'] + ' value= ' + data[i]['id'] + '  />&nbsp;&nbsp;<span class="label-value-view"><label for = ' + data[i]['id'] + '>' + data[i]['course_code'] + ' : ' + data[i]['course_name'] + " " + "</label></span></div>");
+                                    }
+                                    radioCheckboxClass();
+                                }
+                            });
+                        });
+
 
     }
   

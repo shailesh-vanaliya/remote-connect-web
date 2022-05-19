@@ -36,19 +36,7 @@ class DeviceController extends Controller
             // exit;
             $tempArray = array($values['location'], $values['latitude'], $values['longitude'], $values['id']);
             $mainArray[$key] = $tempArray;
-        }
-// print_r($mainArray);
-// exit;
-        // $locationList = array(
-        //     array('chandigarh', 30.7333, 76.7794, 8),
-        //     array('Panjab', 31.1471, 75.3412, 6),
-        //     array('Ahmadabad', 23.0225, 72.5714, 4),
-        //     array('Baroda', 22.3072, 73.1812, 5),
-        //     array('chennai', 13.0827, 80.2707, 3),
-        //     array('bangalore', 12.9716, 77.5946, 2),
-        //     array('mumbai', 19.0760, 72.8777, 1)
-        // );
-//         print_r($locationList);
+        } 
  
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
             // $data['device'] = Device::where('modem_id', 'LIKE', "%$keyword%")

@@ -20,25 +20,26 @@ use App\Exports\DataLogExport;
 use Illuminate\View\View;
 use App\Models\DemoMongo;
 use App\Models\DataLog;
+use App\Models\Device;
 // use DateTime;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 
 class MeterDashboardController extends Controller
 {
-
-    public function __construct()
+    protected $deviceName = '';
+    public function __construct(Request $request)
     {
+        $this->deviceName =( $request->route('id') ?  $request->route('id') :  'FT104/');
         $this->middleware('admin');
     }
 
     /**
      * @return Factory|View
      */
-    public function index()
+    public function index(Request $request)
     {
-
-
+     
         $start = date('Y-m-d h:i:s', strtotime(date('Y-m-d  h:i:s') . '-24 hours'));
         $end = date('Y-m-d h:i:s');
         $start = date('Y-m-d');
@@ -48,7 +49,7 @@ class MeterDashboardController extends Controller
             'Temperature_PV',
             'dtm',
         )
-            ->where("modem_id", 'FT104/')
+            ->where("modem_id", $this->deviceName)
             // ->whereBetween('dtm', array($start, $end))
             ->where('dtm', '>=', $start)
             ->where('dtm', '<=', $end)
@@ -65,7 +66,7 @@ class MeterDashboardController extends Controller
         // )->where("modem_id", 'FT104/')->get()->toArray();
         // print_r($reservations);
         // exit;
-        $result =  DataLog::where("modem_id", 'FT104/')->orderBy('dtm', 'desc')->first();
+        $result =  DataLog::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
 
         // print_r($result);
         // exit;
@@ -81,7 +82,9 @@ class MeterDashboardController extends Controller
         // print_r($result);
         // // // echo "dsd";
         // exit;
-
+        $data['device'] =  Device::where("modem_id", $this->deviceName)->first();
+        // print_r($date['device']);
+        // exit;
         $data['client']                = User::where("role", 'USER')->count();
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/dashboard.js'];
@@ -109,7 +112,7 @@ class MeterDashboardController extends Controller
     }
 
 
-    public function _getChartData($start)
+    public function _getChartData($start,$end)
     {
 
         // $start = date('Y-m-d', strtotime(date('Y-m-d') . '-8 day'));
@@ -134,7 +137,7 @@ class MeterDashboardController extends Controller
             // DB::raw('GROUP_CONCAT(DISTINCT Temperature_PV SEPARATOR ",") AS Temperature_PV'),
             // DB::raw('GROUP_CONCAT(DISTINCT dtm SEPARATOR ",") AS dtms'),
         )
-            ->where("modem_id", 'FT104/')
+            ->where("modem_id", $this->deviceName)
             ->whereRaw(
                 "(dtm >= ? AND dtm <= ?)",
                 [$start . " 00:00:00", $end . " 23:59:59"]
@@ -177,12 +180,14 @@ class MeterDashboardController extends Controller
         //     $end = date('Y-m-d h:i:s', strtotime($endA));
         // echo $start . " === " . $end;
         // exit;
+        $start = $data['startDate'];
+        $end = $data['endDate'];
         if (empty($start) && empty($end)) {
             $start = date('Y-m-d')." 00:00:00";
             $end = date('Y-m-d'). " 23:59:59";
         } else {
-            $start = date('Y-m-d', strtotime($data['start']));
-            $end = date('Y-m-d', strtotime($data['end']));
+            $start = date('Y-m-d', strtotime($start));
+            $end = date('Y-m-d', strtotime($end));
             // $start = date('Y-m-d h:i:s', strtotime(trim($explodeArray[0])));
             // $end = date('Y-m-d h:i:s', strtotime(trim($explodeArray[1])));
         }
@@ -191,7 +196,7 @@ class MeterDashboardController extends Controller
             'Temperature_PV as value',
             'dtm as date',
         )
-            ->where("modem_id", 'FT104/')
+            ->where("modem_id", $this->deviceName)
             ->whereRaw(
                 "(dtm >= ? AND dtm <= ?)",
                 [$start . " 00:00:00", $end . " 23:59:59"]

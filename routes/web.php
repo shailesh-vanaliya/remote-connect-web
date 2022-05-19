@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\{
     DeviceMapController,
     NotificationController,
     AlertConfigurationController,
+    ReportController,
 };
 
 /*
@@ -61,7 +62,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::get('/users/list', [UserController::class, 'index'])->name('user_list');
     Route::post('/device/ajaxAction', [DeviceController::class, 'ajaxAction'])->name('ajaxAction');
     Route::post('/dashboard/ajaxAction', [DashboardController::class, 'ajaxAction'])->name('ajaxAction');
-    Route::get('/meter-dashboard', [MeterDashboardController::class, 'index'])->name('meter_dashboard');
+    Route::get('/meter-dashboard/{id?}', [MeterDashboardController::class, 'index'])->name('meter_dashboard');
     Route::post('meter-dashboard-export', [MeterDashboardController::class, 'meterDashboardExport'])->name('meter-dashboard-export');
 
     Route::post('/dashboard-meter/ajaxAction', [MeterDashboardController::class, 'ajaxAction'])->name('ajaxAction');
@@ -70,8 +71,8 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::resource('notification', NotificationController::class);
     Route::resource('alert-configration', AlertConfigurationController::class);
     Route::post('/notification/ajaxAction', [NotificationController::class, 'ajaxAction'])->name('ajaxAction');
-
-    // Route::match(['get', 'post'], 'device/ajaxAction', ['as' => 'ajaxAction', 'uses' => 'CommonFormController@ajaxAction']);
+    Route::resource('report', ReportController::class);
+    Route::post('/report/ajaxAction', [ReportController::class, 'ajaxAction'])->name('ajaxAction');
 
 });
 
@@ -86,9 +87,4 @@ Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illum
 //         ->name('user_view')->where('id', '[0-9]+');
 //     $route->match(['DELETE', 'post'], '/user/delete/{id}', 'Admin\UserController@destroy')
 //         ->name('user_delete')->where('id', '[0-9]+');
-});
-
-
-
-
-
+}); 

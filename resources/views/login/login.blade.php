@@ -1,5 +1,42 @@
 @include('login.layout.header')
-
+<style>
+   .btn-iio {
+    color: #ffffff;
+    background-color: #01a89d;
+    border-color: #01a89d;
+    box-shadow: none;
+  }
+.btn-iio:hover {
+    color: #01a89d;
+    background-color: #ffffff;
+    border-color: #01a89d;
+  }
+  
+  .btn-iio:focus, .btn-iio.focus {
+    color: #ffffff;
+    background-color: #01a89d;
+    border-color: #0062cc;
+    box-shadow: none, 0 0 0 0 rgba(38, 143, 255, 0.5);
+  }
+  
+  .btn-iio.disabled, .btn-iio:disabled {
+    color: #ffffff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-iio:not(:disabled):not(.disabled):active, .btn-iio:not(:disabled):not(.disabled).active,
+  .show > .btn-iio.dropdown-toggle {
+    color: #ffffff;
+    background-color: #01a89d;
+    border-color: #ffffff;
+  }
+  
+  .btn-iio:not(:disabled):not(.disabled):active:focus, .btn-iio:not(:disabled):not(.disabled).active:focus,
+  .show > .btn-iio.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0 rgba(38, 143, 255, 0.5);
+  }
+</style>
 <div class="login-box">
   <div class="login-logo">
   <div class="login-logo"> <img src="{{ asset("/public/img/futuristics.png") }}" class="logo"> </div>
@@ -46,13 +83,13 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="btn btn-iio btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
 
-      <div class="social-auth-links text-center mb-3">
+      <!-- <div class="social-auth-links text-center mb-3">
         <p>- OR -</p>
         <a href="#" class="btn btn-block btn-primary">
           <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
@@ -60,9 +97,9 @@
         <a href="#" class="btn btn-block btn-danger">
           <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
         </a>
-      </div>
+      </div> -->
       <!-- /.social-auth-links -->
-
+<!-- 
       <p class="mb-1">
         <a href="#">I forgot my password</a>
       </p>
@@ -71,7 +108,7 @@
       </p>
       <p class="mb-0">
       <a href="https://www.futuristictechnologies.in/"  target="_blank" > Help</a>
-      </p>
+      </p> -->
 
     </div>
     <!-- /.login-card-body -->

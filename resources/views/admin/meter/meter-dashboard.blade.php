@@ -63,16 +63,18 @@
               <img class="profile-user-img img-fluid img-circle" src="https://cloud.iiotconnect.in/assets/img/device_types/energymeter.svg" alt="User profile picture">
             </div>
 
-            <h3 class="profile-username text-center">ETEM_F1</h3>
-
-            <p class="text-muted text-center">Energymeter</p>
+            <h3 class="profile-username text-center">{{ (isset($device->modem_id) && !empty($device->modem_id) ? $device->modem_id : 'N/A') }}</h3>
+            
+            <p class="text-muted text-center">{{ (isset($device->project_name) && !empty($device->project_name) ? $device->project_name : 'N/A') }}</p>
             <p class="text-muted text-center">Device Type: <small>Energymeter</small></p>
-            <p class="text-muted text-center">Added On: <small>08/03/2022 @ 03:26 pm</small></p>
+            <p class="text-muted text-center">Added On: <small>{{ (isset($device->created_by) && !empty($device->created_by) ?  date('d/m/Y h:i:s A', strtotime($device->created_by)) : 'N/A') }}</small></p>
 
             <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVqNumGk1DCDuthLx-X7YqutsMm6DReNA&region=india&libraries=places"></script>
             <div id="map" class="col-md-12" style=" height: 220px;"></div>
-
-            <span class="text-center">Bhilad, Gujarat 396105, India</span>
+  <input type="hidden" name="latitude" class="latitude" value="{{ $device->latitude }}">
+  <input type="hidden" name="longitude" class="longitude" value="{{ $device->longitude }}">
+  <input type="hidden" name="location" class="location" value="{{ $device->location }}">
+            <span class="text-center">{{ (isset($device->location) && !empty($device->location) ? $device->location : 'N/A') }}</span>
           </div>
           <!-- /.card-body -->
         </div>
@@ -156,7 +158,7 @@
                           <i class="fa fa-thermometer-empty iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->dtmamp)) }}
+                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->dtm)) }}
                         </p>
                       </div>
                     </div>
@@ -173,7 +175,7 @@
                           <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->dtmamp)) }}
+                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->dtm)) }}
                         </p>
                       </div>
                     </div>
@@ -190,7 +192,7 @@
                           <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->dtmamp)) }}
+                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->dtm)) }}
                         </p>
                       </div>
                     </div>
@@ -206,7 +208,7 @@
                           <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->dtmamp)) }}
+                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ date('d/m/Y h:i:s A', strtotime($result->dtm)) }}
                         </p>
                       </div>
                     </div>
@@ -263,7 +265,7 @@
               </div>
               <div class="card-body">
                 <!-- <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div> -->
-                <div id="chartdiv" style="height: 400px; width: 100%;"></div>
+                <div id="chartdiv" style="height: 300px; width: 100%;"></div>
               </div>
               <!-- <div id="chartdiv" style="height: 400px; width: 100%;"></div> -->
 

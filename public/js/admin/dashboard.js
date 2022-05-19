@@ -16,26 +16,18 @@ var Dashboard = function () {
             data: { 'action': 'getLocation' },
             success: function (data) {
                 var output = JSON.parse(data);
-                console.log(output)
-                var locations = output;
-
-                // var locations = [
-                //     ['chandigarh', 30.7333, 76.7794, 8],
-                //     ['Panjab', 31.1471, 75.3412, 6],
-                //     ['Ahmadabad', 23.0225, 72.5714, 4],
-                //     ['Baroda', 22.3072, 73.1812, 5],
-                //     ['chennai', 13.0827, 80.2707, 3],
-                //     ['bangalore ', 12.9716, 77.5946, 2],
-                //     ['mumbai', 19.0760, 72.8777, 1]
-                // ];
+                // console.log(output)
+                // var locations = output;
+                let latitude = ($('.latitude').val() != '' && $('.latitude').val() != undefined) ? $('.latitude').val() : ''
+                let longitude = ($('.longitude').val() != '' && $('.longitude').val() != undefined) ? $('.longitude').val() : ''
+                let location = $('.location').val()
+                var locations = [
+                    [location, latitude, longitude]
+                  
+                ];
                 // console.log(locations , " locationslocations")
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 5,
-                    // panControl: false,
-                    // zoomControl: true,
-                    // zoomControlOptions: {
-                    //     style: google.maps.ZoomControlStyle.LARGE
-                    // },
                     mapTypeControl: false,
                     streetViewControl: false,
                     overviewMapControl: true,

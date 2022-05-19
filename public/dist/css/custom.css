@@ -1,4 +1,4 @@
-.sidebar-menu>li>a>.fa, .sidebar-menu>li>a>.glyphicon, .sidebar-menu>li>a>.ion {
+/* .sidebar-menu>li>a>.fa, .sidebar-menu>li>a>.glyphicon, .sidebar-menu>li>a>.ion {
     font-size: 17px;
 }
 ul.dropdown-menu.dropdown-menus {
@@ -7,9 +7,7 @@ ul.dropdown-menu.dropdown-menus {
 
 .skin-black-light .sidebar-menu>li:hover>a, .skin-black-light .sidebar-menu>li.active>a {
     color: #fff !important;
-    /*background: #002447 !important;*/    /* Blue */
     background: #4a4949!important;
-    /*background: #41a65a !important;*/    /* green */
 }
 
 span.spn {
@@ -53,20 +51,8 @@ span.spn {
     font-size: 14px;
     color: #fff;
 }
-.bg-aqua, .callout.callout-info, .alert-info, .label-info, .modal-info .modal-body {
-   /* background-color: #bdbdbd52 !important;
-    border: none;*/
-}
-.bg-aqua, .callout.callout-info, .alert-info, .label-info, .modal-info .modal-body {
-   /* background-color: transparent !important;
-    border-radius: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    width: 100%;
-    height: 100%;*/
-}
+ 
+ 
 .menu-icon.fa.fa-space-shuttle {
     font-size: 25px;
 }
@@ -77,21 +63,11 @@ span.spn {
 }
 .site-form{float: right}
 
-
-
 .login-page, .register-page {
     height: auto;
     background: linear-gradient(4deg, rgb(146, 146, 146) 0%, rgb(238, 238, 243) 35%, rgb(249, 249, 249) 100%)!important;
-    /* background: #bebebe; */
 }
-
-/*.login-box-body, .register-box-body {
-     background: none!important;
-    padding: 20px;
-    border-top: 0;
-    color: #666;
-    border:none !important;
-}*/
+ 
 h3.control-sidebar-heading {
     color: #fff;
 }
@@ -126,7 +102,7 @@ button#startBtn {
 }
 
 
-/*ravi css*/
+ 
 .form-group.div-btn {display: flex;}
 .form-group.eamil-central { margin: 0;}
 .sales-btn { margin: 0 0 12px 0;}
@@ -145,12 +121,10 @@ button#startBtn {
 .profile-image img {width: 72px;}
 
 .form-control.border-none {
-
     border: none;
     padding: 0;
     margin: 0 0 12px 0;
     height: 40px;
-
 }
 
 
@@ -225,4 +199,96 @@ label.col-form-label {
 }
 .content-header {
     padding: 15px 15px 0 22px !important;
+} */
+
+
+
+.btn-iio {
+    color: #ffffff;
+    background-color: #007bff;
+    border-color: #007bff;
+    box-shadow: none;
+  }  .btn-iio {
+    color: #ffffff;
+    background-color: #01a89d;
+    border-color: #01a89d;
+    box-shadow: none;
+  }
+.btn-iio:hover {
+    color: #01a89d;
+    background-color: #ffffff;
+    border-color: #01a89d;
+  }
+  
+  .btn-iio:focus, .btn-iio.focus {
+    color: #ffffff;
+    background-color: #01a89d;
+    border-color: #0062cc;
+    box-shadow: none, 0 0 0 0 rgba(38, 143, 255, 0.5);
+  }
+  
+  .btn-iio.disabled, .btn-iio:disabled {
+    color: #ffffff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-iio:not(:disabled):not(.disabled):active, .btn-iio:not(:disabled):not(.disabled).active,
+  .show > .btn-iio.dropdown-toggle {
+    color: #ffffff;
+    background-color: #01a89d;
+    border-color: #ffffff;
+  }
+  
+  .btn-iio:not(:disabled):not(.disabled):active:focus, .btn-iio:not(:disabled):not(.disabled).active:focus,
+  .show > .btn-iio.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0 rgba(38, 143, 255, 0.5);
+  }
+
+
+  
+.card-iio:not(.card-outline) > .card-header {
+    background-color: #007bff;
+  }
+  
+  .card-iio:not(.card-outline) > .card-header,
+  .card-iio:not(.card-outline) > .card-header a {
+    color: #ffffff;
+  }
+  
+  .card-iio:not(.card-outline) > .card-header a.active {
+    color: #1F2D3D;
+  }
+  
+  .card-iio.card-outline {
+    border-top: 3px solid #007bff;
+  }
+  
+  .card-iio.card-outline-tabs > .card-header a:hover {
+    border-top: 3px solid #dee2e6;
+  }
+  
+  .card-iio.card-outline-tabs > .card-header a.active {
+    border-top: 3px solid #007bff;
+  }
+  
+  .bg-info .btn-tool,
+  .bg-gradient-info .btn-tool,
+  .card-iio:not(.card-outline) .btn-tool {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .bg-info .btn-tool:hover,
+  .bg-gradient-info .btn-tool:hover,
+  .card-iio:not(.card-outline) .btn-tool:hover {
+    color: #ffffff;
+  }
+
+
+ .loader{
+    position: absolute;
+    top: 0px;
+    left: 100%;
+    right: 0;
 }
+

@@ -191,7 +191,8 @@ function handleFormValidateNew(form, rules, showToaster, noScroll) {
 
 //------------------------------------------------------------------------------------------------------
 function loadingStart(that) {
-    that.parent().find('.loader').append('<img src="/icon/loading.gif">');
+    console.log("xxxxxx")
+    that.parent().find('.loader').append('<img src="/ICON/loading.gif">');
 }
 
 function loadingEnd(that) {
@@ -199,7 +200,7 @@ function loadingEnd(that) {
 }
 
 function newLoadingStart(that) {
-    that.parent().find('.defaultLoader').append('<img src="/icon/load.gif"> <span class="loading-text">Loading</div>');
+    that.parent().find('.defaultLoader').append('<img src="/ICON/load.gif"> <span class="loading-text">Loading</div>');
 }
 
 function newLoadingEnd(that) {
