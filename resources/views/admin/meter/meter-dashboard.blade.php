@@ -176,7 +176,7 @@
                 <div class="tab-pane fade show" id="custom-tabs-five-overlay-dark" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-dark-tab">
                   <div class="row">
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                    <!-- <div class="col-lg-3 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
                           <div class="card-body">
@@ -189,6 +189,34 @@
                           </div>
                         </div>
                       </div>
+                    </div> -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                      <div class="info-box shadow-lg">
+                        <span class="info-box-icon bg-info"><i class="fa fa-thermometer-empty"></i></span>
+
+                        <div class="info-box-content">
+                          <span class="info-box-text">Machine</span>
+                          <span class="info-box-number"> 
+                          <input type="checkbox" name="machine" class="machine form-control"  id="machine" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                          </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                      </div>
+                      <!-- /.info-box -->
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-12">
+                      <div class="info-box shadow-lg">
+                        <span class="info-box-icon bg-info"><i class="fa fa-thermometer-empty"></i></span>
+
+                        <div class="info-box-content">
+                          <span class="info-box-text">Moisture</span>
+                          <span class="info-box-number"> 
+                          <input type="checkbox" class="moisture form-control" id="moisture" name="moisture" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                          </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                      </div>
+                      <!-- /.info-box -->
                     </div>
                   </div>
                 </div>
