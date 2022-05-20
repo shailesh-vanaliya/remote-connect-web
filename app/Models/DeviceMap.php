@@ -25,7 +25,7 @@ class DeviceMap extends Model
      *
      * @var array
      */
-    protected $fillable = ['model_no','MQTT_ID', 'MODEM_ID', 'secret_key', 'max_user_access', 'IMEI_No', 'SIM_No', 'SIM_Plan', 'subscription_expire_date', 'subscription_status', 'created_by', 'updated_by'];
+    protected $fillable = ['model_no','MQTT_ID', 'MODEM_ID', 'device_type_id','secret_key', 'max_user_access', 'IMEI_No', 'SIM_No', 'SIM_Plan', 'subscription_expire_date', 'subscription_status', 'created_by', 'updated_by'];
 
     
 }

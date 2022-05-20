@@ -32,7 +32,7 @@
 
 
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" rel="stylesheet">
-<link href="https://cdn.glitch.com/ a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Fic_nfc_black_48dp.png?v=1573158259618" rel="icon"/>
+<!-- <link href="https://cdn.glitch.com/ a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Fic_nfc_black_48dp.png?v=1573158259618" rel="icon"/> -->
 <!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/bootstrap/dist/css/bootstrap.min.css') }}"> -->
 <!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/font-awesome/css/font-awesome.min.css') }}"> -->
 <!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/fontawesome-free/css/all.min.css') }}"> -->

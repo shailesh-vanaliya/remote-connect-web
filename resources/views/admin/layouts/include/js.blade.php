@@ -26,7 +26,7 @@
 <script src="{{ asset($dynamicUrl.'js/jquery-ui.js') }}" ></script>
 <!-- <script src="{{ URL::asset($dynamicUrl.'bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script> -->
 <script src="{{ URL::asset($dynamicUrl.'js/jquery.sparkline.min.js') }}"></script>
-<script src="{{ URL::asset($dynamicUrl.'plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+<!-- <script src="{{ URL::asset($dynamicUrl.'plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script> -->
 <!-- <script src="{{ URL::asset($dynamicUrl.'plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script> -->
 <script src="{{ URL::asset($dynamicUrl.'plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ URL::asset($dynamicUrl.'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -51,6 +51,7 @@
 <script src="{{ asset($dynamicUrl.'js/amcharts/Responsive.js') }}"></script>
 
 <script src="{{ asset($dynamicUrl.'plugins/toastr/toastr.min.js') }}"></script>
+<script src="{{ asset($dynamicUrl.'plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
  <script src="{{ URL::asset($dynamicUrl.'dist/js/adminlte.min.js') }}"></script>
 
 @if(!empty($pluginjs))
@@ -66,6 +67,7 @@
     @endforeach
 @endif
 <script>
+ 
     $('.datepicker').datepicker({
         autoclose: true,
         format: "mm/dd/yyyy",

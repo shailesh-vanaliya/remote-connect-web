@@ -23,21 +23,30 @@ class DataLogExport implements FromCollection, WithCustomCsvSettings, WithHeadin
     {
         try {
 
+            // if (empty($start) && empty($end)) {
+            //     $start = date('Y-m-d');
+            //     $end = date('Y-m-d');
+            // } else {
+            //     $start = date('Y-m-d', strtotime($this->data['start']));
+            //     $end = date('Y-m-d', strtotime($this->data['end']));
+            // }
+            $start = $this->data['start'];
+            $end = $this->data['start'];
             if (empty($start) && empty($end)) {
-                $start = date('Y-m-d');
-                $end = date('Y-m-d');
+                $start = date('Y-m-d')." 00:00:00";
+                $end = date('Y-m-d'). " 23:59:59";
             } else {
-                $start = date('Y-m-d', strtotime($this->data['start']));
-                $end = date('Y-m-d', strtotime($this->data['end']));
+                $start = date('Y-m-d', strtotime($start));
+                $end = date('Y-m-d', strtotime($end));
             }
-            return DataLog::select(
+            $res  =  DataLog::select(
                 'modem_id',
                 'dev_id',
                 'Pressure_PV',
                 'Temperature_PV',
                 'Waterflow',
                 'Pressure_SP',
-                'Timestamp',
+                'dtm',
                 'WATER_VALVE1',
                 'WATER_VALVE2',
                 'TOTAL_FLOW',
@@ -48,12 +57,13 @@ class DataLogExport implements FromCollection, WithCustomCsvSettings, WithHeadin
                 'CPU_TEMP'
             )->where("modem_id", 'FT104/')
                 ->whereRaw(
-                    "(Timestamp >= ? AND Timestamp <= ?)",
+                    "(dtm >= ? AND dtm <= ?)",
                     [$start . " 00:00:00", $end . " 23:59:59"]
                 )
                 ->get();
+                return $res;
         } catch (Exception $e) {
-            return redirect('admin/meter_dashboard')->with('session_error', $e->getMessage());
+            return redirect('admin/meter-dashboard')->with('session_error', $e->getMessage());
         }
     }
 

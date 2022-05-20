@@ -22,6 +22,8 @@ use App\Models\DemoMongo;
 use App\Models\DataLog;
 use App\Models\Device;
 // use DateTime;
+use PhpMqtt\Client\Facades\MQTT;
+
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -40,56 +42,18 @@ class MeterDashboardController extends Controller
     public function index(Request $request)
     {
      
-        $start = date('Y-m-d h:i:s', strtotime(date('Y-m-d  h:i:s') . '-24 hours'));
-        $end = date('Y-m-d h:i:s');
-        $start = date('Y-m-d');
-        $end = date('Y-m-d');
-
-        $res =  DataLog::select(
-            'Temperature_PV',
-            'dtm',
-        )
-            ->where("modem_id", $this->deviceName)
-            // ->whereBetween('dtm', array($start, $end))
-            ->where('dtm', '>=', $start)
-            ->where('dtm', '<=', $end)
-            ->get()->toArray();
-
-
-
-        // $fromDate = "2016-10-01";
-        // $toDate   = "2016-10-31";
-
-        // $reservations = DataLog::whereRaw(
-        //     "(dtm >= ? AND dtm <= ?)",
-        //     [$start . " 00:00:00", $end . " 23:59:59"]
-        // )->where("modem_id", 'FT104/')->get()->toArray();
-        // print_r($reservations);
-        // exit;
         $result =  DataLog::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
 
-        // print_r($result);
-        // exit;
-        // $result = [];
-        // $tempArray = [];
-        // $dateArray = [];
-        // foreach($res as $key => $val){
-        //     $tempArray[$key] = $val['Temperature_PV'];
-        //     $dateArray[$key] = $val['dtm'];
-        // }
-        // $result['temp'] = $tempArray; 
-        // $result['date'] = $dateArray; 
-        // print_r($result);
-        // // // echo "dsd";
-        // exit;
-        $data['device'] =  Device::where("modem_id", $this->deviceName)->first();
+        $deviceObject = new Device();
+        $data['device'] =  $deviceObject->deviceDetailByModel($this->deviceName);
+        // $data['device'] =  Device::where("modem_id", $this->deviceName)->first();
         // print_r($date['device']);
         // exit;
         $data['client']                = User::where("role", 'USER')->count();
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/dashboard.js'];
+        $data['pluginjs']                    = ['plugins/bootstrap-switch/js/bootstrap-switch.min.js'];
         $data['result']                    = $result;
-        // $data['funinit']               = [''];
         $data['funinit']               = ['Dashboard.initMeter()'];
         return view('admin.meter.meter-dashboard', $data);
     }
@@ -107,10 +71,63 @@ class MeterDashboardController extends Controller
             case 'getChartDataV2':
                 $this->_getChartDataV2($request->all());
                 break;
+            case 'sendMachine':
+                $this->_sendMachine($request->all());
+                break;
+            case 'sendMoisture':
+                $this->_sendMoisture($request->all());
+                break;
         }
         exit;
     }
 
+    public function _sendMoisture($requestData)
+    {
+        try {
+
+            $deviceObject = new Device();
+            $details =  $deviceObject->deviceDetail($requestData['deviceId']);
+            
+            $data = array(
+                'data' => ($requestData['value']),
+                'client id' => (isset($details->modem_id) ?  $details->modem_id : ''),
+            );
+            // SW1(Topic:FT107/SUB_MOIS_START)
+            // {"data":#VALUE,"client id":"FT104_client3"}
+            $res = MQTT::publish($details->modem_id .'/'.$requestData['value']."/SUB_MOIS_START/" , json_encode($data));
+            $result['status'] = 'success';
+            $result['message'] = 'Status updated successfully';
+        } catch (\Exception $e) {
+            $result['status'] = 'error';
+            $result['message'] = 'Something went wrong';
+        }
+        echo json_encode($result);
+        exit;
+    }
+
+    public function _sendMachine($requestData)
+    {
+        try {
+
+            $deviceObject = new Device();
+            $details =  $deviceObject->deviceDetail($requestData['deviceId']);
+            
+            $data = array(
+                'data' => ($requestData['value']),
+                'client id' => (isset($details->modem_id) ?  $details->modem_id : ''),
+            );
+            // SW1(Topic:FT107/SUB_MOIS_START)
+            // {"data":#VALUE,"client id":"FT104_client3"}
+            $res = MQTT::publish($details->modem_id .'/'."/SUB_MACH_START/" , json_encode($data));
+            $result['status'] = 'success';
+            $result['message'] = 'Status updated successfully';
+        } catch (\Exception $e) {
+            $result['status'] = 'error';
+            $result['message'] = 'Something went wrong';
+        }
+        echo json_encode($result);
+        exit;
+    }
 
     public function _getChartData($start,$end)
     {
@@ -210,12 +227,10 @@ class MeterDashboardController extends Controller
     public function meterDashboardExport(Request $request)
     {
         try {
-
             return Excel::download(new DataLogExport($request->all()), 'DataLogExport-'.date('Ymdhis').'-.csv');
-
             // return response()->stream($callback, 200, $headers);
         } catch (Exception $e) {
-            return redirect('admin/meter_dashboard')->with('session_error', 'DataLogExport Exports failed');
+            return redirect('admin/meter-dashboard')->with('session_error', 'DataLogExport Exports failed');
         }
     }
 }

@@ -25,7 +25,6 @@ var Dashboard = function () {
                     [location, latitude, longitude]
                   
                 ];
-                // console.log(locations , " locationslocations")
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 5,
                     mapTypeControl: false,
@@ -74,12 +73,9 @@ var Dashboard = function () {
     }
 
     var meterDashboard = function () {
-        console.log("fsdfsdsdf");
-
         var locations = [
             ['Ahmadabad', 23.0225, 72.5714, 4],
         ];
-        console.log(locations, " locationslocations")
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 8,
             mapTypeControl: false,
@@ -210,6 +206,11 @@ var Dashboard = function () {
         // getDate();
     }
     var meterDashboardV3 = function () {
+        $("input[data-bootstrap-switch]").each(function(){
+            // $(this).bootstrapSwitch('state', $(this).prop('checked'));
+            $(this).bootstrapSwitch('state', '');
+        });
+
         $('#dateRange').daterangepicker({
             timePicker: true,
             timePickerIncrement: 30,
@@ -228,11 +229,46 @@ var Dashboard = function () {
             getAmChart()
         });
        
+        $('input[name="machine"]').on('switchChange.bootstrapSwitch', function (event, state) 
+        {
+            let values = (state == true) ? 1 : 0;
+            let deviceId = $('.deviceId').val();
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: site_url + "admin/dashboard-meter/ajaxAction",
+                data: { 'action': 'sendMachine','value': values ,'deviceId' : deviceId},
+                success: function (datas) {
+                    let output = JSON.parse(datas);
+                    showToster(output.status,output.message)
+                }
+            });
+        });
+        
+        $('input[name="moisture"]').on('switchChange.bootstrapSwitch', function (event, state) 
+        {
+            let values = (state == true) ? 1 : 0;
+            let deviceId = $('.deviceId').val();
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: site_url + "admin/dashboard-meter/ajaxAction",
+                data: { 'action': 'sendMoisture','value': values ,'deviceId' : deviceId},
+                success: function (datas) {
+                    let output = JSON.parse(datas);
+                    showToster(output.status,output.message)
+                }
+            });
+        });
+
         getAmChart();
        
         var root = am5.Root.new("chartdiv");
         function getAmChart() {
-            console.log($('#dateRange').val() , " ============")
             let startDate = ($('#startDate').val() != undefined) ? $('#startDate').val() : '';
             let endDate = ($('#endDate').val() != undefined) ? $('#endDate').val() : '';
             let dateRange = ($('#dateRange').val() != undefined) ? $('#dateRange').val() : '';
