@@ -15,7 +15,7 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Device Map List</h3>
-                    <a href="{{ url('/admin/device-map/create') }}" class="btn btn-primary btn-sm pull-right" title="Add New Device Map">
+                    <a href="{{ url('/admin/device-map/create') }}" class="btn btn-primary btn-xs pull-right" title="Add New Device Map">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                     </a>
                 </div>
@@ -53,13 +53,13 @@
                                 <td>{{ $item->subscription_expire_date }}</td>
                                 <td>{{ $item->subscription_status }}</td>
                                 <td class="actionTd" style="display: flex;">
-                                    <a href="{{ url('/admin/device-map/' . $item->id) }}" title="View DeviceMap"><button class="btn btn-info btn-sm faIcon"><i class="fa fa-eye " aria-hidden="true"></i> </button></a>
-                                   &nbsp; <a href="{{ url('/admin/device-map/' . $item->id . '/edit') }}" title="Edit DeviceMap"><button class="btn btn-primary btn-sm faIcon"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>&nbsp;
+                                    <a href="{{ url('/admin/device-map/' . $item->id) }}" title="View DeviceMap"><button class="btn btn-info btn-xs faIcon"><i class="fa fa-eye " aria-hidden="true"></i> </button></a>
+                                   &nbsp; <a href="{{ url('/admin/device-map/' . $item->id . '/edit') }}" title="Edit DeviceMap"><button class="btn btn-primary btn-xs faIcon"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>&nbsp;
 
                                     <form method="POST" action="{{ url('/admin/device-map' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-danger btn-sm faIcon" title="Delete DeviceMap" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
+                                        <button type="submit" class="btn btn-danger btn-xs faIcon" title="Delete DeviceMap" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
                                     </form>
                                 </td>
                             </tr>
@@ -84,7 +84,7 @@
                                 <h3 class="card-title">Device Map List</h3>
                             </div>
                             <div class="col-md-1 col-sm-6 col-12">
-                                <a href="{{ url('/admin/device-map/create') }}" class="btn btn-primary btn-sm pull-right" title="Add New Device Map">
+                                <a href="{{ url('/admin/device-map/create') }}" class="btn btn-primary btn-xs pull-right" title="Add New Device Map">
                                     <i class="fa fa-plus" aria-hidden="true"></i> Add New
                                 </a>
                             </div>
@@ -123,13 +123,13 @@
                                 <td>{{ $item->subscription_expire_date }}</td>
                                 <td>{{ $item->subscription_status }}</td>
                                 <td class="actionTd" style="display: flex;">
-                                    <a href="{{ url('/admin/device-map/' . $item->id) }}" title="View DeviceMap"><button class="btn btn-info btn-sm faIcon"><i class="fa fa-eye " aria-hidden="true"></i> </button></a>
-                                   &nbsp; <a href="{{ url('/admin/device-map/' . $item->id . '/edit') }}" title="Edit DeviceMap"><button class="btn btn-primary btn-sm faIcon"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>&nbsp;
+                                    <a href="{{ url('/admin/device-map/' . $item->id) }}" title="View DeviceMap"><button class="btn btn-info btn-xs faIcon"><i class="fa fa-eye " aria-hidden="true"></i> </button></a>
+                                   &nbsp; <a href="{{ url('/admin/device-map/' . $item->id . '/edit') }}" title="Edit DeviceMap"><button class="btn btn-primary btn-xs faIcon"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>&nbsp;
 
                                     <form method="POST" action="{{ url('/admin/device-map' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-danger btn-sm faIcon" title="Delete DeviceMap" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
+                                        <button type="submit" class="btn btn-danger btn-xs faIcon" title="Delete DeviceMap" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
                                     </form>
                                 </td>
                             </tr>

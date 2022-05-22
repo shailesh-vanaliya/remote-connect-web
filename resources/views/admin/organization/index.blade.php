@@ -51,13 +51,13 @@
                                     <td>{{ $item->max_device_limit }}</td>
                                     <td>{{ $item->max_user_limit }}</td>
                                     <td>
-                                        <a href="{{ url('/admin/organization/' . $item->id) }}" title="View Organization"><button class="btn btn-info btn-sm"><i class="fas fa-eye" aria-hidden="true"></i> </button></a>
-                                        <a href="{{ url('/admin/organization/' . $item->id . '/edit') }}" title="Edit Organization"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
+                                        <a href="{{ url('/admin/organization/' . $item->id) }}" title="View Organization"><button class="btn btn-info btn-xs"><i class="fas fa-eye" aria-hidden="true"></i> </button></a>
+                                        <a href="{{ url('/admin/organization/' . $item->id . '/edit') }}" title="Edit Organization"><button class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
 
                                         <form method="POST" action="{{ url('/admin/organization' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                             {{ method_field('DELETE') }}
                                             {{ csrf_field() }}
-                                            <button type="submit" class="btn btn-danger btn-sm" title="Delete Organization" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
+                                            <button type="submit" class="btn btn-danger btn-xs" title="Delete Organization" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
                                         </form>
                                     </td>
                                 </tr>

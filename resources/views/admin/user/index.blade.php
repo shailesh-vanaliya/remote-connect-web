@@ -9,7 +9,7 @@
                         <form class="form-div">
                             <div class="row">
                                 <div class="col-lg-8">
-                                    <a href="{{ url('/admin/user/create') }}" class="btn btn-primary btn-sm  " title="Add New User">
+                                    <a href="{{ url('/admin/user/create') }}" class="btn btn-primary btn-xs  " title="Add New User">
                                         <i class="fa fa-plus" aria-hidden="true"></i> Add New Client
                                     </a>
                                 </div>
@@ -47,14 +47,14 @@
                                         <td class="middle-text"><span class="badge">{{ $item->status }}</span></td>
                                         <td class="middle-text"><span class="badge">{{ ($item->user_type == 'USER' ?'CLIENT' : 'ADMIN') }}</span></td>
                                         <td>
-                                            <a href="{{ url('/admin/user/change-password/' . $item->id) }}" title="Change Password"><button class="btn btn-info btn-sm"><i class="fa fa-lock" aria-hidden="true"></i></button></a>
-                                            <a href="{{ url('/admin/user/' . $item->id) }}" title="View User"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                            <a href="{{ url('/admin/user/' . $item->id . '/edit') }}" title="Edit User"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/admin/user/change-password/' . $item->id) }}" title="Change Password"><button class="btn btn-info btn-xs"><i class="fa fa-lock" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/admin/user/' . $item->id) }}" title="View User"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                            <a href="{{ url('/admin/user/' . $item->id . '/edit') }}" title="Edit User"><button class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button></a>
 
                                             <form method="POST" action="{{ url('/admin/user' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete User" onclick="return confirm('Are you sure want to delete?')"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                <button type="submit" class="btn btn-danger btn-xs" title="Delete User" onclick="return confirm('Are you sure want to delete?')"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                             </form>
                                         </td>
                                     </tr>

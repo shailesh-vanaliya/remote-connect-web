@@ -1,15 +1,5 @@
 @extends('admin.layouts.admin')
 @section('content')
-        <section class="content-header">
-            <h1>
-                Users
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="{{ route('admin_dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li><a href="{{ route('user_list') }}">Users</a></li>
-                <li class="active">View</li>
-            </ol>
-        </section>
         <section class="content">
             <div class="row">
                 <div class="col-md-12">

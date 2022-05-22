@@ -13,7 +13,7 @@
                                 <h3 class="card-title">Users list</h3>
                             </div>
                             <div class="col-md-1 col-sm-6 col-12">
-                                <a href="{{ url('/admin/users/create') }}" class="btn btn-primary btn-sm pull-right" title="Add New User">
+                                <a href="{{ url('/admin/users/create') }}" class="btn btn-primary btn-xs pull-right" title="Add New User">
                                     <i class="fa fa-plus" aria-hidden="true"></i> Add New
                                 </a>
                             </div>
@@ -48,13 +48,13 @@
                                     <td class="text-capitalize">{{ $item->status }}</td>
                                     <td>
 
-                                        <a href="{{ url('/admin/users/' . $item->id ) }}" title="View user"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
-                                        <a href="{{ url('/admin/users/' . $item->id . '/edit') }}" title="Edit user"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button></a>
+                                        <a href="{{ url('/admin/users/' . $item->id ) }}" title="View user"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                        <a href="{{ url('/admin/users/' . $item->id . '/edit') }}" title="Edit user"><button class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button></a>
 
                                         {{-- <form method="POST" action="{{ route('user_delete', [ 'id' => $item->id ]) }}" accept-charset="UTF-8" style="display:inline">--}}
                                         {{-- {{ method_field('DELETE') }}--}}
                                         {{-- {{ csrf_field() }}--}}
-                                        {{-- <button type="submit" class="btn btn-danger btn-sm" title="Delete user" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" aria-hidden="true"></i></button>--}}
+                                        {{-- <button type="submit" class="btn btn-danger btn-xs" title="Delete user" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" aria-hidden="true"></i></button>--}}
                                         {{-- </form>--}}
                                     </td>
                                 </tr>

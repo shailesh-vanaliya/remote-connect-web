@@ -38,15 +38,15 @@
                                         <td class="text-capitalize">{{ $item->status }}</td>
                                         <td>
                                             
-                                        <a href="{{ route('user_view', [ 'id' => $item->id ]) }}" title="View user"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+                                        <a href="{{ route('user_view', [ 'id' => $item->id ]) }}" title="View user"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
  
                                             
-                                        <a href="{{ route('user_edit', [ 'id' => $item->id ]) }}" title="Edit user"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button></a>
+                                        <a href="{{ route('user_edit', [ 'id' => $item->id ]) }}" title="Edit user"><button class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button></a>
                                             
 {{--                                            <form method="POST" action="{{ route('user_delete', [ 'id' => $item->id ]) }}" accept-charset="UTF-8" style="display:inline">--}}
 {{--                                                {{ method_field('DELETE') }}--}}
 {{--                                                {{ csrf_field() }}--}}
-{{--                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete user" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" aria-hidden="true"></i></button>--}}
+{{--                                                <button type="submit" class="btn btn-danger btn-xs" title="Delete user" onclick="return confirm('Are you sure you want to delete?')"><i class="fa fa-trash" aria-hidden="true"></i></button>--}}
 {{--                                            </form>--}}
                                         </td>
                                     </tr>
