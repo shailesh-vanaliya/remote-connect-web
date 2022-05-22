@@ -206,29 +206,45 @@ var Dashboard = function () {
         // getDate();
     }
     var meterDashboardV3 = function () {
+
         $("input[data-bootstrap-switch]").each(function(){
-            // $(this).bootstrapSwitch('state', $(this).prop('checked'));
-            $(this).bootstrapSwitch('state', '');
+            $('#'+$(this).attr("id")).bootstrapSwitch('state', $(this).prop('checked'));
         });
+
+        if($("#moisture").val() == 1){
+            $("#moisture").bootstrapSwitch('state', true);
+        }else{
+            $("#moisture").bootstrapSwitch('state', false);
+        }
+
+        if($("#machine").val() == 1){
+            $("#machine").bootstrapSwitch('state', true);
+        }else{
+            $("#machine").bootstrapSwitch('state', false);
+        }
+
 
         $('#dateRange').daterangepicker({
             timePicker: true,
             timePickerIncrement: 30,
+            autoUpdateInput: true,
+            timePicker24Hour: true,
             locale: {
               format: 'DD/MM/YYYY hh:mm A'
             }
-          })
+        })
 
         $('.search').click(function () {
             getAmChart()
         });
+
         $('.reset').click(function () {
             $('#startDate').val('')
             $('#endDate').val('');
             $('#dateRange').val('');
             getAmChart()
         });
-       
+      
         $('input[name="machine"]').on('switchChange.bootstrapSwitch', function (event, state) 
         {
             let values = (state == true) ? 1 : 0;
@@ -269,17 +285,25 @@ var Dashboard = function () {
        
         var root = am5.Root.new("chartdiv");
         function getAmChart() {
-            let startDate = ($('#startDate').val() != undefined) ? $('#startDate').val() : '';
-            let endDate = ($('#endDate').val() != undefined) ? $('#endDate').val() : '';
+            // let startDate = ($('#startDate').val() != undefined) ? $('#startDate').val() : '';
+            // let endDate = ($('#endDate').val() != undefined) ? $('#endDate').val() : '';
             let dateRange = ($('#dateRange').val() != undefined) ? $('#dateRange').val() : '';
-            
+            let modem_id = ($('#modem_id').val() != undefined) ? $('#modem_id').val() : '';
+            console.log($('#dateRange').data('daterangepicker').startDate.format('YYYY-MM-DD hh:mm'))
+            console.log($('#dateRange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm'))
+            let startDate = $('#dateRange').data('daterangepicker').startDate.format('YYYY-MM-DD hh:mm');
+            let endDate = $('#dateRange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm');
+            $('#startDate').val(startDate);
+            $('#endDate').val(endDate);
+
+
             $.ajax({
                 type: "POST",
                 headers: {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
                 url: site_url + "admin/dashboard-meter/ajaxAction",
-                data: { 'action': 'getChartDataV2', 'endDate': endDate, 'startDate': startDate,'dateRange': dateRange },
+                data: { 'action': 'getChartDataV2', 'endDate': endDate, 'startDate': startDate,'dateRange': dateRange, "modem_id":modem_id },
                 success: function (out) {
                     let data = JSON.parse(out);
                   

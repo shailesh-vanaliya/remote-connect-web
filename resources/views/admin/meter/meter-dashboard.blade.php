@@ -49,6 +49,11 @@
     content: '';
     width: 100%;
   } */
+  .profile-user-img {
+    border: 3px solid #01A89D;
+    padding: 5px;
+}
+
 </style>
 
 <section class="content">
@@ -60,7 +65,7 @@
         <div class="card card-primary card-outline">
           <div class="card-body box-profile">
             <div class="text-center">
-              <img class="profile-user-img img-fluid img-circle" src="https://cloud.iiotconnect.in/assets/img/device_types/energymeter.svg" alt="User profile picture">
+              <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/ICON/Devices.svg') }}" alt="Device picture">
             </div>
 
             <h3 class="profile-username text-center">{{ (isset($device->modem_id) && !empty($device->modem_id) ? $device->modem_id : 'N/A') }}</h3>
@@ -196,8 +201,8 @@
 
                         <div class="info-box-content">
                           <span class="info-box-text">Machine</span>
-                          <span class="info-box-number"> 
-                          <input type="checkbox" name="machine" class="machine form-control"  id="machine" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                          <span class="info-box-number">  
+                          <input type="checkbox" name="machine" class="machine form-control" value="{{ isset($result->MACHINE_STATUS) && $result->MACHINE_STATUS == 1 ? 1 : 0 }}"  id="machine" data-bootstrap-switch data-off-color="danger" checked data-on-color="success">
                           </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -211,7 +216,7 @@
                         <div class="info-box-content">
                           <span class="info-box-text">Moisture</span>
                           <span class="info-box-number"> 
-                          <input type="checkbox" class="moisture form-control" id="moisture" name="moisture" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                          <input type="checkbox" class="moisture form-control" id="moisture" name="moisture" value="{{ isset($result->MOISTURE_STATUS) && $result->MOISTURE_STATUS == 1 ? 1 : 0 }}" data-bootstrap-switch data-off-color="danger" data-on-color="success">
                           </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -237,20 +242,21 @@
                   <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
                 </div> -->
               </div>
+              
               <div class="mailbox-controls with-border text-center">
                 <form class="" method="POST" action="{{ url('/admin/meter-dashboard-export/') }}">
                   <div class="row">
                     <div class=" col-sm-12 col-md-1 mt-2">
                       Filter
                     </div>
-                    <div class=" col-sm-12 col-md-3">
-                      <!-- <input type="text" class="form-control float-right" id="dateRange"> -->
-                      <input class="form-control startDate" id="startDate" name="start" type="date" placeholder="Start Date" aria-label="Search">
+                    <div class=" col-sm-12 col-md-5">
+                      <input type="text" class="form-control float-right" id="dateRange">
+                      <input type="hidden" id="modem_id" name="modem_id" class="modem_id" value="{{ isset($result->modem_id) ? $result->modem_id : '' }}">
+                      <input class="form-control startDate" id="startDate" name="start" type="hidden" placeholder="Start Date" aria-label="Search">
                     </div>
-                    <div class="col-sm-12 col-md-3">
-                      <input class="form-control endDate" id="endDate" name="end" type="date" placeholder="End date" aria-label="Search">
-                      <!-- <input class="form-control endDate" id="endDate" type="datetime-local" placeholder="Search" aria-label="Search"> -->
-                    </div>
+                    <!-- <div class="col-sm-12 col-md-3"> -->
+                      <input class="form-control endDate" id="endDate" name="end" type="hidden" placeholder="End date" aria-label="Search">
+                    <!-- </div> -->
                     <div class="col-sm-12 col-md-3">
                       <button type="button" class="btn btn-default btn-sm search" title="Filter">
                         <i class="fas fa-check"></i>

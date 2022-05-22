@@ -32,7 +32,7 @@ class MeterDashboardController extends Controller
     protected $deviceName = '';
     public function __construct(Request $request)
     {
-        $this->deviceName =( $request->route('id') ?  $request->route('id') :  'FT104/');
+        $this->deviceName = ($request->route('modemId') ?  $request->route('modemId') :  'FT104');
         $this->middleware('admin');
     }
 
@@ -41,7 +41,7 @@ class MeterDashboardController extends Controller
      */
     public function index(Request $request)
     {
-     
+
         $result =  DataLog::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
 
         $deviceObject = new Device();
@@ -49,10 +49,11 @@ class MeterDashboardController extends Controller
         // $data['device'] =  Device::where("modem_id", $this->deviceName)->first();
         // print_r($date['device']);
         // exit;
+
         $data['client']                = User::where("role", 'USER')->count();
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/dashboard.js'];
-        $data['pluginjs']                    = ['plugins/bootstrap-switch/js/bootstrap-switch.min.js'];
+        $data['pluginjs']               = ['plugins/bootstrap-switch/js/bootstrap-switch.min.js'];
         $data['result']                    = $result;
         $data['funinit']               = ['Dashboard.initMeter()'];
         return view('admin.meter.meter-dashboard', $data);
@@ -87,14 +88,14 @@ class MeterDashboardController extends Controller
 
             $deviceObject = new Device();
             $details =  $deviceObject->deviceDetail($requestData['deviceId']);
-            
+
             $data = array(
                 'data' => ($requestData['value']),
                 'client id' => (isset($details->modem_id) ?  $details->modem_id : ''),
             );
             // SW1(Topic:FT107/SUB_MOIS_START)
             // {"data":#VALUE,"client id":"FT104_client3"}
-            $res = MQTT::publish($details->modem_id .'/'.$requestData['value']."/SUB_MOIS_START/" , json_encode($data));
+            $res = MQTT::publish($details->modem_id . '/' . $requestData['value'] . "/SUB_MOIS_START/", json_encode($data));
             $result['status'] = 'success';
             $result['message'] = 'Status updated successfully';
         } catch (\Exception $e) {
@@ -111,14 +112,14 @@ class MeterDashboardController extends Controller
 
             $deviceObject = new Device();
             $details =  $deviceObject->deviceDetail($requestData['deviceId']);
-            
+
             $data = array(
                 'data' => ($requestData['value']),
                 'client id' => (isset($details->modem_id) ?  $details->modem_id : ''),
             );
             // SW1(Topic:FT107/SUB_MOIS_START)
             // {"data":#VALUE,"client id":"FT104_client3"}
-            $res = MQTT::publish($details->modem_id .'/'."/SUB_MACH_START/" , json_encode($data));
+            $res = MQTT::publish($details->modem_id . '/' . "/SUB_MACH_START/", json_encode($data));
             $result['status'] = 'success';
             $result['message'] = 'Status updated successfully';
         } catch (\Exception $e) {
@@ -129,7 +130,7 @@ class MeterDashboardController extends Controller
         exit;
     }
 
-    public function _getChartData($start,$end)
+    public function _getChartData($start, $end)
     {
 
         // $start = date('Y-m-d', strtotime(date('Y-m-d') . '-8 day'));
@@ -159,7 +160,7 @@ class MeterDashboardController extends Controller
                 "(dtm >= ? AND dtm <= ?)",
                 [$start . " 00:00:00", $end . " 23:59:59"]
             )
-            ->orderBy('dtm','desc')
+            ->orderBy('dtm', 'desc')
             // ->whereBetween('dtm', array($start, $end))
             // ->take(100)
             ->get()->toArray();
@@ -183,7 +184,7 @@ class MeterDashboardController extends Controller
         // $result['date'] = $dateArray;
         // $result['common'] = $commonArray;
         // print_r($result);
-        echo json_encode( array_reverse($res));
+        echo json_encode(array_reverse($res));
         exit;
     }
     public function _getChartDataV2($data)
@@ -197,18 +198,19 @@ class MeterDashboardController extends Controller
         //     $end = date('Y-m-d h:i:s', strtotime($endA));
         // echo $start . " === " . $end;
         // exit;
-        $start = $data['startDate'];
-        $end = $data['endDate'];
-        if (empty($start) && empty($end)) {
-            $start = date('Y-m-d')." 00:00:00";
-            $end = date('Y-m-d'). " 23:59:59";
-        } else {
-            $start = date('Y-m-d', strtotime($start));
-            $end = date('Y-m-d', strtotime($end));
-            // $start = date('Y-m-d h:i:s', strtotime(trim($explodeArray[0])));
-            // $end = date('Y-m-d h:i:s', strtotime(trim($explodeArray[1])));
-        }
 
+        $start = $data['startDate'].":00";
+        $end = $data['endDate'].":00";
+        $this->deviceName = $data['modem_id'];
+        if (empty($start) && empty($end)) {
+            // $start = date('Y-m-d') . " 00:00:00";
+            // $end = date('Y-m-d') . " 23:59:59";
+            $start = date('Y-m-d h:i:s');
+            $end = date('Y-m-d h:i:s');
+        } else {
+            // $start = date('Y-m-d h:i:s', strtotime($start));
+            // $end = date('Y-m-d h:i:s', strtotime($end));
+        }
         $res =  DataLog::select(
             'Temperature_PV as value',
             'dtm as date',
@@ -216,20 +218,22 @@ class MeterDashboardController extends Controller
             ->where("modem_id", $this->deviceName)
             ->whereRaw(
                 "(dtm >= ? AND dtm <= ?)",
-                [$start . " 00:00:00", $end . " 23:59:59"]
+                [$start, $end]
+                // [$start . " 00:00:00", $end . " 23:59:59"]
             )
-            ->orderBy('dtm','desc')
+            ->orderBy('dtm', 'desc')
             ->get()->toArray();
-        echo json_encode( array_reverse($res));
+        echo json_encode(array_reverse($res));
         exit;
     }
 
     public function meterDashboardExport(Request $request)
     {
         try {
-            return Excel::download(new DataLogExport($request->all()), 'DataLogExport-'.date('Ymdhis').'-.csv');
+            return Excel::download(new DataLogExport($request->all()), 'DataLogExport-' . date('Ymdhis') . '-.csv');
             // return response()->stream($callback, 200, $headers);
         } catch (Exception $e) {
+            
             return redirect('admin/meter-dashboard')->with('session_error', 'DataLogExport Exports failed');
         }
     }

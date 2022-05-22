@@ -23,25 +23,20 @@ class DataLogExport implements FromCollection, WithCustomCsvSettings, WithHeadin
     {
         try {
 
+            $start = $this->data['start'].":00";
+            $end = $this->data['end'].":00";
+
+            // $start = $this->data['start'];
+            // $end = $this->data['end'];
             // if (empty($start) && empty($end)) {
-            //     $start = date('Y-m-d');
-            //     $end = date('Y-m-d');
+            //     $start = date('Y-m-d')." 00:00:00";
+            //     $end = date('Y-m-d'). " 23:59:59";
             // } else {
-            //     $start = date('Y-m-d', strtotime($this->data['start']));
-            //     $end = date('Y-m-d', strtotime($this->data['end']));
+            //     $start = date('Y-m-d', strtotime($start));
+            //     $end = date('Y-m-d', strtotime($end));
             // }
-            $start = $this->data['start'];
-            $end = $this->data['start'];
-            if (empty($start) && empty($end)) {
-                $start = date('Y-m-d')." 00:00:00";
-                $end = date('Y-m-d'). " 23:59:59";
-            } else {
-                $start = date('Y-m-d', strtotime($start));
-                $end = date('Y-m-d', strtotime($end));
-            }
             $res  =  DataLog::select(
                 'modem_id',
-                'dev_id',
                 'Pressure_PV',
                 'Temperature_PV',
                 'Waterflow',
@@ -55,10 +50,11 @@ class DataLogExport implements FromCollection, WithCustomCsvSettings, WithHeadin
                 'MOISTURE_STATUS',
                 'CLEAN_ON_TIME',
                 'CPU_TEMP'
-            )->where("modem_id", 'FT104/')
+            )->where("modem_id", 'FT104')
                 ->whereRaw(
                     "(dtm >= ? AND dtm <= ?)",
-                    [$start . " 00:00:00", $end . " 23:59:59"]
+                    [$start, $end ]
+                    // [$start . " 00:00:00", $end . " 23:59:59"]
                 )
                 ->get();
                 return $res;
@@ -76,6 +72,6 @@ class DataLogExport implements FromCollection, WithCustomCsvSettings, WithHeadin
 
     public function headings(): array
     {
-        return ['modem id', 'dev id', 'Pressure PV', 'Temperature PV', 'Waterflow', 'Pressure SP', 'Timestamp', 'WATER VALVE1', 'WATER VALVE2', 'TOTAL FLOW', 'DAILY FLOW', 'MACHINE STATUS', 'MOISTURE STATUS', 'CLEAN ON TIME', 'CPU TEMP'];
+        return ['modem id',  'Pressure PV', 'Temperature PV', 'Waterflow', 'Pressure SP', 'Timestamp', 'WATER VALVE1', 'WATER VALVE2', 'TOTAL FLOW', 'DAILY FLOW', 'MACHINE STATUS', 'MOISTURE STATUS', 'CLEAN ON TIME', 'CPU TEMP'];
     }
 }
