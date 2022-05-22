@@ -4,13 +4,6 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            @if ($errors->any())
-            <ul class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            @endif
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
@@ -19,18 +12,17 @@
                                 <h3 class="card-title">Alert Configuration list</h3>
                             </div>
                             <div class="col-md-1 col-sm-6 col-12">
-                            <a href="{{ url('/admin/alert-configration/create') }}" class="btn btn-success btn-sm" title="Add New AlertConfigration">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                    </a>
+                                <a href="{{ url('/admin/alert-configration/create') }}" class="btn btn-success btn-sm" title="Add New AlertConfigration">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Add New
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                <th>#</th>
+                                    <th>#</th>
                                     <th>Modem Id</th>
                                     <th>Parameter</th>
                                     <th>Condition</th>
@@ -41,7 +33,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($alertconfigration as $item)
+                                @foreach($alertconfigration as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->modem_id }}</td>

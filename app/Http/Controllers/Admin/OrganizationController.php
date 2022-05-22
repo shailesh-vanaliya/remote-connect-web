@@ -63,8 +63,8 @@ class OrganizationController extends Controller
         $data['header']    = [
             'title'      => 'Organization',
             'breadcrumb' => [
-                'Home'     => 'Organization',
-                'Create New Organization' => 'Create New Organization',
+                'Home'     => '',
+                'Create New Organization' => '',
             ],
         ];
         return view('admin.organization.create',$data);
@@ -104,8 +104,8 @@ class OrganizationController extends Controller
         $data['header']    = [
             'title'      => 'Organization',
             'breadcrumb' => [
-                'Organization'     => 'Organization',
-                'View' => 'Organization',
+                'Organization'     => '',
+                'View' => '',
             ],
         ];
         return view('admin.organization.show', $data);
@@ -127,8 +127,8 @@ class OrganizationController extends Controller
         $data['header']    = [
             'title'      => 'Organization',
             'breadcrumb' => [
-                'Home'     => 'Organization',
-                'Settings' => 'Organization',
+                'Home'     => '',
+                'Settings' => '',
             ],
         ];
         return view('admin.organization.edit', $data);

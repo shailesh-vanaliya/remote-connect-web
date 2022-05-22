@@ -70,7 +70,8 @@ return redirect('login');
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column nav-legacy nav-flat text-sm" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false"> -->
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <!-- <li class="nav-item has-treeview menu-open">
@@ -106,26 +107,26 @@ return redirect('login');
         
           <li class="{{ ($currRoute == '' || $currRoute == 'admin_dashboard' || $currRoute == '') ? 'active nav-item' : 'nav-item' }}">
                 <a href="{{ route('admin_dashboard') }}" class="nav-link">
-                    <img style="width:28px" src="{{ asset('public/ICON/Home.svg') }}" alt=""> <p > Home</p>
+                    <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/Home.svg') }}" alt=""> <p > Home</p>
                 </a>
             </li>
 
             <li class="{{ ($currRoute == 'device.create'  ||   $currRoute == 'device-detail' || $currRoute == 'device.show' || $currRoute == 'device.edit' || $currRoute == 'device.index') ? 'active nav-item': 'nav-item' }}">
                 <a href="{{ url('/admin/device') }}" class="nav-link">
-                    <img style="width:28px" src="{{ asset('public/ICON/Devices.svg') }}" alt=""> <p class="spn">Device</p>
+                    <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/Devices.svg') }}" alt=""> <p class="spn">Device</p>
                 </a>
             </li>
 
             @if(Auth::guard('admin')->user()->role != 'USER')
             <li class="{{ ($currRoute == 'device-map.create' || $currRoute == 'device-map.show' || $currRoute == 'device-map.edit' || $currRoute == 'device-map.index') ? 'active nav-item': 'nav-item' }}">
-                <a href="{{ url('/admin/device-map')}}" class="nav-link">
-                    <img style="width:28px" src="{{ asset('public/ICON/Device_map.svg') }}" alt=""> <p class="spn">Device Map</p>
+                <a href="{{ url('/admin/device-map')}}" class="{{ ($currRoute == 'device-map.create' || $currRoute == 'device-map.show' || $currRoute == 'device-map.edit' || $currRoute == 'device-map.index') ? 'active nav-link': 'nav-link' }}">
+                    <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/Device_map.svg') }}" alt=""> <p class="spn">Device Map</p>
                 </a>
             </li>
 
             <li class="{{ ($currRoute == 'users.create' || $currRoute == 'users.show' || $currRoute == 'users.edit' || $currRoute == 'users.index') ? 'active nav-item': 'nav-item' }}">
-                <a href="{{ url('/admin/users') }}" class="nav-link">
-                    <img style="width:28px" src="{{ asset('public/ICON/User.svg') }}" alt="">
+                <a href="{{ url('/admin/users') }}" class="{{ ($currRoute == 'users.create' || $currRoute == 'users.show' || $currRoute == 'users.edit' || $currRoute == 'users.index') ? 'active nav-link': 'nav-link' }}">
+                    <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/User.svg') }}" alt="">
                     <p class="spn"> Users</p>
                 </a>
             </li>
@@ -138,19 +139,19 @@ return redirect('login');
             </a>
           </li> -->
           <li class="nav-item">
-            <a href="{{ url('/admin/meter-dashboard') }}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt text-info"></i>
+            <a href="{{ url('/admin/meter-dashboard') }}" class="{{ ($currRoute == 'meter-dashboard') ? 'active nav-link': 'nav-link' }}">
+              <i class="nav-icon fas fa-tachometer-alt text-info" ></i>
               <p>Pressure Dashboard</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('/admin/organization') }}" class="nav-link">
+            <a href="{{ url('/admin/organization') }}" class="{{ ($currRoute == 'organization.create' || $currRoute == 'organization.show' || $currRoute == 'organization.edit' || $currRoute == 'organization.index') ? 'active nav-link': 'nav-link' }}">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>Organization</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('/admin/notification') }}" class="nav-link">
+            <a href="{{ url('/admin/notification') }}" class="{{ ($currRoute == 'notification.create' || $currRoute == 'notification.show' || $currRoute == 'notification.edit' || $currRoute == 'notification.index') ? 'active nav-link': 'nav-link' }}">
               <i class="nav-icon far fa-bell text-info"></i>
               <p>Notification</p>
             </a>

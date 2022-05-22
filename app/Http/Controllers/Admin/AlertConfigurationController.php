@@ -39,6 +39,13 @@ class AlertConfigurationController extends Controller
         $data['js']                    = ['admin/dashboard.js'];
         // $data['funinit']               = [''];
         $data['funinit']               = ['Dashboard.initMeter()'];
+        $data['header']    = [
+            'title'      => 'Alert Configuration',
+            'breadcrumb' => [
+                'Home'     => '',
+                'Alert Configuration List' => '',
+            ],
+        ];
         return view('admin.alert-configration.index', $data);
     }
 
@@ -53,6 +60,13 @@ class AlertConfigurationController extends Controller
         $data['js']                    = ['admin/dashboard.js'];
         // $data['funinit']               = [''];
         // $data['funinit']               = ['Dashboard.initMeter()'];
+        $data['header']    = [
+            'title'      => 'Alert Configuration',
+            'breadcrumb' => [
+                'Alert Configuration'     => '',
+                'create' => '',
+            ],
+        ];
         return view('admin.alert-configration.create',$data);
     }
 
@@ -87,6 +101,13 @@ class AlertConfigurationController extends Controller
         $data['js']                    = ['admin/dashboard.js'];
         // $data['funinit']               = [''];
         $data['funinit']               = ['Dashboard.initMeter()'];
+        $data['header']    = [
+            'title'      => 'Alert Configuration',
+            'breadcrumb' => [
+                'Alert Configuration'     => '',
+                'View' => '',
+            ],
+        ];
         return view('admin.alert-configration.show', $data);
     }
 
@@ -104,6 +125,13 @@ class AlertConfigurationController extends Controller
         $data['js']                    = ['admin/dashboard.js'];
         // $data['funinit']               = [''];
         // $data['funinit']               = ['Dashboard.initMeter()'];
+        $data['header']    = [
+            'title'      => 'Alert Configuration',
+            'breadcrumb' => [
+                'Alert Configuration'     => '',
+                'Edit' => '',
+            ],
+        ];
         return view('admin.alert-configration.edit', $data);
     }
 

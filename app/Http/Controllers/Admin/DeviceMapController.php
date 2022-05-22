@@ -50,8 +50,8 @@ class DeviceMapController extends Controller
         $data['header']    = [
             'title'      => 'Device Map',
             'breadcrumb' => [
-                'Home'     => 'Device Map',
-                'Settings' => 'Device Map',
+                'Home'     => '',
+                'Device Map' => '',
             ],
         ];
         return view('admin.device-map.index', $data);
@@ -71,8 +71,8 @@ class DeviceMapController extends Controller
         $data['header']    = [
             'title'      => 'Device Map',
             'breadcrumb' => [
-                'Home'     => 'Device Map',
-                'Settings' => 'Device Map',
+                'Device Map'     => '',
+                'Create' => '',
             ],
         ];
         return view('admin.device-map.create', $data);
@@ -128,8 +128,8 @@ class DeviceMapController extends Controller
         $data['header']    = [
             'title'      => 'Device Map',
             'breadcrumb' => [
-                'Home'     => 'Device Map',
-                'Settings' => 'Device Map',
+                'Device Map'     => '',
+                'View' => '',
             ],
         ];
         return view('admin.device-map.show', $data);
@@ -152,8 +152,8 @@ class DeviceMapController extends Controller
         $data['header']    = [
             'title'      => 'Device Map',
             'breadcrumb' => [
-                'Home'     => 'Device Map',
-                'Settings' => 'Device Map',
+                'Device Map'     => '',
+                'Edit' => '',
             ],
         ];
         return view('admin.device-map.edit', $data);

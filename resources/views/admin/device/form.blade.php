@@ -1,40 +1,40 @@
-<div class="box-body">
-    <div class="form-group {{ $errors->has('model_no') ? 'has-error' : ''}}">
+<div class="card-body">
+    <div class="form-group row {{ $errors->has('model_no') ? 'has-error' : ''}}">
         <label for="model_no" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Model No' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" readonly name="model_no" maxlength="15" type="text" id="model_no" value="{{ isset($device->model_no) ? $device->model_no : ''}}">
             {!! $errors->first('model_no', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('modem_id') ? 'has-error' : ''}}">
+    <div class="form-group row {{ $errors->has('modem_id') ? 'has-error' : ''}}">
         <label for="modem_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Modem Id' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="modem_id" type="text" maxlength="10" id="modem_id" value="{{ isset($device->modem_id) ? $device->modem_id : ''}}">
             {!! $errors->first('modem_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('secret_key') ? 'has-error' : ''}}">
+    <div class="form-group row {{ $errors->has('secret_key') ? 'has-error' : ''}}">
         <label for="secret_key" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Secret Key' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="secret_key" maxlength="15" type="text" id="secret_key" value="{{ isset($device->secret_key) ? $device->secret_key : ''}}">
             {!! $errors->first('secret_key', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('project_name') ? 'has-error' : ''}}">
+    <div class="form-group row {{ $errors->has('project_name') ? 'has-error' : ''}}">
         <label for="project_name" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Project Name' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="project_name" maxlength="50" type="text" id="project_name" value="{{ isset($device->project_name) ? $device->project_name : ''}}">
             {!! $errors->first('project_name', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('customer_name') ? 'has-error' : ''}}">
+    <div class="form-group row {{ $errors->has('customer_name') ? 'has-error' : ''}}">
         <label for="customer_name" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Customer Name' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="customer_name" maxlength="30" type="text" id="customer_name" value="{{ isset($device->customer_name) ? $device->customer_name : ''}}">
             {!! $errors->first('customer_name', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('region') ? 'has-error' : ''}}">
+    <div class="form-group row {{ $errors->has('region') ? 'has-error' : ''}}">
         <label for="region" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Region' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <select name="region" class="form-control" id="region">
@@ -84,7 +84,7 @@
             {!! $errors->first('region', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('location') ? 'has-error' : ''}}">
+    <div class="form-group row {{ $errors->has('location') ? 'has-error' : ''}}">
         <label for="location" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Location' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="location" type="text" id="location" placeholder="Enter a location" autocomplete="on" runat="server" value="{{ isset($device->location) ? $device->location : ''}}">
@@ -92,28 +92,28 @@
             {!! $errors->first('location', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('machine_type') ? 'has-error' : ''}}">
+    <div class="form-group row {{ $errors->has('machine_type') ? 'has-error' : ''}}">
         <label for="machine_type" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Machine Type' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="machine_type" type="text" id="machine_type" value="{{ isset($device->machine_type) ? $device->machine_type : ''}}">
             {!! $errors->first('machine_type', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('latitude') ? 'has-error' : ''}}">
+    <div class="form-group row {{ $errors->has('latitude') ? 'has-error' : ''}}">
         <label for="latitude" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Latitude' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="latitude" type="text" id="latitude" value="{{ isset($device->latitude) ? $device->latitude : ''}}">
             {!! $errors->first('latitude', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('longitude') ? 'has-error' : ''}}">
+    <div class="form-group row {{ $errors->has('longitude') ? 'has-error' : ''}}">
         <label for="longitude" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Longitude' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="longitude" type="text" id="longitude" value="{{ isset($device->longitude) ? $device->longitude : ''}}">
             {!! $errors->first('longitude', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
+    <div class="form-group row {{ $errors->has('description') ? 'has-error' : ''}}">
         <label for="description" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Description/Note' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <textarea class="form-control" name="description" type="text" id="description" value="{{ isset($device->description) ? $device->description : ''}}">
@@ -122,7 +122,7 @@
             {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row row">
         <input class="btn btn-primary col-lg-1 col-md-9 col-sm-12 pull-right" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
     </div>
 </div>

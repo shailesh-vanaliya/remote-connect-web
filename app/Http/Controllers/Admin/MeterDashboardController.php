@@ -56,6 +56,13 @@ class MeterDashboardController extends Controller
         $data['pluginjs']               = ['plugins/bootstrap-switch/js/bootstrap-switch.min.js'];
         $data['result']                    = $result;
         $data['funinit']               = ['Dashboard.initMeter()'];
+        $data['header']    = [
+            'title'      => 'Dashboard',
+            'breadcrumb' => [
+                'Home'     => '',
+                'Dashboard' => '',
+            ],
+        ];
         return view('admin.meter.meter-dashboard', $data);
     }
 
