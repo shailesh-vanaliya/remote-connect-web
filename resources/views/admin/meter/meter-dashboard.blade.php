@@ -76,7 +76,7 @@
 
             <p class="text-muted text-center">{{ (isset($device->project_name) && !empty($device->project_name) ? $device->project_name : 'N/A') }}</p>
             <p class="text-muted text-center">Device Type: <small>{{ (isset($device->device_type) && !empty($device->device_type) ? $device->device_type : 'N/A') }}</small></p>
-            <p class="text-muted text-center">Added On: <small>{{ (isset($device->created_by) && !empty($device->created_by) ?  date('d/m/Y h:i:s A', strtotime($device->created_by)) : 'N/A') }}</small></p>
+            <p class="text-muted text-center">Added On: <small>{{ (isset($device->created_at) && !empty($device->created_at) ?  date('d/m/Y h:i:s A', strtotime($device->created_at)) : 'N/A') }}</small></p>
 
             <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVqNumGk1DCDuthLx-X7YqutsMm6DReNA&region=india&libraries=places"></script>
             <div id="map" class="col-md-12" style=" height: 220px;"></div>
