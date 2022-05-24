@@ -74,6 +74,9 @@ class UserController extends Controller
             $user->mobile_no          = $requestData['mobile_no'];
             $user->role          = $requestData['role'];
             $user->status          = $requestData['status'];
+            $user->sms_alert = (isset($requestData['sms_alert']) && $requestData['sms_alert'] == 'on') ? 1 : 0;
+            $user->email_report = (isset($requestData['email_report']) &&  $requestData['email_report'] == 'on') ? 1 : 0;
+            $user->email_alert = (isset($requestData['email_alert']) &&  $requestData['email_alert'] == 'on') ? 1 : 0;
             $user->password       = Hash::make($requestData['password']);
             $user->save();
             $user =  $requestData;
@@ -105,7 +108,14 @@ class UserController extends Controller
         ];
         $data['pagetitle'] = 'Users Create';
         $data['title'] = 'Users Create';
-
+        $data['header']    = [
+            'title'      => 'Users ',
+            'breadcrumb' => [
+                'Users '     => '',
+                'Create' => '',
+            ],
+        ];
+        $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
         return view('admin.users.create', $data);
     }
 
@@ -145,7 +155,6 @@ class UserController extends Controller
     {
         $user        = User::findOrFail($id);
         $requestData = $request->all();
-
         if ($requestData) {
             $validate = $this->validator($requestData, 'edit');
             $validate->validate();
@@ -155,6 +164,9 @@ class UserController extends Controller
             // $user->email = $requestData['email'];
             $user->status = $requestData['status'];
             $user->role = $requestData['role'];
+            $user->sms_alert = (isset($requestData['sms_alert']) && $requestData['sms_alert'] == 'on') ? 1 : 0;
+            $user->email_report = (isset($requestData['email_report']) &&  $requestData['email_report'] == 'on') ? 1 : 0;
+            $user->email_alert = (isset($requestData['email_alert']) &&  $requestData['email_alert'] == 'on') ? 1 : 0;
             $user->save();
             return redirect('admin/users')->with('session_success', 'User updated successfully!');
             // return redirect()->route('user_list', ['id' => $id])->with('status', 'User updated successfully!')->with('type', 'success');
@@ -168,6 +180,7 @@ class UserController extends Controller
         $requestData = $request->all();
 
         if ($requestData) {
+
             $validate = $this->validator($requestData, 'edit');
             $validate->validate();
             $user->first_name = $requestData['first_name'];
@@ -180,8 +193,17 @@ class UserController extends Controller
             return redirect('admin/users')->with('session_success', 'User updated successfully!');
             // return redirect()->route('user_list', ['id' => $id])->with('status', 'User updated successfully!')->with('type', 'success');
         }
-
-        return view('admin/users.edit', compact('user'));
+        $data['header']    = [
+            'title'      => 'Users ',
+            'breadcrumb' => [
+                'Users '     => '',
+                'Update' => '',
+            ],
+        ];
+        $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
+        $data['user']        = User::findOrFail($id);
+        // 
+        return view('admin/users.edit', $data);
     }
 
     /**

@@ -67,6 +67,40 @@
             {!! $errors->first('role', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
+    <div class="form-group row {{ $errors->has('email_alert') ? 'has-error' : ''}}">
+        <label class="  text-right col-lg-3 col-sm-12  mt-0" for="email_alert" class="control-label">{{ 'Email Alert' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="icheck-primary d-inline">
+                <input type="checkbox" name="email_alert" {{ $user->email_alert == 1 ? 'checked' :'' }} id="email_alert">
+                <label for="email_alert"> 
+                </label>
+            </div>
+            {!! $errors->first('email_alert', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="form-group row {{ $errors->has('sms_alert') ? 'has-error' : ''}}">
+        <label class="  text-right col-lg-3 col-sm-12  mt-0" for="sms_alert" class="control-label">{{ 'SMS Alert' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="icheck-primary d-inline">
+                <input type="checkbox" name="sms_alert" {{ $user->sms_alert == 1 ? 'checked' :'' }} id="sms_alert">
+                <label for="sms_alert"> 
+                </label>
+            </div>
+            {!! $errors->first('sms_alert', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="form-group row {{ $errors->has('email_report') ? 'has-error' : ''}}">
+        <label class="  text-right col-lg-3 col-sm-12  mt-0" for="email_report" class="control-label">{{ 'Email Report' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="icheck-primary d-inline">
+                <input type="checkbox" {{ $user->email_report == 1 ? 'checked' :'' }}  name="email_report" id="email_report">
+                <label for="email_report"> 
+                </label>
+            </div>
+            {!! $errors->first('email_report', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div> 
+
     <div class="form-group row ">
         <input class="btn btn-primary col-lg-1 col-md-9 col-sm-12 float-left" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
     </div>

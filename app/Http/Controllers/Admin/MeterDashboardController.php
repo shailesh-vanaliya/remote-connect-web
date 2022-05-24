@@ -205,10 +205,10 @@ class MeterDashboardController extends Controller
         //     $end = date('Y-m-d h:i:s', strtotime($endA));
         // echo $start . " === " . $end;
         // exit;
-
+ 
         $start = $data['startDate'].":00";
         $end = $data['endDate'].":00";
-        $this->deviceName ='FT104';
+        $this->deviceName = isset($data['modem_id'])  ? $data['modem_id'] : 'FT104';
         if (empty($start) && empty($end)) {
             // $start = date('Y-m-d') . " 00:00:00";
             // $end = date('Y-m-d') . " 23:59:59";
@@ -222,7 +222,7 @@ class MeterDashboardController extends Controller
             'Temperature_PV as value',
             'dtm as date',
         )
-            ->where("modem_id",'FT104')
+            ->where("modem_id",$this->deviceName)
             ->whereRaw(
                 "(dtm >= ? AND dtm <= ?)",
                 [$start, $end]

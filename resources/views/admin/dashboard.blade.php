@@ -1,7 +1,6 @@
 @extends('admin.layouts.admin')
 @section('title', $pagetitle )
 @section('content')
-
 <section class="content">
     <!-- <h2>COMMING SOON</h2> -->
     <!-- <div class="row">

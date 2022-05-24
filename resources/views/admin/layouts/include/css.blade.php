@@ -76,7 +76,7 @@
 </style>
 @if(!empty($plugincss))
     @foreach ($plugincss as $pcss)
-        <link href="{{ url('plugins') }}/{{ $pcss }}" rel="stylesheet">
+        <link href="{{ url('public/plugins') }}/{{ $pcss }}" rel="stylesheet">
     @endforeach
 @endif
 

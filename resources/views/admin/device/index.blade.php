@@ -48,7 +48,7 @@
                             <img class="img-circle elevation-2" src="{{ $imageName }}" alt="no image">
                         </div>
                         <h3 class="widget-user-username">{{ $item->modem_id }}</h3>
-                        <p class="widget-user-desc" title="{{  $item->location }}">{{ $item->project_name }} ({{ strlen($item->location) > 10 ? substr($item->location,0,10) : $item->location }})</p>
+                        <p class="widget-user-desc" title="{{  $item->location }}">{{ $item->project_name }} ({{ strtok($item->location, " ") }})</p>
                     </div>
                     <div class="card-footer p-0" style="background-color:unset; border-top: 1px solid rgba(0,0,0,.125)">
                         <ul class="nav flex-column">
