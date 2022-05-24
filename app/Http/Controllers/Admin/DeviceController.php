@@ -55,6 +55,7 @@ class DeviceController extends Controller
                 'remote.MACHINE_LOCAL_PORT',
                 'remote.MACHINE_REMOTE_PORT',
                 'device_map.subscription_status',
+                'device_type.device_type',
                 'devices.*',
             );
             // $subQuery->where('device.modem_id', 'LIKE', "%$keyword%");
@@ -64,6 +65,7 @@ class DeviceController extends Controller
             });
             $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
             $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
+            $subQuery->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
             $subQuery->orWhere('devices.location', 'LIKE', "%$keyword%");
             $subQuery->orWhere('devices.updated_by', 'LIKE', "%$keyword%");
             $subQuery->groupBy('devices.id');
@@ -92,6 +94,7 @@ class DeviceController extends Controller
                 'device_map.subscription_status',
                 'device_map.IMEI_No',
                 'device_status.Status',
+                'device_type.device_type',
                 'devices.*',
             );
             if ($keyword) {
@@ -103,6 +106,7 @@ class DeviceController extends Controller
                 $join->on('device_map.secret_key', '=', 'devices.secret_key');
             });
             $subQuery->Join('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+            $subQuery->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
             $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $subQuery->groupBy('devices.id');
             $data['device'] =  $subQuery->latest('devices.created_at')->paginate($perPage);

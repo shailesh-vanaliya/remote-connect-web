@@ -1,6 +1,11 @@
 @extends('admin.layouts.admin')
 @section('content')
 @section('title', $pagetitle )
+<style>
+    .badge {
+    padding: 0.4em 0.4em;
+    }
+</style>
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -63,12 +68,12 @@
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    Signal Straight <span class="float-right badge bg-info">sssssss</span>
+                                    Device Type <span class="float-right badge bg-info">{{ $item->device_type }}</span>
                                 </a>
                             </li>
 
                             <li class="nav-item m-2 text-center">
-                                <a href="{{ url('/admin/meter-dashboard/' . $item->modem_id) }}" title="View Device"><button class="btn btn-success btn-xs "><i class="fas fa-tachometer-alt" aria-hidden="true"></i> </button></a>
+                                <a href="{{ url('/admin/meter-dashboard/' . $item->modem_id) }}" title="Goto dashboard"><button class="btn btn-success btn-xs "><i class="fas fa-tachometer-alt" aria-hidden="true"></i> </button></a>
                                 <a href="{{ url('/admin/device/' . $item->id) }}" title="View Device"><button class="btn btn-primary btn-xs "><i class="fas fa-eye" aria-hidden="true"></i> </button></a>
                                 <a href="{{ url('/admin/device/' . $item->id . '/edit') }}" title="Edit Device"><button class="btn btn-primary btn-xs "><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
                                 <form method="POST" action="{{ url('/admin/device' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
