@@ -240,8 +240,6 @@ class MeterDashboardController extends Controller
             return Excel::download(new DataLogExport($request->all()), 'DataLogExport-' . date('Ymdhis') . '-.csv');
             // return response()->stream($callback, 200, $headers);
         } catch (Exception $e) {
-            print_r($e->getMessage());
-            exit;
             return redirect('admin/meter-dashboard')->with('session_error', 'DataLogExport Exports failed');
         }
     }
