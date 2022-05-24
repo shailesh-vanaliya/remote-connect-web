@@ -150,6 +150,7 @@ var Dashboard = function () {
                     if (arr) {
                         var options = {
                             animationEnabled: true,
+                            autoSetClassName: true,
                             zoomEnabled: true,
                             theme: "light2",
                             title: {
@@ -211,6 +212,7 @@ var Dashboard = function () {
             $('#'+$(this).attr("id")).bootstrapSwitch('state', $(this).prop('checked'));
         });
 
+
         if($("#moisture").val() == 1){
             $("#moisture").bootstrapSwitch('state', true);
         }else{
@@ -233,9 +235,16 @@ var Dashboard = function () {
               format: 'DD/MM/YYYY hh:mm A'
             }
         })
-
+         
         $('.search').click(function () {
             getAmChart()
+        });
+         
+        $('.applyBtn').click(function () {
+            let startDate = $('#dateRange').data('daterangepicker').startDate.format('YYYY-MM-DD HH:mm');
+            let endDate = $('#dateRange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm');
+            $('#startDate').val(startDate);
+            $('#endDate').val(endDate);
         });
 
         $('.reset').click(function () {
@@ -243,6 +252,44 @@ var Dashboard = function () {
             $('#endDate').val('');
             $('#dateRange').val('');
             getAmChart()
+        });
+      
+        $("body").on("change", '.customSelect', function() {
+            console.log($('#customSelect').val() , " ====")
+            let startDate = '';
+            let endDate = '';
+            $('.dateDiv').hide();
+            if($('#customSelect').val() == 'Today'){
+                startDate = moment().format('YYYY-MM-DD') +'00:00';
+                endDate = moment().format('YYYY-MM-DD') +'23:59';
+            }else if($('#customSelect').val() == 'Yesterday'){
+                startDate = moment().subtract(1, 'days').format('YYYY-MM-DD') +' 00:00';
+                endDate = moment().subtract(1, 'days').format('YYYY-MM-DD') +' 23:59';
+            }else if($('#customSelect').val() == 'Last 7 Days'){
+                startDate = moment().subtract(6, 'days').format('YYYY-MM-DD') +' 00:00';
+                endDate = moment().format('YYYY-MM-DD') +' 23:59';
+            }else if($('#customSelect').val() == 'Last 30 Days'){
+                startDate = moment().subtract(29, 'days').format('YYYY-MM-DD') +' 00:00';
+                endDate = moment().format('YYYY-MM-DD') +' 23:59';
+            }
+            if($('#customSelect').val() == 'This Month'){
+                startDate = moment().startOf('month').format('YYYY-MM-DD') +' 00:00';
+                endDate = moment().endOf('month').format('YYYY-MM-DD') +' 23:59';
+            }
+            if($('#customSelect').val() == 'Last Month'){
+                startDate = moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD') +' 00:00';
+                endDate = moment().subtract(1, 'month').endOf('month').format('YYYY-MM-DD') +' 23:59';
+            }
+            if($('#customSelect').val() == 'Custom'){
+                 $('.dateDiv').show();
+                 startDate = $('#dateRange').data('daterangepicker').startDate.format('YYYY-MM-DD HH:mm');
+                 endDate = $('#dateRange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm');
+            }
+            console.log(startDate, " startDate")
+            console.log(endDate, " endDate")
+            $('#startDate').val(startDate);
+            $('#endDate').val(endDate);
+
         });
       
         $('input[name="machine"]').on('switchChange.bootstrapSwitch', function (event, state) 
@@ -285,16 +332,16 @@ var Dashboard = function () {
        
         var root = am5.Root.new("chartdiv");
         function getAmChart() {
-            // let startDate = ($('#startDate').val() != undefined) ? $('#startDate').val() : '';
-            // let endDate = ($('#endDate').val() != undefined) ? $('#endDate').val() : '';
+            let startDate = ($('#startDate').val() != undefined) ? $('#startDate').val() : '';
+            let endDate = ($('#endDate').val() != undefined) ? $('#endDate').val() : '';
             let dateRange = ($('#dateRange').val() != undefined) ? $('#dateRange').val() : '';
             let modem_id = ($('#modem_id').val() != undefined) ? $('#modem_id').val() : '';
-            console.log($('#dateRange').data('daterangepicker').startDate.format('YYYY-MM-DD hh:mm'))
-            console.log($('#dateRange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm'))
-            let startDate = $('#dateRange').data('daterangepicker').startDate.format('YYYY-MM-DD hh:mm');
-            let endDate = $('#dateRange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm');
-            $('#startDate').val(startDate);
-            $('#endDate').val(endDate);
+            // console.log($('#dateRange').data('daterangepicker').startDate.format('YYYY-MM-DD HH:mm'))
+            // console.log($('#dateRange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm'))
+            // let startDate = $('#dateRange').data('daterangepicker').startDate.format('YYYY-MM-DD HH:mm');
+            // let endDate = $('#dateRange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm');
+            // $('#startDate').val(startDate);
+            // $('#endDate').val(endDate);
 
 
             $.ajax({

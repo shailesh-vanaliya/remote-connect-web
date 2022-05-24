@@ -20,6 +20,11 @@
     color: #fff;
   }
 
+  .amcharts-LineSeries-bullets .amcharts-Circle {
+    fill-opacity: 0.5;
+    fill: red !important;
+  }
+
   /*
   #startDate:before {
     content: 'Start Date';
@@ -52,8 +57,7 @@
   .profile-user-img {
     border: 3px solid #01A89D;
     padding: 5px;
-}
-
+  }
 </style>
 
 <section class="content">
@@ -197,12 +201,12 @@
                     </div> -->
                     <div class="col-md-4 col-sm-6 col-12">
                       <div class="info-box shadow-lg">
-                        <span class="info-box-icon bg-info"><i class="fa fa-thermometer-empty"></i></span>
+                        <span class="info-box-icon bg-info mr-3"><i class="fa fa-thermometer-empty"></i></span>
 
-                        <div class="info-box-content">
-                          <span class="info-box-text">Machine</span>
-                          <span class="info-box-number">  
-                          <input type="checkbox" name="machine" class="machine form-control" value="{{ isset($result->MACHINE_STATUS) && $result->MACHINE_STATUS == 1 ? 1 : 0 }}"  id="machine" data-bootstrap-switch data-off-color="danger" checked data-on-color="success">
+                        <div class="info-box-content ">
+                          <span class="info-box-text ">Machine</span>
+                          <span class="info-box-number ">
+                            <input type="checkbox" name="machine" class="machine form-control" value="{{ isset($result->MACHINE_STATUS) && $result->MACHINE_STATUS == 1 ? 1 : 0 }}" id="machine" data-bootstrap-switch data-off-color="danger" checked data-on-color="success">
                           </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -211,12 +215,12 @@
                     </div>
                     <div class="col-md-4 col-sm-6 col-12">
                       <div class="info-box shadow-lg">
-                        <span class="info-box-icon bg-info"><i class="fa fa-thermometer-empty"></i></span>
+                        <span class="info-box-icon bg-info mr-3"><i class="fa fa-thermometer-empty"></i></span>
 
                         <div class="info-box-content">
                           <span class="info-box-text">Moisture</span>
-                          <span class="info-box-number"> 
-                          <input type="checkbox" class="moisture form-control" id="moisture" name="moisture" value="{{ isset($result->MOISTURE_STATUS) && $result->MOISTURE_STATUS == 1 ? 1 : 0 }}" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                          <span class="info-box-number">
+                            <input type="checkbox" class="moisture form-control" id="moisture" name="moisture" value="{{ isset($result->MOISTURE_STATUS) && $result->MOISTURE_STATUS == 1 ? 1 : 0 }}" data-bootstrap-switch data-off-color="danger" data-on-color="success">
                           </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -230,7 +234,7 @@
             </div>
             <!-- /.card -->
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12-">
             <!-- STACKED BAR CHART -->
             <div class="card card-primary">
               <div class="card-header">
@@ -242,21 +246,31 @@
                   <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
                 </div> -->
               </div>
-              
+
               <div class="mailbox-controls with-border text-center">
                 <form class="" method="POST" action="{{ url('/admin/meter-dashboard-export/') }}">
                   <div class="row">
                     <div class=" col-sm-12 col-md-1 mt-2">
                       Filter
                     </div>
-                    <div class=" col-sm-12 col-md-5">
-                      <input type="text" class="form-control float-right" id="dateRange">
+                    <div class="col-sm-12 col-md-3">
+                      <select class="form-control select2 customSelect" id="customSelect">
+                        <option value="Today" selected="selected">Today</option>
+                        <option value="Yesterday">Yesterday</option>
+                        <option value="Last 7 Days">Last 7 Days</option>
+                        <option value="Last 30 Days">Last 30 Days</option>
+                        <option value="This Month">This Month</option>
+                        <option value="Last Month">Last Month</option>
+                        <option value="Custom">Custom Range</option>
+                      </select>
+                      <input class="form-control endDate" id="endDate" name="end" type="hidden" placeholder="End date" aria-label="Search">
+                    </div>
+                    <div class=" col-sm-12 col-md-5 dateDiv hidden" style="display: none;">
+                      <input type="text" name="dateRange" class="form-control float-right" id="dateRange">
                       <input type="hidden" id="modem_id" name="modem_id" class="modem_id" value="{{ isset($result->modem_id) ? $result->modem_id : '' }}">
                       <input class="form-control startDate" id="startDate" name="start" type="hidden" placeholder="Start Date" aria-label="Search">
                     </div>
-                    <!-- <div class="col-sm-12 col-md-3"> -->
-                      <input class="form-control endDate" id="endDate" name="end" type="hidden" placeholder="End date" aria-label="Search">
-                    <!-- </div> -->
+
                     <div class="col-sm-12 col-md-3">
                       <button type="button" class="btn btn-default btn-sm search" title="Filter">
                         <i class="fas fa-check"></i>
