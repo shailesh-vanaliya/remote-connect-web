@@ -97,12 +97,12 @@ class MeterDashboardController extends Controller
             $details =  $deviceObject->deviceDetail($requestData['deviceId']);
 
             $data = array(
-                'data' => ($requestData['value']),
+                'data' => intval($requestData['value']),
                 'client id' => (isset($details->modem_id) ?  $details->modem_id : ''),
             );
             // SW1(Topic:FT107/SUB_MOIS_START)
             // {"data":#VALUE,"client id":"FT104_client3"}
-            $res = MQTT::publish($details->modem_id . '/' . $requestData['value'] . "/SUB_MOIS_START/", json_encode($data));
+            $res = MQTT::publish($details->modem_id ."/1/SUB_MOIS_START", json_encode($data));
             $result['status'] = 'success';
             $result['message'] = 'Status updated successfully';
         } catch (\Exception $e) {
@@ -121,12 +121,12 @@ class MeterDashboardController extends Controller
             $details =  $deviceObject->deviceDetail($requestData['deviceId']);
 
             $data = array(
-                'data' => ($requestData['value']),
+                'data' => intval($requestData['value']),
                 'client id' => (isset($details->modem_id) ?  $details->modem_id : ''),
             );
             // SW1(Topic:FT107/SUB_MOIS_START)
             // {"data":#VALUE,"client id":"FT104_client3"}
-            $res = MQTT::publish($details->modem_id . '/' . "/SUB_MACH_START/", json_encode($data));
+            $res = MQTT::publish($details->modem_id ."/1/SUB_MACH_START", json_encode($data));
             $result['status'] = 'success';
             $result['message'] = 'Status updated successfully';
         } catch (\Exception $e) {
@@ -208,7 +208,7 @@ class MeterDashboardController extends Controller
 
         $start = $data['startDate'].":00";
         $end = $data['endDate'].":00";
-        $this->deviceName = $data['modem_id'];
+        $this->deviceName ='FT104';
         if (empty($start) && empty($end)) {
             // $start = date('Y-m-d') . " 00:00:00";
             // $end = date('Y-m-d') . " 23:59:59";
@@ -222,7 +222,7 @@ class MeterDashboardController extends Controller
             'Temperature_PV as value',
             'dtm as date',
         )
-            ->where("modem_id", $this->deviceName)
+            ->where("modem_id",'FT104')
             ->whereRaw(
                 "(dtm >= ? AND dtm <= ?)",
                 [$start, $end]
