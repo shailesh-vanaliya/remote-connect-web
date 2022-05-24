@@ -1,6 +1,7 @@
 @extends('admin.layouts.admin')
 @section('title', $pagetitle )
 @section('content')
+
 <section class="content">
     <!-- <h2>COMMING SOON</h2> -->
     <!-- <div class="row">
@@ -48,56 +49,91 @@
     <input type="hidden" name="_token" value="{{ csrf_token() }}">   
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVqNumGk1DCDuthLx-X7YqutsMm6DReNA&region=india&libraries=places"></script>
-    <div id="map" class="col-md-12" style="width: 1000px; height: 600px;"></div>
-    
-    <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDujLPXC7_jqMNn9KWpah2o1mYGUVbq2vk&region=india&libraries=places"></script>
-    <div id="map" style="width: 1000px; height: 600px;"></div>
+    <!-- <div id="mapa" class="col-md-12" style="width: 1000px; height: 600px;"></div> -->
+    <div class="row">
+          <!-- Left col -->
+          <div class="col-md-8">
+            <!-- MAP & BOX PANE -->
+            <div class="card">
+              <!-- <div class="card-header">
+                <h3 class="card-title">US-Visitors Report</h3>
 
-    <script type="text/javascript">
-        var locations = [
-            ['chandigarh', 30.7333, 76.7794, 8],
-            ['Panjab', 31.1471, 75.3412, 6],
-            ['Ahmadabad', 23.0225, 72.5714, 4],
-            ['Baroda', 22.3072, 73.1812, 5],
-            ['chennai', 13.0827, 80.2707, 3],
-            ['bangalore ', 12.9716, 77.5946, 2],
-            ['mumbai', 19.0760, 72.8777, 1]
-        ];
-        // var locations = "<?php // echo ($locationList); ?>"
-        // console.log(locations , " locationslocations")
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 5,
-            // panControl: false,
-            // zoomControl: true,
-            // zoomControlOptions: {
-            //     style: google.maps.ZoomControlStyle.LARGE
-            // },
-            mapTypeControl: false,
-            streetViewControl: false,
-            overviewMapControl: true,
-            rotateControl: false,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            center: new google.maps.LatLng(20.5937, 78.9629),
-        });
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div> -->
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <div class="d-md-flex">
+                  <div class="p-1 flex-fill" style="overflow: hidden">
+                    <!-- Map will be created here -->
+                    <div id="map" style="height: 525px; overflow: hidden">
+                      <div class="map"></div>
+                    </div>
+                  </div>
+                  <!-- <div class="card-pane-right bg-success pt-2 pb-2 pl-4 pr-4">
+                    <div class="description-block mb-4">
+                      <div class="sparkbar pad" data-color="#fff">90,70,90,70,75,80,70</div>
+                      <h5 class="description-header">8390</h5>
+                      <span class="description-text">Visits</span>
+                    </div>
+                    <div class="description-block mb-4">
+                      <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
+                      <h5 class="description-header">30%</h5>
+                      <span class="description-text">Referrals</span>
+                    </div>
+                    <div class="description-block">
+                      <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
+                      <h5 class="description-header">70%</h5>
+                      <span class="description-text">Organic</span>
+                    </div>
+                  </div>  -->
+                </div> 
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
 
-        var infowindow = new google.maps.InfoWindow();
+          <div class="col-md-4">
+            <div class="info-box mb-3 bg-warning">
+              <span class="info-box-icon"><i class="fas fa-tag"></i></span>
 
-        var marker, i;
+              <div class="info-box-content">
+                <span class="info-box-text">Total Device</span>
+                <span class="info-box-number">5,200</span>
+              </div>
+            </div>
+            <div class="info-box mb-3 bg-success">
+              <span class="info-box-icon"><i class="far fa-heart"></i></span>
 
-        for (i = 0; i < locations.length; i++) {
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                map: map
-            });
+              <div class="info-box-content">
+                <span class="info-box-text">Online Device</span>
+                <span class="info-box-number">92,050</span>
+              </div>
+            </div>
+            <div class="info-box mb-3 bg-danger">
+              <span class="info-box-icon"><i class="fas fa-cloud-download-alt"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Downloads</span>
+                <span class="info-box-number">114,381</span>
+              </div>
+            </div>
 
-            google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                return function() {
-                    infowindow.setContent(locations[i][0]);
-                    infowindow.open(map, marker);
-                }
-            })(marker, i));
-        }
-    </script> -->
-
+            <div class="info-box mb-3 bg-info">
+              <span class="info-box-icon"><i class="far fa-comment"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Direct Messages</span>
+                <span class="info-box-number">163,921</span>
+              </div>
+            </div>
+          </div>
+        </div>
 </section>
 @endsection

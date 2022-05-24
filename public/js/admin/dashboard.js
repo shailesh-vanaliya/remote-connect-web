@@ -16,15 +16,15 @@ var Dashboard = function () {
             data: { 'action': 'getLocation' },
             success: function (data) {
                 var output = JSON.parse(data);
-                // console.log(output)
-                // var locations = output;
+                console.log(output)
+                var locations = output;
                 let latitude = ($('.latitude').val() != '' && $('.latitude').val() != undefined) ? $('.latitude').val() : ''
                 let longitude = ($('.longitude').val() != '' && $('.longitude').val() != undefined) ? $('.longitude').val() : ''
                 let location = $('.location').val()
-                var locations = [
-                    [location, latitude, longitude]
+                // var locations = [
+                //     [location, latitude, longitude]
                   
-                ];
+                // ];
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 5,
                     mapTypeControl: false,
