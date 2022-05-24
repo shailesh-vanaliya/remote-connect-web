@@ -260,8 +260,8 @@ var Dashboard = function () {
             let endDate = '';
             $('.dateDiv').hide();
             if($('#customSelect').val() == 'Today'){
-                startDate = moment().format('YYYY-MM-DD') +'00:00';
-                endDate = moment().format('YYYY-MM-DD') +'23:59';
+                startDate = moment().format('YYYY-MM-DD') +' 00:00';
+                endDate = moment().format('YYYY-MM-DD') +' 23:59';
             }else if($('#customSelect').val() == 'Yesterday'){
                 startDate = moment().subtract(1, 'days').format('YYYY-MM-DD') +' 00:00';
                 endDate = moment().subtract(1, 'days').format('YYYY-MM-DD') +' 23:59';
@@ -329,9 +329,10 @@ var Dashboard = function () {
         });
 
         getAmChart();
-       
+       $('.customSelect').trigger('change');
         var root = am5.Root.new("chartdiv");
         function getAmChart() {
+
             let startDate = ($('#startDate').val() != undefined) ? $('#startDate').val() : '';
             let endDate = ($('#endDate').val() != undefined) ? $('#endDate').val() : '';
             let dateRange = ($('#dateRange').val() != undefined) ? $('#dateRange').val() : '';
@@ -342,7 +343,10 @@ var Dashboard = function () {
             // let endDate = $('#dateRange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm');
             // $('#startDate').val(startDate);
             // $('#endDate').val(endDate);
-
+             if($('#customSelect').val() == 'Today'){
+                startDate = moment().format('YYYY-MM-DD') +' 00:00';
+                endDate = moment().format('YYYY-MM-DD') +' 23:59';
+            }
 
             $.ajax({
                 type: "POST",
