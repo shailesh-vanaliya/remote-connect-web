@@ -107,7 +107,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Total Device</span>
-                <span class="info-box-number">5,200</span>
+                <span class="info-box-number">{{ $device}}</span>
               </div>
             </div>
             <div class="info-box mb-3 bg-success">
@@ -115,7 +115,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Online Device</span>
-                <span class="info-box-number">92,050</span>
+                <span class="info-box-number">{{ $onlineDevice }}</span>
               </div>
             </div>
             <div class="info-box mb-3 bg-danger">
