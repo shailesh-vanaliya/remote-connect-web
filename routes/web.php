@@ -88,3 +88,4 @@ Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illum
 //     $route->match(['DELETE', 'post'], '/user/delete/{id}', 'Admin\UserController@destroy')
 //         ->name('user_delete')->where('id', '[0-9]+');
 }); 
+Route::resource('admin/report-configuration', 'Admin\ReportConfigurationController');

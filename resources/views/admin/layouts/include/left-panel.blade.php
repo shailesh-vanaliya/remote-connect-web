@@ -106,13 +106,13 @@ return redirect('login');
          
         
           <li class="{{ ($currRoute == '' || $currRoute == 'admin_dashboard' || $currRoute == '') ? 'active nav-item' : 'nav-item' }}">
-                <a href="{{ route('admin_dashboard') }}" class="nav-link">
+                <a href="{{ route('admin_dashboard') }}" class="{{ ($currRoute == 'admin_dashboard'  ) ? 'active nav-link': 'nav-link' }}">
                     <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/Home.svg') }}" alt=""> <p > Home</p>
                 </a>
             </li>
 
             <li class="{{ ($currRoute == 'device.create'  ||   $currRoute == 'device-detail' || $currRoute == 'device.show' || $currRoute == 'device.edit' || $currRoute == 'device.index') ? 'active nav-item': 'nav-item' }}">
-                <a href="{{ url('/admin/device') }}" class="nav-link">
+                <a href="{{ url('/admin/device') }}" class="{{ ($currRoute == 'device.create'  ||   $currRoute == 'device-detail' || $currRoute == 'device.show' || $currRoute == 'device.edit' || $currRoute == 'device.index') ? 'active nav-link': 'nav-link' }}">
                     <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/Devices.svg') }}" alt=""> <p class="spn">Device</p>
                 </a>
             </li>
@@ -140,7 +140,8 @@ return redirect('login');
           </li> -->
           <li class="nav-item">
             <a href="{{ url('/admin/meter-dashboard') }}" class="{{ ($currRoute == 'meter-dashboard') ? 'active nav-link': 'nav-link' }}">
-              <i class="nav-icon fas fa-tachometer-alt text-info" ></i>
+              <!-- <i class="nav-icon fas fa-tachometer-alt text-info" ></i> -->
+              <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/pressure_gauge.svg') }}" alt="">
               <p>Pressure Dashboard</p>
             </a>
           </li>
@@ -157,13 +158,13 @@ return redirect('login');
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('/admin/alert-configration') }}" class="nav-link">
+            <a href="{{ url('/admin/alert-configration') }}" class="{{ ($currRoute == 'alert-configration.create' || $currRoute == 'alert-configration.show' || $currRoute == 'alert-configration.edit' || $currRoute == 'alert-configration.index') ? 'active nav-link': 'nav-link' }}">
               <i class="nav-icon far fa-comments text-info"></i>
               <p>Alert Configuration</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('/admin/report') }}" class="nav-link">
+            <a href="{{ url('/admin/report') }}" class="{{ ($currRoute == 'report.create' || $currRoute == 'report.show' || $currRoute == 'report.edit' || $currRoute == 'report.index') ? 'active nav-link': 'nav-link' }}">
               <i class="nav-icon far fa-comment text-info"></i>
               <p>Reports</p>
             </a>

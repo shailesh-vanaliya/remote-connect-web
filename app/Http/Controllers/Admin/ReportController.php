@@ -37,7 +37,7 @@ class ReportController extends Controller
         $data['js']                    = ['admin/report.js'];
         $data['funinit']               = [''];
         $data['header']    = [
-            'title'      => 'Organizaion',
+            'title'      => 'Reports',
             'breadcrumb' => [
                 'Report'     => '',
                 'list' => '',
@@ -88,7 +88,9 @@ class ReportController extends Controller
     {
         
         $requestData = $request->all();
-        
+        $requestData['field_name'] =  json_encode($requestData['fieldList']);
+        $requestData['organization_id'] =  1;
+
         Report::create($requestData);
 
         return redirect('admin/report')->with('session_error', 'Report added!');

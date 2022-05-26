@@ -17,9 +17,8 @@
 
     <div class="form-group row {{ $errors->has('field_name') ? 'has-error' : ''}}">
         <label for="field_name" class="col-sm-2 col-form-label">{{ 'Field Name' }}</label>
-        <div class="col-sm-5">
-            <input class="form-control" name="field_name" type="text" id="field_name" value="{{ isset($report->field_name) ? $report->field_name : ''}}">
-            {!! $errors->first('field_name', '<p class="help-block">:message</p>') !!}
+       <div class="col-sm-5">
+        <span class="coursesForType " id="coursesForType"></span>
         </div>
     </div>
 
