@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-
+use Auth;
+use DB;
+use App\Models\Report;
+use App\Models\Organization;
+use App\Models\Device;
+use App\Models\DeviceType;
 use App\Models\ReportConfiguration;
 use Illuminate\Http\Request;
 
@@ -50,9 +55,11 @@ class ReportConfigurationController extends Controller
      */
     public function create()
     {
+
         $data['pagetitle']             = 'Report Configuration';
         $data['js']                    = ['admin/report.js'];
         $data['funinit']               = ['Report.init()'];
+        $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
         $data['header']    = [
             'title'      => 'Report Configuration',
             'breadcrumb' => [
@@ -60,7 +67,17 @@ class ReportConfigurationController extends Controller
                 'Create' => '',
             ],
         ];
-        return view('admin.report-configuration.create');
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['device'] = Device::select('modem_id', 'id',)->pluck('modem_id', 'id')->toArray();
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+            $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
+        } else {
+            $data['device'] = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+            $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
+            // $data['organization'] = Organization::select('organization_name','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('organization_name', 'id')->toArray();
+        }
+        return view('admin.report-configuration.create', $data);
     }
 
     /**
@@ -72,12 +89,15 @@ class ReportConfigurationController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $requestData = $request->all();
-        
+        $requestData['created_by'] = Auth::guard('admin')->user()->id;
+        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+        // print_r($requestData);
+        // exit;
         ReportConfiguration::create($requestData);
 
-        return redirect('admin/report-configuration')->with('session_error', 'ReportConfiguration added!');
+        return redirect('admin/report-configuration')->with('session_success', 'ReportConfiguration added!');
     }
 
     /**
@@ -116,6 +136,7 @@ class ReportConfigurationController extends Controller
         $data['pagetitle']             = 'Report Configuration';
         $data['js']                    = ['admin/report.js'];
         $data['funinit']               = ['Report.init()'];
+        $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
         $data['header']    = [
             'title'      => 'Report Configuration',
             'breadcrumb' => [
@@ -123,6 +144,18 @@ class ReportConfigurationController extends Controller
                 'edit' => '',
             ],
         ];
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['device'] = Device::select('modem_id', 'id',)->pluck('modem_id', 'id')->toArray();
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+            $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
+        } else {
+            $data['device'] = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+            $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
+        }
+        $table = 'datalog';
+        $data['column'] =  DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($table);
+
         return view('admin.report-configuration.edit', $data);
     }
 
@@ -136,13 +169,14 @@ class ReportConfigurationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $requestData = $request->all();
-        
+        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
         $reportconfiguration = ReportConfiguration::findOrFail($id);
+        $requestData['parameter'] = json_encode($requestData['parameter']);
         $reportconfiguration->update($requestData);
 
-        return redirect('admin/report-configuration')->with('session_error', 'ReportConfiguration updated!');
+        return redirect('admin/report-configuration')->with('session_success', 'ReportConfiguration updated!');
     }
 
     /**
@@ -156,6 +190,6 @@ class ReportConfigurationController extends Controller
     {
         ReportConfiguration::destroy($id);
 
-        return redirect('admin/report-configuration')->with('session_error', 'ReportConfiguration deleted!');
+        return redirect('admin/report-configuration')->with('session_success', 'ReportConfiguration deleted!');
     }
 }

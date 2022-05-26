@@ -25,7 +25,7 @@ class ReportConfiguration extends Model
      *
      * @var array
      */
-    protected $fillable = ['report_id', 'device_id', 'organization_id', 'report_title', 'parameter'];
+    protected $fillable = ['report_id', 'device_id', 'organization_id', 'report_title', 'parameter','created_by','updated_by'];
 
     
 }
