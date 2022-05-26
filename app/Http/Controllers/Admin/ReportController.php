@@ -93,7 +93,7 @@ class ReportController extends Controller
 
         Report::create($requestData);
 
-        return redirect('admin/report')->with('session_error', 'Report added!');
+        return redirect('admin/report')->with('session_success', 'Report added!');
     }
 
     /**
@@ -116,6 +116,16 @@ class ReportController extends Controller
                 'show' => '',
             ],
         ];
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['device'] = Device::select('modem_id','id',)->pluck('modem_id', 'id')->toArray();
+            $data['organization'] = Organization::select('organization_name','id',)->pluck('organization_name', 'id')->toArray();
+            $data['deviceType'] = DeviceType::select('device_type','id',)->pluck('device_type', 'id')->toArray();
+        }else{
+            $data['device'] = Device::select('modem_id','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
+            $data['organization'] = Organization::select('organization_name','id',)->pluck('organization_name', 'id')->toArray();
+            $data['deviceType'] = DeviceType::select('device_type','id',)->pluck('device_type', 'id')->toArray();
+            // $data['organization'] = Organization::select('organization_name','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('organization_name', 'id')->toArray();
+        }
         return view('admin.report.show', $data);
     }
 
@@ -131,7 +141,7 @@ class ReportController extends Controller
         $data['report'] = Report::findOrFail($id);
         $data['pagetitle']             = 'Report';
         $data['js']                    = ['admin/report.js'];
-        $data['funinit']               = [''];
+        $data['funinit']               = ['Report.init()'];
         $data['header']    = [
             'title'      => 'Reports',
             'breadcrumb' => [
@@ -139,6 +149,16 @@ class ReportController extends Controller
                 'edit' => '',
             ],
         ];
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['device'] = Device::select('modem_id','id',)->pluck('modem_id', 'id')->toArray();
+            $data['organization'] = Organization::select('organization_name','id',)->pluck('organization_name', 'id')->toArray();
+            $data['deviceType'] = DeviceType::select('device_type','id',)->pluck('device_type', 'id')->toArray();
+        }else{
+            $data['device'] = Device::select('modem_id','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
+            $data['organization'] = Organization::select('organization_name','id',)->pluck('organization_name', 'id')->toArray();
+            $data['deviceType'] = DeviceType::select('device_type','id',)->pluck('device_type', 'id')->toArray();
+            // $data['organization'] = Organization::select('organization_name','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('organization_name', 'id')->toArray();
+        }
         return view('admin.report.edit', $data);
     }
 
@@ -154,11 +174,12 @@ class ReportController extends Controller
     {
         
         $requestData = $request->all();
-        
+        $requestData['field_name'] =  json_encode($requestData['fieldList']);
+        $requestData['organization_id'] =  1;
         $report = Report::findOrFail($id);
         $report->update($requestData);
 
-        return redirect('admin/report')->with('session_error', 'Report updated!');
+        return redirect('admin/report')->with('session_success', 'Report updated!');
     }
 
     /**
@@ -172,7 +193,7 @@ class ReportController extends Controller
     {
         Report::destroy($id);
 
-        return redirect('admin/report')->with('session_error', 'Report deleted!');
+        return redirect('admin/report')->with('session_success', 'Report deleted!');
     }
 
     public function ajaxAction(Request $request)

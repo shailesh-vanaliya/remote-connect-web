@@ -21,17 +21,26 @@ class ReportConfigurationController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $reportconfiguration = ReportConfiguration::where('report_id', 'LIKE', "%$keyword%")
+            $data['reportconfiguration'] = ReportConfiguration::where('report_id', 'LIKE', "%$keyword%")
                 ->orWhere('device_id', 'LIKE', "%$keyword%")
                 ->orWhere('organization_id', 'LIKE', "%$keyword%")
                 ->orWhere('report_title', 'LIKE', "%$keyword%")
                 ->orWhere('parameter', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $reportconfiguration = ReportConfiguration::latest()->paginate($perPage);
+            $data['reportconfiguration'] = ReportConfiguration::latest()->paginate($perPage);
         }
-
-        return view('admin.report-configuration.index', compact('reportconfiguration'));
+        $data['pagetitle']             = 'Report Configuration';
+        $data['js']                    = ['admin/report.js'];
+        $data['funinit']               = ['Report.init()'];
+        $data['header']    = [
+            'title'      => 'Report Configuration',
+            'breadcrumb' => [
+                'Report Configuration'     => '',
+                'list' => '',
+            ],
+        ];
+        return view('admin.report-configuration.index', $data);
     }
 
     /**
@@ -41,6 +50,16 @@ class ReportConfigurationController extends Controller
      */
     public function create()
     {
+        $data['pagetitle']             = 'Report Configuration';
+        $data['js']                    = ['admin/report.js'];
+        $data['funinit']               = ['Report.init()'];
+        $data['header']    = [
+            'title'      => 'Report Configuration',
+            'breadcrumb' => [
+                'Report Configuration'     => '',
+                'Create' => '',
+            ],
+        ];
         return view('admin.report-configuration.create');
     }
 
@@ -70,9 +89,18 @@ class ReportConfigurationController extends Controller
      */
     public function show($id)
     {
-        $reportconfiguration = ReportConfiguration::findOrFail($id);
-
-        return view('admin.report-configuration.show', compact('reportconfiguration'));
+        $data['reportconfiguration'] = ReportConfiguration::findOrFail($id);
+        $data['pagetitle']             = 'Report Configuration';
+        $data['js']                    = ['admin/report.js'];
+        $data['funinit']               = ['Report.init()'];
+        $data['header']    = [
+            'title'      => 'Reports',
+            'breadcrumb' => [
+                'Report Configuration'     => '',
+                'Show' => '',
+            ],
+        ];
+        return view('admin.report-configuration.show', $data);
     }
 
     /**
@@ -84,9 +112,18 @@ class ReportConfigurationController extends Controller
      */
     public function edit($id)
     {
-        $reportconfiguration = ReportConfiguration::findOrFail($id);
-
-        return view('admin.report-configuration.edit', compact('reportconfiguration'));
+        $data['reportconfiguration'] = ReportConfiguration::findOrFail($id);
+        $data['pagetitle']             = 'Report Configuration';
+        $data['js']                    = ['admin/report.js'];
+        $data['funinit']               = ['Report.init()'];
+        $data['header']    = [
+            'title'      => 'Report Configuration',
+            'breadcrumb' => [
+                'Report Configuration'     => '',
+                'edit' => '',
+            ],
+        ];
+        return view('admin.report-configuration.edit', $data);
     }
 
     /**
