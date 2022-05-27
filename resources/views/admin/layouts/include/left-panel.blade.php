@@ -169,6 +169,18 @@ return redirect('login');
               <p>Reports</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('/admin/report-configuration') }}" class="{{ ($currRoute == 'report-configuration.create' || $currRoute == 'report-configuration.show' || $currRoute == 'report-configuration.edit' || $currRoute == 'report-configuration.index') ? 'active nav-link': 'nav-link' }}">
+              <i class="nav-icon far fa-comment text-info"></i>
+              <p>Report Configuration</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/admin/report-schedules') }}" class="{{ ($currRoute == 'report-schedules.create' || $currRoute == 'report-schedules.show' || $currRoute == 'report-schedules.edit' || $currRoute == 'report-schedules.index') ? 'active nav-link': 'nav-link' }}">
+              <i class="nav-icon far fa-clock text-info"></i>
+              <p>Report Schedules</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

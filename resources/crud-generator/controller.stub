@@ -53,7 +53,7 @@ class DummyClass extends Controller
         {{fileSnippet}}
         {{modelName}}::create($requestData);
 
-        return redirect('{{routeGroup}}{{viewName}}')->with('session_error', '{{modelName}} added!');
+        return redirect('{{routeGroup}}{{viewName}}')->with('session_success', '{{modelName}} added!');
     }
 
     /**
@@ -100,7 +100,7 @@ class DummyClass extends Controller
         ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
         ${{crudNameSingular}}->update($requestData);
 
-        return redirect('{{routeGroup}}{{viewName}}')->with('session_error', '{{modelName}} updated!');
+        return redirect('{{routeGroup}}{{viewName}}')->with('session_success', '{{modelName}} updated!');
     }
 
     /**
@@ -114,6 +114,6 @@ class DummyClass extends Controller
     {
         {{modelName}}::destroy($id);
 
-        return redirect('{{routeGroup}}{{viewName}}')->with('session_error', '{{modelName}} deleted!');
+        return redirect('{{routeGroup}}{{viewName}}')->with('session_success', '{{modelName}} deleted!');
     }
 }

@@ -1,4 +1,4 @@
-<div class="box-body">
+<div class="card-body">
 %%formFieldsHtml%%
 
 <div class="form-group">

@@ -1,0 +1,168 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use Auth;
+use DB;
+use App\Models\ReportSchedule;
+use Illuminate\Http\Request;
+
+class ReportSchedulesController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        $keyword = $request->get('search');
+        $perPage = 25;
+
+        if (!empty($keyword)) {
+            $data['reportschedules'] = ReportSchedule::where('report_id', 'LIKE', "%$keyword%")
+                ->orWhere('start_time', 'LIKE', "%$keyword%")
+                ->orWhere('end_time', 'LIKE', "%$keyword%")
+                ->orWhere('execution_time', 'LIKE', "%$keyword%")
+                ->orWhere('repeat_on', 'LIKE', "%$keyword%")
+                ->orWhere('sender_user_list', 'LIKE', "%$keyword%")
+                ->latest()->paginate($perPage);
+        } else {
+            $data['reportschedules'] = ReportSchedule::latest()->paginate($perPage);
+        }
+        $data['pagetitle']             = 'Report schedules';
+        $data['js']                    = ['admin/report.js'];
+        $data['funinit']               = ['Report.init()'];
+        $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
+        $data['header']    = [
+            'title'      => 'Report schedules',
+            'breadcrumb' => [
+                'Report schedules'     => '',
+                'edit' => '',
+            ],
+        ];
+        return view('admin.report-schedules.index', $data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        $data['pagetitle']             = 'Report schedules';
+        $data['js']                    = ['admin/report.js'];
+        $data['funinit']               = ['Report.init()'];
+        $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
+        $data['header']    = [
+            'title'      => 'Report schedules',
+            'breadcrumb' => [
+                'Report schedules'     => '',
+                'edit' => '',
+            ],
+        ];
+        return view('admin.report-schedules.create',$data);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(Request $request)
+    {
+        
+        $requestData = $request->all();
+        $requestData['created_by'] = Auth::guard('admin')->user()->id;
+        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+        ReportSchedule::create($requestData);
+
+        return redirect('admin/report-schedules')->with('session_success', 'ReportSchedule added!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show($id)
+    {
+        $data['reportschedules'] = ReportSchedule::findOrFail($id);
+        $data['pagetitle']             = 'Report schedules';
+        $data['js']                    = ['admin/report.js'];
+        $data['funinit']               = ['Report.init()'];
+        $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
+        $data['header']    = [
+            'title'      => 'Report schedules',
+            'breadcrumb' => [
+                'Report schedules'     => '',
+                'edit' => '',
+            ],
+        ];
+        return view('admin.report-schedules.show', $data);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $data['reportschedule'] = ReportSchedule::findOrFail($id);
+        $data['pagetitle']             = 'Report schedules';
+        $data['js']                    = ['admin/report.js'];
+        $data['funinit']               = ['Report.init()'];
+        $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
+        $data['header']    = [
+            'title'      => 'Report schedules',
+            'breadcrumb' => [
+                'Report schedules'     => '',
+                'edit' => '',
+            ],
+        ];
+        return view('admin.report-schedules.edit', $data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update(Request $request, $id)
+    {
+        
+        $requestData = $request->all();
+        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+        $reportschedule = ReportSchedule::findOrFail($id);
+        $reportschedule->update($requestData);
+
+        return redirect('admin/report-schedules')->with('session_success', 'ReportSchedule updated!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function destroy($id)
+    {
+        ReportSchedule::destroy($id);
+
+        return redirect('admin/report-schedules')->with('session_success', 'ReportSchedule deleted!');
+    }
+}

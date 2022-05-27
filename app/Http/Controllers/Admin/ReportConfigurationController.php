@@ -77,6 +77,10 @@ class ReportConfigurationController extends Controller
             $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
             // $data['organization'] = Organization::select('organization_name','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('organization_name', 'id')->toArray();
         }
+        $table = 'datalog';
+
+        $data['column'] =  DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($table);
+
         return view('admin.report-configuration.create', $data);
     }
 
@@ -93,6 +97,7 @@ class ReportConfigurationController extends Controller
         $requestData = $request->all();
         $requestData['created_by'] = Auth::guard('admin')->user()->id;
         $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+        $requestData['parameter'] = json_encode($requestData['parameter']);
         // print_r($requestData);
         // exit;
         ReportConfiguration::create($requestData);

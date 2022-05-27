@@ -33,11 +33,11 @@
         <label for="parameter" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Parameter' }}</label>
         <div class="col-sm-5">
             @php
-            $array = json_decode($reportconfiguration->parameter);
+            $array = (isset($reportconfiguration->parameter)) ? json_decode($reportconfiguration->parameter) : '';
             @endphp
             @foreach($column as $row => $val)
             @php
-             $check =  (in_array($val,$array) ? 'checked' : '') ;
+             $check =  isset($reportconfiguration->parameter) ? (in_array($val,$array) ? 'checked' : '') : '';
             @endphp
             <div class="icheck-primary d-inline mr-5">
                 <input type="checkbox" {{ $check  }} value="{{ $val }}" name="parameter[]" id="email_report{{ $row }}">

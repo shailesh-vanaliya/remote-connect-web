@@ -16,7 +16,7 @@
                             <button type="submit" class="btn btn-danger btn-sm" title="Delete %%modelName%%" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> Delete</button>
                         </form>
                 </div>
-                <div class="box-body">
+                <div class="card-body">
                     @if ($errors->any())
                     <ul class="alert alert-danger">
                         @foreach ($errors->all() as $error)

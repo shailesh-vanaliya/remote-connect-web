@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\{
     ReportConfigurationController,
     AlertConfigurationController,
     ReportController,
+    ReportSchedulesController,
 };
 
 /*
@@ -75,6 +76,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::resource('report', ReportController::class);
     Route::post('/report/ajaxAction', [ReportController::class, 'ajaxAction'])->name('ajaxAction');
     Route::resource('report-configuration', ReportConfigurationController::class);
+    Route::resource('report-schedules', ReportSchedulesController::class);
 });
 
 Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illuminate\Routing\Router $route) {
@@ -89,3 +91,4 @@ Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illum
 //     $route->match(['DELETE', 'post'], '/user/delete/{id}', 'Admin\UserController@destroy')
 //         ->name('user_delete')->where('id', '[0-9]+');
 }); 
+
