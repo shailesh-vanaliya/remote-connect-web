@@ -1,4 +1,12 @@
 <div class="card-body">
+<div class="form-group row {{ $errors->has('organization_id') ? 'has-error' : ''}}">
+        <label for="organization_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Organization' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            {{ Form::select('organization_id', $organization , empty($devicemap->organization_id) ? null : $devicemap->organization_id , array('class' => 'form-control organization_id', 'id' => 'organization_id')) }}
+            {!! $errors->first('organization_id', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
     <div class="form-group row {{ $errors->has('model_no') ? 'has-error' : ''}}">
         <label for="model_no" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Model No' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">

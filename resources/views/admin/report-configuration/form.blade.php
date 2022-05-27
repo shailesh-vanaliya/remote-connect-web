@@ -17,7 +17,6 @@
     <div class="form-group row {{ $errors->has('organization_id') ? 'has-error' : ''}}">
         <label for="organization_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Organization Id' }}</label>
         <div class="col-sm-5">
-            <!-- <input class="form-control" name="organization_id" type="text" id="organization_id" value="{{ isset($reportconfiguration->organization_id) ? $reportconfiguration->organization_id : ''}}"> -->
             {{ Form::select('organization_id', $organization , empty($reportconfiguration->organization_id) ? null : $reportconfiguration->organization_id , array('class' => 'form-control organization_id', 'id' => 'organization_id')) }}
             {!! $errors->first('organization_id', '<p class="help-block">:message</p>') !!}
         </div>

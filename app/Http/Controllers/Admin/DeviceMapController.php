@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Auth;
 use App\Models\DeviceMap;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -75,6 +76,11 @@ class DeviceMapController extends Controller
                 'Create' => '',
             ],
         ];
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+        } else {
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+        }
         return view('admin.device-map.create', $data);
     }
 
@@ -156,6 +162,11 @@ class DeviceMapController extends Controller
                 'Edit' => '',
             ],
         ];
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+        } else {
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+        }
         return view('admin.device-map.edit', $data);
     }
 

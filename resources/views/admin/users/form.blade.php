@@ -13,7 +13,13 @@
             {!! $errors->first('last_name', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-
+    <div class="form-group row {{ $errors->has('organization_id') ? 'has-error' : ''}}">
+        <label for="organization_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Organization' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            {{ Form::select('organization_id', $organization , empty($user->organization_id) ? null : $user->organization_id , array('class' => 'form-control organization_id', 'id' => 'organization_id')) }}
+            {!! $errors->first('organization_id', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
     @if ($formMode !== 'edit')
     <div class="form-group row {{ $errors->has('email') ? 'has-error' : ''}}">
         <label class="col-form-label text-right col-lg-3 col-sm-12" for="email">{{ 'Email' }}</label>
@@ -71,7 +77,7 @@
         <label class="  text-right col-lg-3 col-sm-12  mt-0" for="email_alert" class="control-label">{{ 'Email Alert' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="icheck-primary d-inline">
-                <input type="checkbox" name="email_alert" {{ $user->email_alert == 1 ? 'checked' :'' }} id="email_alert">
+                <input type="checkbox" name="email_alert" {{  isset($user->email_alert) &&  $user->email_alert == 1 ? 'checked' :'' }} id="email_alert">
                 <label for="email_alert"> 
                 </label>
             </div>
@@ -82,7 +88,7 @@
         <label class="  text-right col-lg-3 col-sm-12  mt-0" for="sms_alert" class="control-label">{{ 'SMS Alert' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="icheck-primary d-inline">
-                <input type="checkbox" name="sms_alert" {{ $user->sms_alert == 1 ? 'checked' :'' }} id="sms_alert">
+                <input type="checkbox" name="sms_alert" {{ isset($user->sms_alert) && $user->sms_alert == 1 ? 'checked' :'' }} id="sms_alert">
                 <label for="sms_alert"> 
                 </label>
             </div>
@@ -93,7 +99,7 @@
         <label class="  text-right col-lg-3 col-sm-12  mt-0" for="email_report" class="control-label">{{ 'Email Report' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <div class="icheck-primary d-inline">
-                <input type="checkbox" {{ $user->email_report == 1 ? 'checked' :'' }}  name="email_report" id="email_report">
+                <input type="checkbox" {{  isset($user->email_report) &&  $user->email_report == 1 ? 'checked' :'' }}  name="email_report" id="email_report">
                 <label for="email_report"> 
                 </label>
             </div>

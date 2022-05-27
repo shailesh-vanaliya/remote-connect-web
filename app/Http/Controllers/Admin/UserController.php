@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Mail\SendSmtpMail;
 use App\Models\Customer;
 use App\User;
-use App\Rules\CustomerExist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use DB;
+use App\Models\Organization;
 
 class UserController extends Controller
 {
@@ -31,23 +31,23 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $perPage = 25;
-      
-            if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-                $data['users'] = User::select('users.*')
+
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['users'] = User::select('users.*')
                 ->where('users.role', User::ROLES['ADMIN'])
                 ->orWhere('users.role', User::ROLES['USER'])
                 ->orWhere('users.role', User::ROLES['ENG'])
                 ->latest('created_at')
                 ->get();
-            } else {
-                $data['users'] = User::select('users.*')
+        } else {
+            $data['users'] = User::select('users.*')
                 ->where('users.role', User::ROLES['ADMIN'])
                 ->orWhere('users.role', User::ROLES['USER'])
                 ->orWhere('users.role', User::ROLES['ENG'])
                 ->where('organization_id', Auth::guard('admin')->user()->organization_id)
                 ->latest('created_at')
                 ->get();
-            }
+        }
 
         $data['header'] = [
             'title' => 'Users List',
@@ -92,13 +92,13 @@ class UserController extends Controller
             $user->save();
             $user =  $requestData;
             $details = [
-                      'title' => 'You are register successfully',
-                      'body' => 'Hello ',
-                      'mailTitle' => 'register',
-                      'subject' => 'You are register in Futuristic Technologies',
-                      'data' =>  $user,
-                  ];
-                  $res =   \Mail::to('testshailesh1@gmail.com')->send(new \App\Mail\SendSmtpMail($details));
+                'title' => 'You are register successfully',
+                'body' => 'Hello ',
+                'mailTitle' => 'register',
+                'subject' => 'You are register in Futuristic Technologies',
+                'data' =>  $user,
+            ];
+            $res =   \Mail::to('testshailesh1@gmail.com')->send(new \App\Mail\SendSmtpMail($details));
 
             // $res =  Mail::to('testshailesh1@gmail.com')->send(new SendSmtpMail(['template' => 'emails.welcome-admin', 'data' => ['user' => $user, 'email' => $requestData['email'], 'password' => $requestData['password']]]));
             return redirect('admin/users')->with('session_success', 'New User created successfully!');
@@ -126,6 +126,11 @@ class UserController extends Controller
                 'Create' => '',
             ],
         ];
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+        } else {
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+        }
         $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
         return view('admin.users.create', $data);
     }
@@ -213,7 +218,11 @@ class UserController extends Controller
         ];
         $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
         $data['user']        = User::findOrFail($id);
-        // 
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+        } else {
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+        }
         return view('admin/users.edit', $data);
     }
 
