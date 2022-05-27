@@ -115,22 +115,25 @@
                             </thead>
                             <tbody>
                                 @foreach($reportschedules as $item)
+                                @php
+                                $array = json_decode($item->repeat_on);
+                                @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->report_id }}</td>
                                     <td>{{ $item->start_time }}</td>
                                     <td>{{ $item->end_time }}</td>
                                     <td>{{ $item->execution_time }}</td>
-                                    <td>{{ $item->repeat_on }}</td>
+                                    <td style="word-break: break-all;width: 33%;">{{ implode(', ',$array) }}</td>
                                     <td>{{ $item->sender_user_list }}</td>
                                     <td>
-                                        <a href="{{ url('/admin/report-schedules/' . $item->id) }}" title="View ReportSchedule"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                        <a href="{{ url('/admin/report-schedules/' . $item->id . '/edit') }}" title="Edit ReportSchedule"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt" aria-hidden="true"></i> Edit</button></a>
+                                        <a href="{{ url('/admin/report-schedules/' . $item->id) }}" title="View ReportSchedule"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> </button></a>
+                                        <a href="{{ url('/admin/report-schedules/' . $item->id . '/edit') }}" title="Edit ReportSchedule"><button class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
 
                                         <form method="POST" action="{{ url('/admin/report-schedules' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                             {{ method_field('DELETE') }}
                                             {{ csrf_field() }}
-                                            <button type="submit" class="btn btn-danger btn-sm" title="Delete ReportSchedule" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-xs" title="Delete ReportSchedule" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
                                         </form>
                                     </td>
                                 </tr>

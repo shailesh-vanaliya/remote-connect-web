@@ -122,7 +122,6 @@
                                 @foreach($reportconfiguration as $item)
                                 @php
                                 $array = json_decode($item->parameter);
-                            
                                 @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>

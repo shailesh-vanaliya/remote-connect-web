@@ -43,6 +43,7 @@ class ReportSchedulesController extends Controller
                 'edit' => '',
             ],
         ];
+     
         return view('admin.report-schedules.index', $data);
     }
 
@@ -64,6 +65,15 @@ class ReportSchedulesController extends Controller
                 'edit' => '',
             ],
         ];
+        $data['days'] = [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday'
+        ];
         return view('admin.report-schedules.create',$data);
     }
 
@@ -80,6 +90,7 @@ class ReportSchedulesController extends Controller
         $requestData = $request->all();
         $requestData['created_by'] = Auth::guard('admin')->user()->id;
         $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+        $requestData['repeat_on'] = json_encode($requestData['repeat_on']);
         ReportSchedule::create($requestData);
 
         return redirect('admin/report-schedules')->with('session_success', 'ReportSchedule added!');
@@ -94,7 +105,7 @@ class ReportSchedulesController extends Controller
      */
     public function show($id)
     {
-        $data['reportschedules'] = ReportSchedule::findOrFail($id);
+        $data['reportschedule'] = ReportSchedule::findOrFail($id);
         $data['pagetitle']             = 'Report schedules';
         $data['js']                    = ['admin/report.js'];
         $data['funinit']               = ['Report.init()'];
@@ -129,6 +140,15 @@ class ReportSchedulesController extends Controller
                 'Report schedules'     => '',
                 'edit' => '',
             ],
+        ];
+        $data['days'] = [
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday'
         ];
         return view('admin.report-schedules.edit', $data);
     }
