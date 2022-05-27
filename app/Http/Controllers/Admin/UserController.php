@@ -31,12 +31,23 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $perPage = 25;
-        $data['users'] = User::select('users.*')
-            ->where('users.role', User::ROLES['ADMIN'])
-            ->orWhere('users.role', User::ROLES['USER'])
-            ->orWhere('users.role', User::ROLES['ENG'])
-            ->latest('created_at')
-            ->get();
+      
+            if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+                $data['users'] = User::select('users.*')
+                ->where('users.role', User::ROLES['ADMIN'])
+                ->orWhere('users.role', User::ROLES['USER'])
+                ->orWhere('users.role', User::ROLES['ENG'])
+                ->latest('created_at')
+                ->get();
+            } else {
+                $data['users'] = User::select('users.*')
+                ->where('users.role', User::ROLES['ADMIN'])
+                ->orWhere('users.role', User::ROLES['USER'])
+                ->orWhere('users.role', User::ROLES['ENG'])
+                ->where('organization_id', Auth::guard('admin')->user()->organization_id)
+                ->latest('created_at')
+                ->get();
+            }
 
         $data['header'] = [
             'title' => 'Users List',

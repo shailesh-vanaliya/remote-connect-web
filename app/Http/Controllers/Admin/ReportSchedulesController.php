@@ -7,6 +7,7 @@ use App\Http\Requests;
 use Auth;
 use DB;
 use App\Models\ReportSchedule;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ReportSchedulesController extends Controller
@@ -21,17 +22,15 @@ class ReportSchedulesController extends Controller
         $keyword = $request->get('search');
         $perPage = 25;
 
-        if (!empty($keyword)) {
-            $data['reportschedules'] = ReportSchedule::where('report_id', 'LIKE', "%$keyword%")
-                ->orWhere('start_time', 'LIKE', "%$keyword%")
-                ->orWhere('end_time', 'LIKE', "%$keyword%")
-                ->orWhere('execution_time', 'LIKE', "%$keyword%")
-                ->orWhere('repeat_on', 'LIKE', "%$keyword%")
-                ->orWhere('sender_user_list', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['reportschedules'] = ReportSchedule::latest()->paginate($perPage);
         } else {
             $data['reportschedules'] = ReportSchedule::latest()->paginate($perPage);
         }
+
+        // Auth::guard('admin')->user()->organization_id
+
         $data['pagetitle']             = 'Report schedules';
         $data['js']                    = ['admin/report.js'];
         $data['funinit']               = ['Report.init()'];
@@ -43,7 +42,7 @@ class ReportSchedulesController extends Controller
                 'edit' => '',
             ],
         ];
-     
+
         return view('admin.report-schedules.index', $data);
     }
 
@@ -65,16 +64,14 @@ class ReportSchedulesController extends Controller
                 'edit' => '',
             ],
         ];
-        $data['days'] = [
-            'Sunday',
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday'
-        ];
-        return view('admin.report-schedules.create',$data);
+        $data['days'] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->pluck('first_name', 'id')->toArray();
+        } else {
+            $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->where('organization_id', Auth::guard('admin')->user()->organization_id)->pluck('modem_id', 'id')->toArray();
+        }
+
+        return view('admin.report-schedules.create', $data);
     }
 
     /**
@@ -86,11 +83,15 @@ class ReportSchedulesController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $requestData = $request->all();
+        // print_r($requestData);
+        // exit;
         $requestData['created_by'] = Auth::guard('admin')->user()->id;
         $requestData['updated_by'] = Auth::guard('admin')->user()->id;
         $requestData['repeat_on'] = json_encode($requestData['repeat_on']);
+        $requestData['sender_user_list'] = isset($requestData['sender_user_list']) ? json_encode($requestData['sender_user_list']) : '';
+
         ReportSchedule::create($requestData);
 
         return redirect('admin/report-schedules')->with('session_success', 'ReportSchedule added!');
@@ -141,15 +142,12 @@ class ReportSchedulesController extends Controller
                 'edit' => '',
             ],
         ];
-        $data['days'] = [
-            'Sunday',
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday'
-        ];
+        $data['days'] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->pluck('first_name', 'id')->toArray();
+        } else {
+            $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->where('organization_id', Auth::guard('admin')->user()->organization_id)->pluck('modem_id', 'id')->toArray();
+        }
         return view('admin.report-schedules.edit', $data);
     }
 
@@ -163,9 +161,12 @@ class ReportSchedulesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $requestData = $request->all();
         $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+        $requestData['repeat_on'] = json_encode($requestData['repeat_on']);
+        $requestData['sender_user_list'] = isset($requestData['sender_user_list']) ? json_encode($requestData['sender_user_list']) : '';
+
         $reportschedule = ReportSchedule::findOrFail($id);
         $reportschedule->update($requestData);
 

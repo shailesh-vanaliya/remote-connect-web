@@ -145,12 +145,14 @@ return redirect('login');
               <p>Pressure Dashboard</p>
             </a>
           </li>
+          @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')
           <li class="nav-item">
             <a href="{{ url('/admin/organization') }}" class="{{ ($currRoute == 'organization.create' || $currRoute == 'organization.show' || $currRoute == 'organization.edit' || $currRoute == 'organization.index') ? 'active nav-link': 'nav-link' }}">
               <i class="nav-icon far fa-circle text-info"></i>
               <p>Organization</p>
             </a>
           </li>
+          @endif
           <li class="nav-item">
             <a href="{{ url('/admin/notification') }}" class="{{ ($currRoute == 'notification.create' || $currRoute == 'notification.show' || $currRoute == 'notification.edit' || $currRoute == 'notification.index') ? 'active nav-link': 'nav-link' }}">
               <i class="nav-icon far fa-bell text-info"></i>
