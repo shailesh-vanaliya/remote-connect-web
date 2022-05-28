@@ -116,8 +116,8 @@
                                 @foreach($report as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->device_id }}</td>
-                                    <td>{{ $item->device_type_id }}</td>
+                                    <td>{{ $item->modem_id }}</td>
+                                    <td>{{ $item->device_type }}</td>
                                     <td style="word-break: break-all;">{{ $item->field_name }}</td>
                                     <td style="word-break: break-all;">{{ $item->parameter }}</td>
                                     <td>

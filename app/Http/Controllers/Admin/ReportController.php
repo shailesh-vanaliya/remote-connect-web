@@ -38,15 +38,17 @@ class ReportController extends Controller
             'report_configurations.parameter',
             'report_configurations.report_title',
             'devices.modem_id',
+            'device_type.device_type',
             'devices.project_name',
             'reports.*',
         );
       
         $subQuery->join('report_configurations',  'report_configurations.report_id', '=', 'reports.id');
-        $subQuery->join('device_type',  'device_type.id', '=', 'device_type_id.id');
-        $subQuery->leftJoin('devices',  'devices.id', '=', 'device_id.id');
+        $subQuery->join('device_type',  'device_type.id', '=', 'reports.device_type_id');
+        $subQuery->leftJoin('devices',  'devices.id', '=', 'reports.device_id');
         $data['report'] =  $subQuery->latest('reports.created_at')->get();
- 
+//  print_r($data['report'] );
+//  exit;
         $data['pagetitle']             = 'Report';
         $data['js']                    = ['admin/report.js'];
         $data['funinit']               = [''];
