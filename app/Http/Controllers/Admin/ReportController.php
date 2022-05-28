@@ -25,14 +25,28 @@ class ReportController extends Controller
         $keyword = $request->get('search');
         $perPage = 25;
 
-        if (!empty($keyword)) {
-            $data['report']  = Report::where('device_id', 'LIKE', "%$keyword%")
-                ->orWhere('device_type_id', 'LIKE', "%$keyword%")
-                ->orWhere('field_name', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
-        } else {
-            $data['report']  = Report::latest()->paginate($perPage);
-        }
+        // if (!empty($keyword)) {
+        //     $data['report']  = Report::where('device_id', 'LIKE', "%$keyword%")
+        //         ->orWhere('device_type_id', 'LIKE', "%$keyword%")
+        //         ->orWhere('field_name', 'LIKE', "%$keyword%")
+        //         ->latest()->paginate($perPage);
+        // } else {
+        //     $data['report']  = Report::latest()->paginate($perPage);
+        // }
+
+        $subQuery =  Report::select(
+            'report_configurations.parameter',
+            'report_configurations.report_title',
+            'devices.modem_id',
+            'devices.project_name',
+            'reports.*',
+        );
+      
+        $subQuery->join('report_configurations',  'report_configurations.report_id', '=', 'reports.id');
+        $subQuery->join('device_type',  'device_type.id', '=', 'device_type_id.id');
+        $subQuery->leftJoin('devices',  'devices.id', '=', 'device_id.id');
+        $data['report'] =  $subQuery->latest('reports.created_at')->get();
+ 
         $data['pagetitle']             = 'Report';
         $data['js']                    = ['admin/report.js'];
         $data['funinit']               = [''];
