@@ -138,13 +138,12 @@ return redirect('login');
               <p>Dashboard</p>
             </a>
           </li> -->
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="{{ url('/admin/meter-dashboard') }}" class="{{ ($currRoute == 'meter-dashboard') ? 'active nav-link': 'nav-link' }}">
-              <!-- <i class="nav-icon fas fa-tachometer-alt text-info" ></i> -->
               <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/pressure_gauge.svg') }}" alt="">
               <p>Pressure Dashboard</p>
             </a>
-          </li>
+          </li> -->
           @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')
           <li class="nav-item">
             <a href="{{ url('/admin/organization') }}" class="{{ ($currRoute == 'organization.create' || $currRoute == 'organization.show' || $currRoute == 'organization.edit' || $currRoute == 'organization.index') ? 'active nav-link': 'nav-link' }}">
