@@ -157,14 +157,14 @@ return redirect('login');
           <li class="nav-item">
             <a href="{{ url('/admin/notification') }}" class="{{ ($currRoute == 'notification.create' || $currRoute == 'notification.show' || $currRoute == 'notification.edit' || $currRoute == 'notification.index') ? 'active nav-link': 'nav-link' }}">
               <!-- <i class="nav-icon far fa-bell text-info"></i> -->
-              <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/notificatin_config.svg') }}" alt="">
+              <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/notification.svg') }}" alt="">
               <p>Notification</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{ url('/admin/alert-configration') }}" class="{{ ($currRoute == 'alert-configration.create' || $currRoute == 'alert-configration.show' || $currRoute == 'alert-configration.edit' || $currRoute == 'alert-configration.index') ? 'active nav-link': 'nav-link' }}">
-              <i class="nav-icon far fa-comments text-info"></i>
-              <!-- <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/pressure_gauge.svg') }}" alt=""> -->
+              <!-- <i class="nav-icon far fa-comments text-info"></i> -->
+              <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/notificatin_config.svg') }}" alt="">
               <p>Alert Configuration</p>
             </a>
           </li>

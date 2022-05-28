@@ -83,18 +83,21 @@ class ReportSchedulesController extends Controller
      */
     public function store(Request $request)
     {
+        try{
+            $requestData = $request->all();
+            // print_r($requestData);
+            // exit;
+            $requestData['created_by'] = Auth::guard('admin')->user()->id;
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            $requestData['repeat_on'] = json_encode($requestData['repeat_on']);
+            $requestData['sender_user_list'] = isset($requestData['sender_user_list']) ? json_encode($requestData['sender_user_list']) : '';
 
-        $requestData = $request->all();
-        // print_r($requestData);
-        // exit;
-        $requestData['created_by'] = Auth::guard('admin')->user()->id;
-        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
-        $requestData['repeat_on'] = json_encode($requestData['repeat_on']);
-        $requestData['sender_user_list'] = isset($requestData['sender_user_list']) ? json_encode($requestData['sender_user_list']) : '';
+            ReportSchedule::create($requestData);
 
-        ReportSchedule::create($requestData);
-
-        return redirect('admin/report-schedules')->with('session_success', 'ReportSchedule added!');
+            return redirect('admin/report-schedules')->with('session_success', 'ReportSchedule added!');
+        } catch (\Exception $e) {
+            return redirect('admin/report-schedules')->with('session_error', $e->getMessage());
+        }
     }
 
     /**
@@ -162,15 +165,20 @@ class ReportSchedulesController extends Controller
     public function update(Request $request, $id)
     {
 
-        $requestData = $request->all();
-        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
-        $requestData['repeat_on'] = json_encode($requestData['repeat_on']);
-        $requestData['sender_user_list'] = isset($requestData['sender_user_list']) ? json_encode($requestData['sender_user_list']) : '';
+        try{
+            $requestData = $request->all();
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            $requestData['repeat_on'] = json_encode($requestData['repeat_on']);
+            $requestData['sender_user_list'] = isset($requestData['sender_user_list']) ? json_encode($requestData['sender_user_list']) : '';
 
-        $reportschedule = ReportSchedule::findOrFail($id);
-        $reportschedule->update($requestData);
+            $reportschedule = ReportSchedule::findOrFail($id);
+            $reportschedule->update($requestData);
 
-        return redirect('admin/report-schedules')->with('session_success', 'ReportSchedule updated!');
+            return redirect('admin/report-schedules')->with('session_success', 'ReportSchedule updated!');
+        } catch (\Exception $e) {
+            return redirect('admin/report-schedules')->with('session_error', $e->getMessage());
+        }
+
     }
 
     /**

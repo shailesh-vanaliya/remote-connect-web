@@ -67,7 +67,7 @@ class AlertConfigurationController extends Controller
                 'create' => '',
             ],
         ];
-        return view('admin.alert-configration.create',$data);
+        return view('admin.alert-configration.create', $data);
     }
 
     /**
@@ -79,12 +79,15 @@ class AlertConfigurationController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        $requestData['organization_id'] = 1;
-        AlertConfigration::create($requestData);
+        try {
+            $requestData = $request->all();
+            $requestData['organization_id'] = 1;
+            AlertConfigration::create($requestData);
 
-        return redirect('admin/alert-configration')->with('session_success', 'Alert Configuration added!');
+            return redirect('admin/alert-configration')->with('session_success', 'Alert Configuration added!');
+        } catch (\Exception $e) {
+            return redirect('admin/alert-configration')->with('session_error', $e->getMessage());
+        }
     }
 
     /**
@@ -145,13 +148,16 @@ class AlertConfigurationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $requestData = $request->all();
-        $requestData['organization_id'] = 1;
-        $alertconfigration = AlertConfigration::findOrFail($id);
-        $alertconfigration->update($requestData);
+        try {
+            $requestData = $request->all();
+            $requestData['organization_id'] = 1;
+            $alertconfigration = AlertConfigration::findOrFail($id);
+            $alertconfigration->update($requestData);
 
-        return redirect('admin/alert-configration')->with('session_success', 'Alert Configuration updated!');
+            return redirect('admin/alert-configration')->with('session_success', 'Alert Configuration updated!');
+        } catch (\Exception $e) {
+            return redirect('admin/alert-configration')->with('session_error', $e->getMessage());
+        }
     }
 
     /**

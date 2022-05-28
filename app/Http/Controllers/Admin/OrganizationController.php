@@ -14,7 +14,7 @@ class OrganizationController extends Controller
     {
         $this->middleware('admin');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -67,7 +67,7 @@ class OrganizationController extends Controller
                 'Create New Organization' => '',
             ],
         ];
-        return view('admin.organization.create',$data);
+        return view('admin.organization.create', $data);
     }
 
     /**
@@ -79,13 +79,16 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        $requestData['created_by'] = Auth::guard('admin')->user()->id;
-        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
-        Organization::create($requestData);
+        try {
+            $requestData = $request->all();
+            $requestData['created_by'] = Auth::guard('admin')->user()->id;
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            Organization::create($requestData);
 
-        return redirect('admin/organization')->with('session_success', 'Organization added!');
+            return redirect('admin/organization')->with('session_success', 'Organization added!');
+        } catch (\Exception $e) {
+            return redirect('admin/organization')->with('session_error', $e->getMessage());
+        }
     }
 
     /**
@@ -144,13 +147,16 @@ class OrganizationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $requestData = $request->all();
-        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
-        $organization = Organization::findOrFail($id);
-        $organization->update($requestData);
+        try {
+            $requestData = $request->all();
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            $organization = Organization::findOrFail($id);
+            $organization->update($requestData);
 
-        return redirect('admin/organization')->with('session_success', 'Organization updated!');
+            return redirect('admin/organization')->with('session_success', 'Organization updated!');
+        } catch (\Exception $e) {
+            return redirect('admin/organization')->with('session_error', $e->getMessage());
+        }
     }
 
     /**

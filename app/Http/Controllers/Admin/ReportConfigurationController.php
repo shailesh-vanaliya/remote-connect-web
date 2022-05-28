@@ -94,15 +94,19 @@ class ReportConfigurationController extends Controller
     public function store(Request $request)
     {
 
-        $requestData = $request->all();
-        $requestData['created_by'] = Auth::guard('admin')->user()->id;
-        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
-        $requestData['parameter'] = json_encode($requestData['parameter']);
-        // print_r($requestData);
-        // exit;
-        ReportConfiguration::create($requestData);
+        try {
+            $requestData = $request->all();
+            $requestData['created_by'] = Auth::guard('admin')->user()->id;
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            $requestData['parameter'] = json_encode($requestData['parameter']);
+            // print_r($requestData);
+            // exit;
+            ReportConfiguration::create($requestData);
 
-        return redirect('admin/report-configuration')->with('session_success', 'ReportConfiguration added!');
+            return redirect('admin/report-configuration')->with('session_success', 'ReportConfiguration added!');
+        } catch (\Exception $e) {
+            return redirect('admin/report-configuration')->with('session_error', $e->getMessage());
+        }
     }
 
     /**
@@ -174,14 +178,17 @@ class ReportConfigurationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        try {
+            $requestData = $request->all();
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            $reportconfiguration = ReportConfiguration::findOrFail($id);
+            $requestData['parameter'] = json_encode($requestData['parameter']);
+            $reportconfiguration->update($requestData);
 
-        $requestData = $request->all();
-        $requestData['updated_by'] = Auth::guard('admin')->user()->id;
-        $reportconfiguration = ReportConfiguration::findOrFail($id);
-        $requestData['parameter'] = json_encode($requestData['parameter']);
-        $reportconfiguration->update($requestData);
-
-        return redirect('admin/report-configuration')->with('session_success', 'ReportConfiguration updated!');
+            return redirect('admin/report-configuration')->with('session_success', 'ReportConfiguration updated!');
+        } catch (\Exception $e) {
+            return redirect('admin/report-configuration')->with('session_error', $e->getMessage());
+        }
     }
 
     /**

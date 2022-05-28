@@ -15,7 +15,7 @@ class NotificationController extends Controller
     {
         $this->middleware('admin');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -25,9 +25,9 @@ class NotificationController extends Controller
     {
         $table = 'device_type';
         $tableResult =  DB::getSchemaBuilder()->getColumnListing($table);
-// print_r($tableResult);
-// exit;
-    
+        // print_r($tableResult);
+        // exit;
+
 
         $keyword = $request->get('search');
         $perPage = 25;
@@ -73,7 +73,7 @@ class NotificationController extends Controller
         $data['js']                    = ['admin/dashboard.js'];
         // $data['funinit']               = [''];
         // $data['funinit']               = ['Dashboard.initMeter()'];
-        return view('admin.notification.create',$data);
+        return view('admin.notification.create', $data);
     }
 
     /**
@@ -85,12 +85,15 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        $requestData['organization_id'] = 1;
-        Notification::create($requestData);
+        try {
+            $requestData = $request->all();
+            $requestData['organization_id'] = 1;
+            Notification::create($requestData);
 
-        return redirect('admin/notification')->with('session_success', 'Notification added!');
+            return redirect('admin/notification')->with('session_success', 'Notification added!');
+        } catch (\Exception $e) {
+            return redirect('admin/notification')->with('session_error', $e->getMessage());
+        }
     }
 
     /**
@@ -150,13 +153,16 @@ class NotificationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $requestData = $request->all();
-        $requestData['organization_id'] = 1;
-        $notification = Notification::findOrFail($id);
-        $notification->update($requestData);
+        try {
+            $requestData = $request->all();
+            $requestData['organization_id'] = 1;
+            $notification = Notification::findOrFail($id);
+            $notification->update($requestData);
 
-        return redirect('admin/notification')->with('session_success', 'Notification updated!');
+            return redirect('admin/notification')->with('session_success', 'Notification updated!');
+        } catch (\Exception $e) {
+            return redirect('admin/notification')->with('session_error', $e->getMessage());
+        }
     }
 
     /**
@@ -168,12 +174,15 @@ class NotificationController extends Controller
      */
     public function destroy($id)
     {
-        Notification::destroy($id);
-
-        return redirect('admin/notification')->with('session_success', 'Notification deleted!');
+        try {
+            Notification::destroy($id);
+            return redirect('admin/notification')->with('session_success', 'Notification deleted!');
+        } catch (\Exception $e) {
+            return redirect('admin/notification')->with('session_error', $e->getMessage());
+        }
     }
 
-    
+
     public function ajaxAction(Request $request)
     {
         $collegeId = Auth::guard('admin')->user()->id;
@@ -188,13 +197,12 @@ class NotificationController extends Controller
     }
 
 
-    public function _getUnreadNotification() {
-       
-        $notificationList = Notification::where('is_read',0)->orderBy('id','desc')->get()->toArray();
+    public function _getUnreadNotification()
+    {
+
+        $notificationList = Notification::where('is_read', 0)->orderBy('id', 'desc')->get()->toArray();
 
         echo json_encode($notificationList);
         exit;
     }
-
-
 }
