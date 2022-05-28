@@ -148,38 +148,44 @@ return redirect('login');
           @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')
           <li class="nav-item">
             <a href="{{ url('/admin/organization') }}" class="{{ ($currRoute == 'organization.create' || $currRoute == 'organization.show' || $currRoute == 'organization.edit' || $currRoute == 'organization.index') ? 'active nav-link': 'nav-link' }}">
-              <i class="nav-icon far fa-circle text-info"></i>
+              <!-- <i class="nav-icon far fa-circle text-info"></i> -->
+              <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/org.svg') }}" alt="">
               <p>Organization</p>
             </a>
           </li>
           @endif
           <li class="nav-item">
             <a href="{{ url('/admin/notification') }}" class="{{ ($currRoute == 'notification.create' || $currRoute == 'notification.show' || $currRoute == 'notification.edit' || $currRoute == 'notification.index') ? 'active nav-link': 'nav-link' }}">
-              <i class="nav-icon far fa-bell text-info"></i>
+              <!-- <i class="nav-icon far fa-bell text-info"></i> -->
+              <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/notificatin_config.svg') }}" alt="">
               <p>Notification</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{ url('/admin/alert-configration') }}" class="{{ ($currRoute == 'alert-configration.create' || $currRoute == 'alert-configration.show' || $currRoute == 'alert-configration.edit' || $currRoute == 'alert-configration.index') ? 'active nav-link': 'nav-link' }}">
               <i class="nav-icon far fa-comments text-info"></i>
+              <!-- <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/pressure_gauge.svg') }}" alt=""> -->
               <p>Alert Configuration</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{ url('/admin/report') }}" class="{{ ($currRoute == 'report.create' || $currRoute == 'report.show' || $currRoute == 'report.edit' || $currRoute == 'report.index') ? 'active nav-link': 'nav-link' }}">
-              <i class="nav-icon far fa-comment text-info"></i>
+              <!-- <i class="nav-icon far fa-comment text-info"></i> -->
+              <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/report_gen.svg') }}" alt="">
               <p>Reports</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{ url('/admin/report-configuration') }}" class="{{ ($currRoute == 'report-configuration.create' || $currRoute == 'report-configuration.show' || $currRoute == 'report-configuration.edit' || $currRoute == 'report-configuration.index') ? 'active nav-link': 'nav-link' }}">
-              <i class="nav-icon far fa-comment text-info"></i>
+              <!-- <i class="nav-icon far fa-comment text-info"></i> -->
+              <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/report_config.svg') }}" alt="">
               <p>Report Configuration</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{ url('/admin/report-schedules') }}" class="{{ ($currRoute == 'report-schedules.create' || $currRoute == 'report-schedules.show' || $currRoute == 'report-schedules.edit' || $currRoute == 'report-schedules.index') ? 'active nav-link': 'nav-link' }}">
-              <i class="nav-icon far fa-clock text-info"></i>
+              <!-- <i class="nav-icon far fa-clock text-info"></i> -->
+              <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/report_schedule.svg') }}" alt="">
               <p>Report Schedules</p>
             </a>
           </li>
