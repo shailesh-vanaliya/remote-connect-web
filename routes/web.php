@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\{
     ReportConfigurationController,
     AlertConfigurationController,
     ReportController,
+    Dashboard2Controller,
     ReportSchedulesController,
 };
 
@@ -48,6 +49,8 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::resource('users', UserController::class);
     Route::get('admin-dashboard', [AdminController::class,  'index'])->name('admin_dashboard');
     Route::get('dashboard', [DashboardController::class,  'index'])->name('dashboard');
+    Route::get('dashboard2', [Dashboard2Controller::class,  'index'])->name('dashboard2');
+    Route::post('dashboardV2/ajaxAction', [Dashboard2Controller::class,  'ajaxAction'])->name('dashboardV2');
     Route::post('/admin-dashboard', [AdminController::class, 'index']);
     Route::get('/admin-profile', [SettingController::class, 'profile'])->name('profile');
     Route::post('/admin-profile', [SettingController::class, 'profile'])->name('profile');
@@ -77,6 +80,8 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::post('/report/ajaxAction', [ReportController::class, 'ajaxAction'])->name('ajaxAction');
     Route::resource('report-configuration', ReportConfigurationController::class);
     Route::resource('report-schedules', ReportSchedulesController::class);
+    Route::post('report-export', [ReportController::class, 'reportExport'])->name('report-export');
+
 });
 
 Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illuminate\Routing\Router $route) {

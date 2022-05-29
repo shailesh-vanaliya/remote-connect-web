@@ -11,6 +11,9 @@ use App\Models\Report;
 use App\Models\Organization;
 use App\Models\Device;
 use App\Models\DeviceType;
+use App\Exports\ReportConfigurationExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -45,10 +48,10 @@ class ReportController extends Controller
       
         $subQuery->join('report_configurations',  'report_configurations.report_id', '=', 'reports.id');
         $subQuery->join('device_type',  'device_type.id', '=', 'reports.device_type_id');
-        $subQuery->leftJoin('devices',  'devices.id', '=', 'reports.device_id');
+        $subQuery->join('devices',  'devices.id', '=', 'report_configurations.device_id');
         $data['report'] =  $subQuery->latest('reports.created_at')->get();
-//  print_r($data['report'] );
-//  exit;
+        // print_r($data['report'] );
+        // exit;
         $data['pagetitle']             = 'Report';
         $data['js']                    = ['admin/report.js'];
         $data['funinit']               = [''];
@@ -255,5 +258,18 @@ class ReportController extends Controller
 
         echo json_encode($result);
         exit;
+    }
+
+
+    public function reportExport(Request $request){
+        // print_r($request->all());
+        // exit;
+        try {
+            return Excel::download(new ReportConfigurationExport($request->all()), 'report-' . date('Ymdhis') . '-.csv');
+            // return response()->stream($callback, 200, $headers);
+        } catch (Exception $e) {
+            return redirect('admin/report')->with('session_error', 'DataLogExport Exports failed');
+        }
+
     }
 }

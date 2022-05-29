@@ -222,7 +222,7 @@ class MeterDashboardController extends Controller
             'Temperature_PV as value',
             'dtm as date',
         )
-            ->where("modem_id",$this->deviceName)
+            ->where("modem_id",'FT104')
             ->whereRaw(
                 "(dtm >= ? AND dtm <= ?)",
                 [$start, $end]

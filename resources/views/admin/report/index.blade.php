@@ -120,14 +120,20 @@
                                     <td>{{ $item->device_type }}</td>
                                     <td style="word-break: break-all;">{{ $item->field_name }}</td>
                                     <td style="word-break: break-all;">{{ $item->parameter }}</td>
-                                    <td>
-                                        <a href="{{ url('/admin/report/' . $item->id) }}" title="View Report"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> </button></a>
-                                        <a href="{{ url('/admin/report/' . $item->id . '/edit') }}" title="Edit Report"><button class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
-
-                                        <form method="POST" action="{{ url('/admin/report' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                    <td style="width: 12%; display: flex;">
+                                        <a class="ml-1" href="{{ url('/admin/report/' . $item->id) }}" title="View Report"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> </button></a>
+                                        <a class="ml-1" href="{{ url('/admin/report/' . $item->id . '/edit') }}" title="Edit Report"><button class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
+                                        <form class="" method="POST" action="{{ url('/admin/report' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                             {{ method_field('DELETE') }}
                                             {{ csrf_field() }}
-                                            <button type="submit" class="btn btn-danger btn-xs" title="Delete Report" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
+                                            <button type="submit" class="btn btn-danger btn-xs ml-1" title="Delete Report" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
+                                        </form>
+                                        <form  method="POST" action="{{ url('/admin/report-export/') }}">
+                                            <input type="hidden" name="report_id" value="{{ $item->id }}">
+                                            <input type="hidden" name="parameter" value="{{ $item->parameter }}">
+                                            <input type="hidden" name="modem_id" value="{{ $item->modem_id }}">
+                                            {{ csrf_field() }}
+                                            <button type="submit" class="btn btn-secondary btn-xs " title="Download Report"><i class="fas fa-download" aria-hidden="true"></i> </button>
                                         </form>
                                     </td>
                                 </tr>
