@@ -67,48 +67,53 @@ class Dashboard2Controller extends Controller
             // $start = date('Y-m-d h:i:s', strtotime($start));
             // $end = date('Y-m-d h:i:s', strtotime($end));
         }
-       
+
         $pv1 =  Honeywell::select(
             'pv1 as value',
             // DB::raw('UNIX_TIMESTAMP(dtm) as date'),
             'dtm as date',
         )
             ->where("modem_id", 'FT112')
-            ->whereRaw("(dtm >= ? AND dtm <= ?)",[$start, $end])
+            ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
             ->orderBy('dtm', 'desc')
             // ->take(100)
             ->get()
             ->toArray();
 
-        $sp1 =  Honeywell::select('sp1 as value','dtm as date')
+        $sp1 =  Honeywell::select('sp1 as value', 'dtm as date')
             ->where("modem_id", 'FT112')
-            ->whereRaw("(dtm >= ? AND dtm <= ?)",[$start, $end])
+            ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
             ->orderBy('dtm', 'desc')
             // ->take(100)
             ->get()->toArray();
 
         $out1 =  Honeywell::select('out1 as value', 'dtm as date',)
             ->where("modem_id", 'FT112')->orderBy('dtm', 'desc')
-            ->whereRaw("(dtm >= ? AND dtm <= ?)",[$start, $end])
+            ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
             // ->take(100)
             ->get()->toArray();
         // print_r($out1);
         // exit;
         $obit1 =  Honeywell::select('obit1 as value', 'dtm as date',)
             ->where("modem_id", 'FT112')->orderBy('dtm', 'desc')
-            ->whereRaw("(dtm >= ? AND dtm <= ?)",[$start, $end])
-            // ->take(100)
+            ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
             ->get()->toArray();
-        // print_r($obit1[0]['value']);
-        // exit;
-        // $array = array($pv1,$sp1);
+
+
+        $convetArray = [];
+        foreach ($obit1 as $key => $val) {
+            $binarydata = $val['value'];
+            $array = unpack("cchars/nint", $binarydata);
+            // $val['value'] = $array['chars'];
+            $convetArray[$key]['value'] = $array['chars'] ;
+            $convetArray[$key]['date'] = $val['date'] ;
+        }
+       
         $array = [];
         $array[0] = $pv1;
         $array[1] = $sp1;
         $array[2] = $out1;
-        $array[3]= $obit1;
-        // print_r($array);
-        // exit;
+        $array[3] = $convetArray;
         echo json_encode(array_reverse($array));
         exit;
     }
