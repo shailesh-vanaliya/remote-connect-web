@@ -105,8 +105,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Device Id</th>
-                                    <th>Device Type Id</th>
+                                    <th>Device Name</th>
+                                    <th>Device Type</th>
                                     <th>Field Name</th>
                                     <th>Parameter</th>
                                     <th>Actions</th>
@@ -127,13 +127,13 @@
                                             {{ method_field('DELETE') }}
                                             {{ csrf_field() }}
                                             <button type="submit" class="btn btn-danger btn-xs ml-1" title="Delete Report" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
-                                        </form>
+                                        </form> &nbsp;
                                         <form  method="POST" action="{{ url('/admin/report-export/') }}">
                                             <input type="hidden" name="report_id" value="{{ $item->id }}">
                                             <input type="hidden" name="parameter" value="{{ $item->parameter }}">
                                             <input type="hidden" name="modem_id" value="{{ $item->modem_id }}">
                                             {{ csrf_field() }}
-                                            <button type="submit" class="btn btn-secondary btn-xs " title="Download Report"><i class="fas fa-download" aria-hidden="true"></i> </button>
+                                            <button type="submit" class="btn btn-secondary btn-xs mr-1" title="Download Report"><i class="fas fa-download" aria-hidden="true"></i> </button>
                                         </form>
                                     </td>
                                 </tr>

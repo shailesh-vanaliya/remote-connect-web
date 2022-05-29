@@ -40,7 +40,7 @@
                                 $sender_user_list =  isset($item->sender_user_list) ? json_decode($item->sender_user_list) : '';
                                 $array =  isset($item->repeat_on) ?  json_decode($item->repeat_on) : '';
                                 $repeat = (isset($array)) ? implode(', ',$array)  : '';
-                                $sender_user_list = (isset($sender_user_list)) ? implode(', ',$sender_user_list)  : '';
+                                $sender_user_list = (!empty($sender_user_list)) ? implode(', ',$sender_user_list)  : '';
                                 @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
