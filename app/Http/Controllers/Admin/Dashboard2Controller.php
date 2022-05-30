@@ -38,6 +38,19 @@ class Dashboard2Controller extends Controller
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/dashboardV2.js'];
         $data['funinit']               = ['DashboardV2.init()'];
+        
+        // $data['result'] =  Honeywell::where("id", '4456')->orderBy('dtm', 'desc')->first();
+        // print_r($data['result']);
+        // exit;
+        $data['result'] =  Honeywell::orderBy('dtm', 'desc')->first();
+        // print_r($data['result']);
+        // exit;
+        // echo $result->obit1 . " === ";
+        // //  var_dump((boolean)1);
+        // print_r((boolean)($result->obit1&2));
+        // // echo filter_var($pvasdsa1->obit1, FILTER_VALIDATE_BOOLEAN);
+        // exit;
+
         return view('admin.dashboard.dashboard2', $data);
     }
 
@@ -100,20 +113,21 @@ class Dashboard2Controller extends Controller
             ->get()->toArray();
 
 
-        $convetArray = [];
-        foreach ($obit1 as $key => $val) {
-            $binarydata = $val['value'];
-            $array = unpack("cchars/nint", $binarydata);
-            // $val['value'] = $array['chars'];
-            $convetArray[$key]['value'] = $array['chars'] ;
-            $convetArray[$key]['date'] = $val['date'] ;
-        }
+        // $convetArray = [];
+        // foreach ($obit1 as $key => $val) {
+        //     $binarydata = $val['value'];
+        //     $array = unpack("cchars/nint", $binarydata);
+        //     // $val['value'] = $array['chars'];
+        //     $convetArray[$key]['value'] = $array['chars'] ;
+        //     $convetArray[$key]['date'] = $val['date'] ;
+        // }
        
         $array = [];
         $array[0] = $pv1;
         $array[1] = $sp1;
         $array[2] = $out1;
-        $array[3] = $convetArray;
+        $array[3] = $obit1;
+        // $array[3] = $convetArray;
         echo json_encode(array_reverse($array));
         exit;
     }
