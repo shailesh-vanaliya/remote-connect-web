@@ -156,7 +156,8 @@ class MeterDashboardController extends Controller
 
         $res =  DataLog::select(
             'Temperature_PV',
-            'dtm',
+            // 'dtm',
+            DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as dtm'),
             // DB::raw('DATE_FORMAT(dtm, "%Y-%m-%d") as formatted_dtm')
             // 'Temperature_PV', 'dtm',
             // DB::raw('GROUP_CONCAT(DISTINCT Temperature_PV SEPARATOR ",") AS Temperature_PV'),

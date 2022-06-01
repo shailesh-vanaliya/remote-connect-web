@@ -363,7 +363,7 @@ var DashboardV2 = function () {
                         maxDeviation: 0.2,
                         baseInterval: {
                             // timeUnit: "time",
-                            timeUnit: "minute",
+                            timeUnit: "second",
                             // timeUnit: "day",
                             count: 1
                         },
@@ -378,11 +378,12 @@ var DashboardV2 = function () {
                         // console.log(aaa)
                         value = aaa.value;
                         // value = Math.round((Math.random() * 10 - 4.2) + value);
-                        am5.time.add(new Date(aaa.date), "day", 1);
+                        // am5.time.add(new Date(aaa.date), "day", 1);
                         // console.log(new Date(aaa.date), "datedatedate")
                         // console.log(new Date(aaa.date).getTime(), "ssss")
                         return {
-                            date: new Date(aaa.date).getTime(),
+                            date: aaa.date,
+                            // date: new Date(aaa.date).getTime(),
                             value: value
                         };
                     }
@@ -391,21 +392,21 @@ var DashboardV2 = function () {
                         var data = [];
                         // for (var i = 0; i < 10; ++i) {
                         for (var i = 0; i < count.length; ++i) {
-                            // let aaa = []
-                            // var dateString = count[i].date
-                            // aaa = {date:count[i].date+"0000",  value :count[i].value};
-                            // data.push(aaa)
-                            // console.log(aaa, "aaaaaa");
-                            // data.push(generateData());
-                            data.push(generateData(count[i]));
+                            let ary = []
+                            var dateString = count[i].date
+                            ary = {date:count[i].date ,  value :count[i].value};
+                            data.push(ary)
+                            // data.push(generateData(count[i]));
                         }
                         console.log(data, "datedatedate")
                         return data;
                     }
                     console.log(result.length, "result.lengthresult.length")
+                    let titlename = ['PV',"SP","OYT","Obit"];
+                    console.log(titlename, " titlename")
                     for (var i = 0; i < result.length; i++) {
                         var series = chart.series.push(am5xy.LineSeries.new(root, {
-                            name: "Series " + i,
+                            name: titlename[i],
                             xAxis: xAxis,
                             yAxis: yAxis,
                             valueYField: "value",

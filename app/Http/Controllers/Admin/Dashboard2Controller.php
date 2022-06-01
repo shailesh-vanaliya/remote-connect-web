@@ -83,8 +83,8 @@ class Dashboard2Controller extends Controller
 
         $pv1 =  Honeywell::select(
             'pv1 as value',
-            // DB::raw('UNIX_TIMESTAMP(dtm) as date'),
-            'dtm as date',
+            DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
+            // 'dtm as date',
         )
             ->where("modem_id", 'FT112')
             ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
@@ -93,21 +93,31 @@ class Dashboard2Controller extends Controller
             ->get()
             ->toArray();
 
-        $sp1 =  Honeywell::select('sp1 as value', 'dtm as date')
+        $sp1 =  Honeywell::select('sp1 as value', 
+        // 'dtm as date'
+        DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
+        )
             ->where("modem_id", 'FT112')
             ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
             ->orderBy('dtm', 'desc')
             // ->take(100)
             ->get()->toArray();
 
-        $out1 =  Honeywell::select('out1 as value', 'dtm as date',)
+        $out1 =  Honeywell::select('out1 as value', 
+        // 'dtm as date',
+        DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
+        )
             ->where("modem_id", 'FT112')->orderBy('dtm', 'desc')
             ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
             // ->take(100)
             ->get()->toArray();
         // print_r($out1);
         // exit;
-        $obit1 =  Honeywell::select('obit1 as value', 'dtm as date',)
+        $obit1 =  Honeywell::select('obit1 as value', 
+        // 'dtm as date',
+        DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
+        // DB::raw('UNIX_TIMESTAMP(dtm) as date'),
+        )
             ->where("modem_id", 'FT112')->orderBy('dtm', 'desc')
             ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
             ->get()->toArray();

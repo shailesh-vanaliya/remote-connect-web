@@ -36,6 +36,9 @@
   i.fa.fa-exclamation-triangle {
     font-size: 10px;
 }
+.card-footer {
+    padding: 0rem 1.25rem !important;
+}
 </style>
 
 <!-- Resources -->
@@ -63,7 +66,7 @@
                 <div class="icon">
                   <i class="fa fa-thermometer-empty iconColor"></i>
                 </div>
-                <!-- <p class="small-box-footer"> -->
+            
                 <div class="progress-group ">
                   <span class="progress-text ml-1 ml-1">Out1</span>
                   <span class="float-right mr-1"><b> {{ $result->out1 }} </b>/100%</span>
@@ -81,57 +84,58 @@
                   $pro = (boolean)($result->obit1&64);
                   $man = (boolean)($result->obit1&128);
                   @endphp
-                <div class="card-footer" style="padding: unset;">
+                
+                <div class="card-footer" style="">
                   <div class="row">
-                    <div class="col-sm-3 col-6">
+                    <div class="col-sm-3 col-6 ">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</small>
+                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</h5>
                       </div>
                     </div>
-                    <div class="col-sm-3 col-6">
+                    <div class="col-sm-3 col-6 ">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">Out2</small>
+                        <h5 class="description-header {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">Out2</h5>
                       </div>
                     </div>
-                    <div class="col-sm-3 col-6">
+                    <div class="col-sm-3 ">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</small>
-                        <!-- <small class="badge {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</small> -->
+                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"> AT</h5>
+                        <!-- <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</h5> -->
                       </div>
                     </div>
-                    <div class="col-sm-3 col-6">
+                    <div class="col-sm-3 col-6 ">
                       <div class="description-block">
-                        <small class="badge {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</small>
+                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</h5>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</small>
+                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</small>
+                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
                       </div>
                     </div>
 
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</small>
+                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block ">
-                        <small class="badge {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</small>
+                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</h5>
                       </div>
                     </div>
                   </div>
                   <!-- /.row -->
                 </div>
-
-                <!-- <div class="btn-group mb-2 ml-3">
+<!-- 
+                <div class="btn-group mb-2 ml-3">
                   @php
                   $out1 = (boolean)($result->obit1&1);
                   $out2 = (boolean)($result->obit1&2);
@@ -170,6 +174,9 @@
                   <div class="progress progress-sm">
                     <div class="progress-bar bg-warning" style="width: {{ $result->out2 }}%"></div>
                   </div>
+                  <!-- <div class="progress">
+                    <div class="progress-bar" style="width: 70%"></div>
+                  </div> -->
                 </div>
                 <!-- <div class="btn-group mb-2 ml-3"> -->
                   @php
@@ -182,50 +189,50 @@
                   $pro = (boolean)($result->obit2&64);
                   $man = (boolean)($result->obit2&128);
                   @endphp
-                  <div class="card-footer" style="padding: unset;">
+                  <div class="card-footer" style="">
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</small>
+                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">Out2</small>
+                        <h5 class="description-header {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">Out2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</small>
-                        <!-- <small class="badge {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</small> -->
+                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</h5>
+                        <!-- <small class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</small> -->
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block">
-                        <small class="badge {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</small>
+                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</h5>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</small>
+                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</small>
+                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
                       </div>
                     </div>
 
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</small>
+                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block ">
-                        <small class="badge {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</small>
+                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</h5>
                       </div>
                     </div>
                   </div>
@@ -270,50 +277,50 @@
                   $pro = (boolean)($result->obit3&64);
                   $man = (boolean)($result->obit3&128);
                   @endphp
-                  <div class="card-footer" style="padding: unset;">
+                  <div class="card-footer" style="">
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</small>
+                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">Out2</small>
+                        <h5 class="description-header {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">Out2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</small>
-                        <!-- <small class="badge {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</small> -->
+                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</h5>
+                        <!-- <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</small> -->
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block">
-                        <small class="badge {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</small>
+                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</h5>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</small>
+                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</small>
+                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
                       </div>
                     </div>
 
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</small>
+                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block ">
-                        <small class="badge {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</small>
+                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</h5>
                       </div>
                     </div>
                   </div>
@@ -362,46 +369,46 @@
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</small>
+                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">Out2</small>
+                        <h5 class="description-header {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">Out2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</small>
-                        <!-- <small class="badge {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</small> -->
+                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</h5>
+                        <!-- <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</h5> -->
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block">
-                        <small class="badge {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</small>
+                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</h5>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</small>
+                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</small>
+                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
                       </div>
                     </div>
 
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</small>
+                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block ">
-                        <small class="badge {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</small>
+                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</h5>
                       </div>
                     </div>
                   </div>
@@ -457,50 +464,50 @@
                   <button type="button" class="btn btn-default btn-xs {{  ($man == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">MAN</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($pro == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">PRO</button>
                 </div> -->
-                <div class="card-footer" style="padding: unset;">
+                <div class="card-footer" style="">
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</small>
+                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">Out2</small>
+                        <h5 class="description-header {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">Out2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</small>
-                        <!-- <small class="badge {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</small> -->
+                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</h5>
+                        <!-- <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</h5> -->
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block">
-                        <small class="badge {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</small>
+                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</h5>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</small>
+                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</small>
+                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
                       </div>
                     </div>
 
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</small>
+                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block ">
-                        <small class="badge {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</small>
+                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</h5>
                       </div>
                     </div>
                   </div>
@@ -550,46 +557,46 @@
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</small>
+                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">Out2</small>
+                        <h5 class="description-header {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">Out2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</small>
-                        <!-- <small class="badge {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</small> -->
+                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</h5>
+                        <!-- <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</h5> -->
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block">
-                        <small class="badge {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</small>
+                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</h5>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</small>
+                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</small>
+                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
                       </div>
                     </div>
 
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <small class="badge {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</small>
+                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block ">
-                        <small class="badge {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</small>
+                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</h5>
                       </div>
                     </div>
                   </div>
