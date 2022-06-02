@@ -406,6 +406,8 @@ var DashboardV2 = function () {
                     console.log(titlename, " titlename")
                     for (var i = 0; i < result.length; i++) {
                         var series = chart.series.push(am5xy.LineSeries.new(root, {
+                            minBulletDistance: 10,
+                            connect: true,
                             name: titlename[i],
                             xAxis: xAxis,
                             yAxis: yAxis,

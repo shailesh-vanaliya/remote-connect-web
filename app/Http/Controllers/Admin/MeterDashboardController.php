@@ -221,7 +221,8 @@ class MeterDashboardController extends Controller
         }
         $res =  DataLog::select(
             'Temperature_PV as value',
-            'dtm as date',
+            // 'dtm as date',
+            DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
         )
             ->where("modem_id",'FT104')
             ->whereRaw(
