@@ -111,26 +111,27 @@
               </div>
             </div>
             <div class="info-box mb-3 bg-success">
-              <span class="info-box-icon"><i class="far fa-heart"></i></span>
+              <span class="info-box-icon"><i class="fas fa-wifi"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">Online Device</span>
                 <span class="info-box-number">{{ $onlineDevice }}</span>
               </div>
             </div>
+
             <div class="info-box mb-3 bg-danger">
-              <span class="info-box-icon"><i class="fas fa-cloud-download-alt"></i></span>
+              <span class="info-box-icon"><i class="far fa-file-alt"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">Downloads</span>
-                <span class="info-box-number">114,381</span>
+                <span class="info-box-text">Total Reports Config</span>
+                <span class="info-box-number">1</span>
               </div>
             </div>
 
             <div class="info-box mb-3 bg-info">
-              <span class="info-box-icon"><i class="far fa-comment"></i></span>
+              <span class="info-box-icon"><i class="far fa-bell"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">Direct Messages</span>
-                <span class="info-box-number">163,921</span>
+                <span class="info-box-text">Total Alert Config</span>
+                <span class="info-box-number">2</span>
               </div>
             </div>
           </div>

@@ -9,11 +9,11 @@
   }
 
   .bg-success {
-    background-color: #01a89d !important;
+    background-color: #343a40 !important;
   }
 
   .card-primary:not(.card-outline)>.card-header {
-    background-color: #01a89d;
+    background-color: #343a40;
   }
 
   .card-primary.card-outline {
@@ -60,36 +60,36 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3 style="font-size: 3.2rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv1 }} </h3>
-                  <h4 style="margin: 0;margin-bottom: unset;"><sup style="font-size: 19px; font-weight: 900;">SP</sup>{{ $result->sp1 }} </h4>
+                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv1 }} </h3>
+                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ $result->sp1 }} </h4>
                 </div>
                 <div class="icon">
-                  <i class="fa fa-thermometer-empty iconColor"></i>
+                  <i class="fa fa-thermometer-three-quarters iconColor"></i>
                 </div>
             
-                <div class="progress-group ">
-                  <span class="progress-text ml-1 ml-1">Out1</span>
+                <div class="progress-group" style=text-align:left>
+                  <span class="progress-text ml-1">Output %</span>
                   <span class="float-right mr-1"><b> {{ $result->out1 }} </b>/100%</span>
                   <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: {{ $result->out1 }}%"></div>
+                    <div class="progress-bar bg-gradient-success" style="width: {{ $result->out1 }}%"></div>
                   </div>
                 </div>
                 @php
                   $out1 = (boolean)($result->obit1&1);
                   $out2 = (boolean)($result->obit1&2);
                   $at = (boolean)($result->obit1&4);
-                  $alt1 = (boolean)($result->obit1&4);
+                  $alt1 = (boolean)($result->obit1&8);
                   $alt2 = (boolean)($result->obit1&16);
                   $alt3 = (boolean)($result->obit1&32);
                   $pro = (boolean)($result->obit1&64);
                   $man = (boolean)($result->obit1&128);
                   @endphp
                 
-                <div class="card-footer" style="">
+                <div class="card-footer">
                   <div class="row">
                     <div class="col-sm-3 col-6 ">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</h5>
+                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">Out1</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6 ">
@@ -97,38 +97,38 @@
                         <h5 class="description-header {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">Out2</h5>
                       </div>
                     </div>
-                    <div class="col-sm-3 ">
+                    <div class="col-sm-3 col-6 ">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"> AT</h5>
+                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">AT</h5>
                         <!-- <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</h5> -->
                       </div>
                     </div>
                     <div class="col-sm-3 col-6 ">
-                      <div class="description-block">
-                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</h5>
+                      <div class="description-block border-right">
+                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL1</h5>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</h5>
+                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
+                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
                       </div>
                     </div>
 
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</h5>
+                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">MAN</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
-                      <div class="description-block ">
-                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</h5>
+                      <div class="description-block border-right">
+                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">PRO</h5>
                       </div>
                     </div>
                   </div>
@@ -161,18 +161,18 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3 style="font-size: 3.2rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv2 }} </h3>
-                  <h4 style="margin: 0;margin-bottom: unset;"><sup style="font-size: 19px; font-weight: 900;">SP</sup>{{ $result->sp2 }} </h4>
+                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv2 }} </h3>
+                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ $result->sp2 }} </h4>
                 </div>
                 <div class="icon">
-                  <i class="fa fa-thermometer-empty iconColor"></i>
+                  <i class="fa fa-thermometer-three-quarters iconColor"></i>
                 </div>
                 <!-- <p class="small-box-footer"> -->
-                <div class="progress-group ">
-                  <span class="progress-text ml-1">out2</span>
+                <div class="progress-group" style=text-align:left>
+                  <span class="progress-text ml-1">Output %</span>
                   <span class="float-right mr-1"><b> {{ $result->out2 }} </b>/100%</span>
                   <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: {{ $result->out2 }}%"></div>
+                    <div class="progress-bar bg-gradient-success" style="width: {{ $result->out2 }}%"></div>
                   </div>
                   <!-- <div class="progress">
                     <div class="progress-bar" style="width: 70%"></div>
@@ -183,7 +183,7 @@
                   $out1 = (boolean)($result->obit2&1);
                   $out2 = (boolean)($result->obit2&2);
                   $at = (boolean)($result->obit2&4);
-                  $alt1 = (boolean)($result->obit2&4);
+                  $alt1 = (boolean)($result->obit2&8);
                   $alt2 = (boolean)($result->obit2&16);
                   $alt3 = (boolean)($result->obit2&32);
                   $pro = (boolean)($result->obit2&64);
@@ -203,36 +203,36 @@
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</h5>
+                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">AT</h5>
                         <!-- <small class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</small> -->
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
-                      <div class="description-block">
-                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</h5>
+                      <div class="description-block border-right">
+                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL1</h5>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</h5>
+                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
+                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
                       </div>
                     </div>
 
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</h5>
+                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">MAN</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
-                      <div class="description-block ">
-                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</h5>
+                      <div class="description-block border-right">
+                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">PRO</h5>
                       </div>
                     </div>
                   </div>
@@ -252,18 +252,18 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3 style="font-size: 3.2rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv3 }} </h3>
-                  <h4 style="margin: 0;margin-bottom: unset;"><sup style="font-size: 19px; font-weight: 900;">SP</sup>{{ $result->sp3 }} </h4>
+                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv3 }} </h3>
+                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ $result->sp3 }} </h4>
                 </div>
                 <div class="icon">
-                  <i class="fa fa-thermometer-empty iconColor"></i>
+                  <i class="fa fa-thermometer-three-quarters iconColor"></i>
                 </div>
                 <!-- <p class="small-box-footer"> -->
-                <div class="progress-group ">
-                  <span class="progress-text ml-1">Out3</span>
+                <div class="progress-group" style=text-align:left>
+                  <span class="progress-text ml-1">Output %</span>
                   <span class="float-right mr-1"><b> {{ $result->out3 }} </b>/100%</span>
                   <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: {{ $result->out3 }}%"></div>
+                    <div class="progress-bar bg-gradient-success" style="width: {{ $result->out3 }}%"></div>
                   </div>
                 </div>
                 <!-- <div class="btn-group mb-2 ml-3"> -->
@@ -271,7 +271,7 @@
                   $out1 = (boolean)($result->obit3&1);
                   $out2 = (boolean)($result->obit3&2);
                   $at = (boolean)($result->obit3&4);
-                  $alt1 = (boolean)($result->obit3&4);
+                  $alt1 = (boolean)($result->obit3&8);
                   $alt2 = (boolean)($result->obit3&16);
                   $alt3 = (boolean)($result->obit3&32);
                   $pro = (boolean)($result->obit3&64);
@@ -281,7 +281,7 @@
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</h5>
+                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">Out1</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
@@ -291,36 +291,36 @@
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</h5>
+                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">AT</h5>
                         <!-- <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</small> -->
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
-                      <div class="description-block">
-                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</h5>
+                      <div class="description-block border-right">
+                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL1</h5>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</h5>
+                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
+                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
                       </div>
                     </div>
 
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</h5>
+                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">MAN</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
-                      <div class="description-block ">
-                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</h5>
+                      <div class="description-block border-right">
+                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">PRO</h5>
                       </div>
                     </div>
                   </div>
@@ -340,18 +340,18 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3 style="font-size: 3.2rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv4 }} </h3>
-                  <h4 style="margin: 0;margin-bottom: unset;"><sup style="font-size: 19px; font-weight: 900;">SP</sup>{{ $result->sp4 }} </h4>
+                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv4 }} </h3>
+                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ $result->sp4 }} </h4>
                 </div>
                 <div class="icon">
-                  <i class="fa fa-thermometer-empty iconColor"></i>
+                  <i class="fa fa-thermometer-three-quarters iconColor"></i>
                 </div>
                 <!-- <p class="small-box-footer"> -->
-                <div class="progress-group ">
-                  <span class="progress-text ml-1">Out4</span>
+                <div class="progress-group" style=text-align:left>
+                  <span class="progress-text ml-1">Output %</span>
                   <span class="float-right mr-1"><b> {{ $result->out4 }} </b>/100%</span>
                   <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: {{ $result->out4 }}%"></div>
+                    <div class="progress-bar bg-gradient-success" style="width: {{ $result->out4 }}%"></div>
                   </div>
                 </div>
                 <!-- <div class="btn-group mb-2 ml-3"> -->
@@ -359,7 +359,7 @@
                   $out1 = (boolean)($result->obit4&1);
                   $out2 = (boolean)($result->obit4&2);
                   $at = (boolean)($result->obit4&4);
-                  $alt1 = (boolean)($result->obit4&4);
+                  $alt1 = (boolean)($result->obit4&8);
                   $alt2 = (boolean)($result->obit4&16);
                   $alt3 = (boolean)($result->obit4&32);
                   $pro = (boolean)($result->obit4&64);
@@ -369,7 +369,7 @@
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</h5>
+                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">Out1</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
@@ -379,36 +379,36 @@
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</h5>
+                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">AT</h5>
                         <!-- <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</h5> -->
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
-                      <div class="description-block">
-                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</h5>
+                      <div class="description-block border-right">
+                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL1</h5>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</h5>
+                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
+                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
                       </div>
                     </div>
 
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</h5>
+                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">MAN</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
-                      <div class="description-block ">
-                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</h5>
+                      <div class="description-block border-right">
+                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">PRO</h5>
                       </div>
                     </div>
                   </div>
@@ -428,18 +428,18 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3 style="font-size: 3.2rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv5 }} </h3>
-                  <h4 style="margin: 0;margin-bottom: unset;"><sup style="font-size: 19px; font-weight: 900;">SP</sup>{{ $result->sp5 }} </h4>
+                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv5 }} </h3>
+                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ $result->sp5 }} </h4>
                 </div>
                 <div class="icon">
-                  <i class="fa fa-thermometer-empty iconColor"></i>
+                  <i class="fa fa-thermometer-three-quarters iconColor"></i>
                 </div>
                 <!-- <p class="small-box-footer"> -->
-                <div class="progress-group ">
-                  <span class="progress-text ml-1">Out5</span>
+                <div class="progress-group" style=text-align:left>
+                  <span class="progress-text ml-1">Output %</span>
                   <span class="float-right mr-1"><b> {{ $result->out5 }} </b>/100%</span>
                   <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: {{ $result->out5 }}%"></div>
+                    <div class="progress-bar bg-gradient-success" style="width: {{ $result->out5 }}%"></div>
                   </div>
                 </div>
 
@@ -448,7 +448,7 @@
                   $out1 = (boolean)($result->obit5&1);
                   $out2 = (boolean)($result->obit5&2);
                   $at = (boolean)($result->obit5&4);
-                  $alt1 = (boolean)($result->obit5&4);
+                  $alt1 = (boolean)($result->obit5&8);
                   $alt2 = (boolean)($result->obit5&16);
                   $alt3 = (boolean)($result->obit5&32);
                   $pro = (boolean)($result->obit5&64);
@@ -468,7 +468,7 @@
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</h5>
+                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">Out1</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
@@ -478,36 +478,36 @@
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</h5>
+                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">AT</h5>
                         <!-- <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</h5> -->
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
-                      <div class="description-block">
-                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</h5>
+                      <div class="description-block border-right">
+                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL1</h5>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</h5>
+                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
+                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
                       </div>
                     </div>
 
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</h5>
+                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">MAN</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
-                      <div class="description-block ">
-                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</h5>
+                      <div class="description-block border-right">
+                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">PRO</h5>
                       </div>
                     </div>
                   </div>
@@ -518,18 +518,18 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3 style="font-size: 3.2rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv6 }} </h3>
-                  <h4 style="margin: 0;margin-bottom: unset;"><sup style="font-size: 19px; font-weight: 900;">SP</sup>{{ $result->sp6 }} </h4>
+                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv6 }} </h3>
+                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ $result->sp6 }} </h4>
                 </div>
                 <div class="icon">
-                  <i class="fa fa-thermometer-empty iconColor"></i>
+                  <i class="fa fa-thermometer-three-quarters iconColor"></i>
                 </div>
                 <!-- <p class="small-box-footer"> -->
-                <div class="progress-group ">
-                  <span class="progress-text ml-1">Out6</span>
+                <div class="progress-group" style=text-align:left>
+                  <span class="progress-text ml-1">Output %</span>
                   <span class="float-right mr-1"><b> {{ $result->out6 }} </b>/100%</span>
                   <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: {{ $result->out6 }}%"></div>
+                    <div class="progress-bar bg-gradient-success" style="width: {{ $result->out6 }}%"></div>
                   </div>
                 </div>
 
@@ -538,7 +538,7 @@
                   $out1 = (boolean)($result->obit6&1);
                   $out2 = (boolean)($result->obit6&2);
                   $at = (boolean)($result->obit6&4);
-                  $alt1 = (boolean)($result->obit6&4);
+                  $alt1 = (boolean)($result->obit6&8);
                   $alt2 = (boolean)($result->obit6&16);
                   $alt3 = (boolean)($result->obit6&32);
                   $pro = (boolean)($result->obit6&64);
@@ -557,7 +557,7 @@
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}"> Out1</h5>
+                        <h5 class="description-header {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">Out1</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
@@ -567,36 +567,36 @@
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}">AT</h5>
+                        <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">AT</h5>
                         <!-- <h5 class="description-header {{  ($at == 1) ? 'bg-gradient-secondary' : 'bg-gradient-danger'; }}"><i class="fas fa-caret-up"></i> AT</h5> -->
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
-                      <div class="description-block">
-                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL1</h5>
+                      <div class="description-block border-right">
+                        <h5 class="description-header {{  ($alt1 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL1</h5>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp; AL2</h5>
+                        <h5 class="description-header {{  ($alt2 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL2</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-secondary' : 'bg-gradient-success'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
+                        <h5 class="description-header {{  ($alt3 == 1) ? 'bg-gradient-danger' : 'bg-gradient-secondary'; }}"><i class="fa fa-exclamation-triangle"></i>&nbsp;AL3</h5>
                       </div>
                     </div>
 
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> MAN</h5>
+                        <h5 class="description-header {{  ($man == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">MAN</h5>
                       </div>
                     </div>
                     <div class="col-sm-3 col-6">
-                      <div class="description-block ">
-                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-secondary' : 'bg-gradient-warning'; }}"> PRO</h5>
+                      <div class="description-block border-right">
+                        <h5 class="description-header {{  ($pro == 1) ? 'bg-gradient-warning' : 'bg-gradient-secondary'; }}">PRO</h5>
                       </div>
                     </div>
                   </div>
@@ -614,7 +614,7 @@
         <!-- AREA CHART -->
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">Line Chart</h3>
+            <h3 class="card-title">Chart</h3>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
               </button>
