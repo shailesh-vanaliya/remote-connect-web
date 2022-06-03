@@ -1,11 +1,11 @@
 <div class="card-body">
-    <div class="form-group row {{ $errors->has('report_id') ? 'has-error' : ''}}">
+    <!-- <div class="form-group row {{ $errors->has('report_id') ? 'has-error' : ''}}">
         <label for="report_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Report Id' }}</label>
         <div class="col-sm-5">
             <input class="form-control" name="report_id" type="number" id="report_id" value="{{ isset($reportconfiguration->report_id) ? $reportconfiguration->report_id : ''}}">
             {!! $errors->first('report_id', '<p class="help-block">:message</p>') !!}
         </div>
-    </div>
+    </div> -->
     <div class="form-group row {{ $errors->has('device_id') ? 'has-error' : ''}}">
         <label for="device_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Device Id' }}</label>
         <div class="col-sm-5">

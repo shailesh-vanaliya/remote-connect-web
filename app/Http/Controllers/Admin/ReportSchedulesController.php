@@ -8,6 +8,7 @@ use Auth;
 use DB;
 use App\Models\ReportSchedule;
 use App\Models\User;
+use App\Models\ReportConfiguration;
 use Illuminate\Http\Request;
 
 class ReportSchedulesController extends Controller
@@ -22,11 +23,10 @@ class ReportSchedulesController extends Controller
         $keyword = $request->get('search');
         $perPage = 25;
 
-
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-            $data['reportschedules'] = ReportSchedule::latest()->paginate($perPage);
+            $data['reportschedules'] = ReportSchedule::latest()->get();
         } else {
-            $data['reportschedules'] = ReportSchedule::latest()->paginate($perPage);
+            $data['reportschedules'] = ReportSchedule::where('created_by', Auth::guard('admin')->user()->id)->latest()->get();
         }
 
         // Auth::guard('admin')->user()->organization_id
@@ -71,6 +71,11 @@ class ReportSchedulesController extends Controller
             $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->where('organization_id', Auth::guard('admin')->user()->organization_id)->pluck('modem_id', 'id')->toArray();
         }
 
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['reportConfiguration'] = ReportConfiguration::select('report_title', 'id',)->pluck('report_title', 'id')->toArray();
+        } else {
+            $data['reportConfiguration'] = ReportConfiguration::select('report_title', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('report_title', 'id')->toArray();
+        }
         return view('admin.report-schedules.create', $data);
     }
 
@@ -150,6 +155,11 @@ class ReportSchedulesController extends Controller
             $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->pluck('first_name', 'id')->toArray();
         } else {
             $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->where('organization_id', Auth::guard('admin')->user()->organization_id)->pluck('modem_id', 'id')->toArray();
+        }
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['reportConfiguration'] = ReportConfiguration::select('report_title', 'id',)->pluck('report_title', 'id')->toArray();
+        } else {
+            $data['reportConfiguration'] = ReportConfiguration::select('report_title', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('report_title', 'id')->toArray();
         }
         return view('admin.report-schedules.edit', $data);
     }

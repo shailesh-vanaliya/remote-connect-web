@@ -25,7 +25,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Report Id</th>
+                                    <!-- <th>Report Id</th> -->
                                     <th>Start Time</th>
                                     <th>End Time</th>
                                     <th>Execution Time</th>
@@ -44,7 +44,7 @@
                                 @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->report_id }}</td>
+                                    <!-- <td>{{ $item->report_id }}</td> -->
                                     <td>{{ $item->start_time }}</td>
                                     <td>{{ $item->end_time }}</td>
                                     <td>{{ $item->execution_time }}</td>

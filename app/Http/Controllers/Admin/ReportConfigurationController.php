@@ -24,17 +24,13 @@ class ReportConfigurationController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 25;
-
-        if (!empty($keyword)) {
-            $data['reportconfiguration'] = ReportConfiguration::where('report_id', 'LIKE', "%$keyword%")
-                ->orWhere('device_id', 'LIKE', "%$keyword%")
-                ->orWhere('organization_id', 'LIKE', "%$keyword%")
-                ->orWhere('report_title', 'LIKE', "%$keyword%")
-                ->orWhere('parameter', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+       
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['reportconfiguration'] = ReportConfiguration::latest()->get();
         } else {
-            $data['reportconfiguration'] = ReportConfiguration::latest()->paginate($perPage);
+            $data['reportconfiguration'] = ReportConfiguration::where('created_by', Auth::guard('admin')->user()->id)->latest()->get();
         }
+
         $data['pagetitle']             = 'Report Configuration';
         $data['js']                    = ['admin/report.js'];
         $data['funinit']               = ['Report.init()'];

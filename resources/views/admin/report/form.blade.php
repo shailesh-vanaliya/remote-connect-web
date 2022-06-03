@@ -1,4 +1,12 @@
 <div class="card-body">
+    <div class="form-group row {{ $errors->has('report_config_id') ? 'has-error' : ''}}">
+        <label for="device_id" class="col-sm-2 col-form-label">{{ 'Report Config Id' }}</label>
+        <div class="col-sm-5">
+            {{ Form::select('report_config_id', $reportConfiguration , empty($report->report_config_id) ? null : $report->report_config_id , array('class' => 'form-control report_config_id', 'id' => 'report_config_id')) }}
+            {!! $errors->first('report_config_id', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
     <div class="form-group row {{ $errors->has('device_type_id') ? 'has-error' : ''}}">
         <label for="device_type_id" class="col-sm-2 col-form-label">{{ 'Device Type Id' }}</label>
         <div class="col-sm-5">
@@ -17,8 +25,8 @@
 
     <div class="form-group row {{ $errors->has('field_name') ? 'has-error' : ''}}">
         <label for="field_name" class="col-sm-2 col-form-label">{{ 'Field Name' }}</label>
-       <div class="col-sm-5">
-        <span class="coursesForType " id="coursesForType"></span>
+        <div class="col-sm-5">
+            <span class="coursesForType " id="coursesForType"></span>
         </div>
     </div>
 

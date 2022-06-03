@@ -123,6 +123,7 @@ class AdminController extends Controller
             $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
             $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $subQuery->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
+            $subQuery->groupBy('devices.id');
             $data['device'] =  $subQuery->count();
             $onlineDevice =  Device::select(
                 'device_map.MQTT_ID',
@@ -146,6 +147,7 @@ class AdminController extends Controller
             $onlineDevice->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $onlineDevice->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
             $onlineDevice->where('device_status.Status',1);
+            $onlineDevice->groupBy('devices.id');
             $data['onlineDevice'] =  $onlineDevice->count();
             
         } else {
@@ -189,6 +191,7 @@ class AdminController extends Controller
             $onlineDevice->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
             $onlineDevice->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $onlineDevice->where('device_status.Status',1);
+            $onlineDevice->groupBy('devices.id');
             $data['onlineDevice'] =  $onlineDevice->count();
 
           

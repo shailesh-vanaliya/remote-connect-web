@@ -496,8 +496,11 @@ class DeviceController extends Controller
         //     array('bangalore', 12.9716, 77.5946, 2),
         //     array('mumbai', 19.0760, 72.8777, 1)
         // );
-        $collected_items = Device::whereNotNull('latitude')
-        ->whereNotNull('longitude')->get()->toArray();
+        $subQuery =  Device::whereNotNull('latitude')->whereNotNull('longitude');
+        if (Auth::guard('admin')->user()->role != 'SUPERADMIN') {
+            $subQuery->where('created_by', Auth::guard('admin')->user()->id);
+        }
+        $collected_items = $subQuery->get()->toArray();
         $locationList = [];
         foreach ($collected_items as $key => $values) {
             // print_r($values['location']);

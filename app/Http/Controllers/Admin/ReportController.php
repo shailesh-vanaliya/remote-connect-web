@@ -11,6 +11,7 @@ use App\Models\Report;
 use App\Models\Organization;
 use App\Models\Device;
 use App\Models\DeviceType;
+use App\Models\ReportConfiguration;
 use App\Exports\ReportConfigurationExport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -28,15 +29,6 @@ class ReportController extends Controller
         $keyword = $request->get('search');
         $perPage = 25;
 
-        // if (!empty($keyword)) {
-        //     $data['report']  = Report::where('device_id', 'LIKE', "%$keyword%")
-        //         ->orWhere('device_type_id', 'LIKE', "%$keyword%")
-        //         ->orWhere('field_name', 'LIKE', "%$keyword%")
-        //         ->latest()->paginate($perPage);
-        // } else {
-        //     $data['report']  = Report::latest()->paginate($perPage);
-        // }
-
         $subQuery =  Report::select(
             'report_configurations.parameter',
             'report_configurations.report_title',
@@ -46,9 +38,12 @@ class ReportController extends Controller
             'reports.*',
         );
       
-        $subQuery->join('report_configurations',  'report_configurations.report_id', '=', 'reports.id');
+        $subQuery->join('report_configurations',  'report_configurations.id', '=', 'reports.report_config_id');
         $subQuery->join('device_type',  'device_type.id', '=', 'reports.device_type_id');
         $subQuery->join('devices',  'devices.id', '=', 'report_configurations.device_id');
+        if (Auth::guard('admin')->user()->role != 'SUPERADMIN') {
+            $subQuery->where('report_configurations.created_by', Auth::guard('admin')->user()->id)->latest()->get();
+        }
         $data['report'] =  $subQuery->latest('reports.created_at')->get();
         // print_r($data['report'] );
         // exit;
@@ -92,7 +87,11 @@ class ReportController extends Controller
             $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
             // $data['organization'] = Organization::select('organization_name','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('organization_name', 'id')->toArray();
         }
-
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['reportConfiguration'] = ReportConfiguration::select('report_title', 'id',)->pluck('report_title', 'id')->toArray();
+        } else {
+            $data['reportConfiguration'] = ReportConfiguration::select('report_title', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('report_title', 'id')->toArray();
+        }
         return view('admin.report.create', $data);
     }
 
@@ -180,6 +179,11 @@ class ReportController extends Controller
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
             $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
             // $data['organization'] = Organization::select('organization_name','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('organization_name', 'id')->toArray();
+        }
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['reportConfiguration'] = ReportConfiguration::select('report_title', 'id',)->pluck('report_title', 'id')->toArray();
+        } else {
+            $data['reportConfiguration'] = ReportConfiguration::select('report_title', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('report_title', 'id')->toArray();
         }
         return view('admin.report.edit', $data);
     }

@@ -33,7 +33,7 @@
             <tr>
                 <th>#</th>
                 <th>Report Id</th>
-                <th>Device Id</th>
+                <!-- <th>Device Id</th> -->
                 <th>Organization Id</th>
                 <th>Report Title</th>
                 <th>Parameter</th>
@@ -44,7 +44,7 @@
             @foreach($reportconfiguration as $item)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $item->report_id }}</td>
+                <!-- <td>{{ $item->report_id }}</td> -->
                 <td>{{ $item->device_id }}</td>
                 <td>{{ $item->organization_id }}</td>
                 <td>{{ $item->report_title }}</td>
@@ -110,7 +110,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Report Id</th>
+                                    <!-- <th>Report Id</th> -->
                                     <th>Device Id</th>
                                     <th>Organization Id</th>
                                     <th>Report Title</th>
@@ -125,7 +125,7 @@
                                 @endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->report_id }}</td>
+                                    <!-- <td>{{ $item->report_id }}</td> -->
                                     <td>{{ $item->device_id }}</td>
                                     <td>{{ $item->organization_id }}</td>
                                     <td>{{ $item->report_title }}</td>
