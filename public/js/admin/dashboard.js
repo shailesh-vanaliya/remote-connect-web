@@ -363,7 +363,7 @@ var Dashboard = function () {
                         am5themes_Animated.new(root)
                     ]);
 
-
+                    root.container.children.clear();
                     // Create chart
                     // https://www.amcharts.com/docs/v5/charts/xy-chart/
                     var chart = root.container.children.push(am5xy.XYChart.new(root, {
@@ -444,7 +444,7 @@ var Dashboard = function () {
                     chart.set("scrollbarX", am5.Scrollbar.new(root, {
                         orientation: "horizontal"
                     }));
-
+                    series.data.setAll([]);
                     series.data.setAll(data);
 
 

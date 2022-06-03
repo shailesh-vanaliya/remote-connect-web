@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-
+use App\Models\Device;
 use App\Models\AlertConfigration;
 use Illuminate\Http\Request;
-
+use Auth;
 class AlertConfigurationController extends Controller
 {
     public function __construct()
@@ -67,6 +67,12 @@ class AlertConfigurationController extends Controller
                 'create' => '',
             ],
         ];
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['device'] = Device::select('modem_id', 'id',)->pluck('modem_id', 'id')->toArray();
+        } else {
+            $data['device'] = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
+        }
+
         return view('admin.alert-configration.create', $data);
     }
 
@@ -111,6 +117,13 @@ class AlertConfigurationController extends Controller
                 'View' => '',
             ],
         ];
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['device'] = Device::select('modem_id', 'id',)->pluck('modem_id', 'id')->toArray();
+        } else {
+            $data['device'] = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
+            // $data['organization'] = Organization::select('organization_name','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('organization_name', 'id')->toArray();
+        }
+
         return view('admin.alert-configration.show', $data);
     }
 
@@ -135,6 +148,11 @@ class AlertConfigurationController extends Controller
                 'Edit' => '',
             ],
         ];
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['device'] = Device::select('modem_id', 'id',)->pluck('modem_id', 'id')->toArray();
+        } else {
+            $data['device'] = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
+        }
         return view('admin.alert-configration.edit', $data);
     }
 
