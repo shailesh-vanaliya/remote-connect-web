@@ -41,7 +41,7 @@ class MeterDashboardController extends Controller
      */
     public function index(Request $request)
     {
-
+	;
         $result =  DataLog::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
 
         $deviceObject = new Device();
@@ -206,7 +206,7 @@ class MeterDashboardController extends Controller
         //     $end = date('Y-m-d h:i:s', strtotime($endA));
         // echo $start . " === " . $end;
         // exit;
- 
+	 ini_set('max_execution_time', 120);
         $start = $data['startDate'].":00";
         $end = $data['endDate'].":00";
         $this->deviceName = isset($data['modem_id'])  ? $data['modem_id'] : 'FT104';
@@ -232,6 +232,7 @@ class MeterDashboardController extends Controller
             )
             ->orderBy('dtm', 'desc')
             ->get()->toArray();
+        
         echo json_encode(array_reverse($res));
         exit;
     }
