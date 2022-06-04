@@ -39,10 +39,6 @@ class DeviceController extends Controller
         } 
  
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-            // $data['device'] = Device::where('modem_id', 'LIKE', "%$keyword%")
-            //     ->orWhere('location', 'LIKE', "%$keyword%")
-            //     ->orWhere('updated_by', 'LIKE', "%$keyword%")
-            //     ->latest()->paginate($perPage);
 
             $subQuery =  Device::select(
                 'device_map.MQTT_ID',
@@ -487,20 +483,14 @@ class DeviceController extends Controller
 
     public function _getLocationList() {
        
-        // $locationList = array(
-        //     array('chandigarh', 30.7333, 76.7794, 8),
-        //     array('Panjab', 31.1471, 75.3412, 6),
-        //     array('Ahmadabad', 23.0225, 72.5714, 4),
-        //     array('Baroda', 22.3072, 73.1812, 5),
-        //     array('chennai', 13.0827, 80.2707, 3),
-        //     array('bangalore', 12.9716, 77.5946, 2),
-        //     array('mumbai', 19.0760, 72.8777, 1)
-        // );
-        $subQuery =  Device::whereNotNull('latitude')->whereNotNull('longitude');
-        if (Auth::guard('admin')->user()->role != 'SUPERADMIN') {
-            $subQuery->where('created_by', Auth::guard('admin')->user()->id);
-        }
-        $collected_items = $subQuery->get()->toArray();
+        // $subQuery =  Device::whereNotNull('latitude')->whereNotNull('longitude');
+        // if (Auth::guard('admin')->user()->role != 'SUPERADMIN') {
+        //     $subQuery->where('created_by', Auth::guard('admin')->user()->id);
+        // }
+        // $collected_items = $subQuery->get()->toArray();
+        $deviceObj = new Device();
+        $collected_items = $deviceObj->getDeviceByUser()->toArray();
+     
         $locationList = [];
         foreach ($collected_items as $key => $values) {
             // print_r($values['location']);
@@ -509,6 +499,8 @@ class DeviceController extends Controller
             $tempArray = array("Modem Id : " . $values['modem_id'] ." <br /> Project Name : ".  $values['project_name']." <br /> Region : ".  $values['region'] ." <br /> Location : ". $values['location']." <br />  <a href='".$url."'>".'View Dashboard' .'</a>', $values['latitude'], $values['longitude'], $values['id']);
             $locationList[$key] = $tempArray;
         }
+        print_r($collected_items);
+        exit;
         echo json_encode($locationList);
         exit;
     }

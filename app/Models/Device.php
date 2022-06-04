@@ -25,7 +25,7 @@ class Device extends Model
      *
      * @var array
      */
-    protected $fillable = ['modem_id', 'model_no','secret_key', 'project_name', 'customer_name', 'region', 'location', 'machine_type', 'latitude', 'longitude', 'description','created_by', 'updated_by'];
+    protected $fillable = ['modem_id', 'model_no','secret_key', 'project_name','data_table', 'customer_name', 'region', 'location', 'machine_type', 'latitude', 'longitude', 'description','created_by', 'updated_by'];
 
     
 
@@ -107,6 +107,8 @@ class Device extends Model
                 'remote.MACHINE_REMOTE_PORT',
                 'device_map.subscription_status',
                 'device_type.device_type',
+                'device_type.data_table',
+                'device_type.dashboard_id',
                 'devices.*',
             );
             $subQuery->Join('device_map', function ($join) {
@@ -131,6 +133,8 @@ class Device extends Model
                 'device_map.IMEI_No',
                 'device_status.Status',
                 'device_type.device_type',
+                'device_type.data_table',
+                'device_type.dashboard_id',
                 'devices.*',
             );
             if ($keyword) {
