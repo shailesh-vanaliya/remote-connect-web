@@ -30,7 +30,6 @@ class ReportConfigurationController extends Controller
         } else {
             $data['reportconfiguration'] = ReportConfiguration::where('created_by', Auth::guard('admin')->user()->id)->latest()->get();
         }
-
         $data['pagetitle']             = 'Report Configuration';
         $data['js']                    = ['admin/report.js'];
         $data['funinit']               = ['Report.init()'];

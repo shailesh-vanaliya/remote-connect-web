@@ -36,7 +36,7 @@
             @endphp
             @foreach($column as $row => $val)
             @php
-             $check =  isset($reportconfiguration->parameter) ? (in_array($val,$array) ? 'checked' : '') : '';
+             $check =  isset($reportconfiguration->parameter) && !empty($array) ? (in_array($val,$array) ? 'checked' : '') : '';
             @endphp
             <div class="icheck-primary d-inline mr-5">
                 <input type="checkbox" {{ $check  }} value="{{ $val }}" name="parameter[]" id="email_report{{ $row }}">
