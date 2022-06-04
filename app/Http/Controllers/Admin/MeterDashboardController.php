@@ -206,7 +206,8 @@ class MeterDashboardController extends Controller
             //     $end = date('Y-m-d h:i:s', strtotime($endA));
             // echo $start . " === " . $end;
             // exit;
-            ini_set('max_execution_time', 120000);
+		//   ini_set('max_execution_time', 120000);
+		ini_set('memory_limit', -1);
             $start = $data['startDate'] . ":00";
             $end = $data['endDate'] . ":00";
             $this->deviceName = isset($data['modem_id'])  ? $data['modem_id'] : 'FT104';
