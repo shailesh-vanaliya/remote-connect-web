@@ -52,6 +52,8 @@ class DeviceController extends Controller
                 'remote.MACHINE_REMOTE_PORT',
                 'device_map.subscription_status',
                 'device_type.device_type',
+                'device_type.data_table',
+                'device_type.dashboard_id',
                 'devices.*',
             );
             // $subQuery->where('device.modem_id', 'LIKE', "%$keyword%");
@@ -91,6 +93,8 @@ class DeviceController extends Controller
                 'device_map.IMEI_No',
                 'device_status.Status',
                 'device_type.device_type',
+                'device_type.data_table',
+                'device_type.dashboard_id',
                 'devices.*',
             );
             if ($keyword) {

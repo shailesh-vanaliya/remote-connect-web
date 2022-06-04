@@ -71,9 +71,13 @@
                                     Device Type <span class="float-right badge bg-info">{{ $item->device_type }}</span>
                                 </a>
                             </li>
-
+                        @php
+                            $url = url('/admin/'.$item->dashboard_id.'/' .$item->modem_id );
+                            $url = ($item->dashboard_id == '') ? "#" : $url;
+                        @endphp
                             <li class="nav-item m-2 text-center">
-                                <a href="{{ url('/admin/meter-dashboard/' . $item->modem_id) }}" title="Goto dashboard"><button class="btn btn-success btn-xs "><i class="fas fa-tachometer-alt" aria-hidden="true"></i> </button></a>
+                                <a href="{{ $url; }}" title="Goto dashboard"><button class="btn btn-success btn-xs "><i class="fas fa-tachometer-alt" aria-hidden="true"></i> </button></a>
+                                <!-- <a href="{{ url('/admin/meter-dashboard/' . $item->modem_id) }}" title="Goto dashboard"><button class="btn btn-success btn-xs "><i class="fas fa-tachometer-alt" aria-hidden="true"></i> </button></a> -->
                                 <a href="{{ url('/admin/device/' . $item->id) }}" title="View Device"><button class="btn btn-primary btn-xs "><i class="fas fa-eye" aria-hidden="true"></i> </button></a>
                                 <a href="{{ url('/admin/device/' . $item->id . '/edit') }}" title="Edit Device"><button class="btn btn-primary btn-xs "><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
                                 <form method="POST" action="{{ url('/admin/device' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">

@@ -402,7 +402,8 @@ var DashboardV2 = function () {
                         return data;
                     }
                     console.log(result.length, "result.lengthresult.length")
-                    let titlename = ['PV',"SP","OYT","Obit"];
+                    let titlename = ["PV1","SP1","PV2","SP2","PV3","SP3","PV4","SP4","PV5","SP5","PV6","SP6"];
+                    // let titlename = ['PV',"SP","OYT","Obit"];
                     console.log(titlename, " titlename")
                     for (var i = 0; i < result.length; i++) {
                         var series = chart.series.push(am5xy.LineSeries.new(root, {

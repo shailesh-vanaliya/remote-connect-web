@@ -225,7 +225,8 @@ class MeterDashboardController extends Controller
                 // 'dtm as date',
                 DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
             )
-                ->where("modem_id", 'FT104')
+                ->where("modem_id", $this->deviceName)
+                // ->where("modem_id", 'FT104')
                 ->whereRaw(
                     "(dtm >= ? AND dtm <= ?)",
                     [$start, $end]
