@@ -40,8 +40,7 @@ class MeterDashboardController extends Controller
      * @return Factory|View
      */
     public function index(Request $request)
-    {
-	;
+    {;
         $result =  DataLog::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
 
         $deviceObject = new Device();
@@ -102,7 +101,7 @@ class MeterDashboardController extends Controller
             );
             // SW1(Topic:FT107/SUB_MOIS_START)
             // {"data":#VALUE,"client id":"FT104_client3"}
-            $res = MQTT::publish($details->modem_id ."/1/SUB_MOIS_START", json_encode($data));
+            $res = MQTT::publish($details->modem_id . "/1/SUB_MOIS_START", json_encode($data));
             $result['status'] = 'success';
             $result['message'] = 'Status updated successfully';
         } catch (\Exception $e) {
@@ -126,7 +125,7 @@ class MeterDashboardController extends Controller
             );
             // SW1(Topic:FT107/SUB_MOIS_START)
             // {"data":#VALUE,"client id":"FT104_client3"}
-            $res = MQTT::publish($details->modem_id ."/1/SUB_MACH_START", json_encode($data));
+            $res = MQTT::publish($details->modem_id . "/1/SUB_MACH_START", json_encode($data));
             $result['status'] = 'success';
             $result['message'] = 'Status updated successfully';
         } catch (\Exception $e) {
@@ -197,44 +196,51 @@ class MeterDashboardController extends Controller
     }
     public function _getChartDataV2($data)
     {
-        // $explodeArray = explode(' - ',$data['dateRange']);
-        // $start = $explodeArray[0];
-        // $endA = $explodeArray[1];
-        // echo $endA . " ===  ";
-        // // exit;
-        // $start = date('Y-m-d h:i:s', strtotime($start));
-        //     $end = date('Y-m-d h:i:s', strtotime($endA));
-        // echo $start . " === " . $end;
-        // exit;
-	    ini_set('max_execution_time', -1);
-        $start = $data['startDate'].":00";
-        $end = $data['endDate'].":00";
-        $this->deviceName = isset($data['modem_id'])  ? $data['modem_id'] : 'FT104';
-        if (empty($start) && empty($end)) {
-            // $start = date('Y-m-d') . " 00:00:00";
-            // $end = date('Y-m-d') . " 23:59:59";
-            $start = date('Y-m-d h:i:s');
-            $end = date('Y-m-d h:i:s');
-        } else {
+        try {
+            // $explodeArray = explode(' - ',$data['dateRange']);
+            // $start = $explodeArray[0];
+            // $endA = $explodeArray[1];
+            // echo $endA . " ===  ";
+            // // exit;
             // $start = date('Y-m-d h:i:s', strtotime($start));
-            // $end = date('Y-m-d h:i:s', strtotime($end));
-        }
-        $res =  DataLog::select(
-            'Temperature_PV as value',
-            // 'dtm as date',
-            DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
-        )
-            ->where("modem_id",'FT104')
-            ->whereRaw(
-                "(dtm >= ? AND dtm <= ?)",
-                [$start, $end]
-                // [$start . " 00:00:00", $end . " 23:59:59"]
+            //     $end = date('Y-m-d h:i:s', strtotime($endA));
+            // echo $start . " === " . $end;
+            // exit;
+            ini_set('max_execution_time', 120000);
+            $start = $data['startDate'] . ":00";
+            $end = $data['endDate'] . ":00";
+            $this->deviceName = isset($data['modem_id'])  ? $data['modem_id'] : 'FT104';
+            if (empty($start) && empty($end)) {
+                // $start = date('Y-m-d') . " 00:00:00";
+                // $end = date('Y-m-d') . " 23:59:59";
+                $start = date('Y-m-d h:i:s');
+                $end = date('Y-m-d h:i:s');
+            } else {
+                // $start = date('Y-m-d h:i:s', strtotime($start));
+                // $end = date('Y-m-d h:i:s', strtotime($end));
+            }
+            $res =  DataLog::select(
+                'Temperature_PV as value',
+                // 'dtm as date',
+                DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
             )
-            ->orderBy('dtm', 'desc')
-            ->get()->toArray();
-        
-        echo json_encode(array_reverse($res));
-        exit;
+                ->where("modem_id", 'FT104')
+                ->whereRaw(
+                    "(dtm >= ? AND dtm <= ?)",
+                    [$start, $end]
+                    // [$start . " 00:00:00", $end . " 23:59:59"]
+                )
+                ->orderBy('dtm', 'desc')
+                ->get()->toArray();
+
+            echo json_encode(array_reverse($res));
+            exit;
+        } catch (Exception $e) {
+            $result['type'] = 'error';
+            $result['message'] = $e->getMessage();
+            echo json_encode($result);
+            exit;
+        }
     }
 
     public function meterDashboardExport(Request $request)
