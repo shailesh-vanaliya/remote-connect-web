@@ -505,7 +505,7 @@ class DeviceController extends Controller
         foreach ($collected_items as $key => $values) {
             // print_r($values['location']);
             // exit;
-            $url = url('/admin/device/device-detail/' .$values['id'] );
+            $url = url('/admin/meter-dashboard/' .$values['modem_id'] );
             $tempArray = array("Modem Id : " . $values['modem_id'] ." <br /> Project Name : ".  $values['project_name']." <br /> Region : ".  $values['region'] ." <br /> Location : ". $values['location']." <br />  <a href='".$url."'>".'View details' .'</a>', $values['latitude'], $values['longitude'], $values['id']);
             $locationList[$key] = $tempArray;
         }
