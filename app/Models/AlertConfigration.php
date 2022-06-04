@@ -25,7 +25,7 @@ class AlertConfigration extends Model
      *
      * @var array
      */
-    protected $fillable = ['modem_id', 'organization_id','parameter', 'condition', 'set_value', 'sms_alert', 'email_alert'];
+    protected $fillable = ['modem_id', 'organization_id','parameter', 'condition', 'set_value', 'sms_alert', 'email_alert','created_by','updated_by'];
 
     
 }

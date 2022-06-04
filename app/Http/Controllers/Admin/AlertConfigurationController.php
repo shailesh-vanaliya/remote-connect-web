@@ -24,16 +24,21 @@ class AlertConfigurationController extends Controller
         $keyword = $request->get('search');
         $perPage = 25;
 
-        if (!empty($keyword)) {
-            $data['alertconfigration']  = AlertConfigration::where('modem_id', 'LIKE', "%$keyword%")
-                ->orWhere('parameter', 'LIKE', "%$keyword%")
-                ->orWhere('condition', 'LIKE', "%$keyword%")
-                ->orWhere('set_value', 'LIKE', "%$keyword%")
-                ->orWhere('sms_alert', 'LIKE', "%$keyword%")
-                ->orWhere('email_alert', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
-        } else {
-            $data['alertconfigration'] = AlertConfigration::latest()->paginate($perPage);
+        // if (!empty($keyword)) {
+        //     $data['alertconfigration']  = AlertConfigration::where('modem_id', 'LIKE', "%$keyword%")
+        //         ->orWhere('parameter', 'LIKE', "%$keyword%")
+        //         ->orWhere('condition', 'LIKE', "%$keyword%")
+        //         ->orWhere('set_value', 'LIKE', "%$keyword%")
+        //         ->orWhere('sms_alert', 'LIKE', "%$keyword%")
+        //         ->orWhere('email_alert', 'LIKE', "%$keyword%")
+        //         ->latest()->paginate($perPage);
+        // } else {
+        //     $data['alertconfigration'] = AlertConfigration::latest()->paginate($perPage);
+        // }
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['alertconfigration'] = AlertConfigration::get();
+        }  else {
+            $data['alertconfigration'] = AlertConfigration::where('created_by', Auth::guard('admin')->user()->id)->get();
         }
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/dashboard.js'];
@@ -88,6 +93,8 @@ class AlertConfigurationController extends Controller
         try {
             $requestData = $request->all();
             $requestData['organization_id'] = 1;
+            $requestData['created_by'] = Auth::guard('admin')->user()->id;
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             AlertConfigration::create($requestData);
 
             return redirect('admin/alert-configration')->with('session_success', 'Alert Configuration added!');
@@ -170,6 +177,8 @@ class AlertConfigurationController extends Controller
             $requestData = $request->all();
             $requestData['organization_id'] = 1;
             $alertconfigration = AlertConfigration::findOrFail($id);
+            $requestData['created_by'] = Auth::guard('admin')->user()->id;
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             $alertconfigration->update($requestData);
 
             return redirect('admin/alert-configration')->with('session_success', 'Alert Configuration updated!');
