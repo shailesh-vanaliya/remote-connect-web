@@ -46,6 +46,9 @@ class AdminController extends Controller
         $reportObj = new Report();
         $data['reportCount'] = $reportObj->getReportsData('count');
 
+        $deviceObj = new Device();
+        $device = $deviceObj->getDeviceByUser();
+ 
         $data['client']                = User::where("role", 'USER')->count();
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/dashboard.js'];
@@ -55,32 +58,8 @@ class AdminController extends Controller
         }  else {
             $data['alertCount'] = AlertConfigration::where('created_by', Auth::guard('admin')->user()->id)->count();
         }
+        $data['device'] =  $device->count();
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-
-            $subQuery =  Device::select(
-                'device_map.MQTT_ID',
-                // 'device_map.MODEM_ID',
-                'device_map.max_user_access',
-                'device_map.IMEI_No',
-                'device_status.Status',
-                'remote.MACHINE_NO',
-                'remote.MACHINE_LOCAL_IP',
-                'remote.MACHINE_LOCAL_PORT',
-                'remote.MACHINE_REMOTE_PORT',
-                'device_map.subscription_status',
-                'device_type.device_type',
-                'devices.*',
-            );
-            // $subQuery->where('device.modem_id', 'LIKE', "%$keyword%");
-            $subQuery->Join('device_map', function ($join) {
-                $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
-                $join->on('device_map.secret_key', '=', 'devices.secret_key');
-            });
-            $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
-            $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
-            $subQuery->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
-            $subQuery->groupBy('devices.id');
-            $data['device'] =  $subQuery->count();
             $onlineDevice =  Device::select(
                 'device_map.MQTT_ID',
                 // 'device_map.MODEM_ID',
@@ -107,28 +86,28 @@ class AdminController extends Controller
             $data['onlineDevice'] =  $onlineDevice->count();
             
         } else {
-            $subQuery =  Device::select(
-                'device_map.MQTT_ID',
-                'device_map.max_user_access',
-                'device_map.subscription_status',
-                'device_map.IMEI_No',
-                'device_status.Status',
-                'device_type.device_type',
-                'devices.*',
-            );
+//             $subQuery =  Device::select(
+//                 'device_map.MQTT_ID',
+//                 'device_map.max_user_access',
+//                 'device_map.subscription_status',
+//                 'device_map.IMEI_No',
+//                 'device_status.Status',
+//                 'device_type.device_type',
+//                 'devices.*',
+//             );
          
-            $subQuery->where('devices.created_by', Auth::guard('admin')->user()->id);
-            $subQuery->Join('device_map', function ($join) {
-                $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
-                $join->on('device_map.secret_key', '=', 'devices.secret_key');
-            });
-            $subQuery->Join('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
-            $subQuery->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
-            $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
-            // $subQuery->groupBy('devices.id');
-            $data['device'] =  $subQuery->count();
-// print_r($data['device']);
-// exit;
+//             $subQuery->where('devices.created_by', Auth::guard('admin')->user()->id);
+//             $subQuery->Join('device_map', function ($join) {
+//                 $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
+//                 $join->on('device_map.secret_key', '=', 'devices.secret_key');
+//             });
+//             $subQuery->Join('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+//             $subQuery->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
+//             $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
+//             // $subQuery->groupBy('devices.id');
+//             $data['device'] =  $subQuery->count();
+// // print_r($data['device']);
+// // exit;
             $onlineDevice =  Device::select(
                 'device_map.MQTT_ID',
                 'device_map.max_user_access',
