@@ -24,8 +24,10 @@ use DateTime;
 class Dashboard2Controller extends Controller
 {
 
-    public function __construct()
+    protected $deviceName = '';
+    public function __construct(Request $request)
     {
+        $this->deviceName = ($request->route('modemId') ?  $request->route('modemId') :  '');
         $this->middleware('admin');
     }
 
@@ -38,11 +40,12 @@ class Dashboard2Controller extends Controller
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/dashboardV2.js'];
         $data['funinit']               = ['DashboardV2.init()'];
-        
+
         // $data['result'] =  Honeywell::where("id", '4456')->orderBy('dtm', 'desc')->first();
         // print_r($data['result']);
-        // exit;
-        $data['result'] =  Honeywell::orderBy('dtm', 'desc')->first();
+        // exit;  
+        $data['result'] =  Honeywell::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
+        // $data['result'] =  Honeywell::orderBy('dtm', 'desc')->first();
         // print_r($data['result']);
         // exit;
         // echo $result->obit1 . " === ";
@@ -70,9 +73,10 @@ class Dashboard2Controller extends Controller
     public function _getChartDataV2($data)
     {
 
+        try{
         $start = $data['startDate'] . ":00";
         $end = $data['endDate'] . ":00";
-        $this->deviceName = isset($data['modem_id'])  ? $data['modem_id'] : 'FT104';
+        $this->deviceName = isset($data['modem_id'])  ? $data['modem_id'] : '';
         if (empty($start) && empty($end)) {
             $start = date('Y-m-d h:i:s');
             $end = date('Y-m-d h:i:s');
@@ -86,52 +90,34 @@ class Dashboard2Controller extends Controller
             DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
             // 'dtm as date',
         )
-            ->where("modem_id", 'FT112')
+            ->where("modem_id", $this->deviceName)
             ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
+            ->orderBy('dtm', 'desc')->get()->toArray();
+
+        $sp1 =  Honeywell::select(
+            'sp1 as value',
+            // 'dtm as date'
+            DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
+        )
+            // ->where("modem_id", 'FT112')
+            ->where("modem_id", $this->deviceName)
+            ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
+            ->orderBy('dtm', 'desc')->get()->toArray();
+
+        $out1 =  Honeywell::select(
+            'out1 as value',DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
+        )
+            ->where("modem_id", $this->deviceName)
             ->orderBy('dtm', 'desc')
-            // ->take(100)
-            ->get()
-            ->toArray();
-
-        $sp1 =  Honeywell::select('sp1 as value', 
-        // 'dtm as date'
-        DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
-        )
-            ->where("modem_id", 'FT112')
             ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
+            ->get()->toArray();
+
+        $obit1 =  Honeywell::select('obit1 as value',DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'))
+        ->where("modem_id", $this->deviceName)
             ->orderBy('dtm', 'desc')
-            // ->take(100)
-            ->get()->toArray();
-
-        $out1 =  Honeywell::select('out1 as value', 
-        // 'dtm as date',
-        DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
-        )
-            ->where("modem_id", 'FT112')->orderBy('dtm', 'desc')
-            ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
-            // ->take(100)
-            ->get()->toArray();
-        // print_r($out1);
-        // exit;
-        $obit1 =  Honeywell::select('obit1 as value', 
-        // 'dtm as date',
-        DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
-        // DB::raw('UNIX_TIMESTAMP(dtm) as date'),
-        )
-            ->where("modem_id", 'FT112')->orderBy('dtm', 'desc')
             ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
             ->get()->toArray();
 
-
-        // $convetArray = [];
-        // foreach ($obit1 as $key => $val) {
-        //     $binarydata = $val['value'];
-        //     $array = unpack("cchars/nint", $binarydata);
-        //     // $val['value'] = $array['chars'];
-        //     $convetArray[$key]['value'] = $array['chars'] ;
-        //     $convetArray[$key]['date'] = $val['date'] ;
-        // }
-       
         $array = [];
         $array[0] = $pv1;
         $array[1] = $sp1;
@@ -140,5 +126,11 @@ class Dashboard2Controller extends Controller
         // $array[3] = $convetArray;
         echo json_encode(array_reverse($array));
         exit;
+    } catch (Exception $e) {
+        $result['type'] = 'error';
+        $result['message'] = $e->getMessage();
+        echo json_encode($result);
+        exit;
+    }
     }
 }

@@ -33,12 +33,14 @@
     border: 3px solid #01A89D;
     padding: 5px;
   }
+
   i.fa.fa-exclamation-triangle {
     font-size: 10px;
-}
-.card-footer {
+  }
+
+  .card-footer {
     padding: 0rem 1.25rem !important;
-}
+  }
 </style>
 
 <!-- Resources -->
@@ -60,31 +62,31 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv1 }} </h3>
-                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ $result->sp1 }} </h4>
+                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv1 }} </h3>
+                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ (empty($result)) ? "" :$result->sp1 }} </h4>
                 </div>
                 <div class="icon">
                   <i class="fa fa-thermometer-three-quarters iconColor"></i>
                 </div>
-            
+
                 <div class="progress-group" style=text-align:left>
                   <span class="progress-text ml-1">Output %</span>
-                  <span class="float-right mr-1"><b> {{ $result->out1 }} </b>/100%</span>
+                  <span class="float-right mr-1"><b> {{ (empty($result)) ? "0" : $result->out1 }} </b>/100%</span>
                   <div class="progress progress-sm">
-                    <div class="progress-bar bg-gradient-success" style="width: {{ $result->out1 }}%"></div>
+                    <div class="progress-bar bg-gradient-success" style="width: {{ (empty($result)) ? "0" : $result->out1 }}%"></div>
                   </div>
                 </div>
                 @php
-                  $out1 = (boolean)($result->obit1&1);
-                  $out2 = (boolean)($result->obit1&2);
-                  $at = (boolean)($result->obit1&4);
-                  $alt1 = (boolean)($result->obit1&8);
-                  $alt2 = (boolean)($result->obit1&16);
-                  $alt3 = (boolean)($result->obit1&32);
-                  $pro = (boolean)($result->obit1&64);
-                  $man = (boolean)($result->obit1&128);
-                  @endphp
-                
+                $out1 = (empty($result)) ? "" : (boolean)($result->obit1&1);
+                $out2 = (empty($result)) ? "" : (boolean)($result->obit1&2);
+                $at = (empty($result)) ? "" :(boolean)($result->obit1&4);
+                $alt1 = (empty($result)) ? "" :(boolean)($result->obit1&8);
+                $alt2 = (empty($result)) ? "" :(boolean)($result->obit1&16);
+                $alt3 = (empty($result)) ? "" :(boolean)($result->obit1&32);
+                $pro = (empty($result)) ? "" :(boolean)($result->obit1&64);
+                $man = (empty($result)) ? "" :(boolean)($result->obit1&128);
+                @endphp
+
                 <div class="card-footer">
                   <div class="row">
                     <div class="col-sm-3 col-6 ">
@@ -134,35 +136,14 @@
                   </div>
                   <!-- /.row -->
                 </div>
-<!-- 
-                <div class="btn-group mb-2 ml-3">
-                  @php
-                  $out1 = (boolean)($result->obit1&1);
-                  $out2 = (boolean)($result->obit1&2);
-                  $at = (boolean)($result->obit1&4);
-                  $alt1 = (boolean)($result->obit1&4);
-                  $alt2 = (boolean)($result->obit1&16);
-                  $alt3 = (boolean)($result->obit1&32);
-                  $pro = (boolean)($result->obit1&64);
-                  $man = (boolean)($result->obit1&128);
-                  @endphp
-                  <button type="button" class="btn btn-default btn-xs {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT1</button>
-                  <button type="button" class="btn btn-default btn-xs {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT2</button>
-                  <button type="button" class="btn btn-default btn-xs {{  ($at == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">AT</button>
-                  <button type="button" class="btn btn-default btn-xs {{  ($alt1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">ALT1</button>
-                  <button type="button" class="btn btn-default btn-xs {{  ($alt2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">ALT2</button>
-                  <button type="button" class="btn btn-default btn-xs {{  ($alt3 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">ALT3</button>
-                  <button type="button" class="btn btn-default btn-xs {{  ($man == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">MAN</button>
-                  <button type="button" class="btn btn-default btn-xs {{  ($pro == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }} ">PRO</button>
-                </div> -->
-
+                 
               </div>
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv2 }} </h3>
-                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ $result->sp2 }} </h4>
+                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv2 }} </h3>
+                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ (empty($result)) ? "" : $result->sp2 }} </h4>
                 </div>
                 <div class="icon">
                   <i class="fa fa-thermometer-three-quarters iconColor"></i>
@@ -170,26 +151,26 @@
                 <!-- <p class="small-box-footer"> -->
                 <div class="progress-group" style=text-align:left>
                   <span class="progress-text ml-1">Output %</span>
-                  <span class="float-right mr-1"><b> {{ $result->out2 }} </b>/100%</span>
+                  <span class="float-right mr-1"><b> {{ (empty($result)) ? "" : $result->out2 }} </b>/100%</span>
                   <div class="progress progress-sm">
-                    <div class="progress-bar bg-gradient-success" style="width: {{ $result->out2 }}%"></div>
+                    <div class="progress-bar bg-gradient-success" style="width: {{ (empty($result)) ? "" : $result->out2 }}%"></div>
                   </div>
                   <!-- <div class="progress">
                     <div class="progress-bar" style="width: 70%"></div>
                   </div> -->
                 </div>
                 <!-- <div class="btn-group mb-2 ml-3"> -->
-                  @php
-                  $out1 = (boolean)($result->obit2&1);
-                  $out2 = (boolean)($result->obit2&2);
-                  $at = (boolean)($result->obit2&4);
-                  $alt1 = (boolean)($result->obit2&8);
-                  $alt2 = (boolean)($result->obit2&16);
-                  $alt3 = (boolean)($result->obit2&32);
-                  $pro = (boolean)($result->obit2&64);
-                  $man = (boolean)($result->obit2&128);
-                  @endphp
-                  <div class="card-footer" style="">
+                @php
+                $out1 = (empty($result)) ? "" : (boolean)($result->obit2&1);
+                $out2 = (empty($result)) ? "" : (boolean)($result->obit2&2);
+                $at = (empty($result)) ? "" : (boolean)($result->obit2&4);
+                $alt1 = (empty($result)) ? "" : (boolean)($result->obit2&8);
+                $alt2 = (empty($result)) ? "" : (boolean)($result->obit2&16);
+                $alt3 = (empty($result)) ? "" : (boolean)($result->obit2&32);
+                $pro = (empty($result)) ? "" : (boolean)($result->obit2&64);
+                $man = (empty($result)) ? "" : (boolean)($result->obit2&128);
+                @endphp
+                <div class="card-footer" style="">
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
@@ -237,7 +218,7 @@
                     </div>
                   </div>
                 </div>
-                  <!-- <button type="button" class="btn btn-default btn-xs {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT1</button>
+                <!-- <button type="button" class="btn btn-default btn-xs {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT1</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT2</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($at == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">AT</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($alt1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">ALT1</button>
@@ -252,8 +233,8 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv3 }} </h3>
-                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ $result->sp3 }} </h4>
+                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv3 }} </h3>
+                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ (empty($result)) ? "" : $result->sp3 }} </h4>
                 </div>
                 <div class="icon">
                   <i class="fa fa-thermometer-three-quarters iconColor"></i>
@@ -261,23 +242,23 @@
                 <!-- <p class="small-box-footer"> -->
                 <div class="progress-group" style=text-align:left>
                   <span class="progress-text ml-1">Output %</span>
-                  <span class="float-right mr-1"><b> {{ $result->out3 }} </b>/100%</span>
+                  <span class="float-right mr-1"><b> {{ (empty($result)) ? "0" : $result->out3 }} </b>/100%</span>
                   <div class="progress progress-sm">
-                    <div class="progress-bar bg-gradient-success" style="width: {{ $result->out3 }}%"></div>
+                    <div class="progress-bar bg-gradient-success" style="width: {{ (empty($result)) ? '0' :$result->out3 }}%"></div>
                   </div>
                 </div>
                 <!-- <div class="btn-group mb-2 ml-3"> -->
-                  @php
-                  $out1 = (boolean)($result->obit3&1);
-                  $out2 = (boolean)($result->obit3&2);
-                  $at = (boolean)($result->obit3&4);
-                  $alt1 = (boolean)($result->obit3&8);
-                  $alt2 = (boolean)($result->obit3&16);
-                  $alt3 = (boolean)($result->obit3&32);
-                  $pro = (boolean)($result->obit3&64);
-                  $man = (boolean)($result->obit3&128);
-                  @endphp
-                  <div class="card-footer" style="">
+                @php
+                $out1 = (empty($result)) ? "" : (boolean)($result->obit3&1);
+                $out2 = (empty($result)) ? "" : (boolean)($result->obit3&2);
+                $at = (empty($result)) ? "" : (boolean)($result->obit3&4);
+                $alt1 = (empty($result)) ? "" : (boolean)($result->obit3&8);
+                $alt2 = (empty($result)) ? "" : (boolean)($result->obit3&16);
+                $alt3 = (empty($result)) ? "" : (boolean)($result->obit3&32);
+                $pro = (empty($result)) ? "" : (boolean)($result->obit3&64);
+                $man = (empty($result)) ? "" : (boolean)($result->obit3&128);
+                @endphp
+                <div class="card-footer" style="">
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
@@ -325,7 +306,7 @@
                     </div>
                   </div>
                 </div>
-                  <!-- <button type="button" class="btn btn-default btn-xs {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT1</button>
+                <!-- <button type="button" class="btn btn-default btn-xs {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT1</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT2</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($at == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">AT</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($alt1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">ALT1</button>
@@ -340,8 +321,8 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv4 }} </h3>
-                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ $result->sp4 }} </h4>
+                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv4 }} </h3>
+                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ (empty($result)) ? "" : $result->sp4 }} </h4>
                 </div>
                 <div class="icon">
                   <i class="fa fa-thermometer-three-quarters iconColor"></i>
@@ -349,23 +330,23 @@
                 <!-- <p class="small-box-footer"> -->
                 <div class="progress-group" style=text-align:left>
                   <span class="progress-text ml-1">Output %</span>
-                  <span class="float-right mr-1"><b> {{ $result->out4 }} </b>/100%</span>
+                  <span class="float-right mr-1"><b> {{ (empty($result)) ? "" : $result->out4 }} </b>/100%</span>
                   <div class="progress progress-sm">
-                    <div class="progress-bar bg-gradient-success" style="width: {{ $result->out4 }}%"></div>
+                    <div class="progress-bar bg-gradient-success" style="width: {{ (empty($result)) ? '0' : $result->out4 }}%"></div>
                   </div>
                 </div>
                 <!-- <div class="btn-group mb-2 ml-3"> -->
-                  @php
-                  $out1 = (boolean)($result->obit4&1);
-                  $out2 = (boolean)($result->obit4&2);
-                  $at = (boolean)($result->obit4&4);
-                  $alt1 = (boolean)($result->obit4&8);
-                  $alt2 = (boolean)($result->obit4&16);
-                  $alt3 = (boolean)($result->obit4&32);
-                  $pro = (boolean)($result->obit4&64);
-                  $man = (boolean)($result->obit4&128);
-                  @endphp
-                  <div class="card-footer" style="padding: unset;">
+                @php
+                $out1 = (empty($result)) ? "" : (boolean)($result->obit4&1);
+                $out2 = (empty($result)) ? "" : (boolean)($result->obit4&2);
+                $at = (empty($result)) ? "" : (boolean)($result->obit4&4);
+                $alt1 = (empty($result)) ? "" : (boolean)($result->obit4&8);
+                $alt2 = (empty($result)) ? "" : (boolean)($result->obit4&16);
+                $alt3 = (empty($result)) ? "" : (boolean)($result->obit4&32);
+                $pro = (empty($result)) ? "" : (boolean)($result->obit4&64);
+                $man = (empty($result)) ? "" : (boolean)($result->obit4&128);
+                @endphp
+                <div class="card-footer" style="padding: unset;">
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
@@ -413,7 +394,7 @@
                     </div>
                   </div>
                 </div>
-                  <!-- <button type="button" class="btn btn-default btn-xs {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT1</button>
+                <!-- <button type="button" class="btn btn-default btn-xs {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT1</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT2</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($at == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">AT</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($alt1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">ALT1</button>
@@ -428,8 +409,8 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv5 }} </h3>
-                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ $result->sp5 }} </h4>
+                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv5 }} </h3>
+                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ (empty($result)) ? "" : $result->sp5 }} </h4>
                 </div>
                 <div class="icon">
                   <i class="fa fa-thermometer-three-quarters iconColor"></i>
@@ -437,25 +418,25 @@
                 <!-- <p class="small-box-footer"> -->
                 <div class="progress-group" style=text-align:left>
                   <span class="progress-text ml-1">Output %</span>
-                  <span class="float-right mr-1"><b> {{ $result->out5 }} </b>/100%</span>
+                  <span class="float-right mr-1"><b> {{ (empty($result)) ? "" : $result->out5 }} </b>/100%</span>
                   <div class="progress progress-sm">
-                    <div class="progress-bar bg-gradient-success" style="width: {{ $result->out5 }}%"></div>
+                    <div class="progress-bar bg-gradient-success" style="width: {{ (empty($result)) ? '0' : $result->out5 }}%"></div>
                   </div>
                 </div>
 
                 <!-- <div class="btn-group mb-2 ml-3"> -->
-                  @php
-                  $out1 = (boolean)($result->obit5&1);
-                  $out2 = (boolean)($result->obit5&2);
-                  $at = (boolean)($result->obit5&4);
-                  $alt1 = (boolean)($result->obit5&8);
-                  $alt2 = (boolean)($result->obit5&16);
-                  $alt3 = (boolean)($result->obit5&32);
-                  $pro = (boolean)($result->obit5&64);
-                  $man = (boolean)($result->obit5&128);
-                  @endphp
-                  <!-- bg-gradient-secondary -->
-                  <!-- <button type="button" class="btn btn-default btn-xs {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT1</button>
+                @php
+                $out1 = (empty($result)) ? "" : (boolean)($result->obit5&1);
+                $out2 = (empty($result)) ? "" : (boolean)($result->obit5&2);
+                $at = (empty($result)) ? "" : (boolean)($result->obit5&4);
+                $alt1 = (empty($result)) ? "" : (boolean)($result->obit5&8);
+                $alt2 = (empty($result)) ? "" : (boolean)($result->obit5&16);
+                $alt3 = (empty($result)) ? "" : (boolean)($result->obit5&32);
+                $pro = (empty($result)) ? "" : (boolean)($result->obit5&64);
+                $man = (empty($result)) ? "" : (boolean)($result->obit5&128);
+                @endphp
+                <!-- bg-gradient-secondary -->
+                <!-- <button type="button" class="btn btn-default btn-xs {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT1</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT2</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($at == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">AT</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($alt1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">ALT1</button>
@@ -518,8 +499,8 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ $result->pv6 }} </h3>
-                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ $result->sp6 }} </h4>
+                  <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv6 }} </h3>
+                  <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ (empty($result)) ? "" : $result->sp6 }} </h4>
                 </div>
                 <div class="icon">
                   <i class="fa fa-thermometer-three-quarters iconColor"></i>
@@ -527,24 +508,24 @@
                 <!-- <p class="small-box-footer"> -->
                 <div class="progress-group" style=text-align:left>
                   <span class="progress-text ml-1">Output %</span>
-                  <span class="float-right mr-1"><b> {{ $result->out6 }} </b>/100%</span>
+                  <span class="float-right mr-1"><b> {{ (empty($result)) ? "0" : $result->out6 }} </b>/100%</span>
                   <div class="progress progress-sm">
-                    <div class="progress-bar bg-gradient-success" style="width: {{ $result->out6 }}%"></div>
+                    <div class="progress-bar bg-gradient-success" style="width: {{ (empty($result)) ? '0' :$result->out6 }}%"></div>
                   </div>
                 </div>
 
                 <!-- <div class="btn-group mb-2 ml-3"> -->
-                  @php
-                  $out1 = (boolean)($result->obit6&1);
-                  $out2 = (boolean)($result->obit6&2);
-                  $at = (boolean)($result->obit6&4);
-                  $alt1 = (boolean)($result->obit6&8);
-                  $alt2 = (boolean)($result->obit6&16);
-                  $alt3 = (boolean)($result->obit6&32);
-                  $pro = (boolean)($result->obit6&64);
-                  $man = (boolean)($result->obit6&128);
-                  @endphp 
-                  <!-- <button type="button" class="btn btn-default btn-xs {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT1</button>
+                @php
+                $out1 = (empty($result)) ? "" : (boolean)($result->obit6&1);
+                $out2 = (empty($result)) ? "" : (boolean)($result->obit6&2);
+                $at = (empty($result)) ? "" : (boolean)($result->obit6&4);
+                $alt1 = (empty($result)) ? "" : (boolean)($result->obit6&8);
+                $alt2 = (empty($result)) ? "" : (boolean)($result->obit6&16);
+                $alt3 = (empty($result)) ? "" : (boolean)($result->obit6&32);
+                $pro = (empty($result)) ? "" : (boolean)($result->obit6&64);
+                $man = (empty($result)) ? "" : (boolean)($result->obit6&128);
+                @endphp
+                <!-- <button type="button" class="btn btn-default btn-xs {{  ($out1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT1</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($out2 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">OUT2</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($at == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">AT</button>
                   <button type="button" class="btn btn-default btn-xs {{  ($alt1 == 1) ? 'bg-gradient-success' : 'bg-gradient-secondary'; }}">ALT1</button>
@@ -667,13 +648,5 @@
     <!-- /.row -->
   </div><!-- /.container-fluid -->
 </section>
-
-<!-- Chart code -->
-<script>
-
-</script>
-
-
-
-
+ 
 @endsection

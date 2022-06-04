@@ -493,14 +493,13 @@ class DeviceController extends Controller
      
         $locationList = [];
         foreach ($collected_items as $key => $values) {
-            // print_r($values['location']);
-            // exit;
-            $url = url('/admin/meter-dashboard/' .$values['modem_id'] );
+             
+            $url = url('/admin/'.$values['dashboard_id'].'/' .$values['modem_id'] );
+            $url= ($values['dashboard_id'] == '') ? "#" : $url;
+            // $url = url('/admin/meter-dashboard/' .$values['modem_id'] );
             $tempArray = array("Modem Id : " . $values['modem_id'] ." <br /> Project Name : ".  $values['project_name']." <br /> Region : ".  $values['region'] ." <br /> Location : ". $values['location']." <br />  <a href='".$url."'>".'View Dashboard' .'</a>', $values['latitude'], $values['longitude'], $values['id']);
             $locationList[$key] = $tempArray;
         }
-        print_r($collected_items);
-        exit;
         echo json_encode($locationList);
         exit;
     }

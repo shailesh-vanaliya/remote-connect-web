@@ -49,7 +49,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::resource('users', UserController::class);
     Route::get('admin-dashboard', [AdminController::class,  'index'])->name('admin_dashboard');
     Route::get('dashboard', [DashboardController::class,  'index'])->name('dashboard');
-    Route::get('dashboard2', [Dashboard2Controller::class,  'index'])->name('dashboard2');
+    Route::get('dashboard2/{modemId?}', [Dashboard2Controller::class,  'index'])->name('dashboard2');
     Route::post('dashboardV2/ajaxAction', [Dashboard2Controller::class,  'ajaxAction'])->name('dashboardV2');
     Route::post('/admin-dashboard', [AdminController::class, 'index']);
     Route::get('/admin-profile', [SettingController::class, 'profile'])->name('profile');
