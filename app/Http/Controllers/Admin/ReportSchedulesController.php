@@ -68,7 +68,7 @@ class ReportSchedulesController extends Controller
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
             $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->pluck('first_name', 'id')->toArray();
         } else {
-            $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->where('organization_id', Auth::guard('admin')->user()->organization_id)->pluck('modem_id', 'id')->toArray();
+            $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->where('organization_id', Auth::guard('admin')->user()->organization_id)->pluck('first_name', 'id')->toArray();
         }
 
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
