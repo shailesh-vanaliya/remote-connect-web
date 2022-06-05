@@ -121,7 +121,7 @@
                                     <td>{{ $item->device_type }}</td>
                                     <td style="word-break: break-all;">{{ $item->field_name }}</td>
                                     <td style="word-break: break-all;">{{ $item->parameter }}</td>
-                                    <td style="width: 12%; display: flex;">
+                                    <td style="width: 12%;display: inline-flex;;">
                                         <a class="ml-1" href="{{ url('/admin/report/' . $item->id) }}" title="View Report"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> </button></a>
                                         <a class="ml-1" href="{{ url('/admin/report/' . $item->id . '/edit') }}" title="Edit Report"><button class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
                                         <form class="" method="POST" action="{{ url('/admin/report' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">

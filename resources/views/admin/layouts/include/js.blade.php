@@ -5,10 +5,10 @@
     });
 </script>
 <?php
-if ($_SERVER['HTTP_HOST'] == 'localhost') {
-    $dynamicUrl =  asset('') . 'public/';
-} else {
-    $dynamicUrl = asset('') . 'public/';
+   if($_SERVER['HTTP_HOST'] == 'localhost'){
+    $dynamicUrl =  asset('').'public/';
+}else{
+    $dynamicUrl = asset('').'public/';
 }
 ?>
 
@@ -19,10 +19,9 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
 <script src="{{ asset($dynamicUrl.'plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
 
-<link href="{{ asset($dynamicUrl.'css/jquery-ui.css') }}" rel="Stylesheet">
-</link>
+<link href="{{ asset($dynamicUrl.'css/jquery-ui.css') }}" rel="Stylesheet"></link>
 <script src="{{ asset($dynamicUrl.'js/jquery.circliful.min.js') }}"></script>
-<script src="{{ asset($dynamicUrl.'js/jquery-ui.js') }}"></script>
+<script src="{{ asset($dynamicUrl.'js/jquery-ui.js') }}" ></script>
 <script src="{{ URL::asset($dynamicUrl.'js/jquery.sparkline.min.js') }}"></script>
 
 <script src="{{ URL::asset($dynamicUrl.'plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -42,7 +41,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
 <!-- <script src="{{ URL::asset($dynamicUrl.'plugins/datatables/dataTables.bootstrap.min.js') }}"></script> -->
 <script src="{{ URL::asset($dynamicUrl.'plugins/moment/moment.min.js') }}"></script>
 <script src="{{ URL::asset($dynamicUrl.'plugins/daterangepicker/daterangepicker.js') }}"></script>
-<!-- SlimScroll -->
+<!-- SlimScroll --> 
 <script src="{{ URL::asset($dynamicUrl.'js/jquery.slimscroll.min.js') }}"></script>
 <!-- <script src="{{ URL::asset($dynamicUrl.'plugins/datepicker/bootstrap-datepicker.js') }}"></script> -->
 <script src="{{ URL::asset($dynamicUrl.'dist/js/demo.js') }}"></script>
@@ -56,26 +55,22 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
 
 <script src="{{ asset($dynamicUrl.'plugins/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset($dynamicUrl.'plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
-<script src="{{ URL::asset($dynamicUrl.'dist/js/adminlte.min.js') }}"></script>
+ <script src="{{ URL::asset($dynamicUrl.'dist/js/adminlte.min.js') }}"></script>
 
 @if(!empty($pluginjs))
-@foreach ($pluginjs as $pjs)
-<script src="{{ asset($dynamicUrl) }}/{{ $pjs }}"></script>
-<!-- <script src="{{ asset($dynamicUrl.'assets/plugins') }}/{{ $pjs }}"></script> -->
-@endforeach
+    @foreach ($pluginjs as $pjs)
+        <script src="{{ asset($dynamicUrl) }}/{{ $pjs }}"></script>
+        <!-- <script src="{{ asset($dynamicUrl.'assets/plugins') }}/{{ $pjs }}"></script> -->
+    @endforeach
 @endif
 
 @if(!empty($js))
-@foreach ($js as $jss)
-<script src="{{ asset($dynamicUrl.'js/') }}/{{ $jss }}"></script>
-@endforeach
+    @foreach ($js as $jss)
+        <script src="{{ asset($dynamicUrl.'js/') }}/{{ $jss }}"></script>
+    @endforeach
 @endif
 <script>
-    $("#example3").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print"]
-    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
-
+ 
     $('.datepicker').datepicker({
         autoclose: true,
         format: "mm/dd/yyyy",
@@ -86,14 +81,18 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
         buttonImageOnly: true
     });
     Customer.init();
-    jQuery(document).ready(function() {
-        @if(!empty($funinit))
-        @foreach($funinit as $cjs) {
-            {
-                $cjs
-            }
-        }
-        @endforeach
-        @endif
-    });
+    jQuery(document).ready(function () {
+@if(!empty($funinit))
+@foreach ($funinit as $cjs)
+{{ $cjs }}
+@endforeach
+@endif
+
+
+$("#example3").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print"]
+    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+});
 </script>
+
