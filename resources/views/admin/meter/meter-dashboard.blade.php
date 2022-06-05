@@ -59,7 +59,17 @@
     padding: 5px;
   }
 </style>
-
+<?php
+   if($_SERVER['HTTP_HOST'] == 'localhost'){
+    $dynamicUrl =  asset('').'public/';
+}else{
+    $dynamicUrl = asset('').'public/';
+}
+?>
+<script src="{{ asset($dynamicUrl.'js/amcharts/index.js') }}"></script>
+<script src="{{ asset($dynamicUrl.'js/amcharts/xy.js') }}"></script>
+<script src="{{ asset($dynamicUrl.'js/amcharts/Animated.js') }}"></script>
+<script src="{{ asset($dynamicUrl.'js/amcharts/Responsive.js') }}"></script>
 <section class="content">
   <div class="container-fluid">
     <div class="row">

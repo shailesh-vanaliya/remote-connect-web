@@ -75,6 +75,7 @@
 @extends('admin.layouts.admin')
 @section('content')
 @section('title', $pagetitle )
+ 
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -101,7 +102,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example3" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -128,7 +129,7 @@
                                             {{ csrf_field() }}
                                             <button type="submit" class="btn btn-danger btn-xs ml-1" title="Delete Report" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
                                         </form> &nbsp;
-                                        <form  method="POST" action="{{ url('/admin/report-export/') }}">
+                                        <form method="POST" action="{{ url('/admin/report-export/') }}">
                                             <input type="hidden" name="report_id" value="{{ $item->id }}">
                                             <input type="hidden" name="parameter" value="{{ $item->parameter }}">
                                             <input type="hidden" name="modem_id" value="{{ $item->modem_id }}">

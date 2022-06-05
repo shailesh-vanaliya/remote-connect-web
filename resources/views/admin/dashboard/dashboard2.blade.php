@@ -508,7 +508,7 @@
                 <!-- <p class="small-box-footer"> -->
                 <div class="progress-group" style=text-align:left>
                   <span class="progress-text ml-1">Output %</span>
-                  <span class="float-right mr-1"><b> {{ (empty($result)) ? "0" : $result->out6 }} </b>/100%</span>
+                  <span class="float-right mr-1"><b> {{ (empty($result)) ? "" : $result->out6 }} </b>/100%</span>
                   <div class="progress progress-sm">
                     <div class="progress-bar bg-gradient-success" style="width: {{ (empty($result)) ? '0' :$result->out6 }}%"></div>
                   </div>

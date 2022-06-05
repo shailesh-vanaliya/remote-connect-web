@@ -1,6 +1,5 @@
 var Report = function () {
     var handleList = function () {
-
         $('.device_type_id').change(function () {
             var device_type_id = $('.device_type_id option:selected').val();
             // var that = $(this);
