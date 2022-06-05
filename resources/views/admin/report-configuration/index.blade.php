@@ -126,8 +126,8 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <!-- <td>{{ $item->report_id }}</td> -->
-                                    <td>{{ $item->device_id }}</td>
-                                    <td>{{ $item->organization_id }}</td>
+                                    <td>{{ $item->modem_id }}</td>
+                                    <td>{{ $item->organization_name }}</td>
                                     <td>{{ $item->report_title }}</td>
                                     <td style="word-break: break-all;width: 33%;">{{ ($array) ? implode(', ',$array) : '' }}</td>
                                     <td>

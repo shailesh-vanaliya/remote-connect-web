@@ -26,10 +26,25 @@ class ReportConfigurationController extends Controller
         $perPage = 25;
        
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-            $data['reportconfiguration'] = ReportConfiguration::latest()->get();
+            $data['reportconfiguration'] = ReportConfiguration::select('report_configurations.*','devices.modem_id','organizations.organization_name')
+            ->Join('devices',  'devices.id', '=', 'report_configurations.device_id')
+            ->Join('organizations',  'organizations.id', '=', 'report_configurations.organization_id')
+            ->latest('report_configurations.created_at')->get();
         } else {
-            $data['reportconfiguration'] = ReportConfiguration::where('created_by', Auth::guard('admin')->user()->id)->latest()->get();
+            $data['reportconfiguration'] = ReportConfiguration::select('report_configurations.*','devices.modem_id','organizations.organization_name')
+            ->Join('devices',  'devices.id', '=', 'report_configurations.device_id')
+            ->Join('organizations',  'organizations.id', '=', 'report_configurations.organization_id')
+            ->where('report_configurations.created_by', Auth::guard('admin')->user()->id)->latest('report_configurations.created_at')->get();
         }
+
+
+        // $onlineDevice->Join('device_map', function ($join) {
+        //     $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
+        //     $join->on('device_map.secret_key', '=', 'devices.secret_key');
+        // });
+        // $onlineDevice->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+        // $onlineDevice->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
+
         $data['pagetitle']             = 'Report Configuration';
         $data['js']                    = ['admin/report.js'];
         $data['funinit']               = ['Report.init()'];
@@ -52,9 +67,12 @@ class ReportConfigurationController extends Controller
     {
 
         $data['pagetitle']             = 'Report Configuration';
-        $data['js']                    = ['admin/report.js'];
-        $data['funinit']               = ['Report.init()'];
+        // $data['js']                    = ['admin/report.js'];
+        $data['funinit']               = ['ReportConfig.init()'];
         $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
+        $data['js']                    = ['admin/reportConfig.js'];
+        $data['pluginjs']               = ['plugins/select2/js/select2.full.min.js'];
+      
         $data['header']    = [
             'title'      => 'Report Configuration',
             'breadcrumb' => [
@@ -138,9 +156,12 @@ class ReportConfigurationController extends Controller
     {
         $data['reportconfiguration'] = ReportConfiguration::findOrFail($id);
         $data['pagetitle']             = 'Report Configuration';
-        $data['js']                    = ['admin/report.js'];
-        $data['funinit']               = ['Report.init()'];
+        $data['funinit']               = ['ReportConfig.init()'];
         $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
+        $data['js']                    = ['admin/reportConfig.js'];
+        $data['pluginjs']               = ['plugins/select2/js/select2.full.min.js'];
+      
+
         $data['header']    = [
             'title'      => 'Report Configuration',
             'breadcrumb' => [
