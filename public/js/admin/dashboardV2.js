@@ -353,9 +353,9 @@ var DashboardV2 = function () {
                     }));
         
         
-                    var date = new Date();
+                    //var date = new Date();
                     // date.setHours(0, 0, 0, 0);
-                    var value = 100;
+                    //var value = 100;
         
                    
         
@@ -407,9 +407,9 @@ var DashboardV2 = function () {
                     console.log(titlename, " titlename")
                     for (var i = 0; i < result.length; i++) {
                         var series = chart.series.push(am5xy.LineSeries.new(root, {
-                            minBulletDistance: 10,
+                            // minBulletDistance: 10,
                             connect: true,
-                            name: titlename[i],
+                            name: titlename[i]+"Tempreture",
                             xAxis: xAxis,
                             yAxis: yAxis,
                             valueYField: "value",
@@ -470,7 +470,7 @@ var DashboardV2 = function () {
                                 });
                             } else {
                                 chartSeries.strokes.template.setAll({
-                                    strokeWidth: 3
+                                    strokeWidth: 4
                                 });
                             }
                         })
