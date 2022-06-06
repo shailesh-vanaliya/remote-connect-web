@@ -66,6 +66,7 @@ var Report = function () {
         // });
         // }
 
+        
         $('.courseGet').change(function () {
             var course_type = $('#course_type :selected').val();
             var course_active = $("input[name='courseStatus']:checked").val();
@@ -91,12 +92,20 @@ var Report = function () {
             });
         });
 
-
     }
+    var handleLists = function () {
+        console.log("dd")
+    }
+
+    // buttons-excel
+
 
     return {
         init: function () {
             handleList();
+        },
+        listInit: function () {
+            handleLists();
         }
     }
 }();

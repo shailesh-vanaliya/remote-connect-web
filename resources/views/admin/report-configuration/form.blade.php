@@ -20,17 +20,17 @@
     </div> -->
 
     <div class="form-group row {{ $errors->has('device_id') ? 'has-error' : ''}}">
-        <label for="device_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Device Id' }}</label>
+        <label for="device_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Device' }}</label>
         <div class="col-sm-5">
             <!-- <input class="form-control" name="device_id" type="number" id="device_id" value="{{ isset($reportconfiguration->device_id) ? $reportconfiguration->device_id : ''}}"> -->
-            {{ Form::select('device_id', $device , empty($reportconfiguration->device_id) ? null : $reportconfiguration->device_id , array('class' => 'form-control device_id', 'id' => 'device_id','required')) }}
+            {{ Form::select('device_id', $device , empty($reportconfiguration->device_id) ? null : $reportconfiguration->device_id , array('class' => 'form-control device_id select2', 'id' => 'device_id','required')) }}
             {!! $errors->first('device_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('organization_id') ? 'has-error' : ''}}">
-        <label for="organization_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Organization Id' }}</label>
+        <label for="organization_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Organization' }}</label>
         <div class="col-sm-5">
-            {{ Form::select('organization_id', $organization , empty($reportconfiguration->organization_id) ? null : $reportconfiguration->organization_id , array('class' => 'form-control organization_id', 'id' => 'organization_id','required')) }}
+            {{ Form::select('organization_id', $organization , empty($reportconfiguration->organization_id) ? null : $reportconfiguration->organization_id , array('class' => 'form-control organization_id select2', 'id' => 'organization_id','required')) }}
             {!! $errors->first('organization_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
@@ -62,7 +62,7 @@
     <div class="form-group row {{ $errors->has('parameter') ? 'has-error' : ''}}">
         <label for="parameter" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Parameter' }}</label>
         <div class="col-sm-5">
-            <select class="select2" multiple="multiple" required name="parameter[]" data-placeholder="Select a State" style="width: 100%;">
+            <select class="select2" multiple="multiple" required name="parameter[]" data-placeholder="Select a Parameter" style="width: 100%;">
                 @php
                 $array = (isset($reportconfiguration->parameter)) ? json_decode($reportconfiguration->parameter) : '';
                 @endphp

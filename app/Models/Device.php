@@ -150,6 +150,8 @@ class Device extends Model
             $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $subQuery->groupBy('devices.id');
             $device =  $subQuery->latest('devices.created_at')->get();
+            // print_r($device);
+            // exit;
             return $device;
         }
     }

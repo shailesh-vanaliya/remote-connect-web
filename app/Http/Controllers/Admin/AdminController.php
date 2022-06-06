@@ -62,7 +62,6 @@ class AdminController extends Controller
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
             $onlineDevice =  Device::select(
                 'device_map.MQTT_ID',
-                // 'device_map.MODEM_ID',
                 'device_map.max_user_access',
                 'device_map.IMEI_No',
                 'device_status.Status',
@@ -105,10 +104,10 @@ class AdminController extends Controller
             $onlineDevice->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
             $onlineDevice->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $onlineDevice->where('device_status.Status',1);
-            // $onlineDevice->groupBy('devices.id');
-            $data['onlineDevice'] =  $onlineDevice->count();
-
-          
+            $onlineDevice->groupBy('devices.id');
+            $data['onlineDevice'] =  $onlineDevice->get()->toArray();
+            $data['onlineDevice'] = count($data['onlineDevice']);
+       
         }
  
         return view('admin.dashboard', $data);

@@ -49,7 +49,7 @@ class ReportController extends Controller
         // exit;
         $data['pagetitle']             = 'Report';
         $data['js']                    = ['admin/report.js'];
-        // $data['funinit']               = ['Report.init()'];
+        $data['funinit']               = ['Report.listInit()'];
         $data['header']    = [
             'title'      => 'Reports',
             'breadcrumb' => [
