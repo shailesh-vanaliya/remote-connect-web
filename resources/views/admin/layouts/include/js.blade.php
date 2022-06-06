@@ -66,7 +66,7 @@
 
 @if(!empty($js))
     @foreach ($js as $jss)
-        <script src="{{ asset($dynamicUrl.'js/') }}/{{ $jss }}"></script>
+        <script src="{{ asset($dynamicUrl.'js/') }}{{ $jss }}"></script>
     @endforeach
 @endif
 <script>

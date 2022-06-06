@@ -9,28 +9,28 @@
     <div class="form-group row {{ $errors->has('report_config_id') ? 'has-error' : ''}}">
         <label for="device_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Report Config Id' }}</label>
         <div class="col-sm-5">
-            {{ Form::select('report_config_id', $reportConfiguration , empty($report->report_config_id) ? null : $report->report_config_id , array('class' => 'form-control report_config_id', 'id' => 'report_config_id')) }}
+            {{ Form::select('report_config_id', $reportConfiguration , empty($report->report_config_id) ? null : $report->report_config_id , array('class' => 'form-control report_config_id', 'id' => 'report_config_id','required')) }}
             {!! $errors->first('report_config_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('start_time') ? 'has-error' : ''}}">
         <label for="start_time" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Start Time' }}</label>
         <div class="col-sm-5">
-            <input class="form-control" name="start_time" type="time" id="start_time" value="{{ isset($reportschedule->start_time) ? $reportschedule->start_time : ''}}">
+            <input class="form-control" name="start_time" type="time" id="start_time" required value="{{ isset($reportschedule->start_time) ? $reportschedule->start_time : ''}}">
             {!! $errors->first('start_time', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('end_time') ? 'has-error' : ''}}">
         <label for="end_time" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'End Time' }}</label>
         <div class="col-sm-5">
-            <input class="form-control" name="end_time" type="time" id="end_time" value="{{ isset($reportschedule->end_time) ? $reportschedule->end_time : ''}}">
+            <input class="form-control" name="end_time" type="time" id="end_time" required value="{{ isset($reportschedule->end_time) ? $reportschedule->end_time : ''}}">
             {!! $errors->first('end_time', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('execution_time') ? 'has-error' : ''}}">
         <label for="execution_time" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Execution Time' }}</label>
         <div class="col-sm-5">
-            <input class="form-control" name="execution_time" type="time" id="execution_time" value="{{ isset($reportschedule->execution_time) ? $reportschedule->execution_time : ''}}">
+            <input class="form-control" name="execution_time" type="time" id="execution_time" required value="{{ isset($reportschedule->execution_time) ? $reportschedule->execution_time : ''}}">
             {!! $errors->first('execution_time', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
