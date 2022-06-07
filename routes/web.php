@@ -70,6 +70,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::get('/meter-dashboard/{modemId?}', [MeterDashboardController::class, 'index'])->name('meter-dashboard');
     Route::get('/moisture/{modemId?}', [MeterDashboardController::class, 'index'])->name('moisture');
     Route::post('meter-dashboard-export', [MeterDashboardController::class, 'meterDashboardExport'])->name('meter-dashboard-export');
+    Route::post('update-pid/{modemId?}', [Dashboard2Controller::class, 'updatePiddata'])->name('update-pid');
 
     Route::post('/dashboard-meter/ajaxAction', [MeterDashboardController::class, 'ajaxAction'])->name('ajaxAction');
     Route::resource('organization', OrganizationController::class);

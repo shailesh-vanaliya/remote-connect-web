@@ -138,7 +138,7 @@
                   </div>
                   <!-- /.row -->
                 </div>
-                 
+
               </div>
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12">
@@ -646,10 +646,41 @@
           <!-- /.card-body -->
         </div>
       </div>
-
     </div>
-    <!-- /.row -->
-  </div><!-- /.container-fluid -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-info">
+          <div class="card-header">
+            <h3 class="card-title">Update data</h3>
+          </div>
+          <div class="card-body mt-1">
+            <form method="POST" action="{{ url('admin/update-pid/'.$result->modem_id) }} " accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+              {{ csrf_field() }}
+              @php
+              $count = 0;
+              @endphp
+              <div class="form-group mb-1 {{ $count % 2 == 0 ? 'row ' : ''}} ">
+                @foreach($jsonDecode as $key => $val)
+                <label for="modem_id" class="col-form-label mb-1 text-right col-lg-2 offset-sm-1 col-sm-12"> {{ $key }}</label>
+                <div class="col-sm-3 mb-1">
+                  <input class="form-control" name="{{ $key }}" type="text" id="modem_id" value="{{ $val }}">
+                </div>
+                @php
+                $count ++;
+                @endphp
+                @endforeach
+              </div>
+              <div class="form-group row">
+                <input class="btn btn-success mr-1" type="submit" name="button" value="Read">
+                <input class="btn btn-primary" type="submit" name="button" value="Write">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </section>
- 
+
 @endsection
