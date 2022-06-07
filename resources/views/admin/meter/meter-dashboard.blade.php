@@ -70,6 +70,7 @@
 <script src="{{ asset($dynamicUrl.'js/amcharts/xy.js') }}"></script>
 <script src="{{ asset($dynamicUrl.'js/amcharts/Animated.js') }}"></script>
 <script src="{{ asset($dynamicUrl.'js/amcharts/Responsive.js') }}"></script>
+
 <section class="content">
   <div class="container-fluid">
     <div class="row">

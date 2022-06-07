@@ -9,6 +9,10 @@
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
     color: unset;
 }
+.select2-container .select2-selection--single {
+    height: unset;
+}
+
 </style>
 <div class="card-body">
     <!-- <div class="form-group row {{ $errors->has('report_id') ? 'has-error' : ''}}">

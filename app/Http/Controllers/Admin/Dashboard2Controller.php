@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
+use App\Models\PIDAllData;
 use App\Models\Honeywell;
 use App\Models\DataLog;
 use DateTime;
@@ -45,15 +46,17 @@ class Dashboard2Controller extends Controller
         // print_r($data['result']);
         // exit;  
         $data['result'] =  Honeywell::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
-        // $data['result'] =  Honeywell::orderBy('dtm', 'desc')->first();
-        // print_r($data['result']);
+        $data['PIDAllData'] =  PIDAllData::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
+    
+        // $jsonDecode = $data['PIDAllData']['data'];
+        // $jsonDecode = json_decode($jsonDecode, TRUE);
+        $data['jsonDecode'] = json_decode('{"SV1": 500, "TM1": 1, "OUT1": 1000, "SV2": 1000, "TM2": 1, "OUT2": 1000, "SV3": 1000, "TM3": 65535, "OUT3": 1000, "SV4": 0, "TM4": 0, "OUT4": 0, "SV5": 0, "TM5": 0, "OUT5": 0, "SV6": 0, "TM6": 0, "OUT6": 0, "SV7": 0, "TM7": 0, "OUT7": 0, "SV8": 0, "TM8": 0, "OUT8": 0}', TRUE);
+        // foreach($data['jsonDecode'] as $key => $val){
+        //     print_r($key);
+        //     print_r($val);
+        // }
         // exit;
-        // echo $result->obit1 . " === ";
-        // //  var_dump((boolean)1);
-        // print_r((boolean)($result->obit1&2));
-        // // echo filter_var($pvasdsa1->obit1, FILTER_VALIDATE_BOOLEAN);
-        // exit;
-
+     
         return view('admin.dashboard.dashboard2', $data);
     }
 

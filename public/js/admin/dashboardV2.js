@@ -132,6 +132,22 @@ var DashboardV2 = function () {
         });
 
         var root = am5.Root.new("chartdiv");
+        // var exporting = am5plugins_exporting.Exporting.new(root, {
+        //     menu: am5plugins_exporting.ExportingMenu.new(root, {})
+        //   });
+
+          var exporting = am5plugins_exporting.Exporting.new(root, {
+            menu: am5plugins_exporting.ExportingMenu.new(root, {}),
+            filePrefix: "chart"
+          });
+
+        //   setTimeout(function() {
+        //     exporting.export("png").then(function(imgData) {
+        //       document.getElementById("myImage").src = imgData;
+        //     });
+        //   }, 2000);
+
+          
     //     function getAmChart() {
 
     //        let startDate = ($('#startDate').val() != undefined) ? $('#startDate').val() : '';
@@ -316,8 +332,10 @@ var DashboardV2 = function () {
 
         getAmChart()
          
+ 
+    
        function getAmChart() {
-
+          
             let startDate = ($('#startDate').val() != undefined) ? $('#startDate').val() : '';
             let endDate = ($('#endDate').val() != undefined) ? $('#endDate').val() : '';
             let dateRange = ($('#dateRange').val() != undefined) ? $('#dateRange').val() : '';
@@ -338,11 +356,17 @@ var DashboardV2 = function () {
                 data: { 'action': 'getChartDataV2', 'endDate': endDate, 'startDate': startDate,'dateRange': dateRange, "modem_id":modem_id },
                 success: function (out) {
                     let result = JSON.parse(out);
+                    
                     console.log(result,"result")
                     root.setThemes([
                         am5themes_Animated.new(root)
                     ]);
+                    
+
                     root.container.children.clear();
+                   
+                   
+
                     var chart = root.container.children.push(am5xy.XYChart.new(root, {
                         panX: true,
                         panY: true,
@@ -496,8 +520,8 @@ var DashboardV2 = function () {
                     });
         
                     legend.data.setAll(chart.series.values);
-        
                     chart.appear(1000, 100);
+                   
 
                 }
             });
