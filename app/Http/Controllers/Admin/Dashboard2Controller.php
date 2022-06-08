@@ -48,10 +48,13 @@ class Dashboard2Controller extends Controller
         // exit;  
         $data['result'] =  Honeywell::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
         $data['PIDAllData'] =  PIDAllData::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
-
-        // $jsonDecode = $data['PIDAllData']['data'];
+        $data['jsonDecode']=json_decode($data['PIDAllData']['data'],TRUE);
+        
+        
         // $jsonDecode = json_decode($jsonDecode, TRUE);
-        $data['jsonDecode'] = json_decode('{"SV1": 500, "TM1": 1, "OUT1": 1000, "SV2": 1000, "TM2": 1, "OUT2": 1000, "SV3": 1000, "TM3": 65535, "OUT3": 1000, "SV4": 0, "TM4": 0, "OUT4": 0, "SV5": 0, "TM5": 0, "OUT5": 0, "SV6": 0, "TM6": 0, "OUT6": 0, "SV7": 0, "TM7": 0, "OUT7": 0, "SV8": 0, "TM8": 0, "OUT8": 0}', TRUE);
+        // $data['jsonDecode'] = json_decode('{"SV1": 500, "TM1": 1, "OUT1": 1000, "SV2": 1000, "TM2": 1, "OUT2": 1000, "SV3": 1000, "TM3": 65535, "OUT3": 1000, "SV4": 0, "TM4": 0, "OUT4": 0, "SV5": 0, "TM5": 0, "OUT5": 0, "SV6": 0, "TM6": 0, "OUT6": 0, "SV7": 0, "TM7": 0, "OUT7": 0, "SV8": 0, "TM8": 0, "OUT8": 0}', TRUE);
+        // print_r($data['jsonDecode']);
+        // exit;
         // foreach($data['jsonDecode'] as $key => $val){
         //     print_r($key);
         //     print_r($val);
@@ -199,12 +202,12 @@ class Dashboard2Controller extends Controller
                     $result[$key] = $val;
                 }
                 $data = array(
-                    'data' => 1,
-                    'Model id' => (isset($this->deviceName) ?  $this->deviceName : ''),
-                    'client id' => (isset(Auth::guard('admin')->user()->id) ?  Auth::guard('admin')->user()->id : ''),
+                    "data" => 1,
+                    "Modem id" => (isset($this->deviceName) ?  $this->deviceName : ''),
+                    "client id" => (isset(Auth::guard('admin')->user()->id) ?  Auth::guard('admin')->user()->full_name : ''),
                 );
                 $res = MQTT::publish($this->deviceName . "/1/SUB_PTN1_READ", json_encode($data));
-                return redirect('admin/dashboard2/' . $this->deviceName)->with('session_success', 'Data Read successfully');
+                return redirect('admin/dashboard2/' . $this->deviceName)->with('session_success', 'Data Read successfully please Refersh page');
             } catch (\Exception $e) {
                 return redirect('admin/dashboard2/' . $this->deviceName)->with('session_error', 'Data Read failed');
             }
@@ -213,16 +216,18 @@ class Dashboard2Controller extends Controller
             $result = [];
             try {
                 foreach ($postData  as $key => $val) {
-                    $result[$key] = $val;
+                    $result[$key] = (int)$val;
                 }
+                // print_r($result);
+                
                 $data = array(
-                    'data' => $result,
-                    'Model id' => (isset($this->deviceName) ?  $this->deviceName : ''),
-                    'client id' => (isset(Auth::guard('admin')->user()->id) ?  Auth::guard('admin')->user()->id : ''),
+                    "data" => $result,
+                    "Modem id" => (isset($this->deviceName) ?  $this->deviceName : ''),
+                    "client id" => (isset(Auth::guard('admin')->user()->id) ?  Auth::guard('admin')->user()->full_name : ''),
                 );
              
-                $res = MQTT::publish($this->deviceName . "/1/SUB_PTN1", json_encode($data));
-                return redirect('admin/dashboard2/' . $this->deviceName)->with('session_success', 'Data write updated');
+                $res = MQTT::publish($this->deviceName . "/1/SUB_PTN1_WR", json_encode($data));
+                return redirect('admin/dashboard2/' . $this->deviceName)->with('session_success', 'Data write successfully read and recheck ');
             } catch (\Exception $e) {
                 return redirect('admin/dashboard2/' . $this->deviceName)->with('session_error', 'Data write failed');
             }
