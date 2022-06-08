@@ -655,7 +655,7 @@
             <h3 class="card-title">Update data</h3>
           </div>
           <div class="card-body mt-1">
-            <form method="POST" action="{{ url('admin/update-pid/'.$result->modem_id) }} " accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('admin/update-pid/'. $deviceName) }} " accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
               {{ csrf_field() }}
               @php
               $count = 0;

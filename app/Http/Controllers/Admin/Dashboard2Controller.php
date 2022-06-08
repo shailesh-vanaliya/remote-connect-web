@@ -57,7 +57,7 @@ class Dashboard2Controller extends Controller
         //     print_r($val);
         // }
         // exit;
-
+        $data['deviceName'] = $this->deviceName;
         return view('admin.dashboard.dashboard2', $data);
     }
 
