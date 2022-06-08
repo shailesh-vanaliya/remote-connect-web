@@ -652,7 +652,7 @@
       <div class="col-md-12">
         <div class="card card-info">
           <div class="card-header">
-            <h3 class="card-title">Update data</h3>
+            <h3 class="card-title">Recipe data</h3>
           </div>
           <div class="card-body mt-1">
             <form method="POST" action="{{ url('admin/update-pid/'.$result->modem_id) }} " accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
@@ -662,8 +662,8 @@
               @endphp
               <div class="form-group mb-1 {{ $count % 2 == 0 ? 'row ' : ''}} ">
                 @foreach($jsonDecode as $key => $val)
-                <label for="modem_id" class="col-form-label mb-1 text-right col-lg-2 offset-sm-1 col-sm-12"> {{ $key }}</label>
-                <div class="col-sm-3 mb-1">
+                <label for="modem_id" class="col-form-label mb-2 text-center col-lg-1 offset-sm-0 col-sm-12"> {{ $key }}</label>
+                <div class="col-sm-1 mb-0.5">
                   <input class="form-control" name="{{ $key }}" type="text" id="modem_id" value="{{ $val }}">
                 </div>
                 @php
