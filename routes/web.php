@@ -83,6 +83,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::resource('report-configuration', ReportConfigurationController::class);
     Route::resource('report-schedules', ReportSchedulesController::class);
     Route::post('report-export', [ReportController::class, 'reportExport'])->name('report-export');
+    Route::post('/report-config/ajaxAction', [ReportConfigurationController::class, 'ajaxAction'])->name('ajaxAction');
 
 });
 

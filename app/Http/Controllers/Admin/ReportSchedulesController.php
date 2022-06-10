@@ -32,9 +32,10 @@ class ReportSchedulesController extends Controller
         // Auth::guard('admin')->user()->organization_id
 
         $data['pagetitle']             = 'Report schedules';
-        $data['js']                    = ['admin/report.js'];
-        $data['funinit']               = ['Report.init()'];
+        $data['js']                    = ['admin/reportSchedul.js'];
+        $data['funinit']               = ['ReportSchedul.listInit()'];
         $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
+
         $data['header']    = [
             'title'      => 'Report schedules',
             'breadcrumb' => [
@@ -54,9 +55,10 @@ class ReportSchedulesController extends Controller
     public function create()
     {
         $data['pagetitle']             = 'Report schedules';
-        $data['js']                    = ['admin/report.js'];
-        $data['funinit']               = ['Report.init()'];
+        $data['js']                    = ['admin/reportSchedul.js'];
+        $data['funinit']               = ['ReportSchedul.init()'];
         $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
+        $data['pluginjs']               = ['plugins/select2/js/select2.full.min.js'];
         $data['header']    = [
             'title'      => 'Report schedules',
             'breadcrumb' => [
@@ -88,7 +90,7 @@ class ReportSchedulesController extends Controller
      */
     public function store(Request $request)
     {
-        try{
+        try {
             $requestData = $request->all();
             // print_r($requestData);
             // exit;
@@ -116,8 +118,8 @@ class ReportSchedulesController extends Controller
     {
         $data['reportschedule'] = ReportSchedule::findOrFail($id);
         $data['pagetitle']             = 'Report schedules';
-        $data['js']                    = ['admin/report.js'];
-        $data['funinit']               = ['Report.init()'];
+        $data['js']                    = ['admin/reportSchedul.js'];
+        $data['funinit']               = ['ReportSchedul.init()'];
         $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
         $data['header']    = [
             'title'      => 'Report schedules',
@@ -140,9 +142,10 @@ class ReportSchedulesController extends Controller
     {
         $data['reportschedule'] = ReportSchedule::findOrFail($id);
         $data['pagetitle']             = 'Report schedules';
-        $data['js']                    = ['admin/report.js'];
-        $data['funinit']               = ['Report.init()'];
+        $data['js']                    = ['admin/reportSchedul.js'];
+        $data['funinit']               = ['ReportSchedul.init()'];
         $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
+        $data['pluginjs']               = ['plugins/select2/js/select2.full.min.js'];
         $data['header']    = [
             'title'      => 'Report schedules',
             'breadcrumb' => [
@@ -175,7 +178,7 @@ class ReportSchedulesController extends Controller
     public function update(Request $request, $id)
     {
 
-        try{
+        try {
             $requestData = $request->all();
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             $requestData['repeat_on'] = json_encode($requestData['repeat_on']);
@@ -188,7 +191,6 @@ class ReportSchedulesController extends Controller
         } catch (\Exception $e) {
             return redirect('admin/report-schedules')->with('session_error', $e->getMessage());
         }
-
     }
 
     /**
@@ -202,6 +204,6 @@ class ReportSchedulesController extends Controller
     {
         ReportSchedule::destroy($id);
 
-        return redirect('admin/report-schedules')->with('session_success', 'ReportSchedule deleted!');
+        return redirect('admin/report-schedules')->with('session_success', 'Report Schedule deleted!');
     }
 }

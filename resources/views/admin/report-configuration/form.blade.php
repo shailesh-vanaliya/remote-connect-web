@@ -1,17 +1,4 @@
 <style>
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background-color: #02A89D;
-    border-color: #006fe6;
-    color: #fff;
-
-}
-
-.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-    color: unset;
-}
-.select2-container .select2-selection--single {
-    height: unset;
-}
 
 </style>
 <div class="card-body">
@@ -24,7 +11,7 @@
     </div> -->
 
     <div class="form-group row {{ $errors->has('device_id') ? 'has-error' : ''}}">
-        <label for="device_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Device' }}</label>
+        <label for="device_id" class="col-form-label text-right col-lg-3 col-sm-12 required">{{ 'Device' }}</label>
         <div class="col-sm-5">
             <!-- <input class="form-control" name="device_id" type="number" id="device_id" value="{{ isset($reportconfiguration->device_id) ? $reportconfiguration->device_id : ''}}"> -->
             {{ Form::select('device_id', $device , empty($reportconfiguration->device_id) ? null : $reportconfiguration->device_id , array('class' => 'form-control device_id select2', 'id' => 'device_id','required')) }}
@@ -45,28 +32,10 @@
             {!! $errors->first('report_title', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <!-- <div class="form-group row {{ $errors->has('parameter') ? 'has-error' : ''}}">
-        <label for="parameter" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Parameter' }}</label>
-        <div class="col-sm-5">
-            @php
-            $array = (isset($reportconfiguration->parameter)) ? json_decode($reportconfiguration->parameter) : '';
-            @endphp
-            @foreach($column as $row => $val)
-            @php
-            $check = isset($reportconfiguration->parameter) && !empty($array) ? (in_array($val,$array) ? 'checked' : '') : '';
-            @endphp
-            <div class="icheck-primary d-inline mr-5">
-                <input type="checkbox" {{ $check  }} value="{{ $val }}" name="parameter[]" id="email_report{{ $row }}">
-                <label for="email_report{{ $row }}">{{ $val }}
-                </label>
-            </div>
-            @endforeach
-        </div>
-    </div> -->
     <div class="form-group row {{ $errors->has('parameter') ? 'has-error' : ''}}">
         <label for="parameter" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Parameter' }}</label>
         <div class="col-sm-5">
-            <select class="select2" multiple="multiple" required name="parameter[]" data-placeholder="Select a Parameter" style="width: 100%;">
+            <select class="select2 parameter" id="parameter" multiple="multiple" required name="parameter[]" data-placeholder="Select a Parameter" style="width: 100%;">
                 @php
                 $array = (isset($reportconfiguration->parameter)) ? json_decode($reportconfiguration->parameter) : '';
                 @endphp

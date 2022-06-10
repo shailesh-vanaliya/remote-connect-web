@@ -273,3 +273,11 @@ label {
         padding: 15px 15px !important;
     }
 }
+
+.btn-primary2 {
+    color: #fff;
+    background-color: #04AC9C;
+    border-color: #04AC9C;
+    box-shadow: none;
+}
+

@@ -92,11 +92,42 @@ var Report = function () {
             });
         });
 
+          // $("#example1").DataTable({
+          //   "responsive": true,"paging": true,  "info": true,"lengthChange": false, "autoWidth": false,
+          //   // "buttons": [ "csv", "excel", "pdf", "print"]
+          // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        //   $('#example1').DataTable({
+        //     initComplete: function () {
+        //         this.api()
+        //             .columns()
+        //             .every(function () {
+        //                 var column = this;
+        //                 var select = $('<select><option value=""></option></select>')
+        //                     .appendTo($(column.footer()).empty())
+        //                     .on('change', function () {
+        //                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
+     
+        //                         column.search(val ? '^' + val + '$' : '', true, false).draw();
+        //                     });
+     
+        //                 column
+        //                     .data()
+        //                     .unique()
+        //                     .sort()
+        //                     .each(function (d, j) {
+        //                         select.append('<option value="' + d + '">' + d + '</option>');
+        //                     });
+        //             });
+        //     },
+        // });
+
+
     }
     var handleLists = function () {
         console.log("dd")
     }
-
+ 
     // buttons-excel
 
 
@@ -107,5 +138,4 @@ var Report = function () {
         listInit: function () {
             handleLists();
         }
-    }
 }();

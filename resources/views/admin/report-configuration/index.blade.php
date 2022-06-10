@@ -94,7 +94,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-md-11 col-sm-6 col-12">
-                                <h3 class="card-title">Report list</h3>
+                                <h3 class="card-title">Report Configuration List</h3>
                             </div>
                             <div class="col-md-1 col-sm-6 col-12">
 
@@ -110,9 +110,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <!-- <th>Report Id</th> -->
-                                    <th>Device Id</th>
-                                    <th>Organization Id</th>
+                                    <th>Device Name</th>
+                                    <th>Organization Name</th>
                                     <th>Report Title</th>
                                     <th>Parameter</th>
                                     <th>Actions</th>

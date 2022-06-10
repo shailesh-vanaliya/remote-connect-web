@@ -81,18 +81,21 @@ class ReportConfigurationController extends Controller
             ],
         ];
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-            $data['device'] = Device::select('modem_id', 'id',)->pluck('modem_id', 'id')->toArray();
+            $device = Device::select('modem_id', 'id',)->pluck('modem_id', 'id')->toArray();
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
             $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
         } else {
-            $data['device'] = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
+            $device = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
             $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
             // $data['organization'] = Organization::select('organization_name','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('organization_name', 'id')->toArray();
         }
-        $table = 'datalog';
-
-        $data['column'] =  DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($table);
+      
+        $data['column'] = array();
+        // $data['column'] =  DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($table);
+        // $data['column'] = $this->_getDevicelist($data['reportconfiguration']);
+        $deviceSelect[''] = '--Select Device---';
+        $data['device'] =  $returnCollegeData = $deviceSelect + $device;
 
         return view('admin.report-configuration.create', $data);
     }
@@ -178,9 +181,9 @@ class ReportConfigurationController extends Controller
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
             $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
         }
-        $table = 'datalog';
-        $data['column'] =  DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($table);
 
+        $column = $this->_getDevicelist($data['reportconfiguration']);
+        $data['column'] = $column['column'];
         return view('admin.report-configuration.edit', $data);
     }
 
@@ -220,4 +223,44 @@ class ReportConfigurationController extends Controller
 
         return redirect('admin/report-configuration')->with('session_success', 'ReportConfiguration deleted!');
     }
+
+    public function ajaxAction(Request $request)
+    {
+        $collegeId = Auth::guard('admin')->user()->id;
+        $action = $request->input('action');
+        switch ($action) {
+            case 'getDevicelist':
+                $result = $this->_getDevicelist($request->all());
+                echo json_encode($result);
+                exit;
+                break;
+        }
+        exit;
+    }
+
+    public function _getDevicelist($postData)
+    {
+
+        $subQuery =  Device::select(
+            'devices.id',
+            'devices.model_no',
+            'devices.project_name',
+            'devices.modem_id',
+            'device_type.device_type',
+            'device_type.data_source',
+            'device_type.data_table',
+        );
+        $subQuery->Join('device_map', function ($join) {
+            $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
+            $join->on('device_map.secret_key', '=', 'devices.secret_key');
+        });
+        $subQuery->Join('device_type',  'device_type.id', '=', 'device_map.device_type_id');
+        $subQuery->Where('devices.id', $postData['device_id']);
+        $subQuery->groupBy('devices.id');
+        $deviceList=  $subQuery->latest('devices.created_at')->first()->toArray();
+        $result['column'] =  DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($deviceList['data_table']);
+        return $result;
+    }
+
+
 }

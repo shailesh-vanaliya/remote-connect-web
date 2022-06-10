@@ -34,13 +34,6 @@
             {!! $errors->first('execution_time', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <!-- <div class="form-group row {{ $errors->has('repeat_on') ? 'has-error' : ''}}">
-        <label for="repeat_on" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Repeat On' }}</label>
-        <div class="col-sm-5">
-            <input class="form-control" name="repeat_on" type="text" id="repeat_on" value="{{ isset($reportschedule->repeat_on) ? $reportschedule->repeat_on : ''}}">
-            {!! $errors->first('repeat_on', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div> -->
 
     <div class="form-group row {{ $errors->has('repeat_on') ? 'has-error' : ''}}">
         <label for="repeat_on" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Repeat on' }}</label>
@@ -50,7 +43,7 @@
             @endphp
             @foreach($days as $row => $val)
             @php
-             $check =  isset($reportschedule->repeat_on) ? (in_array($val,$array) ? 'checked' : '') : '';
+            $check = isset($reportschedule->repeat_on) ? (in_array($val,$array) ? 'checked' : '') : '';
             @endphp
             <div class="icheck-primary d-inline mr-5">
                 <input type="checkbox" {{ $check  }} value="{{ $val }}" name="repeat_on[]" id="email_report{{ $row }}">
@@ -61,31 +54,47 @@
         </div>
     </div>
 
+    <!-- <div class="form-group row {{ $errors->has('sender_user_list') ? 'has-error' : ''}}">
+        <label for="sender_user_list" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Sender User List' }}</label>
+        <div class="col-sm-5">
+            <div class="col-sm-5">
+                @php
+                $usr = (isset($reportschedule->sender_user_list)) ? json_decode($reportschedule->sender_user_list) : '';
+                @endphp
+                @foreach($userList as $row => $val)
+                @php
+                $check = isset($reportschedule->sender_user_list) ? (in_array($val,$usr) ? 'checked' : '') : '';
+                @endphp
+                <div class="icheck-primary d-inline mr-5">
+                    <input type="checkbox" {{ $check  }} value="{{ $val }}" name="sender_user_list[]" id="user{{ $row }}">
+                    <label for="user{{ $row }}">{{ $val }}
+                    </label>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div> -->
+
     <div class="form-group row {{ $errors->has('sender_user_list') ? 'has-error' : ''}}">
         <label for="sender_user_list" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Sender User List' }}</label>
         <div class="col-sm-5">
-        <div class="col-sm-5">
-            @php
-            $usr = (isset($reportschedule->sender_user_list)) ? json_decode($reportschedule->sender_user_list) : '';
-            @endphp
-            @foreach($userList as $row => $val)
-            @php
-             $check =  isset($reportschedule->sender_user_list) ? (in_array($val,$usr) ? 'checked' : '') : '';
-            @endphp
-            <div class="icheck-primary d-inline mr-5">
-                <input type="checkbox" {{ $check  }} value="{{ $val }}" name="sender_user_list[]" id="user{{ $row }}">
-                <label for="user{{ $row }}">{{ $val }}
-                </label>
-            </div>
-            @endforeach
-        </div>
-
-            <!-- <input class="form-control" name="sender_user_list" type="text" id="sender_user_list" value="{{ isset($reportschedule->sender_user_list) ? $reportschedule->sender_user_list : ''}}"> -->
-            <!-- {!! $errors->first('sender_user_list', '<p class="help-block">:message</p>') !!} -->
+            <select class="select2 sender_user_list" id="sender_user_list" multiple="multiple" required name="sender_user_list[]" data-placeholder="Select Sender User List" style="width: 100%;">
+                @php
+                $usr = (isset($reportschedule->sender_user_list)) ? json_decode($reportschedule->sender_user_list) : '';
+                @endphp
+                @foreach($userList as $row => $val)
+                @php
+                $check = isset($reportschedule->sender_user_list) ? (in_array($val,$usr) ? 'selected' : '') : '';
+                @endphp
+                <option {{ $check  }} value="{{ $val }}">{{ $val }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 
-    
+
+
+
     <div class="form-group row">
         <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
     </div>
