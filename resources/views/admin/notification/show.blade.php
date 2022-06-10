@@ -30,7 +30,7 @@
                                     <tr>
                                         <th>ID</th><td>{{ $notification->id }}</td>
                                     </tr>
-                                    <tr><th> Modem Id </th><td> {{ $notification->modem_id }} </td></tr><tr><th> Alert Message </th><td> {{ $notification->alert_message }} </td></tr><tr><th> Is Read </th><td> {{ $notification->is_read }} </td></tr><tr><th> Is Email Send </th><td> {{ $notification->is_email_send }} </td></tr><tr><th> Is Sms Send </th><td> {{ $notification->is_sms_send }} </td></tr>
+                                    <tr><th> Modem Id </th><td> {{ $notification->modem_id }} </td></tr><tr><th> Alert Message </th><td> {{ $notification->alert_message }} </td></tr><tr><th> Is Viwed </th><td> {{ $notification->is_read }} </td></tr><tr><th> Is Email Sent </th><td> {{ $notification->is_email_send }} </td></tr><tr><th> Is Sms Sent </th><td> {{ $notification->is_sms_send }} </td></tr>
                                 </tbody>
                         </table>
                     </div>

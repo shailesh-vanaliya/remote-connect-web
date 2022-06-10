@@ -14,21 +14,21 @@
         </div>
     </div>
     <div class="form-group row {{ $errors->has('is_read') ? 'has-error' : ''}}">
-        <label for="is_read" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Is Read' }}</label>
+        <label for="is_read" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Is Viwed' }}</label>
         <div class="col-sm-5">
             <input class="form-control" name="is_read" type="number" id="is_read" value="{{ isset($notification->is_read) ? $notification->is_read : ''}}">
             {!! $errors->first('is_read', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('is_email_send') ? 'has-error' : ''}}">
-        <label for="is_email_send" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Is Email Send' }}</label>
+        <label for="is_email_send" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Is Email Sent' }}</label>
         <div class="col-sm-5">
             <input class="form-control" name="is_email_send" type="number" id="is_email_send" value="{{ isset($notification->is_email_send) ? $notification->is_email_send : ''}}">
             {!! $errors->first('is_email_send', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('is_sms_send') ? 'has-error' : ''}}">
-        <label for="is_sms_send" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Is Sms Send' }}</label>
+        <label for="is_sms_send" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Is Sms Sent' }}</label>
         <div class="col-sm-5">
             <input class="form-control" name="is_sms_send" type="number" id="is_sms_send" value="{{ isset($notification->is_sms_send) ? $notification->is_sms_send : ''}}">
             {!! $errors->first('is_sms_send', '<p class="help-block">:message</p>') !!}
