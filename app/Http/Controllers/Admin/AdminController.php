@@ -82,8 +82,8 @@ class AdminController extends Controller
             $onlineDevice->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
             $onlineDevice->where('device_status.Status',1);
             $onlineDevice->groupBy('devices.id');
-            $data['onlineDevice'] =  $onlineDevice->count();
-            
+            $data['onlineDevice'] =  $onlineDevice->get()->toArray();
+            $data['onlineDevice'] = count($data['onlineDevice']);
         } else {
             $onlineDevice =  Device::select(
                 'device_map.MQTT_ID',
