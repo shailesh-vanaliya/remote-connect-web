@@ -379,7 +379,7 @@ var Dashboard = function () {
                     var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
                         behavior: "zoomX"
                     }));
-                    cursor.lineY.set("visible", false);
+                    cursor.lineY.set("visible", true);
 
 
                     // Generate random data
@@ -409,10 +409,10 @@ var Dashboard = function () {
                     // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
                     var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
                         groupData: true,
-                        maxDeviation: 0,
+                        maxDeviation: 0.2,
                         baseInterval: {
                             timeUnit: "second",
-                            count: 1
+                            count: 10
                         },
                         renderer: am5xy.AxisRendererX.new(root, {}),
                         tooltip: am5.Tooltip.new(root, {})
@@ -434,7 +434,7 @@ var Dashboard = function () {
                         valueYField: "value",
                         valueXField: "date",
                         tooltip: am5.Tooltip.new(root, {
-                            labelText: "{valueY}"
+                            labelText: "{valueY}"+"°C"
                         })
                     }));
                     
@@ -444,13 +444,13 @@ var Dashboard = function () {
                     chart.set("scrollbarX", am5.Scrollbar.new(root, {
                         orientation: "horizontal"
                     }));
-                    series.data.setAll([]);
+                    
                     series.data.setAll(data);
 
 
                     // Make stuff animate on load
                     // https://www.amcharts.com/docs/v5/concepts/animations/
-                    series.appear(1000);
+                    series.appear();
                     chart.appear(1000, 100);
 
 
