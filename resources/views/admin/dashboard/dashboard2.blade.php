@@ -42,12 +42,24 @@
     padding: 0rem 1.25rem !important;
   }
 </style>
-
+<?php
+   if($_SERVER['HTTP_HOST'] == 'localhost'){
+    $dynamicUrl =  asset('').'public/';
+}else{
+    $dynamicUrl = asset('').'public/';
+}
+?>
 <!-- Resources -->
-<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<!-- <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/plugins/exporting.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/plugins/exporting.js"></script> -->
+
+<script src="{{ asset($dynamicUrl.'js/amcharts/index1.js') }}"></script>
+<script src="{{ asset($dynamicUrl.'js/amcharts/xy1.js') }}"></script>
+<script src="{{ asset($dynamicUrl.'js/amcharts/Animated1.js') }}"></script>
+<script src="{{ asset($dynamicUrl.'js/amcharts/Responsive.js') }}"></script>
+<script src="{{ asset($dynamicUrl.'js/amcharts/exporting.js') }}"></script>
 
 </head>
 
