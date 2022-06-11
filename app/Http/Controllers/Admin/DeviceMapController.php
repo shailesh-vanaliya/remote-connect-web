@@ -7,6 +7,7 @@ use App\Http\Requests;
 use Auth;
 use App\Models\DeviceMap;
 use App\Models\Organization;
+use App\Models\DeviceType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -77,10 +78,12 @@ class DeviceMapController extends Controller
             ],
         ];
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
         } else {
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
         }
+        $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
         return view('admin.device-map.create', $data);
     }
 
@@ -167,6 +170,7 @@ class DeviceMapController extends Controller
         } else {
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
         }
+        $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
         return view('admin.device-map.edit', $data);
     }
 

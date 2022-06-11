@@ -118,10 +118,9 @@ class DeviceController extends Controller
         }
         $data['pagetitle'] = 'Device';
         $data['title'] = 'Device';
-
         $agentRecord[''] = '- - Select Location - -';
-        // print_r($location);
-        // exit;
+        $data['js']                    = ['admin/device.js'];
+        $data['funinit']               = ['Device.init()'];
         $data['location'] = $agentRecord + $location;
 
         return view('admin.device.index', $data);
@@ -252,6 +251,16 @@ class DeviceController extends Controller
     {
         $data['pagetitle'] = 'Device';
         $data['title'] = 'Device';
+
+        $data['js']        = ['admin/device.js', 'jquery.validate.min.js'];
+        $data['funinit']   = ['Device.init()'];
+        $data['header']    = [
+            'title'      => 'Device',
+            'breadcrumb' => [
+                'Device'     => '',
+                'Create' => '',
+            ],
+        ];
         return view('admin.device.create', $data);
     }
 
@@ -327,6 +336,16 @@ class DeviceController extends Controller
         $data['device'] = Device::findOrFail($id);
         $data['pagetitle'] = 'Device';
         $data['title'] = 'Device';
+        $data['js']        = ['admin/device.js', 'jquery.validate.min.js'];
+        $data['funinit']   = ['Device.init()'];
+        $data['header']    = [
+            'title'      => 'Device Edit',
+            'breadcrumb' => [
+                'Device'     => '',
+                'Edit' => '',
+            ],
+        ];
+
         return view('admin.device.edit', $data);
     }
 
@@ -479,11 +498,23 @@ class DeviceController extends Controller
             case 'getLocation':
                 $this->_getLocationList();
                 break;
+            case 'getDevicelist':
+                $this->_getDevicelist($request->all());
                 break;
         }
         exit;
     }
 
+
+    public function _getDevicelist($postData) {
+    // print_r($postData);
+    // exit;
+
+    $deviceMapDetails = DeviceMap::where('secret_key', $postData['secret_key'])
+                ->where('modem_id', $postData['modem_id'])->first();
+        echo json_encode($deviceMapDetails);
+        exit;
+    }
 
     public function _getLocationList() {
        

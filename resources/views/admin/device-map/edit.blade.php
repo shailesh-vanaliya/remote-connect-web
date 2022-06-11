@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Edit DeviceMap #{{ $devicemap->id }}</h3>
+                        <h3 class="card-title">Edit Device Map </h3>
                         <a href="{{ url('/admin/device-map') }}" title="Back"><button class="btn btn-warning btn-xs float-right"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                     </div>
                     <div class="box-body">
