@@ -94,9 +94,9 @@
                                 <h3 class="card-title">Report list</h3>
                             </div>
                             <div class="col-md-1 col-sm-6 col-12">
-                                <a href="{{ url('/admin/report/create') }}" class="btn btn-success btn-sm" title="Add New Report">
+                                <!-- <a href="{{ url('/admin/report/create') }}" class="btn btn-success btn-sm" title="Add New Report">
                                     <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </div>
@@ -122,8 +122,8 @@
                                     <!-- <td style="word-break: break-all;">{{ $item->field_name }}</td> -->
                                     <td style="word-break: break-all;">{{ $item->parameter }}</td>
                                     <td style="width: 12%;display: inline-flex;;">
-                                        <a class="ml-1" href="{{ url('/admin/report/' . $item->id) }}" title="View Report"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> </button></a>
-                                        <a class="ml-1" href="{{ url('/admin/report/' . $item->id . '/edit') }}" title="Edit Report"><button class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
+                                        <!-- <a class="ml-1" href="{{ url('/admin/report/' . $item->id) }}" title="View Report"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> </button></a>
+                                        <a class="ml-1" href="{{ url('/admin/report/' . $item->id . '/edit') }}" title="Edit Report"><button class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a> -->
                                         <form class="" method="POST" action="{{ url('/admin/report' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                             {{ method_field('DELETE') }}
                                             {{ csrf_field() }}

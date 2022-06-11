@@ -25,7 +25,7 @@ class Report extends Model
      *
      * @var array
      */
-    protected $fillable = ['device_id', 'device_type_id', 'report_config_id', 'field_name'];
+    protected $fillable = ['device_id', 'device_type_id', 'report_config_id', 'field_name','organization_id'];
 
 
 

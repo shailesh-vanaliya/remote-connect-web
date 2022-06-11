@@ -112,12 +112,22 @@ class ReportConfigurationController extends Controller
 
         try {
             $requestData = $request->all();
+            // print_r($requestData);
+            // exit;
+            $deviceObj = new Device();
+            $deviceRes =  $deviceObj->deviceDetailById($requestData['device_id']);
+       
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             $requestData['parameter'] = json_encode($requestData['parameter']);
+          
+            $res = ReportConfiguration::create($requestData);
+          
+            $requestData['report_config_id'] = $res->id;
+            $requestData['device_type_id'] = $deviceRes->device_type_id;
             // print_r($requestData);
             // exit;
-            ReportConfiguration::create($requestData);
+            Report::create($requestData);
 
             return redirect('admin/report-configuration')->with('session_success', 'ReportConfiguration added!');
         } catch (\Exception $e) {
@@ -202,7 +212,7 @@ class ReportConfigurationController extends Controller
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             $reportconfiguration = ReportConfiguration::findOrFail($id);
             $requestData['parameter'] = json_encode($requestData['parameter']);
-            $reportconfiguration->update($requestData);
+            $id = $reportconfiguration->update($requestData);
 
             return redirect('admin/report-configuration')->with('session_success', 'ReportConfiguration updated!');
         } catch (\Exception $e) {

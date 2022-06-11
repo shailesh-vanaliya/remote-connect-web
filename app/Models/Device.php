@@ -66,6 +66,7 @@ class Device extends Model
             'device_map.MQTT_ID',
             'device_map.max_user_access',
             'device_map.IMEI_No',
+            'device_map.device_type_id',
             'device_status.Status',
             'device_status.id as device_status_id',
             'remote.MACHINE_NO',
@@ -155,4 +156,38 @@ class Device extends Model
             return $device;
         }
     }
+
+
+    public function deviceDetailById($device_id)
+    {
+     
+        $subQuery =  Device::select(
+            'device_map.MQTT_ID',
+            'device_map.max_user_access',
+            'device_map.IMEI_No',
+            'device_status.Status',
+            'device_status.id as device_status_id',
+            'remote.MACHINE_NO',
+            'remote.MACHINE_LOCAL_IP',
+            'remote.MACHINE_LOCAL_PORT',
+            'remote.MACHINE_REMOTE_PORT',
+            'remote.STATUS',
+            'device_map.device_type_id',
+            'device_type.device_type',
+            'devices.*',
+        );
+
+        $subQuery->Join('device_map', function ($join) {
+            $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
+            $join->on('device_map.secret_key', '=', 'devices.secret_key');
+        });
+
+        $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+        $subQuery->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
+        $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
+        $subQuery->where('devices.id', '=', $device_id);
+        $subQuery->groupBy('devices.id');
+        return  $subQuery->first();
+    }
+
 }
