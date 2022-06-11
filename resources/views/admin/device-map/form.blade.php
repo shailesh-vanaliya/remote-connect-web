@@ -4,7 +4,7 @@
     <div class="form-group row {{ $errors->has('model_no') ? 'has-error' : ''}}">
         <label for="model_no" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Model No' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
-            <input class="form-control" name="model_no" require maxlength="15" type="text" id="model_no" value="{{ isset($device->model_no) ? $device->model_no : ''}}">
+            <input class="form-control" name="model_no" require maxlength="15" type="text" id="model_no" value="{{ isset($devicemap->model_no) ? $devicemap->model_no : ''}}">
             {!! $errors->first('model_no', '<p class="help-block">:message</p>') !!}
         </div>
     </div>

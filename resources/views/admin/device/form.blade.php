@@ -6,6 +6,18 @@
             {!! $errors->first('model_no', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
+    @php
+    $org = (Auth::guard('admin')->user()->role == 'SUPERADMIN') ? "" : "display:none";
+    @endphp
+    <div style="{{ $org }}" class="form-group row {{ $errors->has('organization_id') ? 'has-error' : ''}}">
+        <label for="organization_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Organization' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            {{ Form::select('organization_id', $organization , empty($device->organization_id) ? null : $device->organization_id , array('class' => 'form-control organization_id select2', 'id' => 'organization_id','required')) }}
+            {!! $errors->first('organization_id', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
+    <!-- <input type="hidden" class="organization_id" id="organization_id" name="organization_id" value=""> -->
     <div class="form-group row {{ $errors->has('modem_id') ? 'has-error' : ''}}">
         <label for="modem_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Modem Id' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">

@@ -25,7 +25,7 @@ class Device extends Model
      *
      * @var array
      */
-    protected $fillable = ['modem_id', 'model_no','secret_key', 'project_name','data_table', 'customer_name', 'region', 'location', 'machine_type', 'latitude', 'longitude', 'description','created_by', 'updated_by'];
+    protected $fillable = ['modem_id', 'model_no','secret_key', 'project_name','data_table', 'customer_name', 'region', 'location', 'machine_type', 'latitude', 'longitude', 'description','created_by', 'updated_by','organization_id'];
 
     
 

@@ -7,6 +7,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Device;
 use App\Models\DeviceMap;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
@@ -18,7 +19,7 @@ class DeviceController extends Controller
     {
         $this->middleware('admin');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -29,15 +30,15 @@ class DeviceController extends Controller
         $keyword = $request->get('search');
         $perPage = 100;
         $collected_items = Device::whereNotNull('latitude')->whereNotNull('longitude')
-        ->get()->toArray();
+            ->get()->toArray();
         $mainArray = [];
         foreach ($collected_items as $key => $values) {
             // print_r($values['location']);
             // exit;
             $tempArray = array($values['location'], $values['latitude'], $values['longitude'], $values['id']);
             $mainArray[$key] = $tempArray;
-        } 
- 
+        }
+
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
 
             $subQuery =  Device::select(
@@ -68,7 +69,7 @@ class DeviceController extends Controller
             $subQuery->orWhere('devices.updated_by', 'LIKE', "%$keyword%");
             $subQuery->groupBy('devices.id');
             $data['device'] =  $subQuery->latest('devices.created_at')->paginate($perPage);
-           
+
             $location = Device::select(
                 'location',
                 'location',
@@ -120,7 +121,7 @@ class DeviceController extends Controller
         $data['title'] = 'Device';
         $agentRecord[''] = '- - Select Location - -';
         $data['js']                    = ['admin/device.js'];
-        $data['funinit']               = ['Device.init()'];
+        $data['funinit']               = ['Device.initList()'];
         $data['location'] = $agentRecord + $location;
 
         return view('admin.device.index', $data);
@@ -261,6 +262,11 @@ class DeviceController extends Controller
                 'Create' => '',
             ],
         ];
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+        } else {
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+        }
         return view('admin.device.create', $data);
     }
 
@@ -346,6 +352,11 @@ class DeviceController extends Controller
             ],
         ];
 
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+        } else {
+            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+        }
         return view('admin.device.edit', $data);
     }
 
@@ -378,19 +389,23 @@ class DeviceController extends Controller
             if ($mapCount == 0) {
                 return redirect(`admin/device/$id/edit`)->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
-
+           
             $modemMapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))->first();
 
-            $modemCount = Device::where('modem_id', $request->all('modem_id'))->count();
+            $modemCount = Device::where('id','!=', $id)->where('modem_id', $request->all('modem_id'))->count();
             if (isset($modemMapCount) &&  $modemCount >= $modemMapCount->max_user_access) {
                 return redirect("admin/device/$id/edit")->with('session_error', 'Sorry, maximum user device limit exceed, contact to admin!')->withInput();
             }
-
+            try {
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            
             $device = Device::findOrFail($id);
             $device->update($requestData);
 
             return redirect('admin/device')->with('session_success', 'Device updated!');
+        } catch (\Exception $e) {
+            return redirect(`admin/device/$id/edit`)->with('session_error', $e->getMessage());
+        }
         } catch (\Exception $e) {
             return redirect(`admin/device/$id/edit`)->with('session_error', $e->getMessage());
         }
@@ -506,18 +521,21 @@ class DeviceController extends Controller
     }
 
 
-    public function _getDevicelist($postData) {
-    // print_r($postData);
-    // exit;
-
-    $deviceMapDetails = DeviceMap::where('secret_key', $postData['secret_key'])
-                ->where('modem_id', $postData['modem_id'])->first();
+    public function _getDevicelist($postData)
+    {
+        $query = DeviceMap::where('secret_key', $postData['secret_key']);
+        $query->where('modem_id', $postData['modem_id']);
+        if (Auth::guard('admin')->user()->role != 'SUPERADMIN') {
+            $query->where('organization_id', Auth::guard('admin')->user()->organization_id);
+        }
+        $deviceMapDetails = $query->first();
         echo json_encode($deviceMapDetails);
         exit;
     }
 
-    public function _getLocationList() {
-       
+    public function _getLocationList()
+    {
+
         // $subQuery =  Device::whereNotNull('latitude')->whereNotNull('longitude');
         // if (Auth::guard('admin')->user()->role != 'SUPERADMIN') {
         //     $subQuery->where('created_by', Auth::guard('admin')->user()->id);
@@ -525,18 +543,17 @@ class DeviceController extends Controller
         // $collected_items = $subQuery->get()->toArray();
         $deviceObj = new Device();
         $collected_items = $deviceObj->getDeviceByUser()->toArray();
-     
+
         $locationList = [];
         foreach ($collected_items as $key => $values) {
-             
-            $url = url('/admin/'.$values['dashboard_id'].'/' .$values['modem_id'] );
-            $url= ($values['dashboard_id'] == '') ? "#" : $url;
+
+            $url = url('/admin/' . $values['dashboard_id'] . '/' . $values['modem_id']);
+            $url = ($values['dashboard_id'] == '') ? "#" : $url;
             // $url = url('/admin/meter-dashboard/' .$values['modem_id'] );
-            $tempArray = array("Modem Id : " . $values['modem_id'] ." <br /> Project Name : ".  $values['project_name']." <br /> Region : ".  $values['region'] ." <br /> Location : ". $values['location']." <br />  <a href='".$url."'>".'View Dashboard' .'</a>', $values['latitude'], $values['longitude'], $values['id']);
+            $tempArray = array("Modem Id : " . $values['modem_id'] . " <br /> Project Name : " .  $values['project_name'] . " <br /> Region : " .  $values['region'] . " <br /> Location : " . $values['location'] . " <br />  <a href='" . $url . "'>" . 'View Dashboard' . '</a>', $values['latitude'], $values['longitude'], $values['id']);
             $locationList[$key] = $tempArray;
         }
         echo json_encode($locationList);
         exit;
     }
-
 }

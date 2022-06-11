@@ -25,8 +25,8 @@ var Device = function () {
                         $("#parameter").html("");
                         var data = JSON.parse(data);
                         console.log(data.model_no)
-
                         $("#model_no").val(data.model_no);
+                        $("#organization_id").val(data.organization_id);
                     }
                 });
             }
@@ -38,6 +38,9 @@ var Device = function () {
     return {
         init: function () {
             handleCreate();
+        },
+        initList: function () {
+             
         },
 
     }
