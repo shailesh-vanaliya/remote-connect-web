@@ -14,7 +14,7 @@ class AddRenameNotificationColumn extends Migration
     public function up()
     {
         Schema::table('notification', function (Blueprint $table) {
-            $table->renameColumn('is_viewed', 'is_viewed');
+            $table->renameColumn('is_viewed', 'viewed');
         });
     }
 
