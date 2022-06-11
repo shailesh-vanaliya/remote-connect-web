@@ -7,11 +7,11 @@
         </div>
     </div>
    
-
+    <input type="hidden" value="{{ $alertconfigration->parameter }}" name="old_parameter" class="old_parameter" readonly id="old_parameter">
     <div class="form-group row {{ $errors->has('parameter') ? 'has-error' : ''}}">
         <label for="parameter" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Parameter' }}</label>
         <div class="col-sm-5">
-            <select class="form-control parameter" id="parameter"  required name="parameter[]" data-placeholder="Select a Parameter" style="width: 100%;">
+            <select class="form-control parameter" id="parameter"  required name="parameter" data-placeholder="Select a Parameter" style="width: 100%;">
                 @php
                 $array = (isset($alertconfigration->parameter)) ? json_decode($alertconfigration->parameter) : '';
                 @endphp

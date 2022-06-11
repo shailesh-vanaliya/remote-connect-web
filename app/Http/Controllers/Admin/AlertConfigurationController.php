@@ -36,8 +36,7 @@ class AlertConfigurationController extends Controller
 
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/dashboard.js'];
-        // $data['funinit']               = [''];
-        $data['funinit']               = ['Dashboard.initMeter()'];
+        $data['funinit']               = [''];
         $data['header']    = [
             'title'      => 'Alert Configuration',
             'breadcrumb' => [
@@ -138,10 +137,9 @@ class AlertConfigurationController extends Controller
     {
         $data['alertconfigration'] = AlertConfigration::findOrFail($id);
         $data['pagetitle']             = 'Notification';
-        $data['js']                    = ['admin/dashboard.js'];
+        $data['js']                    = ['admin/alertConfig.js'];
+        $data['funinit']               = ['AlertConfig.init()'];
         $data['pluginjs']               = ['plugins/select2/js/select2.full.min.js'];
-        // $data['funinit']               = [''];
-        // $data['funinit']               = ['Dashboard.initMeter()'];
         $data['header']    = [
             'title'      => 'Alert Configuration',
             'breadcrumb' => [
@@ -167,6 +165,7 @@ class AlertConfigurationController extends Controller
     {
         try {
             $requestData = $request->all();
+            
             $requestData['organization_id'] = 1;
             $alertconfigration = AlertConfigration::findOrFail($id);
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
