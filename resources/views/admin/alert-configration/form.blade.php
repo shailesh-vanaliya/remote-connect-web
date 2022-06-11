@@ -7,7 +7,7 @@
         </div>
     </div>
    
-    <input type="hidden" value="{{ $alertconfigration->parameter }}" name="old_parameter" class="old_parameter" readonly id="old_parameter">
+    <input type="hidden" value="{{ isset( $alertconfigration->parameter) ? $alertconfigration->parameter : '' }}" name="old_parameter" class="old_parameter" readonly id="old_parameter">
     <div class="form-group row {{ $errors->has('parameter') ? 'has-error' : ''}}">
         <label for="parameter" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Parameter' }}</label>
         <div class="col-sm-5">
@@ -65,6 +65,15 @@
             {!! $errors->first('email_alert', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
+
+    <div  class="form-group row {{ $errors->has('created_by') ? 'has-error' : ''}}">
+        <label for="created_by" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Assign To' }}</label>
+        <div class="col-sm-5">
+            {{ Form::select('created_by', $createdBy , empty($alertconfigration->created_by) ? ($formMode != 'edit') ? Auth::guard('admin')->user()->id : null : $alertconfigration->created_by , array('class' => 'form-control created_by select2', 'id' => 'created_by','required')) }}
+            {!! $errors->first('created_by', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
     <div class="form-group row">
         <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
     </div>

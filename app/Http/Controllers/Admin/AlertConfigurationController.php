@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Device;
+use App\Models\User;
 use App\Models\AlertConfigration;
 use Illuminate\Http\Request;
 use Auth;
@@ -68,7 +69,8 @@ class AlertConfigurationController extends Controller
         $data['column'] = array();
         $deviceObj = new Device();
         $data['device']= $deviceObj->getDeviceForDropdown();
-
+        $userObj = new User();
+        $data['createdBy'] = $userObj->getAssignToUser();
         return view('admin.alert-configration.create', $data);
     }
 
@@ -150,6 +152,8 @@ class AlertConfigurationController extends Controller
         $data['column'] = array();
         $deviceObj = new Device();
         $data['device']= $deviceObj->getDeviceForDropdown();
+        $userObj = new User();
+        $data['createdBy'] = $userObj->getAssignToUser();
         return view('admin.alert-configration.edit', $data);
     }
 

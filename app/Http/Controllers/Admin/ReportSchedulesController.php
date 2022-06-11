@@ -78,6 +78,8 @@ class ReportSchedulesController extends Controller
         } else {
             $data['reportConfiguration'] = ReportConfiguration::select('report_title', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('report_title', 'id')->toArray();
         }
+        $userObj = new User();
+        $data['createdBy'] = $userObj->getAssignToUser();
         return view('admin.report-schedules.create', $data);
     }
 
@@ -164,6 +166,8 @@ class ReportSchedulesController extends Controller
         } else {
             $data['reportConfiguration'] = ReportConfiguration::select('report_title', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('report_title', 'id')->toArray();
         }
+        $userObj = new User();
+        $data['createdBy'] = $userObj->getAssignToUser();
         return view('admin.report-schedules.edit', $data);
     }
 

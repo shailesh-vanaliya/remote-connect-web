@@ -114,7 +114,13 @@ class AdminController extends Controller
             $data['onlineDevice'] = count($data['onlineDevice']);
        
         }
- 
+        $data['header']    = [
+            'title'      => 'Dashboard',
+            'breadcrumb' => [
+                'Dashboard'     => '',
+                'View' => '',
+            ],
+        ];
         return view('admin.dashboard', $data);
 
         // $server   = 'm2m.iiotconnect.in';

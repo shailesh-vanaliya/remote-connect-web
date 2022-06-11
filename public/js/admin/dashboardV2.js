@@ -56,8 +56,6 @@ var DashboardV2 = function () {
         });
       
         $("body").on("change", '.customSelect', function() {
-            console.log($('#customSelect').val() , " ====")
-           
             let startDate = '';
             let endDate = '';
             $('.dateDiv').hide();
@@ -88,8 +86,6 @@ var DashboardV2 = function () {
                  startDate = $('#dateRange').data('daterangepicker').startDate.format('YYYY-MM-DD HH:mm');
                  endDate = $('#dateRange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm');
             }
-            console.log(startDate, " startDate")
-            console.log(endDate, " endDate")
             $('#startDate').val(startDate);
             $('#endDate').val(endDate);
 
@@ -184,7 +180,6 @@ var DashboardV2 = function () {
             let modem_id = ($('#modem_id').val() != undefined) ? $('#modem_id').val() : '';
        
              if($('#customSelect').val() == 'Today'){
-                 console.log("Fdsfsf");
                 startDate = moment().format('YYYY-MM-DD') +' 00:00';
                 endDate = moment().format('YYYY-MM-DD') +' 23:59';
             }
@@ -198,8 +193,6 @@ var DashboardV2 = function () {
                 data: { 'action': 'getChartDataV2', 'endDate': endDate, 'startDate': startDate,'dateRange': dateRange, "modem_id":modem_id },
                 success: function (out) {
                     let result = JSON.parse(out);
-                    
-                    console.log(result,"result")
                     root.setThemes([
                         am5themes_Animated.new(root)
                     ]);
@@ -256,10 +249,8 @@ var DashboardV2 = function () {
                        // console.log(data, "datedatedate")
                         return data;
                     }
-                    console.log(result.length, "result.lengthresult.length")
+                    // console.log(result.length, "result.lengthresult.length")
                     let titlename = ["PV1","SP1","PV2","SP2","PV3","SP3","PV4","SP4","PV5","SP5","PV6","SP6"];
-                    // let titlename = ['PV',"SP","OYT","Obit"];
-                    console.log(titlename, " titlename")
                     for (var i = 0; i < result.length; i++) {
                         var series = chart.series.push(am5xy.LineSeries.new(root, {
                             minBulletDistance: 10,

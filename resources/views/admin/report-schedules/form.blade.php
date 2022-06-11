@@ -92,7 +92,13 @@
         </div>
     </div>
 
-
+    <div  class="form-group row {{ $errors->has('created_by') ? 'has-error' : ''}}">
+        <label for="created_by" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Assign to' }}</label>
+        <div class="col-lg-5 col-md-9 col-sm-12">
+            {{ Form::select('created_by', $createdBy , empty($reportschedule->created_by) ? ($formMode != 'edit') ? Auth::guard('admin')->user()->id : null : $reportschedule->created_by , array('class' => 'form-control created_by select2', 'id' => 'created_by','required')) }}
+            {!! $errors->first('created_by', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
 
 
     <div class="form-group row">

@@ -17,6 +17,7 @@
         </div>
     </div>
 
+
     <!-- <input type="hidden" class="organization_id" id="organization_id" name="organization_id" value=""> -->
     <div class="form-group row {{ $errors->has('modem_id') ? 'has-error' : ''}}">
         <label for="modem_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Modem Id' }}</label>
@@ -30,6 +31,13 @@
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="secret_key" maxlength="15" type="text" id="secret_key" value="{{ isset($device->secret_key) ? $device->secret_key : ''}}">
             {!! $errors->first('secret_key', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div  class="form-group row {{ $errors->has('created_by') ? 'has-error' : ''}}">
+        <label for="created_by" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Assign To' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            {{ Form::select('created_by', $createdBy , empty($device->created_by) ? ($formMode != 'edit') ? Auth::guard('admin')->user()->id : null : $device->created_by , array('class' => 'form-control created_by select2', 'id' => 'created_by','required')) }}
+            {!! $errors->first('created_by', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('project_name') ? 'has-error' : ''}}">

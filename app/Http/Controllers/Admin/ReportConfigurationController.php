@@ -9,6 +9,7 @@ use DB;
 use App\Models\Report;
 use App\Models\Organization;
 use App\Models\Device;
+use App\Models\User;
 use App\Models\DeviceType;
 use App\Models\ReportConfiguration;
 use Illuminate\Http\Request;
@@ -116,7 +117,8 @@ class ReportConfigurationController extends Controller
         // $data['column'] = $this->_getDevicelist($data['reportconfiguration']);
         $deviceSelect[''] = '--Select Device---';
         $data['device'] =  $returnCollegeData = $deviceSelect + $device;
-
+        $userObj = new User();
+        $data['createdBy'] = $userObj->getAssignToUser();
         return view('admin.report-configuration.create', $data);
     }
 
@@ -221,7 +223,8 @@ class ReportConfigurationController extends Controller
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
             $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
         }
-
+        $userObj = new User();
+        $data['createdBy'] = $userObj->getAssignToUser();
         $column = $this->_getDevicelist($data['reportconfiguration']);
         $data['column'] = $column['column'];
         return view('admin.report-configuration.edit', $data);

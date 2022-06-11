@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Device;
 use App\Models\DeviceMap;
 use App\Models\Organization;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
@@ -266,6 +267,9 @@ class DeviceController extends Controller
         } else {
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
         }
+        $userObj = new User();
+        $data['createdBy'] = $userObj->getAssignToUser();
+ 
         return view('admin.device.create', $data);
     }
 
@@ -360,6 +364,8 @@ class DeviceController extends Controller
         } else {
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
         }
+        $userObj = new User();
+        $data['createdBy'] = $userObj->getAssignToUser();
         return view('admin.device.edit', $data);
     }
 

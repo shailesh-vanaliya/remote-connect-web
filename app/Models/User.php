@@ -8,11 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
-use Laravel\Cashier\Billable;
 use DB;
 use App\Models\Organization;
 use App\Models\OrganizationUserDetail;
-use App\Models\Role;
 use Config;
 use Illuminate\Http\Request;
 use Auth;
@@ -280,5 +278,27 @@ class User extends Authenticatable
     public function RandomString()
     {
         return substr(str_shuffle(str_repeat("0123456789szABCDEFGHIJUVWXYZ", 8)), 0, 8);
+    }
+
+    public function getAssignToUser(){
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $user = User::
+            // select('modem_id', 'id',)
+            select([DB::raw('CONCAT(users.first_name," ",users.last_name) AS userName'), 'id'])
+            ->whereIn('role', ['USER','ADMIN'])
+            ->pluck('userName', 'id')->toArray();
+        } else {
+            $subQuery = User::select([DB::raw('CONCAT(users.first_name," ",users.last_name) AS userName'), 'id']);
+            if (Auth::guard('admin')->user()->role == "ADMIN") {
+                $subQuery->where('organization_id', Auth::guard('admin')->user()->organization_id);
+                $subQuery->whereIn('role', ['USER','ADMIN']);
+            } else {
+                $subQuery->where('id', Auth::guard('admin')->user()->id);
+                $subQuery->whereIn('role', ['USER']);
+            } 
+            $user = $subQuery->pluck('userName', 'id')->toArray();
+        }
+         
+        return $user;
     }
 }
