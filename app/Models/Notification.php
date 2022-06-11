@@ -25,7 +25,7 @@ class Notification extends Model
      *
      * @var array
      */
-    protected $fillable = ['modem_id','organization_id', 'alert_message', 'is_read', 'is_email_send', 'is_sms_send'];
+    protected $fillable = ['modem_id','organization_id', 'alert_message', 'viewed', 'is_email_send', 'is_sms_send', 'is_ack', 'created_by','updated_by'];
 
     
 }

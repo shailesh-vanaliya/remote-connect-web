@@ -60,6 +60,10 @@ function showToster(status, message) {
     if (status == 'error') {
         toastr.error(message, 'Fail');
     }
+    if (status == 'Alert') {
+        toastr.error(message, 'Alert Notification');
+    }
+
 }
 
 function handleAjaxResponse(output) {

@@ -11,13 +11,33 @@ var Notification = function () {
             data: { 'action': 'getNotification' },
             success: function (data) {
                 var output = JSON.parse(data);
-                $('.notificationCount').text(output.length)
+                $('.notificationCount').text(output.length);
                 $.each(output, function(i, item) {
-                    showToster('success',item.modem_id + " : " + item.alert_message)
+                    if(i == 0){
+                        readNotification(item.id);
+                    }
+                    showToster('Alert',item.modem_id + " : " + item.alert_message)
                 });
             }
         });
        }
+
+       function readNotification(readId){
+           console.log("dddddd", readId)
+        $.ajax({
+            type: "POST",
+            headers: {
+                'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+            },
+            url: site_url + "admin/notification/ajaxAction",
+            data: { 'action': 'readNotification',"lastId" : readId },
+            success: function (data) {
+                var output = JSON.parse(data);
+               
+            }
+        });
+       }
+
        setInterval(function(){
         getNotification();
        },10000)

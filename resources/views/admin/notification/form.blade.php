@@ -13,11 +13,11 @@
             {!! $errors->first('alert_message', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group row {{ $errors->has('is_read') ? 'has-error' : ''}}">
-        <label for="is_read" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Is Viwed' }}</label>
+    <div class="form-group row {{ $errors->has('viewed') ? 'has-error' : ''}}">
+        <label for="viewed" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Viewed' }}</label>
         <div class="col-sm-5">
-            <input class="form-control" name="is_read" type="number" id="is_read" value="{{ isset($notification->is_read) ? $notification->is_read : ''}}">
-            {!! $errors->first('is_read', '<p class="help-block">:message</p>') !!}
+            <input class="form-control" name="viewed" type="number" id="viewed" value="{{ isset($notification->viewed) ? $notification->viewed : ''}}">
+            {!! $errors->first('viewed', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('is_email_send') ? 'has-error' : ''}}">

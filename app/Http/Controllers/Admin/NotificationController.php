@@ -35,12 +35,14 @@ class NotificationController extends Controller
         if (!empty($keyword)) {
             $data['notification'] = Notification::where('modem_id', 'LIKE', "%$keyword%")
                 ->orWhere('alert_message', 'LIKE', "%$keyword%")
-                ->orWhere('is_read', 'LIKE', "%$keyword%")
+                ->orWhere('viewed', 'LIKE', "%$keyword%")
                 ->orWhere('is_email_send', 'LIKE', "%$keyword%")
                 ->orWhere('is_sms_send', 'LIKE', "%$keyword%")
+                ->where('created_by', Auth::guard('admin')->user()->id)
                 ->latest()->paginate($perPage);
         } else {
-            $data['notification'] = Notification::latest()->paginate($perPage);
+            $data['notification'] = Notification::
+                where('created_by', Auth::guard('admin')->user()->id)->latest()->paginate($perPage);
         }
         $data['pagetitle']             = 'Notification';
         $data['js']                    = ['admin/notification.js'];
@@ -88,6 +90,8 @@ class NotificationController extends Controller
         try {
             $requestData = $request->all();
             $requestData['organization_id'] = 1;
+            $requestData['created_by'] = Auth::guard('admin')->user()->id;
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             Notification::create($requestData);
 
             return redirect('admin/notification')->with('session_success', 'Notification added!');
@@ -157,6 +161,8 @@ class NotificationController extends Controller
             $requestData = $request->all();
             $requestData['organization_id'] = 1;
             $notification = Notification::findOrFail($id);
+            $requestData['created_by'] = Auth::guard('admin')->user()->id;
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             $notification->update($requestData);
 
             return redirect('admin/notification')->with('session_success', 'Notification updated!');
@@ -191,17 +197,26 @@ class NotificationController extends Controller
             case 'getNotification':
                 $this->_getUnreadNotification();
                 break;
+                
+            case 'readNotification':
+                $this->_setReadNotification($request->all());
                 break;
+                
         }
         exit;
     }
 
 
+    public function _setReadNotification($postData)
+    {
+       $notificationList = Notification::where('created_by', Auth::guard('admin')->user()->id)->where('id',">=",$postData['lastId'])->update(['viewed'=> 1]);
+        echo json_encode($notificationList);
+        exit;
+    }
+
     public function _getUnreadNotification()
     {
-
-        $notificationList = Notification::where('is_read', 0)->orderBy('id', 'desc')->get()->toArray();
-
+        $notificationList = Notification::where('created_by', Auth::guard('admin')->user()->id)->where('viewed', 0)->orderBy('id', 'desc')->get()->toArray();
         echo json_encode($notificationList);
         exit;
     }

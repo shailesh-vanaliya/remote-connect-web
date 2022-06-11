@@ -613,7 +613,7 @@
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
               </button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+              <!-- <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button> -->
             </div>
           </div>
           <div class="mailbox-controls with-border text-center">
@@ -662,9 +662,14 @@
 
     <div class="row">
       <div class="col-md-12">
-        <div class="card card-info">
+        <div class="card card-primary">
           <div class="card-header">
             <h3 class="card-title">Recipe data</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+              </button>
+              <!-- <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button> -->
+            </div>
           </div>
           <div class="card-body mt-1">
             <form method="POST" action="{{ url('admin/update-pid/'. $deviceName) }} " accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
@@ -672,6 +677,7 @@
               @php
               $count = 0;
               @endphp
+              @if(isset($jsonDecode) && !empty($jsonDecode))
               <div class="form-group mb-1 {{ $count % 2 == 0 ? 'row ' : ''}} ">
                 @foreach($jsonDecode as $key => $val)
                 <label for="modem_id" class="col-form-label mb-2 text-center col-lg-1 offset-sm-0 col-sm-12"> {{ $key }}</label>
@@ -683,10 +689,16 @@
                 @endphp
                 @endforeach
               </div>
+             
               <div class="form-group row">
                 <input class="btn btn-success mr-1" type="submit" name="button" value="Read">
                 <input class="btn btn-primary" type="submit" name="button" value="Write">
               </div>
+              @else
+              <div class=" row">
+                 <code class="card-body text-center">No Recipe data found</code>
+              </div>
+              @endif
             </form>
           </div>
         </div>

@@ -48,7 +48,7 @@ class Dashboard2Controller extends Controller
         // exit;  
         $data['result'] =  Honeywell::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
         $data['PIDAllData'] =  PIDAllData::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
-        $data['jsonDecode']=json_decode($data['PIDAllData']['data'],TRUE);
+        $data['jsonDecode']= (isset($data['PIDAllData']['data']) && !empty($data['PIDAllData']['data'])) ? json_decode($data['PIDAllData']['data'],TRUE) : "";
         
         
         // $jsonDecode = json_decode($jsonDecode, TRUE);

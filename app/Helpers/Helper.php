@@ -20,24 +20,12 @@ class Helper
 		return preg_replace('/[^A-Za-z0-9.\-]/', '', $fileName); // Removes special chars.
 	}
 
-	public static function getPermission($moduleName, $fieldName)
+	public static function filterAddress($location)
 	{
-		if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-			$res = Permission::select('superadmin_permission as permission', 'field_name')
-				->where('module_name', $moduleName)
-				->where('field_name', $fieldName)
-				->first();
-		} elseif (Auth::guard('admin')->user()->role == 'ADMIN') {
-			$res = Permission::select('admin_permission as permission', 'field_name')
-				->where('module_name', $moduleName)
-				->where('field_name', $fieldName)
-				->first();
-		} else {
-			$res = Permission::select('user_permission as permission', 'field_name')
-				->where('module_name', $moduleName)
-				->where('field_name', $fieldName)
-				->first();
-		}
-		return (!empty($res)) ? $res->permission : 'No';
+		// $fileName = str_replace(' ', '-', $fileName); // Replaces all spaces with hyphens.
+		$location  = strtok($location, " ");
+		return preg_replace('/[^A-Za-z0-9.\-]/', '', $location); // Removes special chars.
+		
 	}
+
 }

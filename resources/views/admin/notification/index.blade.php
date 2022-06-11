@@ -34,9 +34,9 @@
                                     <th>#</th>
                                     <th>Modem Id</th>
                                     <th>Alert Message</th>
-                                    <th>Is Viewed</th>
-                                    <th>Is Email Sent</th>
-                                    <th>Is Sms Sent</th>
+                                    <th>Viewed</th>
+                                    <th>Email Sent</th>
+                                    <th>Sms Sent</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -46,7 +46,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->modem_id }}</td>
                                     <td>{{ $item->alert_message }}</td>
-                                    <td>{{ $item->is_read }}</td>
+                                    <td>{{ $item->viewed }}</td>
                                     <td>{{ $item->is_email_send }}</td>
                                     <td>{{ $item->is_sms_send }}</td>
                                     <td>
