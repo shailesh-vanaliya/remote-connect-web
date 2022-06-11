@@ -18,7 +18,10 @@
             {!! $errors->first('device_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group row {{ $errors->has('organization_id') ? 'has-error' : ''}}">
+    @php
+    $org = (Auth::guard('admin')->user()->role == 'SUPERADMIN') ? "" : "display:none";
+    @endphp
+    <div style="{{ $org }}" class="form-group row {{ $errors->has('organization_id') ? 'has-error' : ''}}">
         <label for="organization_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Organization' }}</label>
         <div class="col-sm-5">
             {{ Form::select('organization_id', $organization , empty($reportconfiguration->organization_id) ? null : $reportconfiguration->organization_id , array('class' => 'form-control organization_id select2', 'id' => 'organization_id','required')) }}

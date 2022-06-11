@@ -44,7 +44,12 @@ class Report extends Model
         $subQuery->join('device_type',  'device_type.id', '=', 'reports.device_type_id');
         $subQuery->join('devices',  'devices.id', '=', 'report_configurations.device_id');
         if (Auth::guard('admin')->user()->role != 'SUPERADMIN') {
-            $subQuery->where('report_configurations.created_by', Auth::guard('admin')->user()->id)->latest()->get();
+            if (Auth::guard('admin')->user()->role == "ADMIN") {
+                $subQuery->where('report_configurations.organization_id', Auth::guard('admin')->user()->organization_id);
+            } else {
+                $subQuery->where('report_configurations.created_by', Auth::guard('admin')->user()->id);
+            }
+            // $subQuery->where('report_configurations.created_by', Auth::guard('admin')->user()->id)->latest()->get();
         }
         if($type == 'count'){
             $report =  $subQuery->latest('reports.created_at')->count();

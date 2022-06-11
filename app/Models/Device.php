@@ -141,12 +141,17 @@ class Device extends Model
             if ($keyword) {
                 $subQuery->orWhere('devices.location', 'LIKE', "%$keyword%");
             }
-            $subQuery->where('devices.created_by', Auth::guard('admin')->user()->id);
+            // $subQuery->where('devices.created_by', Auth::guard('admin')->user()->id);
+            if (Auth::guard('admin')->user()->role == "ADMIN") {
+                $subQuery->where('devices.organization_id', Auth::guard('admin')->user()->organization_id);
+            } else {
+                $subQuery->where('devices.created_by', Auth::guard('admin')->user()->id);
+            }
             $subQuery->Join('device_map', function ($join) {
                 $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
                 $join->on('device_map.secret_key', '=', 'devices.secret_key');
             });
-            $subQuery->Join('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+            $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
             $subQuery->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
             $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $subQuery->groupBy('devices.id');
@@ -188,6 +193,56 @@ class Device extends Model
         $subQuery->where('devices.id', '=', $device_id);
         $subQuery->groupBy('devices.id');
         return  $subQuery->first();
+    }
+
+
+    public function getDeviceByOrganization(){
+         
+            $keyword = "";
+            $subQuery =  Device::select(
+                'device_map.MQTT_ID',
+                'device_map.max_user_access',
+                'device_map.subscription_status',
+                'device_map.IMEI_No',
+                'device_status.Status',
+                'device_type.device_type',
+                'device_type.data_table',
+                'device_type.dashboard_id',
+                'devices.*',
+            );
+          
+            // $subQuery->where('devices.created_by', Auth::guard('admin')->user()->id);
+            if (Auth::guard('admin')->user()->role == "ADMIN") {
+                $subQuery->where('devices.organization_id', Auth::guard('admin')->user()->organization_id);
+            } else {
+                $subQuery->where('devices.created_by', Auth::guard('admin')->user()->id);
+            }
+            $subQuery->Join('device_map', function ($join) {
+                $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
+                $join->on('device_map.secret_key', '=', 'devices.secret_key');
+            });
+            $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+            $subQuery->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
+            $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
+            $subQuery->groupBy('devices.id');
+            $device =  $subQuery->latest('devices.created_at')->get();
+            return $device;
+        
+    }
+
+    public function getDeviceForDropdown(){
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $device = Device::select('modem_id', 'id',)->pluck('modem_id', 'id')->toArray();
+        } else {
+            $subQuery = Device::select('modem_id', 'id',);
+            if (Auth::guard('admin')->user()->role == "ADMIN") {
+                $subQuery->where('organization_id', Auth::guard('admin')->user()->organization_id);
+            } else {
+                $subQuery->where('created_by', Auth::guard('admin')->user()->id);
+            }
+            $device = $subQuery->pluck('modem_id', 'id')->toArray();
+        }
+        return $device;
     }
 
 }

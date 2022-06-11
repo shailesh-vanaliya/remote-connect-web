@@ -85,10 +85,30 @@ class ReportConfigurationController extends Controller
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
             $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
         } else {
-            $device = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
+            // echo Auth::guard('admin')->user()->organization_id;
+            // exit;
+            $subQuery = Device::select('modem_id', 'id',);
+            // $subQuery->where('created_by', Auth::guard('admin')->user()->id);
+            if (Auth::guard('admin')->user()->role == "ADMIN") {
+                    $subQuery->where('organization_id', Auth::guard('admin')->user()->organization_id);
+                } else {
+                    $subQuery->where('created_by', Auth::guard('admin')->user()->id);
+                }
+            $device = $subQuery->pluck('modem_id', 'id')->toArray();
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
             $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
             // $data['organization'] = Organization::select('organization_name','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('organization_name', 'id')->toArray();
+            
+            // $subQuery =  Device::select('modem_id', 'id');
+            // $subQuery->where('created_by', Auth::guard('admin')->user()->id);
+            // // if (Auth::guard('admin')->user()->role == "ADMIN") {
+            // //     $subQuery->where('created_by', Auth::guard('admin')->user()->organization_id);
+            // // } else {
+            // //     $subQuery->where('created_by', Auth::guard('admin')->user()->id);
+            // // }
+            // $subQuery->pluck('modem_id', 'id');
+            // $device = $subQuery->get()->toArray();
+
         }
       
         $data['column'] = array();
@@ -120,7 +140,9 @@ class ReportConfigurationController extends Controller
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             $requestData['parameter'] = json_encode($requestData['parameter']);
-          
+            if (Auth::guard('admin')->user()->role != "SUPERADMIN") {
+                $requestData['organization_id'] = Auth::guard('admin')->user()->organization_id;
+            }
             $res = ReportConfiguration::create($requestData);
           
             $requestData['report_config_id'] = $res->id;
@@ -187,7 +209,15 @@ class ReportConfigurationController extends Controller
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
             $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
         } else {
-            $data['device'] = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
+            // $data['device'] = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
+            $subQuery = Device::select('modem_id', 'id',);
+            // $subQuery->where('created_by', Auth::guard('admin')->user()->id);
+            if (Auth::guard('admin')->user()->role == "ADMIN") {
+                    $subQuery->where('organization_id', Auth::guard('admin')->user()->organization_id);
+                } else {
+                    $subQuery->where('created_by', Auth::guard('admin')->user()->id);
+                }
+            $data['device'] = $subQuery->pluck('modem_id', 'id')->toArray();
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
             $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
         }
@@ -212,6 +242,9 @@ class ReportConfigurationController extends Controller
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             $reportconfiguration = ReportConfiguration::findOrFail($id);
             $requestData['parameter'] = json_encode($requestData['parameter']);
+            if (Auth::guard('admin')->user()->role != "SUPERADMIN") {
+                $requestData['organization_id'] = Auth::guard('admin')->user()->organization_id;
+            }
             $id = $reportconfiguration->update($requestData);
 
             return redirect('admin/report-configuration')->with('session_success', 'ReportConfiguration updated!');

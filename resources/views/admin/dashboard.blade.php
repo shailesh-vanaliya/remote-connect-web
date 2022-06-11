@@ -48,7 +48,7 @@
     </div> -->
   <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVqNumGk1DCDuthLx-X7YqutsMm6DReNA&region=india&libraries=places"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkrgvkdY6tUrgzPDRRNk9Jv9LVWg_9n0M&region=india&libraries=places"></script>
   <!-- <div id="mapa" class="col-md-12" style="width: 1000px; height: 600px;"></div> -->
   <div class="row">
     <!-- Left col -->

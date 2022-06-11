@@ -8,6 +8,7 @@ use App\Models\Device;
 use App\Models\AlertConfigration;
 use Illuminate\Http\Request;
 use Auth;
+
 class AlertConfigurationController extends Controller
 {
     public function __construct()
@@ -24,22 +25,15 @@ class AlertConfigurationController extends Controller
         $keyword = $request->get('search');
         $perPage = 25;
 
-        // if (!empty($keyword)) {
-        //     $data['alertconfigration']  = AlertConfigration::where('modem_id', 'LIKE', "%$keyword%")
-        //         ->orWhere('parameter', 'LIKE', "%$keyword%")
-        //         ->orWhere('condition', 'LIKE', "%$keyword%")
-        //         ->orWhere('set_value', 'LIKE', "%$keyword%")
-        //         ->orWhere('sms_alert', 'LIKE', "%$keyword%")
-        //         ->orWhere('email_alert', 'LIKE', "%$keyword%")
-        //         ->latest()->paginate($perPage);
-        // } else {
-        //     $data['alertconfigration'] = AlertConfigration::latest()->paginate($perPage);
+        // if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+        //     $data['alertconfigration'] = AlertConfigration::get();
+        // }  else {
+        //     $data['alertconfigration'] = AlertConfigration::where('created_by', Auth::guard('admin')->user()->id)->get();
         // }
-        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-            $data['alertconfigration'] = AlertConfigration::get();
-        }  else {
-            $data['alertconfigration'] = AlertConfigration::where('created_by', Auth::guard('admin')->user()->id)->get();
-        }
+
+        $alertConfigObj = new AlertConfigration();
+        $data['alertconfigration'] =  $alertConfigObj->getAlertCong($request->all());
+
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/dashboard.js'];
         // $data['funinit']               = [''];
@@ -72,11 +66,9 @@ class AlertConfigurationController extends Controller
                 'create' => '',
             ],
         ];
-        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-            $data['device'] = Device::select('modem_id', 'id',)->pluck('modem_id', 'id')->toArray();
-        } else {
-            $data['device'] = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
-        }
+     
+        $deviceObj = new Device();
+        $data['device']= $deviceObj->getDeviceForDropdown();
 
         return view('admin.alert-configration.create', $data);
     }
@@ -95,6 +87,7 @@ class AlertConfigurationController extends Controller
             $requestData['organization_id'] = 1;
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            $requestData['modem_id'] = $requestData['device_id'];
             AlertConfigration::create($requestData);
 
             return redirect('admin/alert-configration')->with('session_success', 'Alert Configuration added!');
@@ -155,11 +148,8 @@ class AlertConfigurationController extends Controller
                 'Edit' => '',
             ],
         ];
-        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-            $data['device'] = Device::select('modem_id', 'id',)->pluck('modem_id', 'id')->toArray();
-        } else {
-            $data['device'] = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
-        }
+        $deviceObj = new Device();
+        $data['device']= $deviceObj->getDeviceForDropdown();
         return view('admin.alert-configration.edit', $data);
     }
 
@@ -179,6 +169,7 @@ class AlertConfigurationController extends Controller
             $alertconfigration = AlertConfigration::findOrFail($id);
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            $requestData['modem_id'] = $requestData['device_id'];
             $alertconfigration->update($requestData);
 
             return redirect('admin/alert-configration')->with('session_success', 'Alert Configuration updated!');

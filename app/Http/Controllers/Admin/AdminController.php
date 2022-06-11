@@ -48,7 +48,8 @@ class AdminController extends Controller
 
         $deviceObj = new Device();
         $device = $deviceObj->getDeviceByUser();
- 
+        $data['device'] =  $device->count();
+        
         $data['client']                = User::where("role", 'USER')->count();
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/dashboard.js'];
@@ -58,7 +59,7 @@ class AdminController extends Controller
         }  else {
             $data['alertCount'] = AlertConfigration::where('created_by', Auth::guard('admin')->user()->id)->count();
         }
-        $data['device'] =  $device->count();
+      
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
             $onlineDevice =  Device::select(
                 'device_map.MQTT_ID',
@@ -94,13 +95,17 @@ class AdminController extends Controller
                 'device_type.device_type',
                 'devices.*',
             );
-         
-            $onlineDevice->where('devices.created_by', Auth::guard('admin')->user()->id);
+            if (Auth::guard('admin')->user()->role == "ADMIN") {
+                $onlineDevice->where('devices.organization_id', Auth::guard('admin')->user()->organization_id);
+            } else {
+                $onlineDevice->where('devices.created_by', Auth::guard('admin')->user()->id);
+            }
+            // $onlineDevice->where('devices.created_by', Auth::guard('admin')->user()->id);
             $onlineDevice->Join('device_map', function ($join) {
                 $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
                 $join->on('device_map.secret_key', '=', 'devices.secret_key');
             });
-            $onlineDevice->Join('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+            $onlineDevice->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
             $onlineDevice->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
             $onlineDevice->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $onlineDevice->where('device_status.Status',1);

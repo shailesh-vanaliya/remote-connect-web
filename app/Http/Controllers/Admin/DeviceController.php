@@ -547,7 +547,12 @@ class DeviceController extends Controller
         // }
         // $collected_items = $subQuery->get()->toArray();
         $deviceObj = new Device();
-        $collected_items = $deviceObj->getDeviceByUser()->toArray();
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN' || Auth::guard('admin')->user()->role == 'USER') {
+            $collected_items = $deviceObj->getDeviceByUser()->toArray();
+        }else{
+            $collected_items = $deviceObj->getDeviceByOrganization()->toArray();
+        }
+        
 
         $locationList = [];
         foreach ($collected_items as $key => $values) {
