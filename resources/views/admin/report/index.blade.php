@@ -75,7 +75,7 @@
 @extends('admin.layouts.admin')
 @section('content')
 @section('title', $pagetitle )
- 
+
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -129,13 +129,17 @@
                                             {{ csrf_field() }}
                                             <button type="submit" class="btn btn-danger btn-xs ml-1" title="Delete Report" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
                                         </form> &nbsp;
-                                        <form method="POST" action="{{ url('/admin/report-export/') }}">
+                                        <a data-toggle="modal" class="btn btn-secondary btn-xs mr-1 downloadBtn" data-report_id="{{ $item->id }}" data-modem_id="{{ $item->modem_id }}" data-parameter="{{ $item->parameter }}" title="Download Report" href="#dashboardModel">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+
+                                        <!-- <form method="POST" action="{{ url('/admin/report-export/') }}">
                                             <input type="hidden" name="report_id" value="{{ $item->id }}">
                                             <input type="hidden" name="parameter" value="{{ $item->parameter }}">
                                             <input type="hidden" name="modem_id" value="{{ $item->modem_id }}">
                                             {{ csrf_field() }}
                                             <button type="submit" class="btn btn-secondary btn-xs mr-1" title="Download Report"><i class="fas fa-download" aria-hidden="true"></i> </button>
-                                        </form>
+                                        </form> -->
                                     </td>
                                 </tr>
                                 @endforeach
@@ -146,5 +150,46 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="dashboardModel">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Download Reports</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ url('/admin/report-export/') }}" enctype="multipart/form-data" method="POST" class="form-horizontal" id="addNewEvent">
+                    <div class="modal-body">
+                    <div class="row">
+                            <div class="col-sm-12">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="report_id" class="report_id" value="">
+                                <input type="hidden" name="parameter" class="parameter" value="">
+                                <input type="hidden" name="modem_id" class="modem_id" value="">
+                                <input class="form-control startDate" id="startDate" name="start" type="hidden" placeholder="Start Date" aria-label="Search">
+                                    <input class="form-control endDate" id="endDate" name="end" type="hidden" placeholder="End date" aria-label="Search">
+                                <div class="form-group row">
+                                    <label for="longitude" class="col-form-label text-right col-lg-4 col-sm-12">{{ 'Select Date Range' }}</label>
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                    <input type="text" name="dateRange" class="form-control float-right-" id="dateRange">
+                                        <!-- <input class="form-control" type="text" id="longitude" name="longitude" value=""> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Download</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
 </section>
 @endsection

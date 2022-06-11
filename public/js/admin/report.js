@@ -125,7 +125,29 @@ var Report = function () {
 
     }
     var handleLists = function () {
-        console.log("dd")
+        $('#dateRange').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            autoUpdateInput: true,
+            timePicker24Hour: true,
+            locale: {
+                format: 'DD/MM/YYYY hh:mm A'
+            }
+        })
+
+        $('.applyBtn').click(function () {
+            let startDate = $('#dateRange').data('daterangepicker').startDate.format('YYYY-MM-DD HH:mm');
+            let endDate = $('#dateRange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm');
+            $('#startDate').val(startDate);
+            $('#endDate').val(endDate);
+        });
+
+        $('.downloadBtn').click(function () {
+            $('.applyBtn').trigger('click')
+           let report_id  = $('.report_id').val($(this).attr('data-report_id'));
+           let modem_id  = $('.modem_id').val($(this).attr('data-modem_id'));
+           let parameter  = $('.parameter').val($(this).attr('data-parameter'));
+        });
     }
  
     // buttons-excel
@@ -138,4 +160,5 @@ var Report = function () {
         listInit: function () {
             handleLists();
         }
-}();
+    }
+}()

@@ -27,8 +27,8 @@ class ReportConfigurationExport implements FromCollection
         $this->data['parameter'] = str_replace("]","",$this->data['parameter']);
         // $this->data['parameter'] = str_replace('"',"''",$this->data['parameter']);
 
-        // print_r($this->data['modem_id']);
-        // exit;
+        // print_r($this->data);
+        // exit;                                           
         // $string = "'modem_id','Pressure_PV'";
         $string = $this->data['parameter'];
         // $string = str_replace(",","','",$string);
@@ -36,7 +36,8 @@ class ReportConfigurationExport implements FromCollection
         
         // echo $string;exit;;
         try {
-          
+            $start = $this->data['start'].":00";
+            $end = $this->data['end'].":00";
             // $res  =  DataLog::select($this->data['parameter'])
             // $res  =  DataLog::select('modem_id','slave_id')
             $res  =  DataLog::selectRaw($string)
@@ -57,6 +58,10 @@ class ReportConfigurationExport implements FromCollection
             //     'CPU_TEMP'
             // )
             ->where("modem_id", $this->data['modem_id'])
+            ->whereRaw(
+                "(dtm >= ? AND dtm <= ?)",
+                [$start, $end ]
+            )
             // ->where("modem_id", 'FT104')
             // ->take(5)
                 ->get();
