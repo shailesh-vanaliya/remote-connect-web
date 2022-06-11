@@ -2,7 +2,7 @@
 @section('content')
 @section('title', $pagetitle )
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtm6FhRz26-NQBaTZLSu8U3EMg20hYumQ&libraries=places"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDI-DdlDKpeQ-Pvucz4pKzJMsGTV5Z0eg&libraries=places"></script>
 <script>
     function initialize() {
         var input = document.getElementById('location');

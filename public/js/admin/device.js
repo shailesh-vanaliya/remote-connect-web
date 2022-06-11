@@ -24,9 +24,11 @@ var Device = function () {
                     success: function (data) {
                         $("#parameter").html("");
                         var data = JSON.parse(data);
-                        console.log(data.model_no)
-                        $("#model_no").val(data.model_no);
-                        $("#organization_id").val(data.organization_id);
+                        if(data?.organization_id){
+                            $("#model_no").val(data?.model_no);
+                            $("#organization_id").val(data?.organization_id);
+                        }
+                        
                     }
                 });
             }

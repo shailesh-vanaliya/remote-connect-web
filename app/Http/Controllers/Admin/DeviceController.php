@@ -27,6 +27,8 @@ class DeviceController extends Controller
      */
     public function index(Request $request)
     {
+
+
         $keyword = $request->get('search');
         $perPage = 100;
         $collected_items = Device::whereNotNull('latitude')->whereNotNull('longitude')
@@ -75,18 +77,9 @@ class DeviceController extends Controller
                 'location',
             )->pluck('location', 'location')->toArray();
         } else {
-            // if ($keyword) {
-            //     $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
-            //         ->Where('location', 'LIKE', "%$keyword%")
-            //         ->latest()->paginate($perPage);
-            // } else {
-            // $data['device'] = Device::where('created_by', Auth::guard('admin')->user()->id)
-            //     ->latest()->paginate($perPage);
+
             $subQuery =  Device::select(
-                // 'devices.modem_id as modem_id',
-                // 'devices.secret_key as  secret_key',
-                // 'devices.id',
-                // 'devices.location',
+
                 'device_map.MQTT_ID',
                 // 'device_map.MODEM_ID',
                 'device_map.max_user_access',
@@ -101,12 +94,18 @@ class DeviceController extends Controller
             if ($keyword) {
                 $subQuery->orWhere('devices.location', 'LIKE', "%$keyword%");
             }
-            $subQuery->where('devices.created_by', Auth::guard('admin')->user()->id);
+// print_r(Auth::guard('admin')->user());
+// exit;
+            if (Auth::guard('admin')->user()->role == "ADMIN") {
+                $subQuery->where('devices.organization_id', Auth::guard('admin')->user()->organization_id);
+            } else {
+                $subQuery->where('devices.created_by', Auth::guard('admin')->user()->id);
+            }
             $subQuery->Join('device_map', function ($join) {
                 $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
                 $join->on('device_map.secret_key', '=', 'devices.secret_key');
             });
-            $subQuery->Join('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+            $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
             $subQuery->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
             $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $subQuery->groupBy('devices.id');
@@ -307,6 +306,10 @@ class DeviceController extends Controller
 
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            if (Auth::guard('admin')->user()->role == "USER") {
+                $requestData['organization_id'] = Auth::guard('admin')->user()->id;
+            }
+            
             Device::create($requestData);
 
             return redirect('admin/device')->with('session_success', 'Device added!');
@@ -389,23 +392,25 @@ class DeviceController extends Controller
             if ($mapCount == 0) {
                 return redirect(`admin/device/$id/edit`)->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
-           
+
             $modemMapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))->first();
 
-            $modemCount = Device::where('id','!=', $id)->where('modem_id', $request->all('modem_id'))->count();
+            $modemCount = Device::where('id', '!=', $id)->where('modem_id', $request->all('modem_id'))->count();
             if (isset($modemMapCount) &&  $modemCount >= $modemMapCount->max_user_access) {
                 return redirect("admin/device/$id/edit")->with('session_error', 'Sorry, maximum user device limit exceed, contact to admin!')->withInput();
             }
             try {
-            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
-            
-            $device = Device::findOrFail($id);
-            $device->update($requestData);
+                $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+                if (Auth::guard('admin')->user()->role == "USER") {
+                    $requestData['organization_id'] = Auth::guard('admin')->user()->id;
+                }
+                $device = Device::findOrFail($id);
+                $device->update($requestData);
 
-            return redirect('admin/device')->with('session_success', 'Device updated!');
-        } catch (\Exception $e) {
-            return redirect(`admin/device/$id/edit`)->with('session_error', $e->getMessage());
-        }
+                return redirect('admin/device')->with('session_success', 'Device updated!');
+            } catch (\Exception $e) {
+                return redirect(`admin/device/$id/edit`)->with('session_error', $e->getMessage());
+            }
         } catch (\Exception $e) {
             return redirect(`admin/device/$id/edit`)->with('session_error', $e->getMessage());
         }
