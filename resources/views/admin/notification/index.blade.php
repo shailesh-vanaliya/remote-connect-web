@@ -34,9 +34,9 @@
                                     <th>#</th>
                                     <th>Modem Id</th>
                                     <th>Alert Message</th>
-                                    <th>Is Read</th>
-                                    <th>Is Email Send</th>
-                                    <th>Is Sms Send</th>
+                                    <th>Is Viewed</th>
+                                    <th>Is Email Sent</th>
+                                    <th>Is Sms Sent</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
