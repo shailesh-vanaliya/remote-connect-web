@@ -6,13 +6,25 @@
             {!! $errors->first('modem_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
+   
+
     <div class="form-group row {{ $errors->has('parameter') ? 'has-error' : ''}}">
         <label for="parameter" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Parameter' }}</label>
         <div class="col-sm-5">
-            <input class="form-control" name="parameter" type="text" id="parameter" value="{{ isset($alertconfigration->parameter) ? $alertconfigration->parameter : ''}}">
-            {!! $errors->first('parameter', '<p class="help-block">:message</p>') !!}
+            <select class="form-control parameter" id="parameter"  required name="parameter[]" data-placeholder="Select a Parameter" style="width: 100%;">
+                @php
+                $array = (isset($alertconfigration->parameter)) ? json_decode($alertconfigration->parameter) : '';
+                @endphp
+                @foreach($column as $row => $val)
+                @php
+                $check = isset($alertconfigration->parameter) && !empty($array) ? (in_array($val,$array) ? 'selected' : '') : '';
+                @endphp
+                <option {{ $check  }} value="{{ $val }}">{{ $val }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
+
     <div class="form-group row {{ $errors->has('condition') ? 'has-error' : ''}}">
         <label for="condition" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Condition' }}</label>
         <div class="col-sm-5">

@@ -85,6 +85,7 @@ class UserController extends Controller
             $user->mobile_no          = $requestData['mobile_no'];
             $user->role          = $requestData['role'];
             $user->status          = $requestData['status'];
+            $user->organization_id          = $requestData['organization_id'];
             $user->sms_alert = (isset($requestData['sms_alert']) && $requestData['sms_alert'] == 'on') ? 1 : 0;
             $user->email_report = (isset($requestData['email_report']) &&  $requestData['email_report'] == 'on') ? 1 : 0;
             $user->email_alert = (isset($requestData['email_alert']) &&  $requestData['email_alert'] == 'on') ? 1 : 0;
@@ -180,6 +181,7 @@ class UserController extends Controller
             // $user->email = $requestData['email'];
             $user->status = $requestData['status'];
             $user->role = $requestData['role'];
+            $user->organization_id          = $requestData['organization_id'];
             $user->sms_alert = (isset($requestData['sms_alert']) && $requestData['sms_alert'] == 'on') ? 1 : 0;
             $user->email_report = (isset($requestData['email_report']) &&  $requestData['email_report'] == 'on') ? 1 : 0;
             $user->email_alert = (isset($requestData['email_alert']) &&  $requestData['email_alert'] == 'on') ? 1 : 0;

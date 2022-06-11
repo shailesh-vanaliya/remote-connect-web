@@ -245,4 +245,6 @@ class Device extends Model
         return $device;
     }
 
+
+    
 }

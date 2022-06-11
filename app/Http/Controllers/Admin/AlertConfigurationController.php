@@ -56,9 +56,9 @@ class AlertConfigurationController extends Controller
     public function create()
     {
         $data['pagetitle']             = 'Alert configuration';
-        $data['js']                    = ['admin/dashboard.js'];
-        // $data['funinit']               = [''];
-        // $data['funinit']               = ['Dashboard.initMeter()'];
+        $data['js']                    = ['admin/alertConfig.js'];
+        $data['funinit']               = ['AlertConfig.init()'];
+        $data['pluginjs']               = ['plugins/select2/js/select2.full.min.js'];
         $data['header']    = [
             'title'      => 'Alert Configuration',
             'breadcrumb' => [
@@ -66,7 +66,7 @@ class AlertConfigurationController extends Controller
                 'create' => '',
             ],
         ];
-     
+        $data['column'] = array();
         $deviceObj = new Device();
         $data['device']= $deviceObj->getDeviceForDropdown();
 
@@ -139,6 +139,7 @@ class AlertConfigurationController extends Controller
         $data['alertconfigration'] = AlertConfigration::findOrFail($id);
         $data['pagetitle']             = 'Notification';
         $data['js']                    = ['admin/dashboard.js'];
+        $data['pluginjs']               = ['plugins/select2/js/select2.full.min.js'];
         // $data['funinit']               = [''];
         // $data['funinit']               = ['Dashboard.initMeter()'];
         $data['header']    = [
@@ -148,6 +149,7 @@ class AlertConfigurationController extends Controller
                 'Edit' => '',
             ],
         ];
+        $data['column'] = array();
         $deviceObj = new Device();
         $data['device']= $deviceObj->getDeviceForDropdown();
         return view('admin.alert-configration.edit', $data);

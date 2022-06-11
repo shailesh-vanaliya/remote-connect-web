@@ -1,12 +1,12 @@
-var ReportConfig = function () {
+var AlertConfig = function () {
     var handleCreate = function () {
-        $('.select2').select2();
-
+        if ($(".select2").length > 0) {
+            $('.select2').select2();
+        }
 
         $('.device_id').change(function () {
             var device_id = $('.device_id option:selected').val();
-            // var that = $(this);
-            //    loadingStart(that);
+
             $.ajax({
                 type: "POST",
                 headers: { 'X-CSRF-TOKEN': $('input[name="_token"]').val() },
@@ -18,20 +18,22 @@ var ReportConfig = function () {
                     console.log(data)
                     var html = '<option value="">- - Choose Parameter - -</option>';
                     $.each(data.column, function (idx, val) {
-                       
+
                         html += '<option value="' + val + '">' + val + '</option>';
                     });
                     $("#parameter").html(html);
                 }
             });
         });
-// $('.device_id').trigger('change');
+        setTimeout(function(){
+            $('.device_id').trigger('change');
+        },100);
     }
-   
+        
     return {
         init: function () {
             handleCreate();
         },
-     
+
     }
 }();

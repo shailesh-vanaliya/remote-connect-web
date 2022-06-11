@@ -302,6 +302,9 @@ class ReportConfigurationController extends Controller
         $subQuery->groupBy('devices.id');
         $deviceList=  $subQuery->latest('devices.created_at')->first()->toArray();
         $result['column'] =  DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($deviceList['data_table']);
+        // unset($result['column'][0]);
+        $pos = array_search('id', $result['column']);
+        unset($result['column'][$pos]);
         return $result;
     }
 
