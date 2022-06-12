@@ -8,6 +8,10 @@ var Customer = function() {
               "responsive": true,"paging": true,  "info": true,"lengthChange": false, "autoWidth": false,
             //   // "buttons": [ "csv", "excel", "pdf", "print"]
             });
+          $("#example3").DataTable({
+              "responsive": true,"paging": true,  "info": true,"lengthChange": false, "autoWidth": false,
+            //   // "buttons": [ "csv", "excel", "pdf", "print"]
+            });
           $('#example2').DataTable({
             "paging": true,
             "responsive": true,
