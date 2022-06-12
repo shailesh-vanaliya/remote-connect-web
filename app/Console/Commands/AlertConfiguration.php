@@ -37,7 +37,7 @@ class AlertConfiguration extends Command
      */
     public function handle()
     {
-        $this->info('Alert Confguration command Run successfully!');
+        $this->info('Alert Configuration command Run successfully!');
         return 0;
     }
 }
