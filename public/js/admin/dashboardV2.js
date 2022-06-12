@@ -293,7 +293,7 @@ var DashboardV2 = function () {
                     }
                     
                     var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
-                        behavior: "zoomXY"
+                        behavior: "none"
                     }));
                     cursor.lineY.set("visible", true);
         
