@@ -41,9 +41,9 @@ class UserController extends Controller
                 ->get();
         } else {
             $data['users'] = User::select('users.*')
-                ->where('users.role', User::ROLES['ADMIN'])
+                // ->where('users.role', User::ROLES['ADMIN'])
                 ->orWhere('users.role', User::ROLES['USER'])
-                ->orWhere('users.role', User::ROLES['ENG'])
+                // ->orWhere('users.role', User::ROLES['ENG'])
                 ->where('organization_id', Auth::guard('admin')->user()->organization_id)
                 ->latest('created_at')
                 ->get();

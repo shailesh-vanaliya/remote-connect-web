@@ -79,7 +79,8 @@ return redirect('login');
                     <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/Device_map.svg') }}" alt=""> <p class="spn">Device Map</p>
                 </a>
             </li>
-
+            @endif
+            @if(Auth::guard('admin')->user()->role !== 'USER')
             <li class="{{ ($currRoute == 'users.create' || $currRoute == 'users.show' || $currRoute == 'users.edit' || $currRoute == 'users.index') ? 'active nav-item': 'nav-item' }}">
                 <a href="{{ url('/admin/users') }}" class="{{ ($currRoute == 'users.create' || $currRoute == 'users.show' || $currRoute == 'users.edit' || $currRoute == 'users.index') ? 'active nav-link': 'nav-link' }}">
                     <img  class="nav-icon" style="width:28px" src="{{ asset('public/ICON/User.svg') }}" alt="">
