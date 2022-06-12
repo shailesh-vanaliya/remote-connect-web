@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 use App\Models\DataLog;
+use App\Models\Honeywell;
 use App\Models\ReportConfiguration;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
@@ -27,8 +28,7 @@ class ReportConfigurationExport implements FromCollection
         $this->data['parameter'] = str_replace("]","",$this->data['parameter']);
         // $this->data['parameter'] = str_replace('"',"''",$this->data['parameter']);
 
-        // print_r($this->data);
-        // exit;                                           
+                                              
         // $string = "'modem_id','Pressure_PV'";
         $string = $this->data['parameter'];
         // $string = str_replace(",","','",$string);
@@ -40,31 +40,23 @@ class ReportConfigurationExport implements FromCollection
             $end = $this->data['end'].":00";
             // $res  =  DataLog::select($this->data['parameter'])
             // $res  =  DataLog::select('modem_id','slave_id')
-            $res  =  DataLog::selectRaw($string)
-            // $res  =  DataLog::select(
-            //     'modem_id',
-            //     'Pressure_PV',
-            //     'Temperature_PV',
-            //     'Waterflow',
-            //     'Pressure_SP',
-            //     'dtm',
-            //     'WATER_VALVE1',
-            //     'WATER_VALVE2',
-            //     'TOTAL_FLOW',
-            //     'DAILY_FLOW',
-            //     'MACHINE_STATUS',
-            //     'MOISTURE_STATUS',
-            //     'CLEAN_ON_TIME',
-            //     'CPU_TEMP'
-            // )
+            if($this->data['data_table'] == 'honeywell_pid'){
+                $res  =  Honeywell::selectRaw($string)
+                ->where("modem_id", $this->data['modem_id'])
+                ->whereRaw(
+                    "(dtm >= ? AND dtm <= ?)",
+                    [$start, $end ]
+                )->get();
+            }else{
+                $res  =  DataLog::selectRaw($string)
             ->where("modem_id", $this->data['modem_id'])
             ->whereRaw(
                 "(dtm >= ? AND dtm <= ?)",
                 [$start, $end ]
-            )
-            // ->where("modem_id", 'FT104')
-            // ->take(5)
-                ->get();
+            )->get();
+            }
+            
+
                 // print_r($res);
                 // exit;
                 // foreach( $res as $key => $val){

@@ -145,6 +145,7 @@ var Report = function () {
         $('.downloadBtn').click(function () {
             $('.applyBtn').trigger('click')
            let report_id  = $('.report_id').val($(this).attr('data-report_id'));
+           let data_table  = $('.data_table').val($(this).attr('data-data_table'));
            let modem_id  = $('.modem_id').val($(this).attr('data-modem_id'));
            let parameter  = $('.parameter').val($(this).attr('data-parameter'));
         });

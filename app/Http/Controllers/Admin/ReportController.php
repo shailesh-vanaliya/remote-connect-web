@@ -34,6 +34,7 @@ class ReportController extends Controller
             'report_configurations.report_title',
             'devices.modem_id',
             'device_type.device_type',
+            'device_type.data_table',
             'devices.project_name',
             'reports.*',
         );

@@ -129,7 +129,7 @@
                                             {{ csrf_field() }}
                                             <button type="submit" class="btn btn-danger btn-xs ml-1" title="Delete Report" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
                                         </form> &nbsp;
-                                        <a data-toggle="modal" class="btn btn-secondary btn-xs mr-1 downloadBtn" data-report_id="{{ $item->id }}" data-modem_id="{{ $item->modem_id }}" data-parameter="{{ $item->parameter }}" title="Download Report" href="#dashboardModel">
+                                        <a data-toggle="modal" class="btn btn-secondary btn-xs mr-1 downloadBtn" data-report_id="{{ $item->id }}" data-modem_id="{{ $item->modem_id }}"  data-data_table="{{ $item->data_table }}"  data-parameter="{{ $item->parameter }}" title="Download Report" href="#dashboardModel">
                                             <i class="fas fa-download"></i>
                                         </a>
 
@@ -168,6 +168,7 @@
                                 <input type="hidden" name="report_id" class="report_id" value="">
                                 <input type="hidden" name="parameter" class="parameter" value="">
                                 <input type="hidden" name="modem_id" class="modem_id" value="">
+                                <input type="hidden" name="data_table" class="data_table" value="">
                                 <input class="form-control startDate" id="startDate" name="start" type="hidden" placeholder="Start Date" aria-label="Search">
                                     <input class="form-control endDate" id="endDate" name="end" type="hidden" placeholder="End date" aria-label="Search">
                                 <div class="form-group row">
