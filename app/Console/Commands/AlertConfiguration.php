@@ -37,6 +37,21 @@ class AlertConfiguration extends Command
      */
     public function handle()
     {
+        \Log::info(date('Y-m-d H:i:s') . " - Alert Configuration command Run successfully!");
+        // $curl = curl_init();
+        // curl_setopt_array($curl, array(
+        //     CURLOPT_URL => $_SERVER['APP_URL']. '/document-cron',
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => '',
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 0,
+        //     CURLOPT_FOLLOWLOCATION => true,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => 'GET',
+        // ));
+
+        // $response = curl_exec($curl);
+        // curl_close($curl);
         $this->info('Alert Configuration command Run successfully!');
         return 0;
     }
