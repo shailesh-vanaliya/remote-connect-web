@@ -308,12 +308,30 @@ var DashboardV2 = function () {
                         orientation: "vertical"
                     }));
         
-                    var legend = chart.rightAxesContainer.children.push(am5.Legend.new(root, {
-                        width: 200,
-                        paddingLeft: 15,
-                        height: am5.percent(100)
-                    }));
+                    // var legend = chart.rightAxesContainer.children.push(am5.Legend.new(root, {
+                    //     width: 200,
+                    //     paddingLeft: 15,
+                    //     height: am5.percent(100)
+                    // }));
         
+                    var legend = chart.bottomAxesContainer.children.push(am5.Legend.new(root, {
+                        x: am5.percent(100),
+                        width: am5.percent(100),
+                        centerX: am5.percent(100),
+                        paddingTop:30,
+                        paddingLeft: 15,
+                        layout: root.horizontalLayout
+                      }));
+                      
+                    // var legend = chart.children.push(am5.Legend.new(root, {
+                    //     width: am5.percent(100),
+                    //     y: am5.percent(100),
+                    //     centerY: am5.percent(0),
+                    //     height:am5.percent(100),
+                    //     paddingLeft: 15,
+                    //     layout: root.horizontalLayout,
+                    //   }));
+
                     legend.itemContainers.template.events.on("pointerover", function (e) {
                         var itemContainer = e.target;
         
