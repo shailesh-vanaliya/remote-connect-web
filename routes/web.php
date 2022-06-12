@@ -6,6 +6,7 @@ use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MeterDashboardController;
+use App\Http\Controllers\CronController;
 use App\Http\Controllers\Admin\{
     SettingController,
     OrganizationController,
@@ -35,6 +36,8 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 Route::get('login', [LoginController::class,  'index']); 
+Route::get('/alert-cron', [CronController::class, 'alertCron']);
+
 
 Route::post('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout'); 

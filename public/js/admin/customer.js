@@ -3,9 +3,14 @@ var Customer = function() {
           $('.content').click(function() {
               $('.deviceInfomation').show();
           });
-          $("#example1").DataTable();
+        //   $("#example1").DataTable();
+          $("#example1").DataTable({
+              "responsive": true,"paging": true,  "info": true,"lengthChange": false, "autoWidth": false,
+            //   // "buttons": [ "csv", "excel", "pdf", "print"]
+            });
           $('#example2').DataTable({
             "paging": true,
+            "responsive": true,
             "lengthChange": false,
             "searching": true,
             "ordering": true,
