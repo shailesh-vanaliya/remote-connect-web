@@ -75,6 +75,9 @@
 
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
+              	<div class="inner" align="center" padding="0">
+                  <h2 style="font-size: 1.5rem">MASTER</h2>
+                </div>
                 <div class="inner">
                   <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv1 }} </h3>
                   <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ (empty($result)) ? "" :$result->sp1 }} </h4>
@@ -155,6 +158,9 @@
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
+                <div class="inner" align="center" padding="0">
+                  <h2 style="font-size: 1.5rem">SLAVE1</h2>
+                </div>
                 <div class="inner">
                   <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv2 }} </h3>
                   <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ (empty($result)) ? "" : $result->sp2 }} </h4>
@@ -246,10 +252,14 @@
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
+              	<div class="inner" align="center" padding="0">
+                  <h2 style="font-size: 1.5rem">SLAVE2</h2>
+                </div>
                 <div class="inner">
                   <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv3 }} </h3>
                   <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ (empty($result)) ? "" : $result->sp3 }} </h4>
                 </div>
+
                 <div class="icon">
                   <i class="fa fa-thermometer-three-quarters iconColor"></i>
                 </div>
@@ -334,6 +344,9 @@
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
+              	<div class="inner" align="center" padding="0">
+                  <h2 style="font-size: 1.5rem">SLAVE3</h2>
+                </div>
                 <div class="inner">
                   <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv4 }} </h3>
                   <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ (empty($result)) ? "" : $result->sp4 }} </h4>
@@ -422,6 +435,9 @@
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
+              	<div class="inner" align="center" padding="0">
+                  <h2 style="font-size: 1.5rem">SLAVE4</h2>
+                </div>
                 <div class="inner">
                   <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv5 }} </h3>
                   <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ (empty($result)) ? "" : $result->sp5 }} </h4>
@@ -512,6 +528,9 @@
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
+              	<div class="inner" align="center" padding="0">
+                  <h2 style="font-size: 1.5rem">SLAVE5</h2>
+                </div>
                 <div class="inner">
                   <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv6 }} </h3>
                   <h4 style="font-size: 2.8rem"><sup style="font-size: 22px">SP</sup> {{ (empty($result)) ? "" : $result->sp6 }} </h4>

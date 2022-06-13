@@ -250,7 +250,7 @@ var DashboardV2 = function () {
                         return data;
                     }
                     // console.log(result.length, "result.lengthresult.length")
-                    let titlename = ["PV1","SP1","PV2","SP2","PV3","SP3","PV4","SP4","PV5","SP5","PV6","SP6"];
+                    let titlename = ["MASTER SP","MASTER PV","SLAVE1 SP","SLAVE1 PV","SLAVE2 SP","SLAVE2 PV","SLAVE3 SP","SLAVE3 PV","SLAVE4 SP","SLAVE4 PV","SLAVE5 SP","SLAVE5 PV"];
                     for (var i = 0; i < result.length; i++) {
                         var series = chart.series.push(am5xy.LineSeries.new(root, {
                             minBulletDistance: 10,
@@ -260,10 +260,10 @@ var DashboardV2 = function () {
                             yAxis: yAxis,
                             valueYField: "value",
                             valueXField: "date",
-                            legendValueText: "{valueY}"+"°C",
+                            // legendValueText: "{valueY}"+"°C",
                             // seriesTooltipTarget: "bullet",
                             tooltip: am5.Tooltip.new(root, {
-                              labelText: "Temperature"+" {name}[/] {valueY}"+"°C",
+                              labelText: "{name}[/] {valueY}"+"°C",
                               pointerOrientation: "right"
                             })
                         }));
@@ -308,20 +308,20 @@ var DashboardV2 = function () {
                         orientation: "vertical"
                     }));
         
-                    // var legend = chart.rightAxesContainer.children.push(am5.Legend.new(root, {
-                    //     width: 200,
-                    //     paddingLeft: 15,
-                    //     height: am5.percent(100)
-                    // }));
+                    var legend = chart.rightAxesContainer.children.push(am5.Legend.new(root, {
+					  // width: 200,
+					  // paddingLeft: 15,
+					  height: am5.percent(100)
+					}));
         
-                    var legend = chart.bottomAxesContainer.children.push(am5.Legend.new(root, {
-                        x: am5.percent(100),
-                        width: am5.percent(100),
-                        centerX: am5.percent(100),
-                        paddingTop:30,
-                        paddingLeft: 15,
-                        layout: root.horizontalLayout
-                      }));
+                    // var legend = chart.bottomAxesContainer.children.push(am5.Legend.new(root, {
+                    //     x: am5.percent(0),
+                    //     // width: am5.percent(100),
+                    //     centerX: am5.percent(0),
+                    //     paddingTop:1,
+                    //     // paddingLeft: 15,
+                    //     layout: root.horizontalLayout
+                    //   }));
                       
                     // var legend = chart.children.push(am5.Legend.new(root, {
                     //     width: am5.percent(100),
