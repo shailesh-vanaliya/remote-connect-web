@@ -1,6 +1,7 @@
 var Report = function () {
     var handleList = function () {
-        $('.device_type_id').change(function () {
+        // $('.device_type_id').change(function () {
+        $("body").on('click', '.device_type_id', function () {
             var device_type_id = $('.device_type_id option:selected').val();
             // var that = $(this);
             //    loadingStart(that);
@@ -21,7 +22,7 @@ var Report = function () {
 
                     $('#coursesForType').empty();
                     for (var i = 0; i < data.column.length; i++) {
-                        $('#coursesForType').append('<div><input type="checkbox" class="checkAction" checked name="fieldList[]" id= ' + data.column[i] + ' value= ' + data.column[i] + '  />&nbsp;&nbsp;<span class="label-value-view"><label for = ' + data.column[i]['id'] + '>' + data.column[i]  + "</label></span></div>");
+                        $('#coursesForType').append('<div><input type="checkbox" class="checkAction" checked name="fieldList[]" id= ' + data.column[i] + ' value= ' + data.column[i] + '  />&nbsp;&nbsp;<span class="label-value-view"><label for = ' + data.column[i]['id'] + '>' + data.column[i] + "</label></span></div>");
                     }
                     // radioCheckboxClass();
 
@@ -66,36 +67,12 @@ var Report = function () {
         // });
         // }
 
-        
-        $('.courseGet').change(function () {
-            var course_type = $('#course_type :selected').val();
-            var course_active = $("input[name='courseStatus']:checked").val();
-            var that = $(this);
-            loadingStart(that);
-            $.ajax({
-                type: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-                },
-                url: site_url + "agentCommission/ajaxAction",
-                data: { 'action': 'getCourseFromType', 'data': { 'course_type': course_type, 'course_active': course_active } },
-                success: function (data) {
-                    loadingEnd(that);
-                    var data = JSON.parse(data);
-                    $('#coursesForType').empty();
-                    for (var i = 0; i < data.column.length; i++) {
-                        console.log("hHhh")
-                        $('#coursesForType').append('<div><input type="checkbox" class="checkAction" checked name="fieldList[]" id= ' + data[i]['id'] + ' value= ' + data[i]['id'] + '  />&nbsp;&nbsp;<span class="label-value-view"><label for = ' + data[i]['id'] + '>' + data[i]['course_code'] + ' : ' + data[i]['course_name'] + " " + "</label></span></div>");
-                    }
-                    // radioCheckboxClass();
-                }
-            });
-        });
 
-          // $("#example1").DataTable({
-          //   "responsive": true,"paging": true,  "info": true,"lengthChange": false, "autoWidth": false,
-          //   // "buttons": [ "csv", "excel", "pdf", "print"]
-          // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        // $("#example1").DataTable({
+        //   "responsive": true,"paging": true,  "info": true,"lengthChange": false, "autoWidth": false,
+        //   // "buttons": [ "csv", "excel", "pdf", "print"]
+        // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         //   $('#example1').DataTable({
         //     initComplete: function () {
@@ -107,10 +84,10 @@ var Report = function () {
         //                     .appendTo($(column.footer()).empty())
         //                     .on('change', function () {
         //                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
-     
+
         //                         column.search(val ? '^' + val + '$' : '', true, false).draw();
         //                     });
-     
+
         //                 column
         //                     .data()
         //                     .unique()
@@ -135,22 +112,28 @@ var Report = function () {
             }
         })
 
-        $('.applyBtn').click(function () {
+
+        // $('.applyBtn').click(function () {
+        $("body").on('click', '.applyBtn', function () {
             let startDate = $('#dateRange').data('daterangepicker').startDate.format('YYYY-MM-DD HH:mm');
             let endDate = $('#dateRange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm');
             $('#startDate').val(startDate);
             $('#endDate').val(endDate);
         });
 
-        $('.downloadBtn').click(function () {
+        // $('.downloadBtn').click(function () {
+        // $('.downloadBtn').on('click',function(){
+        $("body").on('click', '.downloadBtn', function () {
             $('.applyBtn').trigger('click')
-           let report_id  = $('.report_id').val($(this).attr('data-report_id'));
-           let data_table  = $('.data_table').val($(this).attr('data-data_table'));
-           let modem_id  = $('.modem_id').val($(this).attr('data-modem_id'));
-           let parameter  = $('.parameter').val($(this).attr('data-parameter'));
+            console.log($(this).attr('data-report_id'), " ===")
+            let report_id = $('.report_id').val($(this).attr('data-report_id'));
+            let data_table = $('.data_table').val($(this).attr('data-data_table'));
+            let modem_id = $('.modem_id').val($(this).attr('data-modem_id'));
+            let parameter = $('.parameter').val($(this).attr('data-parameter'));
         });
+        $('.applyBtn').trigger('click')
     }
- 
+
     // buttons-excel
 
 

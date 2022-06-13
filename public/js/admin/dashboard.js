@@ -236,18 +236,21 @@ var Dashboard = function () {
             }
         })
 
-        $('.search').click(function () {
+        // $('.search').click(function () {
+        $("body").on('click', '.search', function () {
             getAmChart()
         });
 
-        $('.applyBtn').click(function () {
+        // $('.applyBtn').click(function () {
+        $("body").on('click', '.applyBtn', function () {
             let startDate = $('#dateRange').data('daterangepicker').startDate.format('YYYY-MM-DD HH:mm');
             let endDate = $('#dateRange').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm');
             $('#startDate').val(startDate);
             $('#endDate').val(endDate);
         });
 
-        $('.reset').click(function () {
+        // $('.reset').click(function () {
+        $("body").on('click', '.reset', function () {
             $('#startDate').val('')
             $('#endDate').val('');
             $('#dateRange').val('');
@@ -434,17 +437,17 @@ var Dashboard = function () {
                         valueYField: "value",
                         valueXField: "date",
                         tooltip: am5.Tooltip.new(root, {
-                            labelText: "{valueY}"+"°C"
+                            labelText: "{valueY}" + "°C"
                         })
                     }));
-                    
+
 
                     // Add scrollbar
                     // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
                     chart.set("scrollbarX", am5.Scrollbar.new(root, {
                         orientation: "horizontal"
                     }));
-                    
+
                     series.data.setAll(data);
 
 
