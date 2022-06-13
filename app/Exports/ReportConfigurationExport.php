@@ -33,7 +33,7 @@ class ReportConfigurationExport implements FromCollection
         $string = $this->data['parameter'];
         // $string = str_replace(",","','",$string);
         // $string = "'".$string."'";
-        
+        $string = str_replace('"',"",$string);
         // echo $string;exit;;
         try {
             $start = $this->data['start'].":00";
@@ -41,14 +41,17 @@ class ReportConfigurationExport implements FromCollection
             // $res  =  DataLog::select($this->data['parameter'])
             // $res  =  DataLog::select('modem_id','slave_id')
             if($this->data['data_table'] == 'honeywell_pid'){
-                $res  =  Honeywell::selectRaw($string)
+                $res  =  Honeywell::selectRaw("$string")
                 ->where("modem_id", $this->data['modem_id'])
                 ->whereRaw(
                     "(dtm >= ? AND dtm <= ?)",
                     [$start, $end ]
-                )->get();
+                )
+                // ->take(10)
+                ->get();
             }else{
-                $res  =  DataLog::selectRaw($string)
+                $res  =  DataLog::selectRaw("$string")
+                // $res  =  DataLog::selectRaw($string)
             ->where("modem_id", $this->data['modem_id'])
             ->whereRaw(
                 "(dtm >= ? AND dtm <= ?)",
