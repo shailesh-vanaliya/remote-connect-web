@@ -80,6 +80,7 @@
                                 <!-- <a href="{{ url('/admin/meter-dashboard/' . $item->modem_id) }}" title="Goto dashboard"><button class="btn btn-success btn-xs "><i class="fas fa-tachometer-alt" aria-hidden="true"></i> </button></a> -->
                                 <a href="{{ url('/admin/device/' . $item->id) }}" title="View Device"><button class="btn btn-primary btn-xs "><i class="fas fa-eye" aria-hidden="true"></i> </button></a>
                                 <a href="{{ url('/admin/device/' . $item->id . '/edit') }}" title="Edit Device"><button class="btn btn-primary btn-xs "><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
+                                <a href="{{ url('/admin/device/map-alias/' . $item->id ) }}" title="Create/edit Device alias"><button class="btn btn-secondary btn-xs "><i class="fa fa-street-view" aria-hidden="true"></i> </button></a>
                                 <form method="POST" action="{{ url('/admin/device' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}

@@ -62,6 +62,9 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::post('/admin-setting', [SettingController::class, 'setting'])->name('setting');
     Route::get('/admin-setting', [SettingController::class, 'setting'])->name('setting');
     Route::get('/device/device-detail/{id}', [DeviceController::class, 'deviceDetail'])->name('device-detail');
+    Route::get('/device/map-alias/{id}', [DeviceController::class, 'mapAlias'])->name('map-alias');
+    Route::post('/device/map-alias/{id}', [DeviceController::class, 'mapAlias'])->name('map-alias');
+    Route::get('/device/map/{id}', [DeviceController::class, 'deviceMap'])->name('device-map');
     Route::post('/updateName', [DeviceController::class, 'updateName'])->name('updateName');
     Route::post('uploadFile', [DeviceController::class, 'uploadFile'])->name('uploadFile');
     Route::post('connectServer', [DeviceController::class, 'connectServer'])->name('connectServer');
@@ -103,3 +106,5 @@ Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illum
 //         ->name('user_delete')->where('id', '[0-9]+');
 }); 
 
+
+Route::resource('admin/honeywell-pid-aliasmap', 'Admin\HoneywellPidAliasmapController');
