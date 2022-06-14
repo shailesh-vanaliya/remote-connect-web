@@ -179,7 +179,7 @@ class Dashboard2Controller extends Controller
             $array[10] = $pv6;
             $array[11] = $sp6;
             // $array[3] = $convetArray;
-            echo json_encode(array_reverse($array));
+            echo json_encode($array);
             //print_r(json_encode(array_reverse($array)));
             exit;
         } catch (Exception $e) {

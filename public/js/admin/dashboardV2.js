@@ -251,6 +251,7 @@ var DashboardV2 = function () {
                     }
                     // console.log(result.length, "result.lengthresult.length")
                     let titlename = ["MASTER SP","MASTER PV","SLAVE1 SP","SLAVE1 PV","SLAVE2 SP","SLAVE2 PV","SLAVE3 SP","SLAVE3 PV","SLAVE4 SP","SLAVE4 PV","SLAVE5 SP","SLAVE5 PV"];
+                    
                     for (var i = 0; i < result.length; i++) {
                         var series = chart.series.push(am5xy.LineSeries.new(root, {
                             minBulletDistance: 10,
