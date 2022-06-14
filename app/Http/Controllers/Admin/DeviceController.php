@@ -9,7 +9,9 @@ use App\Models\Device;
 use App\Models\DeviceMap;
 use App\Models\Organization;
 use App\Models\User;
+use App\Models\DeviceAliasmap;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Auth;
 use DB;
 use PhpMqtt\Client\Facades\MQTT;
@@ -95,8 +97,8 @@ class DeviceController extends Controller
             if ($keyword) {
                 $subQuery->orWhere('devices.location', 'LIKE', "%$keyword%");
             }
-// print_r(Auth::guard('admin')->user());
-// exit;
+            // print_r(Auth::guard('admin')->user());
+            // exit;
             if (Auth::guard('admin')->user()->role == "ADMIN") {
                 $subQuery->where('devices.organization_id', Auth::guard('admin')->user()->organization_id);
             } else {
@@ -243,6 +245,7 @@ class DeviceController extends Controller
         return view('admin.device.details', $data);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -269,7 +272,7 @@ class DeviceController extends Controller
         }
         $userObj = new User();
         $data['createdBy'] = $userObj->getAssignToUser();
- 
+
         return view('admin.device.create', $data);
     }
 
@@ -313,7 +316,7 @@ class DeviceController extends Controller
             if (Auth::guard('admin')->user()->role == "USER") {
                 $requestData['organization_id'] = Auth::guard('admin')->user()->id;
             }
-            
+
             Device::create($requestData);
 
             return redirect('admin/device')->with('session_success', 'Device added!');
@@ -555,10 +558,10 @@ class DeviceController extends Controller
         $deviceObj = new Device();
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN' || Auth::guard('admin')->user()->role == 'USER') {
             $collected_items = $deviceObj->getDeviceByUser()->toArray();
-        }else{
+        } else {
             $collected_items = $deviceObj->getDeviceByOrganization()->toArray();
         }
-        
+
 
         $locationList = [];
         foreach ($collected_items as $key => $values) {
@@ -571,5 +574,91 @@ class DeviceController extends Controller
         }
         echo json_encode($locationList);
         exit;
+    }
+
+    /**
+     * Display a deviceDetail of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function mapAlias($id, Request $request)
+    {
+
+        if ($request->isMethod('post')) {
+            $postData = $request->all();
+            $parameter_alias = [];
+            $dashboard_alias = [];
+            foreach ($postData['dashboard_alias']  as $key => $val) {
+                $dashboard_alias[$key] = $val;
+            }
+            foreach ($postData['parameter_alias']  as $key => $val) {
+                $parameter_alias[$key] = $val;
+            }
+         
+            DeviceAliasmap::where(['modem_id' => $id])
+                ->update([
+                    'parameter_alias' => json_encode($parameter_alias),
+                    'dashboard_alias' => json_encode($dashboard_alias),
+                    'updated_at' => Carbon::now(),
+                ]);
+            return redirect('admin/device')->with('session_success', 'Device Alias updated successfully!');
+        }
+
+
+        $subQuery =  Device::select(
+            'device_map.MQTT_ID',
+            'device_map.max_user_access',
+            'device_map.IMEI_No',
+            'device_status.Status',
+            'device_status.id as device_status_id',
+            'remote.MACHINE_NO',
+            'remote.MACHINE_LOCAL_IP',
+            'remote.MACHINE_LOCAL_PORT',
+            'remote.MACHINE_REMOTE_PORT',
+            'remote.STATUS',
+            'devices.*',
+        );
+
+        $subQuery->Join('device_map', function ($join) {
+            $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
+            $join->on('device_map.secret_key', '=', 'devices.secret_key');
+        });
+
+        $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+        $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
+        $subQuery->where('devices.id', '=', $id);
+        $subQuery->groupBy('devices.id');
+        $data['deviceDetail'] =  $subQuery->first();
+
+        // if (empty($data['deviceDetail'])) {
+        //     return redirect('admin/device')->with('session_error', 'Sorry, Device details not found!');
+        // }
+        $jsonDecode =  DeviceAliasmap::where('modem_id', $data['deviceDetail']['modem_id'])->first();
+        if(empty($jsonDecode )){
+            
+            DeviceAliasmap::where(['modem_id' => $data['deviceDetail']['modem_id']])
+            ->insert([
+                'dashboard_alias' => '{"CONTROLLER1_TITLE": "MASTER", "CONTROLLER2_TITLE": "ZONE1", "CONTROLLER3_TITLE": "ZONE2", "CONTROLLER4_TITLE": "ZONE3", "CONTROLLER5_TITLE": "ZONE4","CONTROLLER6_TITLE": "ZONE5","CONTROLLER7_TITLE": "ZONE6","CONTROLLER8_TITLE": "ZONE7","CONTROLLER9_TITLE": "ZONE8"}',
+                'parameter_alias' => '{"dtm":"Time","pv1":"master pv","sp1":"master sp","out1":"mastre output","obit1":"master status", "pv2":"zone1 pv", "sp2":"zone1,sp","out2":"zone1 output","obit2":"zone1 status","pv3":"zone2 pv", "sp3":"zone2 sp","out3":"zone2 output","obit3":"zone2 status","pv4":"zone3 pv", "sp4":"zone3 sp","out4":"zone3 output","obit4":"zone3 status","pv5":"zone4 pv", "sp5":"zone4 sp","out5":"zone4 output","obit5":"zone4 status","pv6":"zone5 pv", "sp6":"zone5 sp","out6":"zone5 output","obit6":"zone5 status","pv1_unit":"°C","sp1_unit":"°C","out1_unit":"%","obit1_unit":" ","pv2_unit":"°C","sp2_unit":"°C","out2_unit":"%","obit2_unit":" ","pv3_unit":"°C","sp3_unit":"°C","out3_unit":"%","obit3_unit":" ","pv4_unit":"°C","sp4_unit":"°C","out4_unit":"%","obit4_unit":" ","pv5_unit":"°C","sp5_unit":"°C","out5_unit":"%","obit5_unit":" ","pv6_unit":"°C","sp6_unit":"°C","out6_unit":"%","obit6_unit":" "}',
+                'updated_at' => Carbon::now(),
+                'created_at' => Carbon::now(),
+                'modem_id' => $data['deviceDetail']['modem_id'],
+                'updated_by' => Auth::guard('admin')->user()->id,
+                'created_by' => Auth::guard('admin')->user()->id,
+            ]);
+            $jsonDecode =  DeviceAliasmap::where('modem_id', $data['deviceDetail']['modem_id'])->first();
+        }
+       
+ 
+
+
+        $data['dashboard_alias'] = (isset($jsonDecode['dashboard_alias']) && !empty($jsonDecode['dashboard_alias'])) ? json_decode($jsonDecode['dashboard_alias'], TRUE) : "";
+        $data['parameter_alias'] = (isset($jsonDecode['parameter_alias']) && !empty($jsonDecode['parameter_alias'])) ? json_decode($jsonDecode['parameter_alias'], TRUE) : "";
+        // print_r($data['dashboard_alias']);
+        // exit;
+        $data['pagetitle'] = 'Device';
+        $data['title'] = 'Device';
+
+        return view('admin.device.map', $data);
     }
 }

@@ -85,6 +85,16 @@ class UserController extends Controller
             $user->mobile_no          = $requestData['mobile_no'];
             $user->role          = $requestData['role'];
             $user->status          = $requestData['status'];
+            $user->storage_usage          = isset($requestData['storage_usage']) ?$requestData['storage_usage'] : 0;
+            $user->storage_quota          = isset($requestData['storage_quota']) ?$requestData['storage_quota'] : 0;
+            $user->report_counter          = isset($requestData['report_counter']) ?$requestData['report_counter'] : 0;
+            $user->report_quota          = isset($requestData['report_quota']) ?$requestData['report_quota'] : 0;
+            $user->sms_counter          = isset($requestData['sms_counter']) ?$requestData['sms_counter'] : 0;
+            $user->sms_quota          = isset($requestData['sms_quota']) ?$requestData['sms_quota'] : 0;
+            $user->email_counter          = isset($requestData['email_counter']) ?$requestData['email_counter'] : 0;
+            $user->email_quota          = isset($requestData['email_quota']) ?$requestData['email_quota'] : 0;
+            $user->notification_counter          = isset($requestData['notification_counter']) ?$requestData['notification_counter'] : 0;
+            $user->notification_quota          = isset($requestData['notification_quota']) ?$requestData['notification_quota'] : 0;
             $user->organization_id          = $requestData['organization_id'];
             $user->sms_alert = (isset($requestData['sms_alert']) && $requestData['sms_alert'] == 'on') ? 1 : 0;
             $user->email_report = (isset($requestData['email_report']) &&  $requestData['email_report'] == 'on') ? 1 : 0;
@@ -182,6 +192,17 @@ class UserController extends Controller
             $user->status = $requestData['status'];
             $user->role = $requestData['role'];
             $user->organization_id          = $requestData['organization_id'];
+            $user->storage_usage          = isset($requestData['storage_usage']) ?$requestData['storage_usage'] : 0;
+            $user->storage_quota          = isset($requestData['storage_quota']) ?$requestData['storage_quota'] : 0;
+            $user->report_counter          = isset($requestData['report_counter']) ?$requestData['report_counter'] : 0;
+            $user->report_quota          = isset($requestData['report_quota']) ?$requestData['report_quota'] : 0;
+            $user->sms_counter          = isset($requestData['sms_counter']) ?$requestData['sms_counter'] : 0;
+            $user->sms_quota          = isset($requestData['sms_quota']) ?$requestData['sms_quota'] : 0;
+            $user->email_counter          = isset($requestData['email_counter']) ?$requestData['email_counter'] : 0;
+            $user->email_quota          = isset($requestData['email_quota']) ?$requestData['email_quota'] : 0;
+            $user->notification_counter          = isset($requestData['notification_counter']) ?$requestData['notification_counter'] : 0;
+            $user->notification_quota          = isset($requestData['notification_quota']) ?$requestData['notification_quota'] : 0;
+            
             $user->sms_alert = (isset($requestData['sms_alert']) && $requestData['sms_alert'] == 'on') ? 1 : 0;
             $user->email_report = (isset($requestData['email_report']) &&  $requestData['email_report'] == 'on') ? 1 : 0;
             $user->email_alert = (isset($requestData['email_alert']) &&  $requestData['email_alert'] == 'on') ? 1 : 0;
