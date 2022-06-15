@@ -76,7 +76,7 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
               	<div class="inner" align="center" padding="0">
-                  <h2 style="font-size: 1.5rem">MASTER</h2>
+                  <h2 style="font-size: 1.5rem">{{ isset($dashboard_alias) ? $dashboard_alias['CONTROLLER1_TITLE'] : 'ZONE1' }}</h2>
                 </div>
                 <div class="inner">
                   <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv1 }} </h3>
@@ -159,7 +159,7 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
                 <div class="inner" align="center" padding="0">
-                  <h2 style="font-size: 1.5rem">SLAVE1</h2>
+                  <h2 style="font-size: 1.5rem">{{ isset($dashboard_alias) ? $dashboard_alias['CONTROLLER2_TITLE'] : 'ZONE3' }}</h2>
                 </div>
                 <div class="inner">
                   <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv2 }} </h3>
@@ -253,7 +253,7 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
               	<div class="inner" align="center" padding="0">
-                  <h2 style="font-size: 1.5rem">SLAVE2</h2>
+                  <h2 style="font-size: 1.5rem">{{ isset($dashboard_alias) ? $dashboard_alias['CONTROLLER3_TITLE'] : 'ZONE4' }}</h2>
                 </div>
                 <div class="inner">
                   <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv3 }} </h3>
@@ -345,7 +345,7 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
               	<div class="inner" align="center" padding="0">
-                  <h2 style="font-size: 1.5rem">SLAVE3</h2>
+                  <h2 style="font-size: 1.5rem">{{ isset($dashboard_alias) ? $dashboard_alias['CONTROLLER4_TITLE'] : 'ZONE5' }}</h2>
                 </div>
                 <div class="inner">
                   <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv4 }} </h3>
@@ -436,7 +436,7 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
               	<div class="inner" align="center" padding="0">
-                  <h2 style="font-size: 1.5rem">SLAVE4</h2>
+                  <h2 style="font-size: 1.5rem">{{ isset($dashboard_alias) ? $dashboard_alias['CONTROLLER5_TITLE'] : 'ZONE6' }}</h2>
                 </div>
                 <div class="inner">
                   <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv5 }} </h3>
@@ -529,7 +529,7 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
               	<div class="inner" align="center" padding="0">
-                  <h2 style="font-size: 1.5rem">SLAVE5</h2>
+                  <h2 style="font-size: 1.5rem">{{ isset($dashboard_alias) ? $dashboard_alias['CONTROLLER6_TITLE'] : 'ZONE7' }}</h2>
                 </div>
                 <div class="inner">
                   <h3 style="font-size: 3.0rem"><sup style="font-size: 22px">PV</sup> {{ (empty($result)) ? "" : $result->pv6 }} </h3>
