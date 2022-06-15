@@ -21,6 +21,8 @@ use PDF;
 use App;
 use DB;
 // use App\Models\Booking;
+use App\Models\DeviceAliasmap;
+use App\Models\Device;
 
 
 class CronController extends Controller
@@ -96,5 +98,54 @@ class CronController extends Controller
         //         }
         //     }
         // }
+    }
+
+    public function deviceAlias()
+    {
+        $subQuery =  Device::select(
+            'device_map.MQTT_ID',
+            'device_map.max_user_access',
+            'device_map.IMEI_No',
+            'device_status.Status',
+            'device_status.id as device_status_id',
+
+            'remote.STATUS',
+            'device_map.device_type_id',
+            'device_type.device_type',
+            'device_type.parameter_alias',
+            'device_type.dashboard_alias',
+            'device_type.data_table',
+            'device_type.dashboard_id',
+            'devices.*',
+        );
+
+        $subQuery->Join('device_map', function ($join) {
+            $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
+            $join->on('device_map.secret_key', '=', 'devices.secret_key');
+        });
+
+        $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
+        $subQuery->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
+        $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
+        $subQuery->groupBy('devices.id');
+        $retun =   $subQuery->get()->toArray();
+        echo "<pre/>";
+        foreach ($retun as $key => $val) {
+            // print_r($val);
+            // exit;
+            $count = DeviceAliasmap::where(['modem_id' => $val['modem_id']])->count();
+            if ($count == 0) {
+                DeviceAliasmap::where(['modem_id' => $val['modem_id']])
+                    ->insert([
+                        'dashboard_alias' => $val['dashboard_alias'],
+                        'parameter_alias' => $val['parameter_alias'],
+                        'updated_at' => Carbon::now(),
+                        'created_at' => Carbon::now(),
+                        'modem_id' => $val['modem_id'],
+                        'updated_by' => 1,
+                        'created_by' => 1,
+                    ]);
+            }
+        }
     }
 }

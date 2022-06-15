@@ -179,6 +179,10 @@ class Device extends Model
             'remote.STATUS',
             'device_map.device_type_id',
             'device_type.device_type',
+            'device_type.data_table',
+            'device_type.parameter_alias',
+            'device_type.dashboard_alias',
+            'device_type.dashboard_id',
             'devices.*',
         );
 

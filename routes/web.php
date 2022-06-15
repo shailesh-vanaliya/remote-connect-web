@@ -37,6 +37,7 @@ Route::get('/', function () {
 });
 Route::get('login', [LoginController::class,  'index']); 
 Route::get('/alert-cron', [CronController::class, 'alertCron']);
+Route::get('/device-alias', [CronController::class, 'deviceAlias']);
 
 
 Route::post('/login', [LoginController::class, 'index'])->name('login');

@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Auth;
 use DB;
+use Helper;
 use PhpMqtt\Client\Facades\MQTT;
 
 class DeviceController extends Controller
@@ -30,7 +31,6 @@ class DeviceController extends Controller
      */
     public function index(Request $request)
     {
-
 
         $keyword = $request->get('search');
         $perPage = 100;
@@ -318,6 +318,20 @@ class DeviceController extends Controller
             }
 
             Device::create($requestData);
+
+                // $curl = curl_init();
+                // curl_setopt_array($curl, array(
+                //     CURLOPT_URL => $_SERVER['APP_URL']. '/document-cron',
+                //     CURLOPT_RETURNTRANSFER => true,
+                //     CURLOPT_ENCODING => '',
+                //     CURLOPT_MAXREDIRS => 10,
+                //     CURLOPT_TIMEOUT => 0,
+                //     CURLOPT_FOLLOWLOCATION => true,
+                //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                //     CURLOPT_CUSTOMREQUEST => 'GET',
+                // ));
+                // $response = curl_exec($curl);
+                // curl_close($curl);
 
             return redirect('admin/device')->with('session_success', 'Device added!');
         } catch (\Exception $e) {
@@ -649,16 +663,23 @@ class DeviceController extends Controller
             $jsonDecode =  DeviceAliasmap::where('modem_id', $data['deviceDetail']['modem_id'])->first();
         }
        
- 
-
-
+//         Helper::getAliasData($id);
+// echo " fdsfsd";
+// exit;
         $data['dashboard_alias'] = (isset($jsonDecode['dashboard_alias']) && !empty($jsonDecode['dashboard_alias'])) ? json_decode($jsonDecode['dashboard_alias'], TRUE) : "";
         $data['parameter_alias'] = (isset($jsonDecode['parameter_alias']) && !empty($jsonDecode['parameter_alias'])) ? json_decode($jsonDecode['parameter_alias'], TRUE) : "";
-        // print_r($data['dashboard_alias']);
-        // exit;
+       
         $data['pagetitle'] = 'Device';
         $data['title'] = 'Device';
-
+        $data['js']        = ['admin/device.js', 'jquery.validate.min.js'];
+        // $data['funinit']   = ['Device.init()'];
+        $data['header']    = [
+            'title'      => 'Device Alias',
+            'breadcrumb' => [
+                'Device'     => '',
+                'Alias' => '',
+            ],
+        ];
         return view('admin.device.map', $data);
     }
 }

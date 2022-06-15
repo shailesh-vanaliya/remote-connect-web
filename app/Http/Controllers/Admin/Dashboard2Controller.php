@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use App\Models\PIDAllData;
 use App\Models\Honeywell;
+use App\Models\DeviceAliasmap;
 use App\Models\DataLog;
 use DateTime;
 use PhpMqtt\Client\Facades\MQTT;
@@ -50,6 +51,13 @@ class Dashboard2Controller extends Controller
         $data['PIDAllData'] =  PIDAllData::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
         $data['jsonDecode']= (isset($data['PIDAllData']['data']) && !empty($data['PIDAllData']['data'])) ? json_decode($data['PIDAllData']['data'],TRUE) : "";
         
+        $alias =  DeviceAliasmap::where("modem_id", $this->deviceName)->first();
+        $data['dashboard_alias']= (isset($alias->dashboard_alias) && !empty($alias->dashboard_alias)) ? json_decode($alias->dashboard_alias,TRUE) : "";
+        $data['parameter_alias']= (isset($alias->parameter_alias) && !empty($alias->parameter_alias)) ? json_decode($alias->parameter_alias,TRUE) : "";
+
+
+// print_r($data['dashboard_alias']);
+// exit;
         
         // $jsonDecode = json_decode($jsonDecode, TRUE);
         // $data['jsonDecode'] = json_decode('{"SV1": 500, "TM1": 1, "OUT1": 1000, "SV2": 1000, "TM2": 1, "OUT2": 1000, "SV3": 1000, "TM3": 65535, "OUT3": 1000, "SV4": 0, "TM4": 0, "OUT4": 0, "SV5": 0, "TM5": 0, "OUT5": 0, "SV6": 0, "TM6": 0, "OUT6": 0, "SV7": 0, "TM7": 0, "OUT7": 0, "SV8": 0, "TM8": 0, "OUT8": 0}', TRUE);

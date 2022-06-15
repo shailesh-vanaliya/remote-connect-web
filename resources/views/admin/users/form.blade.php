@@ -74,7 +74,7 @@
         </div>
     </div>
     <div class="form-group row {{ $errors->has('storage_usage') ? 'has-error' : ''}}">
-        <label class="col-form-label text-right col-lg-3 col-sm-12" for="storage_usage">{{ 'storage_usage' }}</label>
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="storage_usage">{{ 'Storage usage' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="storage_usage" type="text" id="storage_usage" value="{{ isset($user->storage_usage) ? $user->storage_usage :   old('storage_usage')  }}">
             {!! $errors->first('storage_usage', '<p class="help-block">:message</p>') !!}
@@ -82,56 +82,56 @@
     </div>
 
     <div class="form-group row {{ $errors->has('storage_quota') ? 'has-error' : ''}}">
-        <label class="col-form-label text-right col-lg-3 col-sm-12" for="storage_quota">{{ 'storage_quota' }}</label>
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="storage_quota">{{ 'Storage quota' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="storage_quota" type="text" id="storage_quota" value="{{ isset($user->storage_quota) ? $user->storage_quota :   old('storage_quota')  }}">
             {!! $errors->first('storage_quota', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('report_counter') ? 'has-error' : ''}}">
-        <label class="col-form-label text-right col-lg-3 col-sm-12" for="report_counter">{{ 'report_counter' }}</label>
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="report_counter">{{ 'Report counter' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="report_counter" type="text" id="report_counter" value="{{ isset($user->report_counter) ? $user->report_counter :   old('report_counter')  }}">
             {!! $errors->first('report_counter', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('report_quota') ? 'has-error' : ''}}">
-        <label class="col-form-label text-right col-lg-3 col-sm-12" for="report_quota">{{ 'report_quota' }}</label>
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="report_quota">{{ 'Report quota' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="report_quota" type="text" id="report_quota" value="{{ isset($user->report_quota) ? $user->report_quota :   old('report_quota')  }}">
             {!! $errors->first('report_quota', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('sms_counter') ? 'has-error' : ''}}">
-        <label class="col-form-label text-right col-lg-3 col-sm-12" for="sms_counter">{{ 'sms_counter' }}</label>
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="sms_counter">{{ 'SMS counter' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="sms_counter" type="text" id="sms_counter" value="{{ isset($user->sms_counter) ? $user->sms_counter :   old('sms_counter')  }}">
             {!! $errors->first('sms_counter', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('sms_quota') ? 'has-error' : ''}}">
-        <label class="col-form-label text-right col-lg-3 col-sm-12" for="sms_quota">{{ 'sms_quota' }}</label>
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="sms_quota">{{ 'SMS quota' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="sms_quota" type="text" id="sms_quota" value="{{ isset($user->sms_quota) ? $user->sms_quota :   old('sms_quota')  }}">
             {!! $errors->first('sms_quota', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('email_counter') ? 'has-error' : ''}}">
-        <label class="col-form-label text-right col-lg-3 col-sm-12" for="email_counter">{{ 'email_counter' }}</label>
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="email_counter">{{ 'Email counter' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="email_counter" type="text" id="email_counter" value="{{ isset($user->email_counter) ? $user->email_counter :   old('email_counter')  }}">
             {!! $errors->first('email_counter', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('email_quota') ? 'has-error' : ''}}">
-        <label class="col-form-label text-right col-lg-3 col-sm-12" for="email_quota">{{ 'email_quota' }}</label>
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="email_quota">{{ 'Email quota' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="email_quota" type="text" id="email_quota" value="{{ isset($user->email_quota) ? $user->email_quota :   old('email_quota')  }}">
             {!! $errors->first('email_quota', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group row {{ $errors->has('notification_counter') ? 'has-error' : ''}}">
-        <label class="col-form-label text-right col-lg-3 col-sm-12" for="notification_counter">{{ 'notification_counter' }}</label>
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="notification_counter">{{ 'Notification Counter' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="notification_counter" type="text" id="notification_counter" value="{{ isset($user->notification_counter) ? $user->notification_counter :   old('notification_counter')  }}">
             {!! $errors->first('notification_counter', '<p class="help-block">:message</p>') !!}
@@ -139,7 +139,7 @@
     </div>
 
     <div class="form-group row {{ $errors->has('notification_quota') ? 'has-error' : ''}}">
-        <label class="col-form-label text-right col-lg-3 col-sm-12" for="notification_quota">{{ 'notification_quota' }}</label>
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="notification_quota">{{ 'Notification Quota' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <input class="form-control" name="notification_quota" type="text" id="notification_quota" value="{{ isset($user->notification_quota) ? $user->notification_quota :   old('notification_quota')  }}">
             {!! $errors->first('notification_quota', '<p class="help-block">:message</p>') !!}

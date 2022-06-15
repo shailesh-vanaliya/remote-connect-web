@@ -9,8 +9,7 @@
           <div class="card-header">
             <h3 class="card-title">Data Alias Map</h3>
             <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-              </button>
+              <!-- <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>  </button>-->
               <!-- <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button> -->
             </div>
           </div>
@@ -54,7 +53,7 @@
                 <!-- <input class="btn btn-primary" type="submit" name="button" value="Write"> -->
               </div>
               <div class=" row">
-                 <code class="card-body text-center">No  data found</code>
+                 <!-- <code class="card-body text-center">No  data found</code> -->
               </div>
             </form>
           </div>
