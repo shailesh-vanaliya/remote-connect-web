@@ -29,7 +29,7 @@
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-comments"></i>
+                <i class="far fa-bell"></i>
                 <span class="badge badge-warning navbar-badge notificationCount">3</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -38,11 +38,11 @@
                         <img src="{{ asset('public/img/futuristic.png') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
-                                Brad Diesel
+                                FT111
                                 <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                             </h3>
-                            <p class="text-sm">Call me whenever you can...</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                            <p class="text-sm">Temperature alert</p>
+                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 22:04:10 11/05/2022</p>
                         </div>
                     </div>
                 </a>
@@ -52,11 +52,11 @@
                         <img src="{{ asset('public/img/futuristic.png') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
-                                John Pierce
+                                Device
                                 <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
                             </h3>
-                            <p class="text-sm">I got your message bro</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                            <p class="text-sm">High pressure Alert</p>
+                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 22:04:10 18/05/2022</p>
                         </div>
                     </div>
                 </a>
@@ -66,11 +66,11 @@
                         <img src="{{ asset('public/img/futuristic.png') }}" alt="User Avatar" class="img-size-50 img-circle mr-3">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
-                                Nora Silvester
+                                Machine
                                 <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
                             </h3>
-                            <p class="text-sm">The subject goes here</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                            <p class="text-sm">Machine Trip</p>
+                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 11:10:20 04/06/2022</p>
                         </div>
                     </div>
                 </a>

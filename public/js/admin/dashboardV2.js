@@ -235,24 +235,25 @@ var DashboardV2 = function () {
                     }));
                     
             
-                    function generateDatas(count) {
+                    function generateDatas(i) {
                         var data = [];
                         // for (var i = 0; i < 10; ++i) {
-                        for (var k = 0; k < count.length; ++k) {
+                        for (var k = 0; k < result.length; ++k) {
                             let ary = []
                             
-                            ary = {date:count[k].date ,  value :count[k].value};
-                            am5.time.add(new Date(count[k].date), "second",1);
+                            ary = {date:result[k].date ,  value :result[k][i]};
+                            am5.time.add(new Date(result[k].date), "second",1);
                             data.push(ary)
                             // data.push(generateData(count[i]));
                         }
-                       // console.log(data, "datedatedate")
+                        // console.log(result[0][0], "arraydatalength")
+                        // console.log(data, "datedatedate")
                         return data;
                     }
                     // console.log(result.length, "result.lengthresult.length")
-                    let titlename = ["MASTER SP","MASTER PV","SLAVE1 SP","SLAVE1 PV","SLAVE2 SP","SLAVE2 PV","SLAVE3 SP","SLAVE3 PV","SLAVE4 SP","SLAVE4 PV","SLAVE5 SP","SLAVE5 PV"];
-                    
-                    for (var i = 0; i < result.length; i++) {
+                    let titlename = ["MASTER PV","MASTER SP","SLAVE1 PV","SLAVE1 SP","SLAVE2 PV","SLAVE2 SP","SLAVE3 PV","SLAVE3 SP","SLAVE4 PV","SLAVE4 SP","SLAVE5 PV","SLAVE5 SP"];
+
+                    for (var i = 0; i < titlename.length; i++) {
                         var series = chart.series.push(am5xy.LineSeries.new(root, {
                             minBulletDistance: 10,
                             connect: true,
@@ -281,13 +282,13 @@ var DashboardV2 = function () {
                         //   })
                         // });
                         
-                        var data = generateDatas(result[i]);
+                        var data = generateDatas(i);
                         // var data = result[i];
                         // series.data.processor = am5.DataProcessor.new(root, {
                         //     dateFormat: "yyyy-MM-dd HH:mm:ss",
                         //     dateFields: ["date"]
                         // });
-                        
+                        // console.log(data,"datataasasaS");
                         series.data.setAll(data);
                         
                         series.appear();

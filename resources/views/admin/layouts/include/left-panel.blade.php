@@ -8,8 +8,8 @@ return redirect('login');
  <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="{{ asset('public/img/futuristic.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
+      <img src="{{ asset('public/img/futuristic.png') }}" alt="futuristic Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .9">
       <span class="brand-text font-weight-light">IIOT Connect</span>
     </a>
 
