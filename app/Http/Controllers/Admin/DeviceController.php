@@ -602,17 +602,22 @@ class DeviceController extends Controller
             $postData = $request->all();
             $parameter_alias = [];
             $dashboard_alias = [];
+            $chart_alias = [];
             foreach ($postData['dashboard_alias']  as $key => $val) {
                 $dashboard_alias[$key] = $val;
             }
             foreach ($postData['parameter_alias']  as $key => $val) {
                 $parameter_alias[$key] = $val;
             }
+            foreach ($postData['chart_alias']  as $key => $val) {
+                $chart_alias[$key] = $val;
+            }
          
             DeviceAliasmap::where(['modem_id' => $id])
                 ->update([
                     'parameter_alias' => json_encode($parameter_alias),
                     'dashboard_alias' => json_encode($dashboard_alias),
+                    'chart_alias' => json_encode($chart_alias),
                     'updated_at' => Carbon::now(),
                 ]);
             return redirect('admin/device')->with('session_success', 'Device Alias updated successfully!');
@@ -668,6 +673,8 @@ class DeviceController extends Controller
 // exit;
         $data['dashboard_alias'] = (isset($jsonDecode['dashboard_alias']) && !empty($jsonDecode['dashboard_alias'])) ? json_decode($jsonDecode['dashboard_alias'], TRUE) : "";
         $data['parameter_alias'] = (isset($jsonDecode['parameter_alias']) && !empty($jsonDecode['parameter_alias'])) ? json_decode($jsonDecode['parameter_alias'], TRUE) : "";
+        $data['chart_alias'] = (isset($jsonDecode['chart_alias']) && !empty($jsonDecode['chart_alias'])) ? json_decode($jsonDecode['chart_alias'], TRUE) : "";
+       
        
         $data['pagetitle'] = 'Device';
         $data['title'] = 'Device';

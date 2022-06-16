@@ -114,6 +114,7 @@ class CronController extends Controller
             'device_type.device_type',
             'device_type.parameter_alias',
             'device_type.dashboard_alias',
+            'device_type.chart_alias',
             'device_type.data_table',
             'device_type.dashboard_id',
             'devices.*',
@@ -134,18 +135,29 @@ class CronController extends Controller
             // print_r($val);
             // exit;
             $count = DeviceAliasmap::where(['modem_id' => $val['modem_id']])->count();
-            if ($count == 0) {
-                DeviceAliasmap::where(['modem_id' => $val['modem_id']])
-                    ->insert([
-                        'dashboard_alias' => $val['dashboard_alias'],
-                        'parameter_alias' => $val['parameter_alias'],
-                        'updated_at' => Carbon::now(),
-                        'created_at' => Carbon::now(),
-                        'modem_id' => $val['modem_id'],
-                        'updated_by' => 1,
-                        'created_by' => 1,
-                    ]);
-            }
+            // if ($count == 0) {
+                $aliasMap = DeviceAliasmap::firstOrNew(array('modem_id' => $val['modem_id']));
+                $aliasMap->dashboard_alias = $val['dashboard_alias'];
+                $aliasMap->parameter_alias = $val['parameter_alias'];
+                $aliasMap->chart_alias = $val['chart_alias'];
+                $aliasMap->updated_at = Carbon::now();
+                $aliasMap->created_at = Carbon::now();
+                $aliasMap->updated_by = 1;
+                $aliasMap->created_by = 1;
+                $aliasMap->save();
+                // DeviceAliasmap::where(['modem_id' => $val['modem_id']])
+                // // DeviceAliasmap::where(['modem_id' => $val['modem_id']])
+                //     ->insert([
+                //         'dashboard_alias' => $val['dashboard_alias'],
+                //         'parameter_alias' => $val['parameter_alias'],
+                //         'chart_alias' => $val['chart_alias'],
+                //         'updated_at' => Carbon::now(),
+                //         'created_at' => Carbon::now(),
+                //         'modem_id' => $val['modem_id'],
+                //         'updated_by' => 1,
+                //         'created_by' => 1,
+                //     ]);
+            // }
         }
     }
 }
