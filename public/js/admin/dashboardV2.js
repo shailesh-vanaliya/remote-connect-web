@@ -192,15 +192,13 @@ var DashboardV2 = function () {
                 url: site_url + "admin/dashboardV2/ajaxAction",
                 data: { 'action': 'getChartDataV2', 'endDate': endDate, 'startDate': startDate,'dateRange': dateRange, "modem_id":modem_id },
                 success: function (out) {
-                    let result = JSON.parse(out);
+                    let res = JSON.parse(out);
+                    let result = res.chart;
                     root.setThemes([
                         am5themes_Animated.new(root)
                     ]);
-                    
 
                     root.container.children.clear();
-                   
-                   
 
                     var chart = root.container.children.push(am5xy.XYChart.new(root, {
                         panX: true,
@@ -251,7 +249,9 @@ var DashboardV2 = function () {
                         return data;
                     }
                     // console.log(result.length, "result.lengthresult.length")
-                    let titlename = ["MASTER PV","MASTER SP","SLAVE1 PV","SLAVE1 SP","SLAVE2 PV","SLAVE2 SP","SLAVE3 PV","SLAVE3 SP","SLAVE4 PV","SLAVE4 SP","SLAVE5 PV","SLAVE5 SP"];
+                    let titlename = res.chart_alias;
+                    // let titlename = ["MASTER PV","MASTER SP","SLAVE1 PV","SLAVE1 SP","SLAVE2 PV","SLAVE2 SP","SLAVE3 PV","SLAVE3 SP","SLAVE4 PV","SLAVE4 SP","SLAVE5 PV","SLAVE5 SP"];
+                    console.log(res.dashboard_alias, " ==dashboard_alias ")
 
                     for (var i = 0; i < titlename.length; i++) {
                         var series = chart.series.push(am5xy.LineSeries.new(root, {

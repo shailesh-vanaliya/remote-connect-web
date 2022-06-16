@@ -56,12 +56,23 @@ function showToster(status, message) {
 
     if (status == 'success') {
         toastr.success(message, 'Success');
+        $.playSound(site_url + "public/sound/success.wav");
+        setTimeout(() => {
+            $.stopSound(site_url + "public/sound/confirmation.wav");
+        }, 5000);
     }
     if (status == 'error') {
         toastr.error(message, 'Fail');
+        $.playSound(site_url + "public/sound/alert.wav");
+        setTimeout(() => {
+            $.stopSound(site_url + "public/sound/alert.wav");
+        }, 5000);
     }
     if (status == 'Alert') {
-        toastr.error(message, 'Alert Notification');
+        $.playSound(site_url + "public/sound/alert.wav");
+        setTimeout(() => {
+            $.stopSound(site_url + "public/sound/alert.wav");
+        }, 5000);
     }
 
 }

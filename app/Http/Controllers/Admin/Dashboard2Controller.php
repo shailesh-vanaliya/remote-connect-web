@@ -187,7 +187,13 @@ class Dashboard2Controller extends Controller
             // $array[10] = $pv6;
             // $array[11] = $sp6;
             // $array[3] = $convetArray;
-            echo json_encode($pv1);
+
+            $alias =  DeviceAliasmap::where("modem_id", $this->deviceName)->first();
+            $chart_alias = isset($alias->chart_alias) ? array_values(json_decode($alias->chart_alias,TRUE)) : '';
+        
+            $res['chart_alias'] = $chart_alias;
+            $res['chart'] = $pv1;
+            echo json_encode($res);
             //print_r(json_encode(array_reverse($array)));
             exit;
         } catch (Exception $e) {
