@@ -80,6 +80,7 @@ class ReportSchedulesController extends Controller
         }
         $userObj = new User();
         $data['createdBy'] = $userObj->getAssignToUser();
+        $data['userList'] = $userObj->getAssignToUser();
         return view('admin.report-schedules.create', $data);
     }
 

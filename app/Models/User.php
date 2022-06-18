@@ -298,7 +298,6 @@ class User extends Authenticatable
             } 
             $user = $subQuery->pluck('userName', 'id')->toArray();
         }
-         
         return $user;
     }
 }
