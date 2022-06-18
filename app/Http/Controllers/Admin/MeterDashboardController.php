@@ -45,8 +45,9 @@ class MeterDashboardController extends Controller
 
         $deviceObject = new Device();
         $data['device'] =  $deviceObject->deviceDetailByModel($this->deviceName);
+        $data['dashboard_alias'] = (isset($data['device']['dashboard_alias']) && !empty($data['device']['dashboard_alias'])) ? json_decode($data['device']['dashboard_alias'],TRUE) : "";
         // $data['device'] =  Device::where("modem_id", $this->deviceName)->first();
-        // print_r($date['device']);
+        // print_r($data['dashboard_alias']);
         // exit;
 
         $data['client']                = User::where("role", 'USER')->count();

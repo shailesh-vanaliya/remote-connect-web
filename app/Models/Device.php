@@ -57,7 +57,7 @@ class Device extends Model
         return  $subQuery->first();
     }
 
-    public function deviceDetailByModel($modem_id)
+    public function  deviceDetailByModel($modem_id)
     {
         // $aaa = DeviceType::find(1);
         // print_r($aaa);
@@ -74,7 +74,12 @@ class Device extends Model
             'remote.MACHINE_LOCAL_PORT',
             'remote.MACHINE_REMOTE_PORT',
             'remote.STATUS',
-            'device_type.device_type',
+            'device_type.device_type', 
+            'device_type.data_table',
+            'device_type.parameter_alias',
+            'device_type.dashboard_alias',
+            'device_type.chart_alias',
+            'device_type.dashboard_id',
             'devices.*',
         );
 

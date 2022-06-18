@@ -64,7 +64,7 @@
                                             <button type="submit" class="btn btn-danger btn-xs" title="Delete Notification" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
                                         </form>
                                         @else
-                                        <a href="javascript:;" title="View Acknowledged" data-id={{ $item->id }} class="isAck"><button class="btn btn-secondary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
+                                        <a href="javascript:;" title="{{ $item->is_ack == 0 ? 'set as Acknowledged' : 'Already Acknowledged'}}" data-id="{{ $item->id }}" class="{{ $item->is_ack == 0 ? 'isAck' : ''}}""><button class="btn btn-secondary btn-xs"><i class="fa fa-check" aria-hidden="true"></i> </button></a>
                                         @endif
                                     </td>
                                 </tr>
