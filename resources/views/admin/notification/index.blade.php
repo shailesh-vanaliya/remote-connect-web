@@ -34,10 +34,14 @@
                                     <th>#</th>
                                     <th>Modem Id</th>
                                     <th>Alert Message</th>
+                                    @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')
+                        
                                     <th>Viewed</th>
                                     <th>Email Sent</th>
                                     <th>Sms Sent</th>
+                                    @endif
                                     <th>Actions</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,18 +50,23 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->modem_id }}</td>
                                     <td>{{ $item->alert_message }}</td>
+                                    @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')
                                     <td>{{ $item->viewed }}</td>
                                     <td>{{ $item->is_email_send }}</td>
                                     <td>{{ $item->is_sms_send }}</td>
+                                    @endif
                                     <td>
+                                    @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')
                                         <a href="{{ url('/admin/notification/' . $item->id) }}" title="View Notification"><button class="btn btn-info btn-xs"><i class="fas fa-eye" aria-hidden="true"></i> </button></a>
+                                        @endif
                                         <a href="{{ url('/admin/notification/' . $item->id . '/edit') }}" title="Edit Notification"><button class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
-
+                                        @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')
                                         <form method="POST" action="{{ url('/admin/notification' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                             {{ method_field('DELETE') }}
                                             {{ csrf_field() }}
                                             <button type="submit" class="btn btn-danger btn-xs" title="Delete Notification" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fas fa-trash-alt" aria-hidden="true"></i> </button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

@@ -311,7 +311,7 @@ class DeviceController extends Controller
                 return redirect('admin/device/create')->with('session_error', 'Sorry, maximum user device limit exceed, contact to admin!')->withInput();
             }
 
-            $requestData['created_by'] = Auth::guard('admin')->user()->id;
+            // $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             if (Auth::guard('admin')->user()->role == "USER") {
                 $requestData['organization_id'] = Auth::guard('admin')->user()->id;
@@ -321,7 +321,7 @@ class DeviceController extends Controller
 
                 // $curl = curl_init();
                 // curl_setopt_array($curl, array(
-                //     CURLOPT_URL => $_SERVER['APP_URL']. '/document-cron',
+                //     CURLOPT_URL => $_SERVER['APP_URL']. '/device-alias',
                 //     CURLOPT_RETURNTRANSFER => true,
                 //     CURLOPT_ENCODING => '',
                 //     CURLOPT_MAXREDIRS => 10,

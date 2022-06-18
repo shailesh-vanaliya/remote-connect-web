@@ -156,17 +156,18 @@ class ReportSchedulesController extends Controller
             ],
         ];
         $data['days'] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-            $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->pluck('first_name', 'id')->toArray();
-        } else {
-            $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->where('organization_id', Auth::guard('admin')->user()->organization_id)->pluck('modem_id', 'id')->toArray();
-        }
+        // if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+        //     $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->pluck('first_name', 'id')->toArray();
+        // } else {
+        //     $data['userList'] = User::select('first_name', 'id',)->where('role', 'USER')->where('organization_id', Auth::guard('admin')->user()->organization_id)->pluck('modem_id', 'id')->toArray();
+        // }
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
             $data['reportConfiguration'] = ReportConfiguration::select('report_title', 'id',)->pluck('report_title', 'id')->toArray();
         } else {
             $data['reportConfiguration'] = ReportConfiguration::select('report_title', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('report_title', 'id')->toArray();
         }
         $userObj = new User();
+        $data['userList'] = $userObj->getAssignToUser();
         $data['createdBy'] = $userObj->getAssignToUser();
         return view('admin.report-schedules.edit', $data);
     }

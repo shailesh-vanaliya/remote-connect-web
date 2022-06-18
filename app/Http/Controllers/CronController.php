@@ -136,15 +136,15 @@ class CronController extends Controller
             // exit;
             $count = DeviceAliasmap::where(['modem_id' => $val['modem_id']])->count();
             // if ($count == 0) {
-                $aliasMap = DeviceAliasmap::firstOrNew(array('modem_id' => $val['modem_id']));
-                $aliasMap->dashboard_alias = $val['dashboard_alias'];
-                $aliasMap->parameter_alias = $val['parameter_alias'];
-                $aliasMap->chart_alias = $val['chart_alias'];
-                $aliasMap->updated_at = Carbon::now();
-                $aliasMap->created_at = Carbon::now();
-                $aliasMap->updated_by = 1;
-                $aliasMap->created_by = 1;
-                $aliasMap->save();
+                $collegeDetails = DeviceAliasmap::firstOrNew(array('modem_id' => $val['modem_id']));
+                $collegeDetails->dashboard_alias = $val['dashboard_alias'];
+                $collegeDetails->parameter_alias = $val['parameter_alias'];
+                $collegeDetails->chart_alias = $val['chart_alias'];
+                $collegeDetails->updated_at = Carbon::now();
+                $collegeDetails->created_at = Carbon::now();
+                $collegeDetails->updated_by = 1;
+                $collegeDetails->created_by = 1;
+                $collegeDetails->save();
                 // DeviceAliasmap::where(['modem_id' => $val['modem_id']])
                 // // DeviceAliasmap::where(['modem_id' => $val['modem_id']])
                 //     ->insert([
