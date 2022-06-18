@@ -69,6 +69,7 @@ function showToster(status, message) {
         }, 5000);
     }
     if (status == 'Alert') {
+        toastr.info(message, 'Success');
         $.playSound(site_url + "public/sound/alert.wav");
         setTimeout(() => {
             $.stopSound(site_url + "public/sound/alert.wav");
