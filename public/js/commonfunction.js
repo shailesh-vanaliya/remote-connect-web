@@ -76,6 +76,14 @@ function showToster(status, message) {
         }, 5000);
     }
 
+    if (status == 'warning') {
+        toastr.info(message, 'Warning');
+        $.playSound(site_url + "public/sound/alert.wav");
+        setTimeout(() => {
+            $.stopSound(site_url + "public/sound/alert.wav");
+        }, 5000);
+    }
+
 }
 
 function handleAjaxResponse(output) {

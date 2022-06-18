@@ -226,8 +226,9 @@ class NotificationController extends Controller
     }
     public function _setAckNotification($postData)
     {
+        $count = Notification::where('id',"=",$postData['notificationId'])->where(['is_ack'=> 1])->count();
         $notificationList = Notification::where('id',"=",$postData['notificationId'])->update(['is_ack'=> 1]);
-        if($notificationList){
+        if($count == 0){
             $res['status'] = "success";
             $res['message'] = "Your message success set as acknowledged";    
         }else{
