@@ -2,6 +2,7 @@ var Notification = function () {
     var handleList = function () {
         
        function getNotification(){
+        $('.preloader').show();
         $.ajax({
             type: "POST",
             headers: {
@@ -10,6 +11,7 @@ var Notification = function () {
             url: site_url + "admin/notification/ajaxAction",
             data: { 'action': 'getNotification' },
             success: function (data) {
+                $('.preloader').hide();
                 var output = JSON.parse(data);
                 $('.notificationCount').text(output.length);
                 $.each(output, function(i, item) {

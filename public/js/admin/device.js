@@ -13,6 +13,7 @@ var Device = function () {
         });
 
         function getModelNo() {
+            $('.preloader').show();
             var secret_key = $('#secret_key').val();
             var modem_id = $('#modem_id').val();
             if (modem_id != "" && secret_key != "") {
@@ -22,6 +23,7 @@ var Device = function () {
                     url: site_url + "admin/device/ajaxAction",
                     data: { 'action': 'getDevicelist', 'modem_id': modem_id, 'secret_key': secret_key, },
                     success: function (data) {
+                        $('.preloader').hide();
                         $("#parameter").html("");
                         var data = JSON.parse(data);
                         if(data?.organization_id){

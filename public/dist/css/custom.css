@@ -310,3 +310,18 @@ label.col-form-label {
 td.actionTd {
     display: flex !important;
 }
+
+
+.preloader {
+    display: -ms-flexbox;
+    display: flex;
+    background-color: #121213;
+    height: 100vh !important;
+    width: 100%;
+    transition: height .2s linear;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    opacity: 0.2;
+}

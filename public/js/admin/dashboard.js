@@ -333,7 +333,7 @@ var Dashboard = function () {
         $('.customSelect').trigger('change');
         var root = am5.Root.new("chartdiv");
         function getAmChart() {
-
+            $('.preloader').show();
             let startDate = ($('#startDate').val() != undefined) ? $('#startDate').val() : '';
             let endDate = ($('#endDate').val() != undefined) ? $('#endDate').val() : '';
             let dateRange = ($('#dateRange').val() != undefined) ? $('#dateRange').val() : '';
@@ -359,7 +359,7 @@ var Dashboard = function () {
                 success: function (out) {
                     let data = JSON.parse(out);
 
-
+                    $('.preloader').hide();
                     // Set themes
                     // https://www.amcharts.com/docs/v5/concepts/themes/
                     root.setThemes([

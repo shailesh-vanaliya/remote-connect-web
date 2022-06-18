@@ -4,6 +4,7 @@ var ReportConfig = function () {
 
 
         $('.device_id').change(function () {
+            $('.preloader').show();
             var device_id = $('.device_id option:selected').val();
             // var that = $(this);
             //    loadingStart(that);
@@ -14,6 +15,7 @@ var ReportConfig = function () {
                 data: { 'action': 'getDevicelist', 'device_id': device_id },
                 success: function (data) {
                     $("#parameter").html("");
+                    $('.preloader').hide();
                     var data = JSON.parse(data);
                     console.log(data)
                     var html = '<option value="">- - Choose Parameter - -</option>';

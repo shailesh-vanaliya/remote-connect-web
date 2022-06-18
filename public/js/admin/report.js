@@ -2,6 +2,7 @@ var Report = function () {
     var handleList = function () {
         // $('.device_type_id').change(function () {
         $("body").on('click', '.device_type_id', function () {
+            $('.preloader').show();
             var device_type_id = $('.device_type_id option:selected').val();
             // var that = $(this);
             //    loadingStart(that);
@@ -11,6 +12,7 @@ var Report = function () {
                 url: site_url + "admin/report/ajaxAction",
                 data: { 'action': 'getDevicelist', 'device_type_id': device_type_id },
                 success: function (data) {
+                    $('.preloader').hide();
                     $("#device_id").html("");
                     var data = JSON.parse(data);
                     console.log(data, " datadata")

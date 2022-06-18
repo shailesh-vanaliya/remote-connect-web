@@ -6,7 +6,7 @@ var AlertConfig = function () {
 
         $('.device_id').change(function () {
             var device_id = $('.device_id option:selected').val();
-           
+            $('.preloader').show();
             $.ajax({
                 type: "POST",
                 headers: { 'X-CSRF-TOKEN': $('input[name="_token"]').val() },
@@ -20,6 +20,7 @@ var AlertConfig = function () {
                     $.each(data.column, function (idx, val) {
                         html += '<option value="' + val + '">' + val + '</option>';
                     });
+                    $('.preloader').hide();
                     $("#parameter").html(html);
                     if($('.old_parameter').val() != ''){
                         $("#parameter").val($('.old_parameter').val());

@@ -37,6 +37,7 @@ var DashboardV2 = function () {
         })
          
         $('.search').click(function () {
+            $('.preloader').show();
             getAmChart()
         });
          
@@ -173,7 +174,7 @@ var DashboardV2 = function () {
  
     
        function getAmChart() {
-          
+        $('.preloader').show();
             let startDate = ($('#startDate').val() != undefined) ? $('#startDate').val() : '';
             let endDate = ($('#endDate').val() != undefined) ? $('#endDate').val() : '';
             let dateRange = ($('#dateRange').val() != undefined) ? $('#dateRange').val() : '';
@@ -192,6 +193,7 @@ var DashboardV2 = function () {
                 url: site_url + "admin/dashboardV2/ajaxAction",
                 data: { 'action': 'getChartDataV2', 'endDate': endDate, 'startDate': startDate,'dateRange': dateRange, "modem_id":modem_id },
                 success: function (out) {
+                    $('.preloader').hide();
                     let res = JSON.parse(out);
                     let result = res.chart;
                     root.setThemes([
