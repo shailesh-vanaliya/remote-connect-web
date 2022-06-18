@@ -140,7 +140,8 @@ class UserController extends Controller
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
         } else {
-            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+            // $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+            $data['organization'] = Organization::select('organization_name', 'id',)->where('id',Auth::guard('admin')->user()->organization_id)->pluck('organization_name', 'id')->toArray();
         }
         $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
         return view('admin.users.create', $data);
@@ -244,7 +245,7 @@ class UserController extends Controller
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
         } else {
-            $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
+            $data['organization'] = Organization::select('organization_name', 'id',)->where('id',Auth::guard('admin')->user()->organization_id)->pluck('organization_name', 'id')->toArray();
         }
         return view('admin/users.edit', $data);
     }

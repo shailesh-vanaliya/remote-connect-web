@@ -202,6 +202,10 @@ class NotificationController extends Controller
                 $this->_setReadNotification($request->all());
                 break;
                 
+            case 'ackNotification':
+                $this->_setAckNotification($request->all());
+                break;
+                
         }
         exit;
     }
@@ -218,6 +222,14 @@ class NotificationController extends Controller
     {
         $notificationList = Notification::where('created_by', Auth::guard('admin')->user()->id)->where('viewed', 0)->orderBy('id', 'desc')->get()->toArray();
         echo json_encode($notificationList);
+        exit;
+    }
+    public function _setAckNotification($postData)
+    {
+        $notificationList = Notification::where('id',"=",$postData['notificationId'])->update(['is_ack'=> 1]);
+        $res['status'] = "success";
+        $res['message'] = "Your message success set as acknowledged";
+        echo json_encode($res);
         exit;
     }
 }
