@@ -23,12 +23,33 @@ class ReportSchedulesController extends Controller
         $keyword = $request->get('search');
         $perPage = 25;
 
-        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-            $data['reportschedules'] = ReportSchedule::latest()->get();
-        } else {
-            $data['reportschedules'] = ReportSchedule::where('created_by', Auth::guard('admin')->user()->id)->latest()->get();
+        // if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+        //     $data['reportschedules'] = ReportSchedule::latest()->get();
+        // } else {
+        //     $data['reportschedules'] = ReportSchedule::where('created_by', Auth::guard('admin')->user()->id)->latest()->get();
+        // }
+        $subQuery =  ReportSchedule::select(
+            'report_configurations.parameter',
+            'report_configurations.report_title',
+            'devices.modem_id',
+            'device_type.device_type',
+            'device_type.data_table',
+            'devices.project_name',
+            'report_schedules.*',
+        );
+      
+        $subQuery->leftJoin('report_configurations',  'report_configurations.id', '=', 'report_schedules.report_config_id');
+        $subQuery->leftJoin('reports',  'reports.report_config_id', '=', 'report_configurations.id');
+        $subQuery->leftJoin('device_type',  'device_type.id', '=', 'reports.device_type_id');
+        $subQuery->join('devices',  'devices.id', '=', 'report_configurations.device_id');
+        if (Auth::guard('admin')->user()->role != 'SUPERADMIN') {
+            if (Auth::guard('admin')->user()->role == "ADMIN") {
+                $subQuery->where('report_configurations.organization_id', Auth::guard('admin')->user()->organization_id);
+            } else {
+                $subQuery->where('report_configurations.created_by', Auth::guard('admin')->user()->id);
+            }
         }
-
+        $data['reportschedules'] =  $subQuery->latest('report_schedules.created_at')->get();
         // Auth::guard('admin')->user()->organization_id
 
         $data['pagetitle']             = 'Report schedules';

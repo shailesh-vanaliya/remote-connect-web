@@ -26,11 +26,12 @@
                                 <tr>
                                     <th>#</th>
                                     <!-- <th>Report Id</th> -->
+                                    <th>Report Title</th>
                                     <th>Start Time</th>
                                     <th>End Time</th>
                                     <th>Execution Time</th>
                                     <th>Repeat On</th>
-                                    <th>Sender User List</th>
+                                    <!-- <th>Sender User List</th> -->
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -45,11 +46,12 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <!-- <td>{{ $item->report_id }}</td> -->
+                                    <td>{{ $item->report_title }}</td>
                                     <td>{{ $item->start_time }}</td>
                                     <td>{{ $item->end_time }}</td>
                                     <td>{{ $item->execution_time }}</td>
                                     <td style="word-break: break-all;width: 20%;">{{ $repeat }}</td>
-                                    <td style="word-break: break-all;width: 20%;">{{ $sender_user_list  }}</td>
+                                    <!-- <td style="word-break: break-all;width: 20%;">{{ $sender_user_list  }}</td> -->
                                     <!-- <td>{{ $item->sender_user_list }}</td> -->
                                     <td>
                                         <a href="{{ url('/admin/report-schedules/' . $item->id) }}" title="View ReportSchedule"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> </button></a>

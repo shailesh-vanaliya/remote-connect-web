@@ -106,10 +106,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Report title</th>
                                     <th>Device Name</th>
-                                    <th>Device Type</th>
+                                    <!-- <th>Device Type</th> -->
                                     <!-- <th>Field Name</th> -->
-                                    <th>Parameter</th>
+                                    <!-- <th>Parameter</th> -->
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -117,10 +118,11 @@
                                 @foreach($report as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->report_title }}</td>
                                     <td>{{ $item->modem_id }}</td>
-                                    <td>{{ $item->device_type }}</td>
+                                    <!-- <td>{{ $item->device_type }}</td> -->
                                     <!-- <td style="word-break: break-all;">{{ $item->field_name }}</td> -->
-                                    <td style="word-break: break-all;">{{ $item->parameter }}</td>
+                                    <!-- <td style="word-break: break-all;">{{ $item->parameter }}</td> -->
                                     <td style="width: 12%;display: inline-flex;;">
                                         <!-- <a class="ml-1" href="{{ url('/admin/report/' . $item->id) }}" title="View Report"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> </button></a>
                                         <a class="ml-1" href="{{ url('/admin/report/' . $item->id . '/edit') }}" title="Edit Report"><button class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a> -->

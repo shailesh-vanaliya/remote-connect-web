@@ -232,7 +232,7 @@ class NotificationController extends Controller
             $res['status'] = "success";
             $res['message'] = "Your message success set as acknowledged";    
         }else{
-            $res['status'] = "warning";
+            $res['status'] = "success";
             $res['message'] = "Your have already set as acknowledged";
         }
         
