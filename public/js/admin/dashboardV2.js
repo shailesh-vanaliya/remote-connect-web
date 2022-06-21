@@ -264,7 +264,7 @@ var DashboardV2 = function () {
                             yAxis: yAxis,
                             valueYField: "value",
                             valueXField: "date",
-                            // legendValueText: "{valueY}"+"°C",
+                            legendValueText: "{valueY}"+"°C",
                             // seriesTooltipTarget: "bullet",
                             tooltip: am5.Tooltip.new(root, {
                               labelText: "{name}[/] {valueY}"+"°C",
@@ -313,8 +313,8 @@ var DashboardV2 = function () {
                     }));
         
                     var legend = chart.rightAxesContainer.children.push(am5.Legend.new(root, {
-					  // width: 200,
-					  // paddingLeft: 15,
+					  width: 200,
+					  paddingLeft: 15,
 					  height: am5.percent(100)
 					}));
         
@@ -350,7 +350,7 @@ var DashboardV2 = function () {
                                 });
                             } else {
                                 chartSeries.strokes.template.setAll({
-                                    strokeWidth: 4
+                                    strokeWidth: 2
                                 });
                             }
                         })
