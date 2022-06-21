@@ -289,7 +289,7 @@ class DeviceController extends Controller
         $requestData = $request->all();
 
         $rules = [
-            "modem_id" => "required",
+            "modem_id" => "required|unique:devices",
             "secret_key" => "required",
             "project_name" => "required",
             "location" => "required",

@@ -32,7 +32,7 @@ class MeterDashboardController extends Controller
     protected $deviceName = '';
     public function __construct(Request $request)
     {
-        $this->deviceName = ($request->route('modemId') ?  $request->route('modemId') :  'FT104');
+        $this->deviceName = ($request->route('modemId') ?  $request->route('modemId') :  '');
         $this->middleware('admin');
     }
 

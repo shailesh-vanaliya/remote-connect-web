@@ -84,9 +84,9 @@
                 @endphp
                 @foreach($userList as $row => $val)
                 @php
-                $check = isset($reportschedule->sender_user_list) ? (in_array($val,$usr) ? 'selected' : '') : '';
+                $check = isset($reportschedule->sender_user_list) ? (in_array($row,$usr) ? 'selected' : '') : '';
                 @endphp
-                <option {{ $check  }} value="{{ $val }}">{{ $val }}</option>
+                <option {{ $check  }} value="{{ $row }}">{{ $val }}</option>
                 @endforeach
             </select>
         </div>

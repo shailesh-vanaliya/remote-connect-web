@@ -52,6 +52,9 @@ var Notification = function () {
                     var output = JSON.parse(data);
                     $('.preloader').hide();
                     showToster(output.status, output.message)
+                    $('.isAck_'+notificationId).removeClass('btn-secondary');
+                    $('.isAck_'+notificationId).addClass('btn-success'); 
+                    $('.isAckSub'+notificationId).prop('title', 'Already Acknowledged');
                 }
             });
         });
