@@ -25,7 +25,7 @@ class ReportSchedule extends Model
      *
      * @var array
      */
-    protected $fillable = ['start_time', 'end_time','report_config_id', 'execution_time', 'repeat_on', 'sender_user_list','created_by','updated_by'];
+    protected $fillable = ['start_time', 'end_time','report_config_id', 'execution_time', 'repeat_on', 'sender_user_list','created_by','updated_by','is_updated'];
 
     
 }

@@ -120,6 +120,7 @@ class ReportSchedulesController extends Controller
             // exit;
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            $requestData['is_updated'] = 1;
             $requestData['repeat_on'] = json_encode($requestData['repeat_on']);
             $requestData['sender_user_list'] = isset($requestData['sender_user_list']) ? json_encode($requestData['sender_user_list']) : '';
 
@@ -210,7 +211,7 @@ class ReportSchedulesController extends Controller
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             $requestData['repeat_on'] = json_encode($requestData['repeat_on']);
             $requestData['sender_user_list'] = isset($requestData['sender_user_list']) ? json_encode($requestData['sender_user_list']) : '';
-
+            $requestData['is_updated'] = 1;
             $reportschedule = ReportSchedule::findOrFail($id);
             $reportschedule->update($requestData);
 
