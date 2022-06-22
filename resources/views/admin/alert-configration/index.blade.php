@@ -37,7 +37,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->modem_id }}</td>
-                                    <td>{{ $item->parameter }}</td>
+                                    <td>{{ Helper::gerReportParameter(array($item->parameter), $item->modem_id) }}</td>
                                     <td>{{ $item->condition }}</td>
                                     <td>{{ $item->set_value }}</td>
                                     <td>{{ $item->sms_alert }}</td>

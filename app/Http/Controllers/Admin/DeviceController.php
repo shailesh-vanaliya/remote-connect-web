@@ -289,7 +289,8 @@ class DeviceController extends Controller
         $requestData = $request->all();
 
         $rules = [
-            "modem_id" => "required|unique:devices",
+            "modem_id" => "required",
+            // "modem_id" => "required|unique:devices",
             "secret_key" => "required",
             "project_name" => "required",
             "location" => "required",
@@ -317,21 +318,23 @@ class DeviceController extends Controller
                 $requestData['organization_id'] = Auth::guard('admin')->user()->id;
             }
 
-            Device::create($requestData);
+            $res =  Device::create($requestData);
 
-                // $curl = curl_init();
-                // curl_setopt_array($curl, array(
-                //     CURLOPT_URL => $_SERVER['APP_URL']. '/device-alias',
-                //     CURLOPT_RETURNTRANSFER => true,
-                //     CURLOPT_ENCODING => '',
-                //     CURLOPT_MAXREDIRS => 10,
-                //     CURLOPT_TIMEOUT => 0,
-                //     CURLOPT_FOLLOWLOCATION => true,
-                //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                //     CURLOPT_CUSTOMREQUEST => 'GET',
-                // ));
-                // $response = curl_exec($curl);
-                // curl_close($curl);
+            $objDevice = new Device();
+            $alias = $objDevice->deviceDetail($res->id);
+
+
+            $collegeDetails = DeviceAliasmap::firstOrNew(array('modem_id' => $alias['modem_id']));
+            $collegeDetails->dashboard_alias = $alias->dashboard_alias;
+            $collegeDetails->parameter_alias = $alias->parameter_alias;
+            $collegeDetails->chart_alias = $alias->chart_alias;
+            $collegeDetails->updated_at = Carbon::now();
+            $collegeDetails->created_at = Carbon::now();
+            $collegeDetails->updated_by = Auth::guard('admin')->user()->id;
+            $collegeDetails->created_by = Auth::guard('admin')->user()->id;
+            $collegeDetails->save();
+             
+
 
             return redirect('admin/device')->with('session_success', 'Device added!');
         } catch (\Exception $e) {

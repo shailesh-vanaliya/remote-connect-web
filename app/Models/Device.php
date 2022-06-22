@@ -35,6 +35,7 @@ class Device extends Model
             'device_map.MQTT_ID',
             'device_map.max_user_access',
             'device_map.IMEI_No',
+            'device_map.device_type_id',
             'device_status.Status',
             'device_status.id as device_status_id',
             'remote.MACHINE_NO',
@@ -42,6 +43,12 @@ class Device extends Model
             'remote.MACHINE_LOCAL_PORT',
             'remote.MACHINE_REMOTE_PORT',
             'remote.STATUS',
+            'device_type.device_type', 
+            'device_type.data_table',
+            'device_type.parameter_alias',
+            'device_type.dashboard_alias',
+            'device_type.chart_alias',
+            'device_type.dashboard_id',
             'devices.*',
         );
 
@@ -52,6 +59,7 @@ class Device extends Model
 
         $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
         $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
+        $subQuery->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
         $subQuery->where('devices.id', '=', $id);
         $subQuery->groupBy('devices.id');
         return  $subQuery->first();
