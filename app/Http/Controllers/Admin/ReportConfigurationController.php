@@ -56,6 +56,7 @@ class ReportConfigurationController extends Controller
                 'list' => '',
             ],
         ];
+        
         return view('admin.report-configuration.index', $data);
     }
 
@@ -295,19 +296,30 @@ class ReportConfigurationController extends Controller
             'device_type.device_type',
             'device_type.data_source',
             'device_type.data_table',
+            'device_aliasmap.dashboard_alias',
+            'device_aliasmap.parameter_alias',
+            'device_aliasmap.chart_alias',
+            
         );
         $subQuery->Join('device_map', function ($join) {
             $join->on('device_map.MODEM_ID', '=', 'devices.modem_id');
             $join->on('device_map.secret_key', '=', 'devices.secret_key');
         });
         $subQuery->Join('device_type',  'device_type.id', '=', 'device_map.device_type_id');
+        $subQuery->leftJoin('device_aliasmap',  'device_aliasmap.modem_id', '=', 'devices.modem_id');
         $subQuery->Where('devices.id', $postData['device_id']);
         $subQuery->groupBy('devices.id');
-        $deviceList=  $subQuery->latest('devices.created_at')->first()->toArray();
-        $result['column'] =  DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($deviceList['data_table']);
+        $deviceList =  $subQuery->latest('devices.created_at')->first()->toArray();
+        // print_r($deviceList['parameter_alias']);
+        // exit;
+        $result['column'] = (isset($deviceList['parameter_alias']) && !empty($deviceList['parameter_alias'])) ? json_decode($deviceList['parameter_alias'],TRUE) : "";
+        // $result['column'] = (isset($deviceList['dashboard_alias']) && !empty($deviceList['dashboard_alias'])) ? json_decode($deviceList['dashboard_alias'],TRUE) : "";
+        // print_r($result['column']);
+        // exit;
+        // $result['column'] =  DB::connection('mysql2')->getSchemaBuilder()->getColumnListing($deviceList['data_table']);
         // unset($result['column'][0]);
-        $pos = array_search('id', $result['column']);
-        unset($result['column'][$pos]);
+        // $pos = array_search('id', $result['column']);
+        // unset($result['column'][$pos]);
         return $result;
     }
 

@@ -47,5 +47,20 @@ class Helper
 		// exit;
 
 	}
+	public static function gerReportParameter($param, $modem_id)
+	{
+		
+		$deviceList =  DeviceAliasmap::where('modem_id', $modem_id)->first()->toArray();
+		$string = "";
+	 	$column = (isset($deviceList['parameter_alias']) && !empty($deviceList['parameter_alias'])) ? json_decode($deviceList['parameter_alias'],TRUE) : "";
+	
+	 	foreach($param as $key =>$val){
+			if (array_key_exists($val,$column))
+			{
+				$string .= $column[$val].', ';
+			}
+		}
+		return $string;
+	}
 
 }

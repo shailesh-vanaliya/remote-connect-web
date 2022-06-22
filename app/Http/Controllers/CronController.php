@@ -135,7 +135,7 @@ class CronController extends Controller
             // print_r($val);
             // exit;
             $count = DeviceAliasmap::where(['modem_id' => $val['modem_id']])->count();
-            // if ($count == 0) {
+            if ($count == 0) {
                 $collegeDetails = DeviceAliasmap::firstOrNew(array('modem_id' => $val['modem_id']));
                 $collegeDetails->dashboard_alias = $val['dashboard_alias'];
                 $collegeDetails->parameter_alias = $val['parameter_alias'];
@@ -157,7 +157,7 @@ class CronController extends Controller
                 //         'updated_by' => 1,
                 //         'created_by' => 1,
                 //     ]);
-            // }
+            }
         }
     }
 }

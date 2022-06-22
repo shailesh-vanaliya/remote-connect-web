@@ -15,10 +15,10 @@ var AlertConfig = function () {
                 success: function (data) {
                     $("#parameter").html("");
                     var data = JSON.parse(data);
-                
+                console.log(data, "datadata")
                     var html = '<option value="">- - Choose Parameter - -</option>';
                     $.each(data.column, function (idx, val) {
-                        html += '<option value="' + val + '">' + val + '</option>';
+                        html += '<option value="' + idx + '">' + val + '</option>';
                     });
                     $('.preloader').hide();
                     $("#parameter").html(html);

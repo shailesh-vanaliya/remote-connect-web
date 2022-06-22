@@ -20,8 +20,7 @@ var ReportConfig = function () {
                     console.log(data)
                     var html = '<option value="">- - Choose Parameter - -</option>';
                     $.each(data.column, function (idx, val) {
-                       
-                        html += '<option value="' + val + '">' + val + '</option>';
+                        html += '<option value="' + idx + '">' + val + '</option>';
                     });
                     $("#parameter").html(html);
                 }

@@ -17,9 +17,9 @@
                 @endphp
                 @foreach($column as $row => $val)
                 @php
-                $check = isset($alertconfigration->parameter) && !empty($array) ? (in_array($val,$array) ? 'selected' : '') : '';
+                $check = isset($alertconfigration->parameter) && !empty($array) ? (in_array($row,$array) ? 'selected' : '') : '';
                 @endphp
-                <option {{ $check  }} value="{{ $val }}">{{ $val }}</option>
+                <option {{ $check  }} value="{{ $row }}">{{ $val }}</option>
                 @endforeach
             </select>
         </div>
