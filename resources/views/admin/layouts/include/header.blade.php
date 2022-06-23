@@ -32,8 +32,11 @@
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown mt-2">
-            <i class="fa fa-expand" onclick="openFullscreen();" aria-hidden="true">
+            <i class="fa fa-compress" title="Maximize" onclick="openFullscreen();" aria-hidden="true">
             </i>
+        </li>
+        <li class="nav-item dropdown mt-2 ml-2">
+        <i class="fa fa-expand " title="Minimize" onclick="closeFullscreen();" aria-hidden="true"></i>
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
