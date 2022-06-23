@@ -72,7 +72,7 @@
                                 </a>
                             </li>
                         @php
-                            $url = url('/admin/'.$item->dashboard_id.'/' .$item->modem_id );
+                            $url = url('/admin/'.$item->dashboard_id.'/' . base64_encode($item->id) );
                             $url = ($item->dashboard_id == '') ? "#" : $url;
                         @endphp
                             <li class="nav-item m-2 text-center">

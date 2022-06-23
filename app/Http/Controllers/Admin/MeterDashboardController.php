@@ -30,9 +30,15 @@ use Maatwebsite\Excel\Facades\Excel;
 class MeterDashboardController extends Controller
 {
     protected $deviceName = '';
+    protected $deviceDetail = [];
     public function __construct(Request $request)
     {
-        $this->deviceName = ($request->route('modemId') ?  $request->route('modemId') :  '');
+        $deviceObject = new Device();
+        // $res =  $deviceObject->deviceDetail($request->route('modemId'));
+        $res =  $deviceObject->deviceDetail(base64_decode($request->route('modemId')));
+
+        $this->deviceName = (!empty($res) ?  $res->modem_id :  '');
+        $this->deviceDetail = (!empty($res) ?  $res :  '');
         $this->middleware('admin');
     }
 
@@ -44,7 +50,8 @@ class MeterDashboardController extends Controller
         $result =  DataLog::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
 
         $deviceObject = new Device();
-        $data['device'] =  $deviceObject->deviceDetailByModel($this->deviceName);
+      
+        $data['device'] =  $deviceObject->deviceDetail($this->deviceDetail->id);
         $data['dashboard_alias'] = (isset($data['device']['dashboard_alias']) && !empty($data['device']['dashboard_alias'])) ? json_decode($data['device']['dashboard_alias'],TRUE) : "";
         // $data['device'] =  Device::where("modem_id", $this->deviceName)->first();
         // print_r($data['dashboard_alias']);

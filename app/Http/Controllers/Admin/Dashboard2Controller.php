@@ -18,6 +18,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use App\Models\PIDAllData;
+use App\Models\Device;
 use App\Models\Honeywell;
 use App\Models\DeviceAliasmap;
 use App\Models\DataLog;
@@ -28,9 +29,15 @@ class Dashboard2Controller extends Controller
 {
 
     protected $deviceName = '';
+    protected $deviceDetail = [];
     public function __construct(Request $request)
     {
-        $this->deviceName = ($request->route('modemId') ?  $request->route('modemId') :  '');
+        // $this->deviceName = ($request->route('modemId') ?  $request->route('modemId') :  '');
+        $deviceObject = new Device();
+        $res =  $deviceObject->deviceDetail(base64_decode($request->route('modemId')));
+
+        $this->deviceName = (!empty($res) ?  $res->modem_id :  '');
+        $this->deviceDetail = (!empty($res) ?  $res :  '');
         $this->middleware('admin');
     }
 
