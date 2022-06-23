@@ -24,9 +24,17 @@
         </div>
     </form> -->
 
+    <!-- <input type="button" value="click to toggle fullscreen" onclick="toggleFullScreen(document.body)">
+    <button >Go Fullscreen Mode</button>
+<button onclick="closeFullscreen();">Close Fullscreen</button> -->
+
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
+        <li class="nav-item dropdown mt-2">
+            <i class="fa fa-expand" onclick="openFullscreen();" aria-hidden="true">
+            </i>
+        </li>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
@@ -78,7 +86,7 @@
                 <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
             </div>
         </li>
-        
+
         <!-- <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-comments"></i>
@@ -148,5 +156,38 @@
         </li>
     </ul>
 </nav>
+<script>
+    /* Get the element you want displayed in fullscreen */
+    var elem = document.documentElement;
 
-<input type="hidden" name="_token" value="{{ csrf_token() }}">  
+    /* Function to open fullscreen mode */
+    function openFullscreen() {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+            /* Firefox */
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+            /* Chrome, Safari & Opera */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            /* IE/Edge */
+            elem = window.top.document.body; //To break out of frame in IE
+            elem.msRequestFullscreen();
+        }
+    }
+
+    /* Function to close fullscreen mode */
+    function closeFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            window.top.document.msExitFullscreen();
+        }
+    }
+</script>
+<input type="hidden" name="_token" value="{{ csrf_token() }}">
