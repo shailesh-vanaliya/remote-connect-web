@@ -315,7 +315,7 @@ class DeviceController extends Controller
             // $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             if (Auth::guard('admin')->user()->role == "USER") {
-                $requestData['organization_id'] = Auth::guard('admin')->user()->id;
+                $requestData['organization_id'] = Auth::guard('admin')->user()->organization_id;
             }
 
             $res =  Device::create($requestData);
@@ -428,7 +428,7 @@ class DeviceController extends Controller
             try {
                 $requestData['updated_by'] = Auth::guard('admin')->user()->id;
                 if (Auth::guard('admin')->user()->role == "USER") {
-                    $requestData['organization_id'] = Auth::guard('admin')->user()->id;
+                    $requestData['organization_id'] = Auth::guard('admin')->user()->organization_id;
                 }
                 $device = Device::findOrFail($id);
                 $device->update($requestData);
