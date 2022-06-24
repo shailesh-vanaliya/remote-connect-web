@@ -71,7 +71,7 @@
           <b ml-1> Unit Mapping</b>
           <hr />
           <br />
-          <div class="form-group mb-1 {{ $chart % 2 == 0 ? 'row ' : ''}} ">
+          <div class="form-group mb-1 {{ $uchart % 2 == 0 ? 'row ' : ''}} ">
             @foreach($unit_alias as $key => $val)
             <label for="modem_id" class="col-form-label mb-2 text-center col-lg-2 offset-sm-0 col-sm-12"> {{ str_replace("_"," ",$key) }}</label>
             <div class="col-sm-2 mb-0.5">
