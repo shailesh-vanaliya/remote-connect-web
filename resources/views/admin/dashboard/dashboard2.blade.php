@@ -690,6 +690,7 @@
               <!-- <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button> -->
             </div>
           </div>
+        
           <div class="card-body mt-1">
             <form method="POST" action="{{ url('admin/update-pid/'. $deviceName) }} " accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
               {{ csrf_field() }}
@@ -713,6 +714,8 @@
                 <input class="btn btn-success mr-1" type="submit" name="button" value="Read">
                 <input class="btn btn-primary" type="submit" name="button" value="Write">
               </div>
+              <input type="hidden" name="modem_id" value="{{ $deviceDetail['modem_id'] }}">
+          <input type="hidden" name="id" value="{{ $deviceDetail['id'] }}">
               @else
               <div class=" row">
                  <code class="card-body text-center">No Recipe data found</code>

@@ -39,6 +39,7 @@ class Dashboard2Controller extends Controller
         $this->deviceName = (!empty($res) ?  $res->modem_id :  '');
         $this->deviceDetail = (!empty($res) ?  $res :  '');
         $this->middleware('admin');
+       
     }
 
     /**
@@ -76,6 +77,8 @@ class Dashboard2Controller extends Controller
         // }
         // exit;
         $data['deviceName'] = $this->deviceName;
+        $data['deviceDetail'] = $this->deviceDetail;
+       
         return view('admin.dashboard.dashboard2', $data);
     }
 
@@ -214,11 +217,18 @@ class Dashboard2Controller extends Controller
 
     public function updatePiddata(Request $request)
     {
-        // print_r($request->all());
+        // print_r($request->all('id'));
+        // print_r( $this->deviceDetail);
+        // exit;
         $postData = $request->all();
+        $id = base64_encode($postData['id']);
+        $modem_id = $postData['modem_id'];
+        // echo  $id ;
+        // exit;
         unset($postData['_token']);
         if ($postData['button'] == "Read") {
             unset($postData['button']);
+            unset($postData['id']);
             $result = [];
             try {
                 foreach ($postData  as $key => $val) {
@@ -226,16 +236,17 @@ class Dashboard2Controller extends Controller
                 }
                 $data = array(
                     "data" => 1,
-                    "Modem id" => (isset($this->deviceName) ?  $this->deviceName : ''),
+                    "Modem id" => (isset($modem_id) ?  $modem_id : ''),
                     "client id" => (isset(Auth::guard('admin')->user()->id) ?  Auth::guard('admin')->user()->full_name : ''),
                 );
-                $res = MQTT::publish($this->deviceName . "/1/SUB_PTN1_READ", json_encode($data));
-                return redirect('admin/dashboard2/' . $this->deviceName)->with('session_success', 'Data Read successfully please Refersh page');
+                $res = MQTT::publish($modem_id . "/1/SUB_PTN1_READ", json_encode($data));
+                return redirect('admin/dashboard2/' . $id)->with('session_success', 'Data Read successfully please Refersh page');
             } catch (\Exception $e) {
-                return redirect('admin/dashboard2/' . $this->deviceName)->with('session_error', 'Data Read failed');
+                return redirect('admin/dashboard2/' . $id)->with('session_error', 'Data Read failed');
             }
         } else {
             unset($postData['button']);
+            unset($postData['id']);
             $result = [];
             try {
                 foreach ($postData  as $key => $val) {
@@ -245,14 +256,14 @@ class Dashboard2Controller extends Controller
                 
                 $data = array(
                     "data" => $result,
-                    "Modem id" => (isset($this->deviceName) ?  $this->deviceName : ''),
+                    "Modem id" => (isset($modem_id) ?  $modem_id : ''),
                     "client id" => (isset(Auth::guard('admin')->user()->id) ?  Auth::guard('admin')->user()->full_name : ''),
                 );
              
-                $res = MQTT::publish($this->deviceName . "/1/SUB_PTN1_WR", json_encode($data));
-                return redirect('admin/dashboard2/' . $this->deviceName)->with('session_success', 'Data write successfully read and recheck ');
+                $res = MQTT::publish($modem_id . "/1/SUB_PTN1_WR", json_encode($data));
+                return redirect('admin/dashboard2/' . $id)->with('session_success', 'Data write successfully read and recheck ');
             } catch (\Exception $e) {
-                return redirect('admin/dashboard2/' . $this->deviceName)->with('session_error', 'Data write failed');
+                return redirect('admin/dashboard2/' . $id)->with('session_error', 'Data write failed');
             }
         }
     }

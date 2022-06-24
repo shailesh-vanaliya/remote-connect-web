@@ -300,8 +300,12 @@ class DeviceController extends Controller
             if ($validator->fails()) {
                 return redirect("admin/device/create")->withErrors($validator)->withInput();
             }
-            $mapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))
-                ->where('secret_key', $request->all('secret_key'))->count();
+            $queryBuilder =  DeviceMap::where('MODEM_ID', $request->all('modem_id'));
+            $queryBuilder->where('secret_key', $request->all('secret_key'));
+            if (Auth::guard('admin')->user()->role == "USER" || Auth::guard('admin')->user()->role == "ADMIN") {
+                $requestData['organization_id'] = Auth::guard('admin')->user()->organization_id;
+            }
+            $mapCount = $queryBuilder->count();
             if ($mapCount == 0) {
                 return redirect('admin/device/create')->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
@@ -333,7 +337,7 @@ class DeviceController extends Controller
             $collegeDetails->updated_by = Auth::guard('admin')->user()->id;
             $collegeDetails->created_by = Auth::guard('admin')->user()->id;
             $collegeDetails->save();
-             
+
 
 
             return redirect('admin/device')->with('session_success', 'Device added!');
@@ -413,8 +417,17 @@ class DeviceController extends Controller
             if ($validator->fails()) {
                 return redirect("admin/device/$id/edit")->withErrors($validator)->withInput();
             }
-            $mapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))
-                ->where('secret_key', $request->all('secret_key'))->count();
+            // $mapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))
+                // ->where('secret_key', $request->all('secret_key'))->count();
+                
+
+            $queryBuilder =  DeviceMap::where('MODEM_ID', $request->all('modem_id'));
+            $queryBuilder->where('secret_key', $request->all('secret_key'));
+            if (Auth::guard('admin')->user()->role == "USER" || Auth::guard('admin')->user()->role == "ADMIN") {
+                $requestData['organization_id'] = Auth::guard('admin')->user()->organization_id;
+            }
+            $mapCount = $queryBuilder->count();
+
             if ($mapCount == 0) {
                 return redirect(`admin/device/$id/edit`)->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
@@ -615,7 +628,7 @@ class DeviceController extends Controller
             foreach ($postData['chart_alias']  as $key => $val) {
                 $chart_alias[$key] = $val;
             }
-         
+
             DeviceAliasmap::where(['modem_id' => $id])
                 ->update([
                     'parameter_alias' => json_encode($parameter_alias),
@@ -656,29 +669,25 @@ class DeviceController extends Controller
         //     return redirect('admin/device')->with('session_error', 'Sorry, Device details not found!');
         // }
         $jsonDecode =  DeviceAliasmap::where('modem_id', $data['deviceDetail']['modem_id'])->first();
-        if(empty($jsonDecode )){
-            
-            DeviceAliasmap::where(['modem_id' => $data['deviceDetail']['modem_id']])
-            ->insert([
-                'dashboard_alias' => '{"CONTROLLER1_TITLE": "MASTER", "CONTROLLER2_TITLE": "ZONE1", "CONTROLLER3_TITLE": "ZONE2", "CONTROLLER4_TITLE": "ZONE3", "CONTROLLER5_TITLE": "ZONE4","CONTROLLER6_TITLE": "ZONE5","CONTROLLER7_TITLE": "ZONE6","CONTROLLER8_TITLE": "ZONE7","CONTROLLER9_TITLE": "ZONE8"}',
-                'parameter_alias' => '{"dtm":"Time","pv1":"master pv","sp1":"master sp","out1":"mastre output","obit1":"master status", "pv2":"zone1 pv", "sp2":"zone1 sp","out2":"zone1 output","obit2":"zone1 status","pv3":"zone2 pv", "sp3":"zone2 sp","out3":"zone2 output","obit3":"zone2 status","pv4":"zone3 pv", "sp4":"zone3 sp","out4":"zone3 output","obit4":"zone3 status","pv5":"zone4 pv", "sp5":"zone4 sp","out5":"zone4 output","obit5":"zone4 status","pv6":"zone5 pv", "sp6":"zone5 sp","out6":"zone5 output","obit6":"zone5 status","pv1_unit":"°C","sp1_unit":"°C","out1_unit":"%","obit1_unit":" ","pv2_unit":"°C","sp2_unit":"°C","out2_unit":"%","obit2_unit":" ","pv3_unit":"°C","sp3_unit":"°C","out3_unit":"%","obit3_unit":" ","pv4_unit":"°C","sp4_unit":"°C","out4_unit":"%","obit4_unit":" ","pv5_unit":"°C","sp5_unit":"°C","out5_unit":"%","obit5_unit":" ","pv6_unit":"°C","sp6_unit":"°C","out6_unit":"%","obit6_unit":" "}',
-                'updated_at' => Carbon::now(),
-                'created_at' => Carbon::now(),
-                'modem_id' => $data['deviceDetail']['modem_id'],
-                'updated_by' => Auth::guard('admin')->user()->id,
-                'created_by' => Auth::guard('admin')->user()->id,
-            ]);
-            $jsonDecode =  DeviceAliasmap::where('modem_id', $data['deviceDetail']['modem_id'])->first();
-        }
-       
-//         Helper::getAliasData($id);
-// echo " fdsfsd";
-// exit;
+        // if(empty($jsonDecode )){
+        //     DeviceAliasmap::where(['modem_id' => $data['deviceDetail']['modem_id']])
+        //     ->insert([
+        //         'dashboard_alias' => '{"CONTROLLER1_TITLE": "MASTER", "CONTROLLER2_TITLE": "ZONE1", "CONTROLLER3_TITLE": "ZONE2", "CONTROLLER4_TITLE": "ZONE3", "CONTROLLER5_TITLE": "ZONE4","CONTROLLER6_TITLE": "ZONE5","CONTROLLER7_TITLE": "ZONE6","CONTROLLER8_TITLE": "ZONE7","CONTROLLER9_TITLE": "ZONE8"}',
+        //         'parameter_alias' => '{"dtm":"Time","pv1":"master pv","sp1":"master sp","out1":"mastre output","obit1":"master status", "pv2":"zone1 pv", "sp2":"zone1 sp","out2":"zone1 output","obit2":"zone1 status","pv3":"zone2 pv", "sp3":"zone2 sp","out3":"zone2 output","obit3":"zone2 status","pv4":"zone3 pv", "sp4":"zone3 sp","out4":"zone3 output","obit4":"zone3 status","pv5":"zone4 pv", "sp5":"zone4 sp","out5":"zone4 output","obit5":"zone4 status","pv6":"zone5 pv", "sp6":"zone5 sp","out6":"zone5 output","obit6":"zone5 status","pv1_unit":"°C","sp1_unit":"°C","out1_unit":"%","obit1_unit":" ","pv2_unit":"°C","sp2_unit":"°C","out2_unit":"%","obit2_unit":" ","pv3_unit":"°C","sp3_unit":"°C","out3_unit":"%","obit3_unit":" ","pv4_unit":"°C","sp4_unit":"°C","out4_unit":"%","obit4_unit":" ","pv5_unit":"°C","sp5_unit":"°C","out5_unit":"%","obit5_unit":" ","pv6_unit":"°C","sp6_unit":"°C","out6_unit":"%","obit6_unit":" "}',
+        //         'updated_at' => Carbon::now(),
+        //         'created_at' => Carbon::now(),
+        //         'modem_id' => $data['deviceDetail']['modem_id'],
+        //         'updated_by' => Auth::guard('admin')->user()->id,
+        //         'created_by' => Auth::guard('admin')->user()->id,
+        //     ]);
+        //     $jsonDecode =  DeviceAliasmap::where('modem_id', $data['deviceDetail']['modem_id'])->first();
+        // }
+
+
         $data['dashboard_alias'] = (isset($jsonDecode['dashboard_alias']) && !empty($jsonDecode['dashboard_alias'])) ? json_decode($jsonDecode['dashboard_alias'], TRUE) : "";
         $data['parameter_alias'] = (isset($jsonDecode['parameter_alias']) && !empty($jsonDecode['parameter_alias'])) ? json_decode($jsonDecode['parameter_alias'], TRUE) : "";
         $data['chart_alias'] = (isset($jsonDecode['chart_alias']) && !empty($jsonDecode['chart_alias'])) ? json_decode($jsonDecode['chart_alias'], TRUE) : "";
-       
-       
+
         $data['pagetitle'] = 'Device';
         $data['title'] = 'Device';
         $data['js']        = ['admin/device.js', 'jquery.validate.min.js'];
