@@ -20,6 +20,7 @@
             @php
             $count = 0;
             $counts = 0;
+            $uchart = 0;
             $chart = 0;
             @endphp
             @if(isset($dashboard_alias) && !empty($dashboard_alias))
@@ -65,6 +66,23 @@
               @endphp
               @endforeach
             </div>
+
+            <hr />
+          <b ml-1> Unit Mapping</b>
+          <hr />
+          <br />
+          <div class="form-group mb-1 {{ $chart % 2 == 0 ? 'row ' : ''}} ">
+            @foreach($unit_alias as $key => $val)
+            <label for="modem_id" class="col-form-label mb-2 text-center col-lg-2 offset-sm-0 col-sm-12"> {{ str_replace("_"," ",$key) }}</label>
+            <div class="col-sm-2 mb-0.5">
+              <input class="form-control" name="unit_alias[{{ $key }}]" type="text" id="{{ $val }}" value="{{ $val }}">
+            </div>
+            @php
+            $uchart ++;
+            @endphp
+            @endforeach
+          </div>
+
             @if(count($chart_alias)  >  0)
             <div class="form-group row">
               <input class="btn btn-success mr-3" type="submit" name="button">

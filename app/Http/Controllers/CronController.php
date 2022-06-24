@@ -115,6 +115,7 @@ class CronController extends Controller
             'device_type.parameter_alias',
             'device_type.dashboard_alias',
             'device_type.chart_alias',
+            'device_type.unit_alias',
             'device_type.data_table',
             'device_type.dashboard_id',
             'devices.*',
@@ -130,16 +131,17 @@ class CronController extends Controller
         $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
         $subQuery->groupBy('devices.id');
         $retun =   $subQuery->get()->toArray();
-        echo "<pre/>";
+   
         foreach ($retun as $key => $val) {
             // print_r($val);
             // exit;
             $count = DeviceAliasmap::where(['modem_id' => $val['modem_id']])->count();
-            if ($count == 0) {
+            // if ($count == 0) {
                 $collegeDetails = DeviceAliasmap::firstOrNew(array('modem_id' => $val['modem_id']));
                 $collegeDetails->dashboard_alias = $val['dashboard_alias'];
                 $collegeDetails->parameter_alias = $val['parameter_alias'];
                 $collegeDetails->chart_alias = $val['chart_alias'];
+                $collegeDetails->unit_alias = $val['unit_alias'];
                 $collegeDetails->updated_at = Carbon::now();
                 $collegeDetails->created_at = Carbon::now();
                 $collegeDetails->updated_by = 1;
@@ -157,7 +159,7 @@ class CronController extends Controller
                 //         'updated_by' => 1,
                 //         'created_by' => 1,
                 //     ]);
-            }
+            // }
         }
     }
 }

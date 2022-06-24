@@ -334,6 +334,7 @@ class DeviceController extends Controller
             $collegeDetails->dashboard_alias = $alias->dashboard_alias;
             $collegeDetails->parameter_alias = $alias->parameter_alias;
             $collegeDetails->chart_alias = $alias->chart_alias;
+            $collegeDetails->unit_alias = $alias->unit_alias;
             $collegeDetails->updated_at = Carbon::now();
             $collegeDetails->created_at = Carbon::now();
             $collegeDetails->updated_by = Auth::guard('admin')->user()->id;
@@ -621,6 +622,8 @@ class DeviceController extends Controller
             $parameter_alias = [];
             $dashboard_alias = [];
             $chart_alias = [];
+            $unit_alias = [];
+            
             foreach ($postData['dashboard_alias']  as $key => $val) {
                 $dashboard_alias[$key] = $val;
             }
@@ -630,12 +633,16 @@ class DeviceController extends Controller
             foreach ($postData['chart_alias']  as $key => $val) {
                 $chart_alias[$key] = $val;
             }
+            foreach ($postData['unit_alias']  as $key => $val) {
+                $unit_alias[$key] = $val;
+            }
 
             DeviceAliasmap::where(['modem_id' => $id])
                 ->update([
                     'parameter_alias' => json_encode($parameter_alias),
                     'dashboard_alias' => json_encode($dashboard_alias),
                     'chart_alias' => json_encode($chart_alias),
+                    'unit_alias' => json_encode($unit_alias),
                     'updated_at' => Carbon::now(),
                 ]);
             return redirect('admin/device')->with('session_success', 'Device Alias updated successfully!');
@@ -689,6 +696,7 @@ class DeviceController extends Controller
         $data['dashboard_alias'] = (isset($jsonDecode['dashboard_alias']) && !empty($jsonDecode['dashboard_alias'])) ? json_decode($jsonDecode['dashboard_alias'], TRUE) : "";
         $data['parameter_alias'] = (isset($jsonDecode['parameter_alias']) && !empty($jsonDecode['parameter_alias'])) ? json_decode($jsonDecode['parameter_alias'], TRUE) : "";
         $data['chart_alias'] = (isset($jsonDecode['chart_alias']) && !empty($jsonDecode['chart_alias'])) ? json_decode($jsonDecode['chart_alias'], TRUE) : "";
+        $data['unit_alias'] = (isset($jsonDecode['unit_alias']) && !empty($jsonDecode['unit_alias'])) ? json_decode($jsonDecode['unit_alias'], TRUE) : "";
 
         $data['pagetitle'] = 'Device';
         $data['title'] = 'Device';

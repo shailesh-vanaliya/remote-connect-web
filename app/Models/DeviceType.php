@@ -25,7 +25,7 @@ class DeviceType extends Model
      *
      * @var array
      */
-    protected $fillable = ['device_type' ,'dashboard_id','data_source','access_type','created_at', 'updated_at', 'created_by', 'updated_by', "dashboard_alias", 'device_type',"parameter_alias",'chart_alias'];
+    protected $fillable = ['device_type' ,'dashboard_id','data_source','access_type','created_at', 'updated_at', 'created_by', 'updated_by', "dashboard_alias", 'device_type',"parameter_alias",'chart_alias','unit_alias'];
 
     
 }

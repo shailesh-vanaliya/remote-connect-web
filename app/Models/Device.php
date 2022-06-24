@@ -48,6 +48,7 @@ class Device extends Model
             'device_type.parameter_alias',
             'device_type.dashboard_alias',
             'device_type.chart_alias',
+            'device_type.unit_alias',
             'device_type.dashboard_id',
             'devices.*',
         );
@@ -87,6 +88,7 @@ class Device extends Model
             'device_type.parameter_alias',
             'device_type.dashboard_alias',
             'device_type.chart_alias',
+            'device_type.unit_alias',
             'device_type.dashboard_id',
             'devices.*',
         );

@@ -25,7 +25,7 @@ class DeviceAliasmap extends Model
      *
      * @var array
      */
-    protected $fillable = [ "modem_id", "dashboard_alias", 'device_type',"parameter_alias", "created_by", "updated_by", "created_at", "updated_at","chart_alias"];
+    protected $fillable = [ "modem_id", "dashboard_alias", 'device_type',"parameter_alias", "created_by", "updated_by", "created_at", "updated_at","chart_alias",'unit_alias'];
 
     
 }
