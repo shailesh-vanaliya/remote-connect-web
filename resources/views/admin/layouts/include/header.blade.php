@@ -31,12 +31,12 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown mt-2">
-            <i class="fa fa-compress" title="Maximize" onclick="openFullscreen();" aria-hidden="true">
+        <li class="nav-item dropdown mt-2 maximize">
+            <i class="fa fa-compress " title="Maximize" onclick="openFullscreen();" aria-hidden="true">
             </i>
         </li>
-        <li class="nav-item dropdown mt-2 ml-2">
-        <i class="fa fa-expand " title="Minimize" onclick="closeFullscreen();" aria-hidden="true"></i>
+        <li class="nav-item dropdown mt-2 ml-2 minimize" style="display: none;">
+            <i class="fa fa-expand " title="Minimize" onclick="closeFullscreen();" aria-hidden="true"></i>
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
@@ -165,6 +165,8 @@
 
     /* Function to open fullscreen mode */
     function openFullscreen() {
+        $('.minimize').show();
+        $('.maximize').hide();
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
         } else if (elem.mozRequestFullScreen) {
@@ -182,6 +184,8 @@
 
     /* Function to close fullscreen mode */
     function closeFullscreen() {
+        $('.maximize').show();
+        $('.minimize').hide();
         if (document.exitFullscreen) {
             document.exitFullscreen();
         } else if (document.mozCancelFullScreen) {

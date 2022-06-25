@@ -59,7 +59,7 @@ var Notification = function () {
             });
         });
         setInterval(function () {
-            getNotification();
+            // getNotification();
         }, 10000)
     }
 
