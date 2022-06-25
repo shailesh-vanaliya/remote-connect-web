@@ -8,7 +8,8 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use DB;
-class ReportConfigurationExport implements FromCollection
+use Helper;
+class ReportConfigurationExport implements FromCollection, WithCustomCsvSettings, WithHeadings
 {
     protected $data;
 
@@ -83,7 +84,19 @@ class ReportConfigurationExport implements FromCollection
 
     public function headings(): array
     {
-        return $this->data['parameter'];
+       
+        $this->data['parameter'] = str_replace("[","",$this->data['parameter']);
+        $this->data['parameter'] = str_replace("]","",$this->data['parameter']);
+        $string = $this->data['parameter'];
+        $string = str_replace('"',"",$string);
+        $string = explode(',',$string);
+        $res = Helper::gerReportParameter($string, $this->data['modem_id']);
+        // print_r($res);
+        // exit;
+        $aaa = explode(',',$res);
+        return $aaa;
+        // return ["dtm","pv1","sp1","out1"];
+        // return $this->data['parameter'];
         // return ['modem id',  'Pressure PV', 'Temperature PV', 'Waterflow', 'Pressure SP', 'Timestamp', 'WATER VALVE1', 'WATER VALVE2', 'TOTAL FLOW', 'DAILY FLOW', 'MACHINE STATUS', 'MOISTURE STATUS', 'CLEAN ON TIME', 'CPU TEMP'];
     }
 }
