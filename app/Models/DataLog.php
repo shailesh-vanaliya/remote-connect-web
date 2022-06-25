@@ -27,7 +27,7 @@ class DataLog extends Model
      *
      * @var array
      */
-    protected $fillable = ['modem_id', 'dev_id', 'Pressure_PV', 'Temperature_PV', 'Waterflow', 'Pressure_SP', 'Timestamp', 'WATER_VALVE1', 'WATER_VALVE2', 'TOTAL_FLOW', 'DAILY_FLOW', 'MACHINE_STATUS', 'MOISTURE_STATUS', 'CLEAN_ON_TIME', 'CPU_TEMP'];
+    protected $fillable = [ 'id', 'modem_id', 'slave_id', 'Pressure_PV', 'Temperature_PV', 'Waterflow', 'Pressure_SP', 'dtm', 'WATER_VALVE1', 'WATER_VALVE2', 'TOTAL_FLOW', 'DAILY_FLOW', 'MACHINE_STATUS', 'MOISTURE_STATUS', 'CLEAN_ON_TIME', 'CPU_TEMP'];
 
     
 }

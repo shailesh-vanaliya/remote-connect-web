@@ -47,9 +47,10 @@ class MeterDashboardController extends Controller
      * @return Factory|View
      */
     public function index(Request $request)
-    {;
+    { 
         $result =  DataLog::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
-
+  // print_r($result);
+        // exit;
         $deviceObject = new Device();
       
         $data['device'] =  $deviceObject->deviceDetail($this->deviceDetail->id);
@@ -95,6 +96,9 @@ class MeterDashboardController extends Controller
             case 'sendMoisture':
                 $this->_sendMoisture($request->all());
                 break;
+            case 'reset':
+                $this->_reset($request->all());
+                break;
         }
         exit;
     }
@@ -113,6 +117,27 @@ class MeterDashboardController extends Controller
             // SW1(Topic:FT107/SUB_MOIS_START)
             // {"data":#VALUE,"client id":"FT104_client3"}
             $res = MQTT::publish($details->modem_id . "/1/SUB_MOIS_START", json_encode($data));
+            $result['status'] = 'success';
+            $result['message'] = 'Status updated successfully';
+        } catch (\Exception $e) {
+            $result['status'] = 'error';
+            $result['message'] = 'Something went wrong';
+        }
+        echo json_encode($result);
+        exit;
+    }
+
+    public function _reset($requestData)
+    {
+        try {
+
+            $data = array(
+                'data' => intval($requestData['name']),
+                'client id' => (isset(Auth::guard('admin')->user()->first_name) ?  Auth::guard('admin')->user()->first_name . " ". Auth::guard('admin')->user()->last_name : ''),
+            );
+            
+          
+            $res = MQTT::publish($requestData['modem_id'] . "/1/SUB_RESET_".$requestData['name'], json_encode($data));
             $result['status'] = 'success';
             $result['message'] = 'Status updated successfully';
         } catch (\Exception $e) {

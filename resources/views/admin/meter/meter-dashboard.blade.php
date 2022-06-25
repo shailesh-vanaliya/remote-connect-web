@@ -115,6 +115,9 @@
                 <li class="nav-item">
                   <a class="nav-link" id="custom-tabs-five-overlay-dark-tab" data-toggle="pill" href="#custom-tabs-five-overlay-dark" role="tab" aria-controls="custom-tabs-five-overlay-dark" aria-selected="false">Control</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-flow-meter-dark-tab" data-toggle="pill" href="#custom-tabs-flow-meter-dark" role="tab" aria-controls="custom-tabs-flow-meter-dark" aria-selected="false">Flow Meter</a>
+                </li>
               </ul>
             </div>
 
@@ -210,7 +213,7 @@
                         </div>
                       </div>
                     </div> -->
-                    <div class="col-md-4 col-sm-6 col-12">
+                    <div class="col-md-3 col-sm-6 col-12">
                       <div class="info-box shadow-lg">
                         <span class="info-box-icon bg-info mr-3"><i class="fa fa-thermometer-empty"></i></span>
 
@@ -224,10 +227,9 @@
                       </div>
                       <!-- /.info-box -->
                     </div>
-                    <div class="col-md-4 col-sm-6 col-12">
+                    <div class="col-md-3 col-sm-6 col-12">
                       <div class="info-box shadow-lg">
                         <span class="info-box-icon bg-info mr-3"><i class="fa fa-thermometer-empty"></i></span>
-
                         <div class="info-box-content">
                           <span class="info-box-text">{{ isset($dashboard_alias['SWITCH2_TITLE']) ? $dashboard_alias['SWITCH2_TITLE'] : 'Moisture' }}</span>
                           <span class="info-box-number">
@@ -238,6 +240,72 @@
                       </div>
                       <!-- /.info-box -->
                     </div>
+                    <div class="col-md-3 col-sm-6 col-12">
+                      <div class="info-box shadow-lg">
+                        <span class="info-box-icon bg-info mr-3"><i class="fa fa-thermometer-empty"></i></span>
+                        <div class="info-box-content">
+                          <span class="info-box-text">{{ isset($dashboard_alias['SWITCH2_TITLE']) ? $dashboard_alias['SWITCH2_TITLE'] : 'Moisture' }}</span>
+                          <span class="info-box-number">
+                            <input type="checkbox" class="moisture form-control" id="moisture" name="moisture" value="{{ isset($result->MOISTURE_STATUS) && $result->MOISTURE_STATUS == 1 ? 1 : 0 }}" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                          </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                      </div>
+                      <!-- /.info-box -->
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-12">
+                      <div class="info-box shadow-lg">
+                        <span class="info-box-icon bg-info mr-3"><i class="fa fa-thermometer-empty"></i></span>
+                        <div class="info-box-content">
+                          <span class="info-box-text">{{ isset($dashboard_alias['SWITCH2_TITLE']) ? $dashboard_alias['SWITCH2_TITLE'] : 'Moisture' }}</span>
+                          <span class="info-box-number">
+                            <input type="checkbox" class="moisture form-control" id="moisture" name="moisture" value="{{ isset($result->MOISTURE_STATUS) && $result->MOISTURE_STATUS == 1 ? 1 : 0 }}" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                          </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                      </div>
+                      <!-- /.info-box -->
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade show" id="custom-tabs-flow-meter-dark" role="tabpanel" aria-labelledby="custom-tabs-flow-meter-dark-tab">
+                  <div class="row">
+                  <table id="" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Water Flow</th>
+                                    <th>Reset</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Daily</td>
+                                    <td>{{ isset($result->DAILY_FLOW) ? $result->DAILY_FLOW : 'N/A' }}</td>
+                                    <td><i data-name="DAILY_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}"  class="fas fa-undo resetBtn"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Weekly</td>
+                                    <td>{{ isset($result->WEEKLY_FLOW) ? $result->WEEKLY_FLOW : 'N/A' }}</td>
+                                    <td><i data-name="WEEKLY_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}"  class="fas fa-undo resetBtn"></i></td>
+                                </tr>
+                                 <tr>
+                                    <td>Monthly</td>
+                                    <td>{{ isset($result->MONTHLY_FLOW) ? $result->MONTHLY_FLOW : 'N/A' }}</td>
+                                    <td><i data-name="MONTHLY_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}"  class="fas fa-undo resetBtn"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>6 Months</td>
+                                    <td>{{ isset($result->MONTH6_FLOW) ? $result->MONTH6_FLOW : 'N/A' }}</td>
+                                    <td><i data-name="MONTH6_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}"  class="fas fa-undo resetBtn"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td>{{ isset($result->TOTAL_FLOW) ? $result->TOTAL_FLOW : 'N/A' }}</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
                   </div>
                 </div>
               </div>

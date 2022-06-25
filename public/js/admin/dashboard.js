@@ -328,6 +328,23 @@ var Dashboard = function () {
                 }
             });
         });
+ 
+        $("body").on("click", '.resetBtn', function() {
+            let modem_id = $(this).attr('data-modem_id');
+            let name = $(this).attr('data-name');
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                    },
+                    url: site_url + "admin/dashboard-meter/ajaxAction",
+                    data: { 'action': 'reset','name': name ,'modem_id' : modem_id},
+                    success: function (datas) {
+                        let output = JSON.parse(datas);
+                        showToster(output.status,output.message)
+                    }
+                });
+            });
 
         getAmChart();
         $('.customSelect').trigger('change');
