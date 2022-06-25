@@ -139,6 +139,14 @@ class ReportConfigurationController extends Controller
             $requestData = $request->all();
             // print_r($requestData);
             // exit;
+
+            $modemMapCount = User::where('id', Auth::guard('admin')->user()->id)->first();
+            $modemCount = ReportConfiguration::where('created_by',Auth::guard('admin')->user()->id)->count();
+            if (isset($modemMapCount) &&  $modemCount >= $modemMapCount->report_quota) {
+                return redirect('admin/report-configuration/create')->with('session_error', 'Sorry, maximum report quota limit exceed, contact to admin!')->withInput();
+            }
+
+
             $deviceObj = new Device();
             $deviceRes =  $deviceObj->deviceDetailById($requestData['device_id']);
        
@@ -148,6 +156,7 @@ class ReportConfigurationController extends Controller
             if (Auth::guard('admin')->user()->role != "SUPERADMIN") {
                 $requestData['organization_id'] = Auth::guard('admin')->user()->organization_id;
             }
+        
             $res = ReportConfiguration::create($requestData);
           
             $requestData['report_config_id'] = $res->id;

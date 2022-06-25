@@ -8,6 +8,8 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use DB;
+use Auth;
+use App\Models\User;
 use Helper;
 class ReportConfigurationExport implements FromCollection, WithCustomCsvSettings, WithHeadings
 {
@@ -60,6 +62,9 @@ class ReportConfigurationExport implements FromCollection, WithCustomCsvSettings
             )->get();
             }
             
+            $usr =  User::where(['id' => Auth::guard('admin')->user()->id])->first()->toArray();
+            User::where(['id' => Auth::guard('admin')->user()->id])
+            ->update(['report_counter' => $usr['report_counter'] + 1]);
 
                 // print_r($res);
                 // exit;

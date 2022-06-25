@@ -3,10 +3,11 @@
 namespace App\Exports;
 
 use App\Models\DataLog;
+use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-
+use Auth;
 class DataLogExport implements FromCollection, WithCustomCsvSettings, WithHeadings
 {
     protected $data;
@@ -57,6 +58,10 @@ class DataLogExport implements FromCollection, WithCustomCsvSettings, WithHeadin
                     // [$start . " 00:00:00", $end . " 23:59:59"]
                 )
                 ->get();
+                $usr =  User::where(['id' => Auth::guard('admin')->user()->id])->first()->toArray();
+                User::where(['id' => Auth::guard('admin')->user()->id])
+                ->update(['report_counter' => $usr['report_counter'] + 1]);
+
                 return $res;
         } catch (Exception $e) {
             return redirect('admin/meter-dashboard')->with('session_error', $e->getMessage());

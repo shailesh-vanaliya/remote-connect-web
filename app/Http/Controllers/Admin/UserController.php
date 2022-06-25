@@ -207,6 +207,8 @@ class UserController extends Controller
             $user->sms_alert = (isset($requestData['sms_alert']) && $requestData['sms_alert'] == 'on') ? 1 : 0;
             $user->email_report = (isset($requestData['email_report']) &&  $requestData['email_report'] == 'on') ? 1 : 0;
             $user->email_alert = (isset($requestData['email_alert']) &&  $requestData['email_alert'] == 'on') ? 1 : 0;
+            $user->created_by = Auth::guard('admin')->user()->id;
+            $user->updated_by = Auth::guard('admin')->user()->id;
             $user->save();
             return redirect('admin/users')->with('session_success', 'User updated successfully!');
             // return redirect()->route('user_list', ['id' => $id])->with('status', 'User updated successfully!')->with('type', 'success');
@@ -229,6 +231,7 @@ class UserController extends Controller
             // $user->email = $requestData['email'];
             $user->status = $requestData['status'];
             $user->role = $requestData['role'];
+            $user->updated_by = Auth::guard('admin')->user()->id;
             $user->save();
             return redirect('admin/users')->with('session_success', 'User updated successfully!');
             // return redirect()->route('user_list', ['id' => $id])->with('status', 'User updated successfully!')->with('type', 'success');

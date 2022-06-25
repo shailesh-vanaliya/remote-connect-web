@@ -118,6 +118,14 @@ class ReportSchedulesController extends Controller
             $requestData = $request->all();
             // print_r($requestData);
             // exit;
+
+            $modemMapCount = User::where('id', Auth::guard('admin')->user()->id)->first();
+            $modemCount = ReportSchedule::where('created_by',Auth::guard('admin')->user()->id)->count();
+            if (isset($modemMapCount) &&  $modemCount >= $modemMapCount->report_quota) {
+                return redirect('admin/report-configuration/create')->with('session_error', 'Sorry, maximum report quota limit exceed, contact to admin!')->withInput();
+            }
+
+        
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             $requestData['is_updated'] = 1;
@@ -128,7 +136,7 @@ class ReportSchedulesController extends Controller
 
             return redirect('admin/report-schedules')->with('session_success', 'ReportSchedule added!');
         } catch (\Exception $e) {
-            return redirect('admin/report-schedules')->with('session_error', $e->getMessage());
+            return redirect('admin/report-schedules/create')->with('session_error', $e->getMessage());
         }
     }
 
