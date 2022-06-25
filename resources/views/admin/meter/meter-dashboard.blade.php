@@ -165,7 +165,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
                       </div>
                     </div>
                     <!-- ./col -->
-                    @if(Auth::guard('admin')->user()->role != 'USER')
+                  
                     <div class="col-lg-3 col-6">
                       <!-- small card -->
                       <div class="small-box bg-success">
@@ -197,7 +197,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
                         </p>
                       </div>
                     </div>
-                    @endif
+                     
                     <!-- ./col -->
                   </div>
                 </div>
@@ -321,6 +321,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
                         </div>
                       </div>
                     </div>
+                    @if(Auth::guard('admin')->user()->role != 'USER')
                     <div class="col-md-3 col-sm-6 col-12">
                       <div class="card card-primary card-outline direct-chat direct-chat-primary">
                         <div class="card-header">
@@ -351,6 +352,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
                         </div>
                       </div>
                     </div>
+                    @endif
                   </div>
                 </div>
 
