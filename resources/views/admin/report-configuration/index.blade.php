@@ -114,13 +114,14 @@
                                     <th>Organization Name</th>
                                     <th>Report Title</th>
                                     <th>Parameter</th>
+                                    <th>Report Type</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($reportconfiguration as $item)
                                 @php
-                                 $array = json_decode($item->parameter); 
+                                $array = json_decode($item->parameter);
                                 $param = Helper::gerReportParameter($array, $item->modem_id) ;
                                 @endphp
                                 <tr>
@@ -130,6 +131,7 @@
                                     <td>{{ $item->organization_name }}</td>
                                     <td>{{ $item->report_title }}</td>
                                     <td style="word-break: break-all;width: 33%;">{{ $param }}</td>
+                                    <td>{{ $item->report_type }}</td>
                                     <!-- <td style="word-break: break-all;width: 33%;">{{ ($array) ? implode(', ',$array) : '' }}</td> -->
                                     <td>
                                         <a href="{{ url('/admin/report-configuration/' . $item->id) }}" title="View ReportConfiguration"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> </button></a>

@@ -331,3 +331,7 @@ td.actionTd {
     min-width: 310px;
     padding: 0;
 }
+
+.sidebar-dark-primary .nav-sidebar.nav-legacy>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar.nav-legacy>.nav-item>.nav-link.active {
+    border-color: #02A89E !important;
+}

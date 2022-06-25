@@ -52,11 +52,19 @@
         </div>
     </div>
 
-    <div  class="form-group row {{ $errors->has('created_by') ? 'has-error' : ''}}">
+    <div class="form-group row {{ $errors->has('created_by') ? 'has-error' : ''}}">
         <label for="created_by" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Assign To' }}</label>
         <div class="col-lg-5 col-md-9 col-sm-12">
             {{ Form::select('created_by', $createdBy , empty($reportconfiguration->created_by) ? ($formMode != 'edit') ? Auth::guard('admin')->user()->id : null : $reportconfiguration->created_by , array('class' => 'form-control created_by select2', 'id' => 'created_by','required')) }}
             {!! $errors->first('created_by', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
+    <div class="form-group row {{ $errors->has('report_type') ? 'has-error' : ''}}">
+        <label for="report_type" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Report Type' }}</label>
+        <div class="col-lg-5 col-md-9 col-sm-12">
+            {{ Form::select('report_type', $reportType , empty($reportconfiguration->report_type) ?  null : $reportconfiguration->report_type , array('class' => 'form-control report_type select2', 'id' => 'report_type','required')) }}
+            {!! $errors->first('report_type', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
