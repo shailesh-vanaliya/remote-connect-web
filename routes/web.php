@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\{
     ReportController,
     Dashboard2Controller,
     ReportSchedulesController,
+    ColdStorageDashboardController,
 };
 
 /*
@@ -91,6 +92,9 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::resource('report-schedules', ReportSchedulesController::class);
     Route::post('report-export', [ReportController::class, 'reportExport'])->name('report-export');
     Route::post('/report-config/ajaxAction', [ReportConfigurationController::class, 'ajaxAction'])->name('ajaxAction');
+
+    Route::get('/cold-storage-dashboard/{modemId?}', [ColdStorageDashboardController::class, 'index'])->name('cold-storage');
+    Route::post('/cold-storage/ajaxAction', [ColdStorageDashboardController::class, 'ajaxAction'])->name('ajaxAction');
 
 });
 
