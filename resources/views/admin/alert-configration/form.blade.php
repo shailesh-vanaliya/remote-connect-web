@@ -73,7 +73,13 @@
             {!! $errors->first('created_by', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-
+    <div class="form-group row {{ $errors->has('alert_message') ? 'has-error' : ''}}">
+        <label for="alert_message" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Alert Message' }}</label>
+        <div class="col-sm-5">
+            <input class="form-control" require name="alert_message" type="text" id="alert_message" value="{{ isset($alertconfigration->alert_message) ? $alertconfigration->alert_message : ''}}">
+            {!! $errors->first('alert_message', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
     <div class="form-group row">
         <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
     </div>
