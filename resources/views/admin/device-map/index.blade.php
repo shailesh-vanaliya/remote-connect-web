@@ -52,7 +52,7 @@
                                 <td>{{ $item->SIM_Plan }}</td>
                                 <td>{{ $item->subscription_expire_date }}</td>
                                 <td>{{ $item->subscription_status }}</td>
-                                <td class="actionTd" style="display: flex;">
+                                <td class="" style="">
                                     <a href="{{ url('/admin/device-map/' . $item->id) }}" title="View DeviceMap"><button class="btn btn-info btn-xs faIcon"><i class="fa fa-eye " aria-hidden="true"></i> </button></a>
                                    &nbsp; <a href="{{ url('/admin/device-map/' . $item->id . '/edit') }}" title="Edit DeviceMap"><button class="btn btn-primary btn-xs faIcon"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>&nbsp;
 
@@ -122,7 +122,7 @@
                                 <td>{{ $item->SIM_Plan }}</td>
                                 <td>{{ $item->subscription_expire_date }}</td>
                                 <td>{{ $item->subscription_status }}</td>
-                                <td class="actionTd" style="display: flex;">
+                                <td class="actionTd-" style="">
                                     <a href="{{ url('/admin/device-map/' . $item->id) }}" title="View DeviceMap"><button class="btn btn-info btn-xs faIcon"><i class="fa fa-eye " aria-hidden="true"></i> </button></a>
                                    &nbsp; <a href="{{ url('/admin/device-map/' . $item->id . '/edit') }}" title="Edit DeviceMap"><button class="btn btn-primary btn-xs faIcon"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>&nbsp;
 
