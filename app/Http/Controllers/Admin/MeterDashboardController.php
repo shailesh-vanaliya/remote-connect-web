@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Exports\DataLogExport;
 use Illuminate\View\View;
 use App\Models\DemoMongo;
+use App\Models\DeviceAliasmap;
 use App\Models\DataLog;
 use App\Models\Device;
 // use DateTime;
@@ -52,7 +53,9 @@ class MeterDashboardController extends Controller
         $deviceObject = new Device();
       
         $data['device'] =  $deviceObject->deviceDetail($this->deviceDetail->id);
-        $data['dashboard_alias'] = (isset($data['device']['dashboard_alias']) && !empty($data['device']['dashboard_alias'])) ? json_decode($data['device']['dashboard_alias'],TRUE) : "";
+        // $data['dashboard_alias'] = (isset($data['device']['dashboard_alias']) && !empty($data['device']['dashboard_alias'])) ? json_decode($data['device']['dashboard_alias'],TRUE) : "";
+        $alias =  DeviceAliasmap::where("modem_id", $this->deviceName)->first();
+        $data['dashboard_alias']= (isset($alias->dashboard_alias) && !empty($alias->dashboard_alias)) ? json_decode($alias->dashboard_alias,TRUE) : "";
         // $data['device'] =  Device::where("modem_id", $this->deviceName)->first();
         // print_r($data['dashboard_alias']);
         // exit;
