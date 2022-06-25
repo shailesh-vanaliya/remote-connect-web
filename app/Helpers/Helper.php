@@ -8,6 +8,7 @@ use DateTime;
 use Session;
 use DB;
 use App\Models\DeviceAliasmap;
+use App\Models\Notification;
 use App\Models\Device;
 use App\Models\DeviceMap;
 
@@ -63,4 +64,12 @@ class Helper
 		return $string;
 	}
 	
+
+	public function getNotificationList(){
+		// $notification = Notification::latest()->take(10);
+		// print_r($notification);
+		// exit;
+		$notification = Notification::where('created_by', Auth::guard('admin')->user()->id)->take(10)->latest('id')->get()->toArray();
+		return $notification;
+	}
 }
