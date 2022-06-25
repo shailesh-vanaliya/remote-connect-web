@@ -124,8 +124,7 @@
                                 <td>{{ $item->subscription_status }}</td>
                                 <td class="actionTd-" style="">
                                     <a href="{{ url('/admin/device-map/' . $item->id) }}" title="View DeviceMap"><button class="btn btn-info btn-xs faIcon"><i class="fa fa-eye " aria-hidden="true"></i> </button></a>
-                                   &nbsp; <a href="{{ url('/admin/device-map/' . $item->id . '/edit') }}" title="Edit DeviceMap"><button class="btn btn-primary btn-xs faIcon"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>&nbsp;
-
+                                   &nbsp;<a href="{{ url('/admin/device-map/' . $item->id . '/edit') }}" title="Edit DeviceMap"><button class="btn btn-primary btn-xs faIcon"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>&nbsp;
                                     <form method="POST" action="{{ url('/admin/device-map' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                         {{ method_field('DELETE') }}
                                         {{ csrf_field() }}
