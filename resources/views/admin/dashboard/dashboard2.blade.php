@@ -709,13 +709,18 @@
                 @endphp
                 @endforeach
               </div>
-             
-              <div class="form-group row">
+              @if($deviceDetail['Status'] == 1)
+              <div class="form-group row ml-4">
                 <input class="btn btn-success mr-1" type="submit" name="button" value="Read">
                 <input class="btn btn-primary" type="submit" name="button" value="Write">
               </div>
+              @else
+              <div class=" row">
+                 <code class="card-body text-center">Now Your device is offline.</code>
+              </div>
+              @endif
               <input type="hidden" name="modem_id" value="{{ $deviceDetail['modem_id'] }}">
-          <input type="hidden" name="id" value="{{ $deviceDetail['id'] }}">
+              <input type="hidden" name="id" value="{{ $deviceDetail['id'] }}">
               @else
               <div class=" row">
                  <code class="card-body text-center">No Recipe data found</code>
