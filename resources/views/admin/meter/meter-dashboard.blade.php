@@ -60,10 +60,10 @@
   }
 </style>
 <?php
-   if($_SERVER['HTTP_HOST'] == 'localhost'){
-    $dynamicUrl =  asset('').'public/';
-}else{
-    $dynamicUrl = asset('').'public/';
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+  $dynamicUrl =  asset('') . 'public/';
+} else {
+  $dynamicUrl = asset('') . 'public/';
 }
 ?>
 <script src="{{ asset($dynamicUrl.'js/amcharts/index.js') }}"></script>
@@ -118,6 +118,10 @@
                 <li class="nav-item">
                   <a class="nav-link" id="custom-tabs-flow-meter-dark-tab" data-toggle="pill" href="#custom-tabs-flow-meter-dark" role="tab" aria-controls="custom-tabs-flow-meter-dark" aria-selected="false">Flow Meter</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-setting-tab" data-toggle="pill" href="#custom-tabs-setting-dark" role="tab" aria-controls="custom-tabs-setting-dark" aria-selected="false">Setting</a>
+                </li>
+
               </ul>
             </div>
 
@@ -167,7 +171,7 @@
                         <div class="inner">
                           <h3 style="font-size: 3.2rem">{{ isset($result->WATER_VALVE1) ? $result->WATER_VALVE1 : '' }}<sup style="font-size: 20px">%</sup></h3>
                           <!-- <p style="margin: 0;margin-bottom: unset">Phase 1 to</p> -->
-                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY13_TITLE']) ? $dashboard_alias['DISPLAY13_TITLE'] : 'Water Valve1' }}  </p>
+                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY13_TITLE']) ? $dashboard_alias['DISPLAY13_TITLE'] : 'Water Valve1' }} </p>
                         </div>
                         <div class="icon">
                           <i class="ion ion-stats-bars iconColor"></i>
@@ -213,7 +217,7 @@
                         </div>
                       </div>
                     </div> -->
-                    <div class="col-md-3 col-sm-6 col-12">
+                    <div class="col-md-4 col-sm-6 col-12">
                       <div class="info-box shadow-lg">
                         <span class="info-box-icon bg-info mr-3"><i class="fa fa-thermometer-empty"></i></span>
 
@@ -227,33 +231,7 @@
                       </div>
                       <!-- /.info-box -->
                     </div>
-                    <div class="col-md-3 col-sm-6 col-12">
-                      <div class="info-box shadow-lg">
-                        <span class="info-box-icon bg-info mr-3"><i class="fa fa-thermometer-empty"></i></span>
-                        <div class="info-box-content">
-                          <span class="info-box-text">{{ isset($dashboard_alias['SWITCH2_TITLE']) ? $dashboard_alias['SWITCH2_TITLE'] : 'Moisture' }}</span>
-                          <span class="info-box-number">
-                            <input type="checkbox" class="moisture form-control" id="moisture" name="moisture" value="{{ isset($result->MOISTURE_STATUS) && $result->MOISTURE_STATUS == 1 ? 1 : 0 }}" data-bootstrap-switch data-off-color="danger" data-on-color="success">
-                          </span>
-                        </div>
-                        <!-- /.info-box-content -->
-                      </div>
-                      <!-- /.info-box -->
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-12">
-                      <div class="info-box shadow-lg">
-                        <span class="info-box-icon bg-info mr-3"><i class="fa fa-thermometer-empty"></i></span>
-                        <div class="info-box-content">
-                          <span class="info-box-text">{{ isset($dashboard_alias['SWITCH2_TITLE']) ? $dashboard_alias['SWITCH2_TITLE'] : 'Moisture' }}</span>
-                          <span class="info-box-number">
-                            <input type="checkbox" class="moisture form-control" id="moisture" name="moisture" value="{{ isset($result->MOISTURE_STATUS) && $result->MOISTURE_STATUS == 1 ? 1 : 0 }}" data-bootstrap-switch data-off-color="danger" data-on-color="success">
-                          </span>
-                        </div>
-                        <!-- /.info-box-content -->
-                      </div>
-                      <!-- /.info-box -->
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-12">
+                    <div class="col-md-4 col-sm-6 col-12">
                       <div class="info-box shadow-lg">
                         <span class="info-box-icon bg-info mr-3"><i class="fa fa-thermometer-empty"></i></span>
                         <div class="info-box-content">
@@ -270,44 +248,65 @@
                 </div>
                 <div class="tab-pane fade show" id="custom-tabs-flow-meter-dark" role="tabpanel" aria-labelledby="custom-tabs-flow-meter-dark-tab">
                   <div class="row">
-                  <table id="" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Water Flow</th>
-                                    <th>Reset</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Daily</td>
-                                    <td>{{ isset($result->DAILY_FLOW) ? $result->DAILY_FLOW : 'N/A' }}</td>
-                                    <td><i data-name="DAILY_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}"  class="fas fa-undo resetBtn"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>Weekly</td>
-                                    <td>{{ isset($result->WEEKLY_FLOW) ? $result->WEEKLY_FLOW : 'N/A' }}</td>
-                                    <td><i data-name="WEEKLY_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}"  class="fas fa-undo resetBtn"></i></td>
-                                </tr>
-                                 <tr>
-                                    <td>Monthly</td>
-                                    <td>{{ isset($result->MONTHLY_FLOW) ? $result->MONTHLY_FLOW : 'N/A' }}</td>
-                                    <td><i data-name="MONTHLY_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}"  class="fas fa-undo resetBtn"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>6 Months</td>
-                                    <td>{{ isset($result->MONTH6_FLOW) ? $result->MONTH6_FLOW : 'N/A' }}</td>
-                                    <td><i data-name="MONTH6_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}"  class="fas fa-undo resetBtn"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>Total</td>
-                                    <td>{{ isset($result->TOTAL_FLOW) ? $result->TOTAL_FLOW : 'N/A' }}</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <table id="" class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Water Flow</th>
+                          <th>Reset</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Daily</td>
+                          <td>{{ isset($result->DAILY_FLOW) ? $result->DAILY_FLOW : 'N/A' }}</td>
+                          <td><i data-name="DAILY_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}" class="fas fa-undo resetBtn"></i></td>
+                        </tr>
+                        <tr>
+                          <td>Weekly</td>
+                          <td>{{ isset($result->WEEKLY_FLOW) ? $result->WEEKLY_FLOW : 'N/A' }}</td>
+                          <td><i data-name="WEEKLY_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}" class="fas fa-undo resetBtn"></i></td>
+                        </tr>
+                        <tr>
+                          <td>Monthly</td>
+                          <td>{{ isset($result->MONTHLY_FLOW) ? $result->MONTHLY_FLOW : 'N/A' }}</td>
+                          <td><i data-name="MONTHLY_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}" class="fas fa-undo resetBtn"></i></td>
+                        </tr>
+                        <tr>
+                          <td>6 Months</td>
+                          <td>{{ isset($result->MONTH6_FLOW) ? $result->MONTH6_FLOW : 'N/A' }}</td>
+                          <td><i data-name="MONTH6_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}" class="fas fa-undo resetBtn"></i></td>
+                        </tr>
+                        <tr>
+                          <td>Total</td>
+                          <td>{{ isset($result->TOTAL_FLOW) ? $result->TOTAL_FLOW : 'N/A' }}</td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
+
+                <div class="tab-pane fade show" id="custom-tabs-setting-dark" role="tabpanel" aria-labelledby="custom-tabs-setting-tab">
+                  <div class="row">
+                    <div class="col-md-3 col-sm-6 col-12">
+                      <div class="card card-primary card-outline direct-chat direct-chat-primary">
+                        <div class="card-header">
+                          <h3 class="card-title">WATER VALVE1</h3>
+                        </div>
+                        <div class="card-footer">
+                          <div class="input-group">
+                            <input type="number" value="{{ isset($result->WATER_VALVE1) ? $result->WATER_VALVE1 : '' }}" min="0" max="100" name="WATERVALVE1" placeholder="WATER VALVE1 ..." class="form-control numberValid">
+                            <span class="input-group-append">
+                              <button data-valve="WATEROUT_1" type="button" class="btn btn-primary setVALVE">set</button>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
 
             </div>
@@ -318,12 +317,6 @@
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Line Chart</h3>
-
-                <!-- <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                </div> -->
               </div>
 
               <div class="mailbox-controls with-border text-center">

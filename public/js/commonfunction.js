@@ -1,6 +1,6 @@
-var Toastr = function() {
+var Toastr = function () {
     return {
-        init: function(type, title, message) {
+        init: function (type, title, message) {
             toastr.options = {
                 "closeButton": true,
                 "debug": false,
@@ -24,7 +24,7 @@ function ajaxcall(url, data, callback) {
     //  App.startPageLoading();
     var rtrn = $.ajax({
         type: 'POST', url: url, data: data,
-        success: function(result) {
+        success: function (result) {
             //   App.stopPageLoading();
             callback(result);
         }
@@ -34,14 +34,14 @@ function ajaxcall(url, data, callback) {
 
 function handleAjaxFormSubmit(form, type) {
     if (typeof type === 'undefined') {
-        ajaxcall($(form).attr('action'), $(form).serialize(), function(output) {
+        ajaxcall($(form).attr('action'), $(form).serialize(), function (output) {
             handleAjaxResponse(output);
         });
     } else if (type === true) {
         // App.startPageLoading();
         var options = {
             resetForm: false, // reset the form after successful submit
-            success: function(output) {
+            success: function (output) {
                 //   App.stopPageLoading();
                 handleAjaxResponse(output);
             }
@@ -52,7 +52,7 @@ function handleAjaxFormSubmit(form, type) {
 }
 
 function showToster(status, message) {
-    toastr.options = {closeButton: true, progressBar: true, showMethod: 'slideDown', timeOut: 4000};
+    toastr.options = { closeButton: true, progressBar: true, showMethod: 'slideDown', timeOut: 4000 };
 
     if (status == 'success') {
         toastr.success(message, 'Success');
@@ -94,7 +94,7 @@ function handleAjaxResponse(output) {
     }
 
     if (typeof output.redirect !== 'undefined' && output.redirect != '') {
-        setTimeout(function() {
+        setTimeout(function () {
             window.location.href = output.redirect;
         }, 4000);
     }
@@ -113,38 +113,38 @@ function handleFormValidate(form, rules, submitCallback, showToaster, noScroll) 
         focusInvalid: false, // do not focus the last invalid input
         ignore: ":hidden",
         rules: rules,
-        invalidHandler: function(event, validator) { //display error alert on form submit
+        invalidHandler: function (event, validator) { //display error alert on form submit
             success.hide();
             error.show();
-//            App.scrollTo(error, -200);
+            //            App.scrollTo(error, -200);
             if (typeof showToaster !== 'undefined' && showToaster) {
                 Toastr.init('warning', 'Some fields are missing!.', '');
             }
         },
-        showErrors: function(errorMap, errorList) {
+        showErrors: function (errorMap, errorList) {
             if (typeof errorList[0] != "undefined") {
                 var position = $(errorList[0].element).offset().top - 70;
                 if (typeof noScroll !== 'undefined') {
                     if (!noScroll) {
-                        $('html, body').animate({scrollTop: position}, 300);
+                        $('html, body').animate({ scrollTop: position }, 300);
                     }
                 }
             }
             this.defaultShowErrors(); // keep error messages next to each input element
         },
-        highlight: function(element) { // hightlight error inputs
+        highlight: function (element) { // hightlight error inputs
             $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
         },
-        unhighlight: function(element) { // revert the change done by hightlight
+        unhighlight: function (element) { // revert the change done by hightlight
             $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
         },
-        success: function(label) {
+        success: function (label) {
             label.closest('.form-group').removeClass('has-error'); // set success class to the control group
         },
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
             return true;
         },
-        submitHandler: function(form) {
+        submitHandler: function (form) {
             if (typeof submitCallback !== 'undefined' && typeof submitCallback == 'function') {
                 submitCallback(form);
             } else {
@@ -154,10 +154,10 @@ function handleFormValidate(form, rules, submitCallback, showToaster, noScroll) 
         }
     });
 
-    $('.select2me', form).change(function() {
+    $('.select2me', form).change(function () {
         form.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
     });
-    $('.date-picker .form-control').change(function() {
+    $('.date-picker .form-control').change(function () {
         form.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
     });
 }
@@ -171,7 +171,7 @@ function handleFormValidateNew(form, rules, showToaster, noScroll) {
         focusInvalid: false, // do not focus the last invalid input
         ignore: ":hidden",
         rules: rules,
-        invalidHandler: function(event, validator) { //display error alert on form submit
+        invalidHandler: function (event, validator) { //display error alert on form submit
             success.hide();
             error.show();
             //App.scrollTo(error, -200);
@@ -179,36 +179,36 @@ function handleFormValidateNew(form, rules, showToaster, noScroll) {
                 Toastr.init('warning', 'Some fields are missing!.', '');
             }
         },
-        showErrors: function(errorMap, errorList) {
+        showErrors: function (errorMap, errorList) {
             if (typeof errorList[0] != "undefined") {
                 var position = $(errorList[0].element).offset().top - 70;
                 if (typeof noScroll == 'undefined') {
                     if (!noScroll) {
-                        $('html, body').animate({scrollTop: position}, 300);
+                        $('html, body').animate({ scrollTop: position }, 300);
                     }
                 }
             }
             this.defaultShowErrors(); // keep error messages next to each input element
         },
-        highlight: function(element) { // hightlight error inputs
+        highlight: function (element) { // hightlight error inputs
             $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
             console.log('1');
         },
-        unhighlight: function(element) { // revert the change done by hightlight
+        unhighlight: function (element) { // revert the change done by hightlight
             $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
         },
-        success: function(label) {
+        success: function (label) {
             label.closest('.form-group').removeClass('has-error'); // set success class to the control group
         },
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
             //return true;
         }
     });
 
-    $('.select2me', form).change(function() {
+    $('.select2me', form).change(function () {
         form.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
     });
-    $('.date-picker .form-control').change(function() {
+    $('.date-picker .form-control').change(function () {
         form.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
     });
 }
@@ -231,16 +231,16 @@ function newLoadingEnd(that) {
     that.parent().find('.defaultLoader').html('');
 }
 
-$(".closeIcon").click(function() {
+$(".closeIcon").click(function () {
     $("#errorSection").slideUp(0);
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     hideMsgBox();
 });
 
 function hideMsgBox() {
-    setTimeout(function() {
+    setTimeout(function () {
         $("#errorSection").slideUp(3000);
     }, 5000);
 }
@@ -254,12 +254,12 @@ function timeFormate(field) {
 
 /* Delete Single Record & Redirect */
 function deleteSingleData(URL, parentID) {
-    $('body').on('click', '.delete', function() {
+    $('body').on('click', '.delete', function () {
         var dataid = $(this).attr('data-id');
         $('.yes-sure').attr('data-id', dataid);
     });
 
-    $('.yes-sure').click(function() {
+    $('.yes-sure').click(function () {
         var dataid = $(this).attr('data-id');
         //alert(parentID)
         if (parentID) {
@@ -272,7 +272,7 @@ function deleteSingleData(URL, parentID) {
 
 /* Date Validation */
 function checkDateRangeOLD(classOrID, startDateID, endDateID, msg) {
-    $(classOrID).change(function() {
+    $(classOrID).change(function () {
         var OldFormateOfStartDate = $(startDateID).val();
 
         var splitDate = OldFormateOfStartDate.split(/\D/);
@@ -309,7 +309,7 @@ function checkDateRangeOLD(classOrID, startDateID, endDateID, msg) {
 
 function checkDateRange(classOrID, startDateID, endDateID, msg) {
 
-    $(classOrID).change(function() {
+    $(classOrID).change(function () {
 
         var today = new Date();
         if (endDateID === 'today') {
@@ -364,27 +364,34 @@ function removeError(field) {
 }
 
 function restrictNumeric(field) {
-//    alert('123')
-    $(field).keydown(function(e) {
+    //    alert('123')
+    $(field).keydown(function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-                // Allow: Ctrl+A, Command+A
-                        (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
-                        // Allow: home, end, left, right, down, up
-                                (e.keyCode >= 35 && e.keyCode <= 40)) {
-                    // let it happen, don't do anything
-                    return;
-                }
-                // Ensure that it is a number and stop the keypress
-                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                    e.preventDefault();
-                }
-            });
+            // Allow: Ctrl+A, Command+A
+            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: home, end, left, right, down, up
+            (e.keyCode >= 35 && e.keyCode <= 40)) {
+            // let it happen, don't do anything
+            return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+}
+
+function restrictNumberVal(field, min, max, msg) {
+    if ($(field).val() < min || $(field).val() > max) {
+        $(field).val('1');
+        showToster('warning', msg, '')
+    }
 }
 
 function alphaOnly(field) {
 
-    $(field).keypress(function(e) {
+    $(field).keypress(function (e) {
         var charTyped = String.fromCharCode(e.which);
         if (e.which == 8) { // 8 for backspace or delete
             return true;
@@ -400,12 +407,12 @@ function alphaOnly(field) {
 function ajaxAction(url, action, postData, callback) {
     $.ajax({
         type: "POST", url: site_url + url,
-        headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val()},
-        data: {'action': action, 'data': postData},
-        success: function(data) {
+        headers: { 'X-CSRF-TOKEN': $('input[name="_token"]').val() },
+        data: { 'action': action, 'data': postData },
+        success: function (data) {
             callback(data);
         },
-        error: function(err) {
+        error: function (err) {
         }
     });
 }
@@ -414,7 +421,7 @@ function ajaxAction(url, action, postData, callback) {
 function sessionDisplayMessage(status, msg) {
     $('#errorSection').show();
     $('#errorSection').html('<div class="col-md-12 margin-t-30"><div class="alert ' + status + '">' + msg + '<div class="pull-right closeIcon"><i class="fa fa-times" aria-hidden="true"></i></div></div></div>');
-    $('html,body').animate({scrollTop: $(".content").offset().top}, 'slow');
+    $('html,body').animate({ scrollTop: $(".content").offset().top }, 'slow');
     //$('html,body').animate({scrollTop: $(".content-header").offset().top}, 'slow');
     hideMsgBox();
 }
@@ -432,10 +439,10 @@ function noRecordFoundNew(placeId, value, colSpanVal) {
 
     } else {
         var tbodyData = '<tr>' +
-                '<td colspan="' + colSpanVal + '" style="text-align: center">' +
-                '<p style="color:red;">Sorry, No Record Found</p>' +
-                '</td>' +
-                '</tr>';
+            '<td colspan="' + colSpanVal + '" style="text-align: center">' +
+            '<p style="color:red;">Sorry, No Record Found</p>' +
+            '</td>' +
+            '</tr>';
         $(placeId).html(tbodyData);
     }
 }
@@ -443,7 +450,7 @@ function noRecordFoundNew(placeId, value, colSpanVal) {
 
 function initAccord(formId, step, stepId, stepClass, nxtButton) {
 
-    $("body").on("click", 'a[data-parent="#' + stepId + '"]', function() {
+    $("body").on("click", 'a[data-parent="#' + stepId + '"]', function () {
         if ($($(this).attr('href')).hasClass('in')) {
             return false;
         } else {
@@ -460,7 +467,7 @@ function initAccord(formId, step, stepId, stepClass, nxtButton) {
     });
 
     if (typeof nxtButton !== 'undefined') {
-        $("body").on("click", '.' + nxtButton, function() {
+        $("body").on("click", '.' + nxtButton, function () {
             //$("#saveExit" + step).val('0');
 
             var valid = ($(formId).valid()) ? true : false;
@@ -479,7 +486,7 @@ function initAccord(formId, step, stepId, stepClass, nxtButton) {
         });
     }
 
-    $("body").on("shown.bs.collapse", "#" + stepId, function() {
+    $("body").on("shown.bs.collapse", "#" + stepId, function () {
         $("a[data-parent='#" + stepId + "']").removeClass('active');
         $("a[data-parent='#" + stepId + "']").parent('h4').parent('div').removeClass('active');
         $("a[data-parent='#" + stepId + "'][aria-expanded='true']").addClass('active');
@@ -494,7 +501,7 @@ function initAccord(formId, step, stepId, stepClass, nxtButton) {
         }
     });
 
-    $("body").on("hidden.bs.collapse", "#" + stepId + "", function() {
+    $("body").on("hidden.bs.collapse", "#" + stepId + "", function () {
         $("a[data-parent='#" + stepId + "']").removeClass('active');
         $("a[data-parent='#" + stepId + "']").parent('h4').parent('div').removeClass('active');
         $("a[data-parent='#" + stepId + "'][aria-expanded='true']").addClass('active');
@@ -511,21 +518,19 @@ function initAccord(formId, step, stepId, stepClass, nxtButton) {
 }
 ;
 
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
     fileinput();
 });
 
 function fileinput() {
 
     var inputs = document.querySelectorAll('.inputfile');
-    Array.prototype.forEach.call(inputs, function(input)
-    {
+    Array.prototype.forEach.call(inputs, function (input) {
 
         var label = input.nextElementSibling,
-                labelVal = label.innerHTML;
+            labelVal = label.innerHTML;
 
-        input.addEventListener('change', function(e)
-        {
+        input.addEventListener('change', function (e) {
             var fileName = '';
             if (this.files && this.files.length > 1)
                 fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
@@ -539,10 +544,10 @@ function fileinput() {
         });
 
         // Firefox bug fix
-        input.addEventListener('focus', function() {
+        input.addEventListener('focus', function () {
             input.classList.add('has-focus');
         });
-        input.addEventListener('blur', function() {
+        input.addEventListener('blur', function () {
             input.classList.remove('has-focus');
         });
     });
@@ -585,8 +590,8 @@ function getDataTable(arr) {
             headers: {
                 'X-CSRF-TOKEN': $('input[name="_token"]').val()
             },
-            data: {'action': arr.ajaxAction, 'data': arr.postData},
-            error: function() {  // error handling
+            data: { 'action': arr.ajaxAction, 'data': arr.postData },
+            error: function () {  // error handling
                 $(".row-list-error").html("");
                 $(arr.tableID).append('<tbody class="row-list-error"><tr><td colspan="4" style="text-align: center;"><p style="color:red;">Sorry, No Record Found</p></td></tr></tbody>');
                 $(arr.tableID + "processing").css("display", "none");
@@ -633,54 +638,54 @@ function getDataTableSpe(arr) {
             headers: {
                 'X-CSRF-TOKEN': $('input[name="_token"]').val()
             },
-            data: {'action': arr.ajaxAction, 'data': arr.postData},
-            error: function() {  // error handling
+            data: { 'action': arr.ajaxAction, 'data': arr.postData },
+            error: function () {  // error handling
                 $(".row-list-error").html("");
                 $(arr.tableID).append('<tbody class="row-list-error"><tr><td colspan="4" style="text-align: center;"><p style="color:red;">Sorry, No Record Found</p></td></tr></tbody>');
                 $(arr.tableID + "processing").css("display", "none");
             },
         },
-        initComplete: function() {
+        initComplete: function () {
 
             var count = 0;
-            this.api().columns().every(function() {
+            this.api().columns().every(function () {
                 var column = this;
-//                    Chetan Changes Starting 20-08-2018
+                //                    Chetan Changes Starting 20-08-2018
                 if (count == 5) {
-//                    console.log($(column.header()).find('.dd').html());
-                    var select5 = $(column.header()).find('.statusf').on('click', function() {
-//                            var val = $.fn.dataTable.util.escapeRegex(
-//                                $(this).val()
-//                            );
+                    //                    console.log($(column.header()).find('.dd').html());
+                    var select5 = $(column.header()).find('.statusf').on('click', function () {
+                        //                            var val = $.fn.dataTable.util.escapeRegex(
+                        //                                $(this).val()
+                        //                            );
                         var val = [];
 
-                        $.each($("input[name='status']:checked"), function() {
+                        $.each($("input[name='status']:checked"), function () {
                             val.push($(this).val());
                         });
 
                         column.search(val ? val : '', true, false).draw();
                     });
-//                    var select5 = $('<select class="form-control footerStatus"><option value="">All Status</option></select>')
-//                        .appendTo( $(column.footer()).empty() )
-//                        .on( 'change', function () {
-//                            var val = $.fn.dataTable.util.escapeRegex(
-//                                $(this).val()
-//                            );
-//                            column.search( val ? val : '', true, false ).draw();
-//                    } );
-//                    select5.append('<option value="In Application">New Application Request</option><option value="Reconsider">Reconsider</option><option value="Rejected">Rejected</option><option value="Offered">Offered</option><option value="Pending">Pending</option>');
+                    //                    var select5 = $('<select class="form-control footerStatus"><option value="">All Status</option></select>')
+                    //                        .appendTo( $(column.footer()).empty() )
+                    //                        .on( 'change', function () {
+                    //                            var val = $.fn.dataTable.util.escapeRegex(
+                    //                                $(this).val()
+                    //                            );
+                    //                            column.search( val ? val : '', true, false ).draw();
+                    //                    } );
+                    //                    select5.append('<option value="In Application">New Application Request</option><option value="Reconsider">Reconsider</option><option value="Rejected">Rejected</option><option value="Offered">Offered</option><option value="Pending">Pending</option>');
                 }
                 count++;
             });
         }
     });
-//        Chetan Changes END 20-08-2018
+    //        Chetan Changes END 20-08-2018
     onLoadDefaultColumnSet(dataTable);
     hideShowDatatableColumn(dataTable);
 }
 
 function onLoadDefaultColumnSet(dataTable) {
-    $('.custom-column').each(function() {
+    $('.custom-column').each(function () {
         var column = dataTable.column($(this).attr('data-column'));
         var status = $(this).attr('data-default-status');
 
@@ -696,7 +701,7 @@ function onLoadDefaultColumnSet(dataTable) {
 }
 
 function hideShowDatatableColumn(dataTable) {
-    $('body').on('click', '.custom-column', function() {
+    $('body').on('click', '.custom-column', function () {
         // Get the column API object
         var column = dataTable.column($(this).attr('data-column'));
         // Toggle the visibility
@@ -706,14 +711,12 @@ function hideShowDatatableColumn(dataTable) {
 
 /* End manage datatable with Ajax & hide/show column dynamic */
 
-$(".dropdown-toggle-column").click(function() {
+$(".dropdown-toggle-column").click(function () {
     $('.column-navbar').addClass('open-nav-option');
 });
-$(".main-conntent").mouseup(function(e)
-{
+$(".main-conntent").mouseup(function (e) {
     var subject = $(".dropdown-menu");
-    if (e.target.id != subject.attr('class') && !subject.has(e.target).length)
-    {
+    if (e.target.id != subject.attr('class') && !subject.has(e.target).length) {
         $('.column-navbar').removeClass('open-nav-option');
     }
 });

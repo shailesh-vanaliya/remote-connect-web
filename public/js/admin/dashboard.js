@@ -328,23 +328,48 @@ var Dashboard = function () {
                 }
             });
         });
- 
-        $("body").on("click", '.resetBtn', function() {
+
+        $("body").on("click", '.resetBtn', function () {
             let modem_id = $(this).attr('data-modem_id');
             let name = $(this).attr('data-name');
-                $.ajax({
-                    type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val(),
-                    },
-                    url: site_url + "admin/dashboard-meter/ajaxAction",
-                    data: { 'action': 'reset','name': name ,'modem_id' : modem_id},
-                    success: function (datas) {
-                        let output = JSON.parse(datas);
-                        showToster(output.status,output.message)
-                    }
-                });
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: site_url + "admin/dashboard-meter/ajaxAction",
+                data: { 'action': 'reset', 'name': name, 'modem_id': modem_id },
+                success: function (datas) {
+                    let output = JSON.parse(datas);
+                    showToster(output.status, output.message)
+                }
             });
+        });
+
+        restrictNumeric($('.numberValid'));
+        $("body").on("blur", '.numberValid', function (e) {
+            restrictNumberVal('.numberValid', 0, 100, "value must be graterthen 0 and less then 100");
+        })
+
+        $("body").on("click", '.setVALVE', function () {
+            let valveName = $(this).attr('data-valve');
+            let waterVal = $('input[name=WATERVALVE1]').val();
+            let modem_id = $('.modem_id').val();
+            console.log(valveName, " valveName")
+            console.log(waterVal, " waterVal")
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: site_url + "admin/dashboard-meter/ajaxAction",
+                data: { 'action': 'setValveValue', 'waterVal': waterVal, 'valveName': valveName, "modem_id": modem_id },
+                success: function (datas) {
+                    let output = JSON.parse(datas);
+                    showToster(output.status, output.message)
+                }
+            });
+        });
 
         getAmChart();
         $('.customSelect').trigger('change');

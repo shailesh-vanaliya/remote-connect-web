@@ -99,6 +99,9 @@ class MeterDashboardController extends Controller
             case 'reset':
                 $this->_reset($request->all());
                 break;
+            case 'setValveValue':
+                $this->_setValveValue($request->all());
+                break;
         }
         exit;
     }
@@ -139,7 +142,27 @@ class MeterDashboardController extends Controller
           
             $res = MQTT::publish($requestData['modem_id'] . "/1/SUB_RESET_".$requestData['name'], json_encode($data));
             $result['status'] = 'success';
-            $result['message'] = 'Status updated successfully';
+            $result['message'] = 'Value reset successfully';
+        } catch (\Exception $e) {
+            $result['status'] = 'error';
+            $result['message'] = 'Something went wrong';
+        }
+        echo json_encode($result);
+        exit;
+    }
+
+    public function _setValveValue($requestData)
+    {
+        try {
+
+            $data = array(
+                'data' => intval($requestData['waterVal']),
+                'client id' => (isset(Auth::guard('admin')->user()->first_name) ?  Auth::guard('admin')->user()->first_name . " ". Auth::guard('admin')->user()->last_name : ''),
+            );
+          
+            $res = MQTT::publish($requestData['modem_id'] . "/1/SUB_".$requestData['valveName'], json_encode($data));
+            $result['status'] = 'success';
+            $result['message'] = 'Valve set successfully';
         } catch (\Exception $e) {
             $result['status'] = 'error';
             $result['message'] = 'Something went wrong';
