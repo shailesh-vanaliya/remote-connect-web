@@ -86,7 +86,17 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
             <h3 class="profile-username text-center">{{ (isset($device->modem_id) && !empty($device->modem_id) ? $device->modem_id : 'N/A') }}</h3>
 
             <p class="text-muted text-center">{{ (isset($device->project_name) && !empty($device->project_name) ? $device->project_name : 'N/A') }}</p>
-            <p class="text-muted text-center">Device Type: <small>{{ (isset($device->device_type) && !empty($device->device_type) ? $device->device_type : 'N/A') }}</small></p>
+            <p class="text-muted text-center">Status:
+              @if($device->Status == 1)
+              <small class=" badge bg-success">
+                Online
+              </small>
+              @else
+              <small class=" badge bg-danger">
+                Offline
+              </small>
+              @endif
+            </p>
             <p class="text-muted text-center">Added On: <small>{{ (isset($device->created_at) && !empty($device->created_at) ?  date('d/m/Y h:i:s A', strtotime($device->created_at)) : 'N/A') }}</small></p>
 
             <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVqNumGk1DCDuthLx-X7YqutsMm6DReNA&region=india&libraries=places"></script>
@@ -165,7 +175,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
                       </div>
                     </div>
                     <!-- ./col -->
-                  
+
                     <div class="col-lg-3 col-6">
                       <!-- small card -->
                       <div class="small-box bg-success">
@@ -197,7 +207,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
                         </p>
                       </div>
                     </div>
-                     
+
                     <!-- ./col -->
                   </div>
                 </div>

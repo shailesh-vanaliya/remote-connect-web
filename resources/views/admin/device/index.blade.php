@@ -53,7 +53,7 @@
                     <div class="card-footer p-0" style="background-color:unset; border-top: 1px solid rgba(0,0,0,.125)">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a href="{{ $item->subscription_status == 'Active' ? url('/admin/device/device-detail/' . $item->id ) : '#' }}" class="nav-link">
+                                <a href="{{ $item->subscription_status == 'Active' && Auth::guard('admin')->user()->role == 'SUPERADMIN' ? url('/admin/device/device-detail/' . $item->id ) : '#' }}" class="nav-link">
                                     Status
                                     @if($item->Status == 1)
                                     <span class="float-right badge bg-success">

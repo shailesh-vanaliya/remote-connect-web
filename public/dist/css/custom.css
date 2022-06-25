@@ -335,3 +335,7 @@ td.actionTd {
 .sidebar-dark-primary .nav-sidebar.nav-legacy>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar.nav-legacy>.nav-item>.nav-link.active {
     border-color: #02A89E !important;
 }
+
+[class*=sidebar-dark-] {
+    background-color: #121213 !important;
+}
