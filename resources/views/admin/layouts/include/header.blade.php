@@ -50,11 +50,13 @@
                 @foreach($notify as $kye => $val)
                 <a href="#" class="dropdown-item">
                     <div class="media">
-                        <img src="{{ asset('public/img/futuristic.png') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                        <!-- <img src="{{ asset('public/img/futuristic.png') }}" alt="User Avatar" class="img-size-50 mr-3 img-circle"> -->
+                        <i class="fa fa-exclamation-triangle mr-3 text-warning img-circle mt-4" ></i>
+
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                                  {{ $val['modem_id'] }}
-                                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                <!-- <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span> -->
                             </h3>
                             <p class="text-sm">{{ $val['alert_message'] }}</p>
                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{ date('h:i:s A d:m:Y ', strtotime($val['created_at'])) }}</p>

@@ -599,7 +599,7 @@ class DeviceController extends Controller
         $locationList = [];
         foreach ($collected_items as $key => $values) {
 
-            $url = url('/admin/' . $values['dashboard_id'] . '/' . $values['modem_id']);
+            $url = url('/admin/' . $values['dashboard_id'] . '/' . base64_encode($values['id']));
             $url = ($values['dashboard_id'] == '') ? "#" : $url;
             // $url = url('/admin/meter-dashboard/' .$values['modem_id'] );
             $tempArray = array("Modem Id : " . $values['modem_id'] . " <br /> Project Name : " .  $values['project_name'] . " <br /> Region : " .  $values['region'] . " <br /> Location : " . $values['location'] . " <br />  <a href='" . $url . "'>" . 'View Dashboard' . '</a>', $values['latitude'], $values['longitude'], $values['id']);
