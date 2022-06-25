@@ -353,7 +353,8 @@ var Dashboard = function () {
 
         $("body").on("click", '.setVALVE', function () {
             let valveName = $(this).attr('data-valve');
-            let waterVal = $('input[name=WATERVALVE1]').val();
+            console.log(valveName, " valveName")
+            let waterVal = $('input[name='+valveName+']').val();
             let modem_id = $('.modem_id').val();
             console.log(valveName, " valveName")
             console.log(waterVal, " waterVal")
