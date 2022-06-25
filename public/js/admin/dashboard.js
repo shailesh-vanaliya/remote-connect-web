@@ -298,6 +298,10 @@ var Dashboard = function () {
         $('input[name="machine"]').on('switchChange.bootstrapSwitch', function (event, state) {
             let values = (state == true) ? 1 : 0;
             let deviceId = $('.deviceId').val();
+            if($('.Status').val() == 0){
+                showToster('error', "Sorry, your device is offline")
+                return false
+            }
             $.ajax({
                 type: "POST",
                 headers: {
@@ -315,6 +319,10 @@ var Dashboard = function () {
         $('input[name="moisture"]').on('switchChange.bootstrapSwitch', function (event, state) {
             let values = (state == true) ? 1 : 0;
             let deviceId = $('.deviceId').val();
+            if($('.Status').val() == 0){
+                showToster('error', "Sorry, your device is offline")
+                return false
+            }
             $.ajax({
                 type: "POST",
                 headers: {
@@ -332,6 +340,10 @@ var Dashboard = function () {
         $("body").on("click", '.resetBtn', function () {
             let modem_id = $(this).attr('data-modem_id');
             let name = $(this).attr('data-name');
+            if($('.Status').val() == 0){
+                showToster('error', "Sorry, your device is offline")
+                return false
+            }
             $.ajax({
                 type: "POST",
                 headers: {
@@ -356,8 +368,10 @@ var Dashboard = function () {
             console.log(valveName, " valveName")
             let waterVal = $('input[name='+valveName+']').val();
             let modem_id = $('.modem_id').val();
-            console.log(valveName, " valveName")
-            console.log(waterVal, " waterVal")
+            if($('.Status').val() == 0){
+                showToster('error', "Sorry, your device is offline")
+                return false
+            }
             $.ajax({
                 type: "POST",
                 headers: {

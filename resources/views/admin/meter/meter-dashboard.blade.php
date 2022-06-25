@@ -65,6 +65,12 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
 } else {
   $dynamicUrl = asset('') . 'public/';
 }
+if($device->Status == 1){
+$sss = "";
+}else{
+$sss = "opacity: 0.5;cursor: not-allowed !important;";
+}
+
 ?>
 <script src="{{ asset($dynamicUrl.'js/amcharts/index.js') }}"></script>
 <script src="{{ asset($dynamicUrl.'js/amcharts/xy.js') }}"></script>
@@ -105,6 +111,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
             <input type="hidden" name="longitude" class="longitude" value="{{ isset($device->longitude) ? $device->longitude : 'N/A' }}">
             <input type="hidden" name="location" class="location" value="{{ isset($device->location) ? $device->location : '' }}">
             <input type="hidden" name="deviceId" class="deviceId" value="{{ isset($device->id) ? $device->id : '' }}">
+            <input type="hidden" name="Status" class="Status" value="{{ isset($device->Status) ? $device->Status : '' }}">
             <span class="text-center">{{ (isset($device->location) && !empty($device->location) ? $device->location : 'N/A') }}</span>
           </div>
           <!-- /.card-body -->
@@ -211,7 +218,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
                     <!-- ./col -->
                   </div>
                 </div>
-
+                
                 <div class="tab-pane fade show" id="custom-tabs-five-overlay-dark" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-dark-tab">
                   <div class="row">
                     <!-- ./col -->
@@ -235,8 +242,8 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
 
                         <div class="info-box-content ">
                           <span class="info-box-text ">{{ isset($dashboard_alias['SWITCH1_TITLE']) ? $dashboard_alias['SWITCH1_TITLE'] : 'Machine' }}</span>
-                          <span class="info-box-number ">
-                            <input type="checkbox" name="machine" class="machine form-control" value="{{ isset($result->MACHINE_STATUS) && $result->MACHINE_STATUS == 1 ? 1 : 0 }}" id="machine" data-bootstrap-switch data-off-color="danger" checked data-on-color="success">
+                          <span class="info-box-number "style="{{ $sss }}" >
+                            <input type="checkbox" style="{{ $sss }}"  name="machine" class="machine form-control" value="{{ isset($result->MACHINE_STATUS) && $result->MACHINE_STATUS == 1 ? 1 : 0 }}" id="machine" data-bootstrap-switch data-off-color="danger" checked data-on-color="success">
                           </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -248,8 +255,8 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
                         <span class="info-box-icon bg-info mr-3"><i class="fa fa-thermometer-empty"></i></span>
                         <div class="info-box-content">
                           <span class="info-box-text">{{ isset($dashboard_alias['SWITCH2_TITLE']) ? $dashboard_alias['SWITCH2_TITLE'] : 'Moisture' }}</span>
-                          <span class="info-box-number">
-                            <input type="checkbox" class="moisture form-control" id="moisture" name="moisture" value="{{ isset($result->MOISTURE_STATUS) && $result->MOISTURE_STATUS == 1 ? 1 : 0 }}" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                          <span class="info-box-number" style="{{ $sss }}">
+                            <input type="checkbox" style="{{ $sss }}" class="moisture form-control" id="moisture" name="moisture" value="{{ isset($result->MOISTURE_STATUS) && $result->MOISTURE_STATUS == 1 ? 1 : 0 }}" data-bootstrap-switch data-off-color="danger" data-on-color="success">
                           </span>
                         </div>
                         <!-- /.info-box-content -->
@@ -309,8 +316,8 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
                         <div class="card-footer">
                           <div class="input-group">
                             <input type="number" value="{{ isset($result->WATER_VALVE1) ? $result->WATER_VALVE1 : '' }}" min="0" max="100" name="WATEROUT_1" placeholder="WATER VALVE1 ..." class="form-control numberValid">
-                            <span class="input-group-append">
-                              <button data-valve="WATEROUT_1" type="button" class="btn btn-success setVALVE">set</button>
+                            <span class="input-group-append" >
+                              <button data-valve="WATEROUT_1" style="{{ $sss }}" type="button" class="btn btn-success setVALVE">set</button>
                             </span>
                           </div>
                         </div>
@@ -324,8 +331,8 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
                         <div class="card-footer">
                           <div class="input-group">
                             <input type="number" value="{{ isset($result->WATER_VALVE2) ? $result->WATER_VALVE2 : '' }}" min="0" max="100" name="WATEROUT_2" placeholder="WATER VALVE1 ..." class="form-control numberValid">
-                            <span class="input-group-append">
-                              <button data-valve="WATEROUT_2" type="button" class="btn btn-success setVALVE">Set</button>
+                            <span class="input-group-append" >
+                              <button data-valve="WATEROUT_2" style="{{ $sss }}" type="button" class="btn btn-success setVALVE">Set</button>
                             </span>
                           </div>
                         </div>
@@ -341,7 +348,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
                           <div class="input-group">
                             <input type="number" value="{{ isset($result->Pressure_SP) ? $result->Pressure_SP : '' }}" min="0" max="100" name="H_PRS_SP" placeholder="Pressure Set Point" class="form-control numberValid">
                             <span class="input-group-append">
-                              <button data-valve="H_PRS_SP" type="button" class="btn btn-success setVALVE">Set</button>
+                              <button data-valve="H_PRS_SP"style="{{ $sss }}"  type="button" class="btn btn-success setVALVE">Set</button>
                             </span>
                           </div>
                         </div>
@@ -355,8 +362,8 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
                         <div class="card-footer">
                           <div class="input-group">
                             <input type="number" value="" min="0" max="100" name="H_TEMP_ALT_SP" placeholder="High Temp. set Point" class="form-control numberValid">
-                            <span class="input-group-append">
-                              <button data-valve="H_TEMP_ALT_SP" type="button" class="btn btn-success setVALVE">Set</button>
+                            <span class="input-group-append" >
+                              <button data-valve="H_TEMP_ALT_SP" style="{{ $sss }}"  type="button" class="btn btn-success setVALVE">Set</button>
                             </span>
                           </div>
                         </div>
