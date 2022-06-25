@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\AlertConfigration;
 use Illuminate\Http\Request;
 use Auth;
+use Config;
 
 class AlertConfigurationController extends Controller
 {
@@ -71,6 +72,7 @@ class AlertConfigurationController extends Controller
         $data['device']= $deviceObj->getDeviceForDropdown();
         $userObj = new User();
         $data['createdBy'] = $userObj->getAssignToUser();
+        $data['alertType'] =  Config::get('constants.alertType');
         return view('admin.alert-configration.create', $data);
     }
 
@@ -154,6 +156,7 @@ class AlertConfigurationController extends Controller
         $data['device']= $deviceObj->getDeviceForDropdown();
         $userObj = new User();
         $data['createdBy'] = $userObj->getAssignToUser();
+        $data['alertType'] =  Config::get('constants.alertType');
         return view('admin.alert-configration.edit', $data);
     }
 

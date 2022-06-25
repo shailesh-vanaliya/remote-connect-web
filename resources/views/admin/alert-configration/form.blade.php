@@ -80,6 +80,13 @@
             {!! $errors->first('alert_message', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
+    <!-- <div class="form-group row {{ $errors->has('alert_type') ? 'has-error' : ''}}">
+        <label for="alert_type" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Report Type' }}</label>
+        <div class="col-lg-5 col-md-9 col-sm-12">
+            {{ Form::select('alert_type', $alertType , empty($alertconfigration->alert_type) ?  null : $alertconfigration->alert_type , array('class' => 'form-control alert_type select2', 'id' => 'alert_type','required')) }}
+            {!! $errors->first('alert_type', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div> -->
     <div class="form-group row">
         <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
     </div>

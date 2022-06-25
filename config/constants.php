@@ -16,5 +16,10 @@ return [
         'product' => ['default' => $defaultPath . 'product/', 'view' => $viewPath . 'product/'],
             'categories' => ['default' => $defaultPath1 . 'categories/', 'view' => $viewPath1],
     ], 
-    
+    'reportType' =>  ['History Log'=>'History Log','Daily Consumption'=>'Daily Consumption'
+    ,'Weekly Consumption'=>'Weekly Consumption','Monthly Consumption'=>'Monthly Consumption'],
+    'alertType' =>  ['History Log'=>'History Log','Daily Consumption'=>'Daily Consumption'
+    ,'Weekly Consumption'=>'Weekly Consumption','Monthly Consumption'=>'Monthly Consumption'],
 ];
+
+

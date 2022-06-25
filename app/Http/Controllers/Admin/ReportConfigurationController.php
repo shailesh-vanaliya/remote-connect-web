@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Auth;
 use DB;
+use Config;
 use App\Models\Report;
 use App\Models\Organization;
 use App\Models\Device;
@@ -120,8 +121,7 @@ class ReportConfigurationController extends Controller
         $data['device'] =  $returnCollegeData = $deviceSelect + $device;
         $userObj = new User();
         $data['createdBy'] = $userObj->getAssignToUser();
-        $data['reportType'] = ['History Log'=>'History Log','Daily Consumption'=>'Daily Consumption'
-        ,'Weekly Consumption'=>'Weekly Consumption','Monthly Consumption'=>'Monthly Consumption'];
+        $data['reportType'] =  Config::get('constants.reportType');
         return view('admin.report-configuration.create', $data);
     }
 
@@ -230,8 +230,7 @@ class ReportConfigurationController extends Controller
         $data['createdBy'] = $userObj->getAssignToUser();
         $column = $this->_getDevicelist($data['reportconfiguration']);
         $data['column'] = $column['column'];
-        $data['reportType'] = ['History Log'=>'History Log','Daily Consumption'=>'Daily Consumption'
-        ,'Weekly Consumption'=>'Weekly Consumption','Monthly Consumption'=>'Monthly Consumption'];
+        $data['reportType'] =  Config::get('constants.reportType');
         return view('admin.report-configuration.edit', $data);
     }
 
