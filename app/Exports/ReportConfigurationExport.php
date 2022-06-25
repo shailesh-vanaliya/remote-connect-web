@@ -94,7 +94,7 @@ class ReportConfigurationExport implements FromCollection, WithCustomCsvSettings
         // print_r($res);
         // exit;
         $aaa = explode(',',$res);
-        return $aaa;
+        return [[$this->data['modem_id'],$this->data['start'],$this->data['end']],$aaa];
         // return ["dtm","pv1","sp1","out1"];
         // return $this->data['parameter'];
         // return ['modem id',  'Pressure PV', 'Temperature PV', 'Waterflow', 'Pressure SP', 'Timestamp', 'WATER VALVE1', 'WATER VALVE2', 'TOTAL FLOW', 'DAILY FLOW', 'MACHINE STATUS', 'MOISTURE STATUS', 'CLEAN ON TIME', 'CPU TEMP'];

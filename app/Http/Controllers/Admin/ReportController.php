@@ -272,10 +272,10 @@ class ReportController extends Controller
 
 
     public function reportExport(Request $request){
-        // print_r($request->all());
-        // exit;
+        $postData = $request->all();
+        $reportName = isset($postData['report_title']) ? $postData['report_title'] : 'report-';
         try {
-            return Excel::download(new ReportConfigurationExport($request->all()), 'report-' . date('Ymdhis') . '-.csv');
+            return Excel::download(new ReportConfigurationExport($request->all()), $reportName . date('Ymdhis') . '.csv');
             // return response()->stream($callback, 200, $headers);
         } catch (Exception $e) {
             return redirect('admin/report')->with('session_error', 'DataLogExport Exports failed');

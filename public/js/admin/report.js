@@ -127,11 +127,12 @@ var Report = function () {
         // $('.downloadBtn').on('click',function(){
         $("body").on('click', '.downloadBtn', function () {
             $('.applyBtn').trigger('click')
-            console.log($(this).attr('data-report_id'), " ===")
+            console.log($(this).attr('data-report_title'), " ===")
             let report_id = $('.report_id').val($(this).attr('data-report_id'));
             let data_table = $('.data_table').val($(this).attr('data-data_table'));
             let modem_id = $('.modem_id').val($(this).attr('data-modem_id'));
             let parameter = $('.parameter').val($(this).attr('data-parameter'));
+            let report_title = $('.report_title').val($(this).attr('data-report_title'));
         });
         $('.applyBtn').trigger('click')
     }
