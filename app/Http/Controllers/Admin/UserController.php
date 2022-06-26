@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use DB;
 use App\Models\Organization;
-
+use Config;
 class UserController extends Controller
 {
     /**
@@ -99,6 +99,8 @@ class UserController extends Controller
             $user->sms_alert = (isset($requestData['sms_alert']) && $requestData['sms_alert'] == 'on') ? 1 : 0;
             $user->email_report = (isset($requestData['email_report']) &&  $requestData['email_report'] == 'on') ? 1 : 0;
             $user->email_alert = (isset($requestData['email_alert']) &&  $requestData['email_alert'] == 'on') ? 1 : 0;
+            $user->report_schedule_quota          = isset($requestData['report_schedule_quota']) ?$requestData['report_schedule_quota'] : 0;
+
             $user->password       = Hash::make($requestData['password']);
             $user->save();
             $user =  $requestData;
@@ -144,6 +146,18 @@ class UserController extends Controller
             $data['organization'] = Organization::select('organization_name', 'id',)->where('id',Auth::guard('admin')->user()->organization_id)->pluck('organization_name', 'id')->toArray();
         }
         $data['plugincss']               = ['icheck-bootstrap/icheck-bootstrap.min.css'];
+        $data['storageQuota'] =  Config::get('constants.storageQuota');
+        $data['SMSQuota'] =  Config::get('constants.SMSQuota');
+        $data['emailQuota'] =  Config::get('constants.emailQuota');
+        $data['reportQuota'] =  Config::get('constants.reportQuota');
+        $data['notificationQuota'] =  Config::get('constants.notificationQuota');
+        $data['reportScheduleQuota'] =  Config::get('constants.reportScheduleQuota');
+        
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['roles'] =  Config::get('constants.SARoles');
+        } else {
+            $data['roles'] =  Config::get('constants.ARoles');
+        }
         return view('admin.users.create', $data);
     }
 
@@ -203,6 +217,7 @@ class UserController extends Controller
             $user->email_quota          = isset($requestData['email_quota']) ?$requestData['email_quota'] : 0;
             $user->notification_counter          = isset($requestData['notification_counter']) ?$requestData['notification_counter'] : 0;
             $user->notification_quota          = isset($requestData['notification_quota']) ?$requestData['notification_quota'] : 0;
+            $user->report_schedule_quota          = isset($requestData['report_schedule_quota']) ?$requestData['report_schedule_quota'] : 0;
             
             $user->sms_alert = (isset($requestData['sms_alert']) && $requestData['sms_alert'] == 'on') ? 1 : 0;
             $user->email_report = (isset($requestData['email_report']) &&  $requestData['email_report'] == 'on') ? 1 : 0;
@@ -250,6 +265,18 @@ class UserController extends Controller
         } else {
             $data['organization'] = Organization::select('organization_name', 'id',)->where('id',Auth::guard('admin')->user()->organization_id)->pluck('organization_name', 'id')->toArray();
         }
+        $data['storageQuota'] =  Config::get('constants.storageQuota');
+        $data['SMSQuota'] =  Config::get('constants.SMSQuota');
+        $data['emailQuota'] =  Config::get('constants.emailQuota');
+        $data['reportQuota'] =  Config::get('constants.reportQuota');
+        $data['notificationQuota'] =  Config::get('constants.notificationQuota');
+        $data['reportScheduleQuota'] =  Config::get('constants.reportScheduleQuota');
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['roles'] =  Config::get('constants.SARoles');
+        } else {
+            $data['roles'] =  Config::get('constants.ARoles');
+        }
+      
         return view('admin/users.edit', $data);
     }
 

@@ -31,7 +31,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'email', 'password', 'full_name', 'first_name', 'last_name', 'mobile_no', 'role', 'status', 'profile_pic','created_by', 'updated_by', 'remember_token', 'created_at', 'updated_at','email_alert','sms_alert','email_report',
-        "storage_usage","storage_quota","report_counter","report_quota","sms_counter","sms_quota","email_counter","email_quota","notification_counter","notification_quota"
+        "storage_usage","storage_quota","report_counter","report_quota","sms_counter","sms_quota","email_counter","email_quota","notification_counter","notification_quota","report_schedule_quota"
     ];
 
     /**

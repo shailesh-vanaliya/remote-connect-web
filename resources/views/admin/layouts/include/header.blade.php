@@ -38,15 +38,16 @@
         <li class="nav-item dropdown mt-2 ml-2 minimize" style="display: none;">
             <i class="fa fa-expand " title="Minimize" onclick="closeFullscreen();" aria-hidden="true"></i>
         </li>
+        @php
+                $notify = Helper::getNotificationList();
+                @endphp
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge notificationCount">3</span>
+                <span class="badge badge-warning navbar-badge notificationCount">{{ count($notify) }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                @php
-                $notify = Helper::getNotificationList();
-                @endphp
+              
                 @foreach($notify as $kye => $val)
                 <a href="#" class="dropdown-item">
                     <div class="media">
