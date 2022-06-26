@@ -69,7 +69,7 @@ class Helper
 		// $notification = Notification::latest()->take(10);
 		// print_r($notification);
 		// exit;
-		$notification = Notification::where('created_by', Auth::guard('admin')->user()->id)->take(10)->latest('id')->get()->toArray();
+		$notification = Notification::where('created_by', Auth::guard('admin')->user()->id)->where('viewed', 0)->take(10)->latest('id')->get()->toArray();
 		return $notification;
 	}
 }
