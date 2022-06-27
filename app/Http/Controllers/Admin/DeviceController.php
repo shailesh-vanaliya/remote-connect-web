@@ -300,20 +300,26 @@ class DeviceController extends Controller
             if ($validator->fails()) {
                 return redirect("admin/device/create")->withErrors($validator)->withInput();
             }
-            
+
             $queryBuilder =  DeviceMap::where('MODEM_ID', $request->all('modem_id'));
-            $queryBuilder->where('secret_keys', $request->all('secret_key'));
+            $queryBuilder->where('secret_key', $request->all('secret_key'));
             if (Auth::guard('admin')->user()->role == "USER" || Auth::guard('admin')->user()->role == "ADMIN") {
                 $queryBuilder->where('organization_id', Auth::guard('admin')->user()->organization_id);
             }
             $mapCount = $queryBuilder->count();
-  
+
             if ($mapCount == 0) {
                 return redirect('admin/device/create')->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
 
             $modemMapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))->first();
-            $modemCount = Device::where('modem_id', $request->all('modem_id'))->count();
+            // $modemCount = Device::where('modem_id', $request->all('modem_id'))->count();
+            $queryBuilders = Device::where('modem_id', $request->all('modem_id'));
+            if (Auth::guard('admin')->user()->role == "USER" || Auth::guard('admin')->user()->role == "ADMIN") {
+                $queryBuilders->where('organization_id', Auth::guard('admin')->user()->organization_id);
+            }
+            $modemCount = $queryBuilders->count();
+
             if (isset($modemMapCount) &&  $modemCount >= $modemMapCount->max_user_access) {
                 return redirect('admin/device/create')->with('session_error', 'Sorry, maximum user device limit exceed, contact to admin!')->withInput();
             }
@@ -421,14 +427,14 @@ class DeviceController extends Controller
                 return redirect("admin/device/$id/edit")->withErrors($validator)->withInput();
             }
             // $mapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))
-                // ->where('secret_key', $request->all('secret_key'))->count();
-                
+            // ->where('secret_key', $request->all('secret_key'))->count();
+
 
             $queryBuilder =  DeviceMap::where('MODEM_ID', $request->all('modem_id'));
             $queryBuilder->where('secret_key', $request->all('secret_key'));
-            if (Auth::guard('admin')->user()->role == "USER" || Auth::guard('admin')->user()->role == "ADMIN") {
-                $queryBuilder->where('organization_id', Auth::guard('admin')->user()->organization_id);
-            }
+            // if (Auth::guard('admin')->user()->role == "USER" || Auth::guard('admin')->user()->role == "ADMIN") {
+            //     $queryBuilder->where('organization_id', Auth::guard('admin')->user()->organization_id);
+            // }
             $mapCount = $queryBuilder->count();
 
             if ($mapCount == 0) {
@@ -437,7 +443,12 @@ class DeviceController extends Controller
 
             $modemMapCount = DeviceMap::where('MODEM_ID', $request->all('modem_id'))->first();
 
-            $modemCount = Device::where('id', '!=', $id)->where('modem_id', $request->all('modem_id'))->count();
+            $queryBuilders = Device::where('id', '!=', $id);
+            if (Auth::guard('admin')->user()->role == "USER" || Auth::guard('admin')->user()->role == "ADMIN") {
+                $queryBuilders->where('organization_id', Auth::guard('admin')->user()->organization_id);
+            }
+            $queryBuilders->where('modem_id', $request->all('modem_id'));
+            $modemCount = $queryBuilders->count();
             if (isset($modemMapCount) &&  $modemCount >= $modemMapCount->max_user_access) {
                 return redirect("admin/device/$id/edit")->with('session_error', 'Sorry, maximum user device limit exceed, contact to admin!')->withInput();
             }
@@ -623,7 +634,7 @@ class DeviceController extends Controller
             $dashboard_alias = [];
             $chart_alias = [];
             $unit_alias = [];
-            
+
             foreach ($postData['dashboard_alias']  as $key => $val) {
                 $dashboard_alias[$key] = $val;
             }
