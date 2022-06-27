@@ -41,6 +41,7 @@
                                     <th>Email Sent</th>
                                     <th>Sms Sent</th>
                                     @endif
+                                    <th>Alert time</th>
                                     <th>Actions</th>
 
                                 </tr>
@@ -56,6 +57,7 @@
                                     <td>{{ $item->is_email_send }}</td>
                                     <td>{{ $item->is_sms_send }}</td>
                                     @endif
+                                    <td>{{ $item->created_at }}</td>
                                     <td>
                                     @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')
                                         <a href="{{ url('/admin/notification/' . $item->id) }}" title="View Notification"><button class="btn btn-info btn-xs"><i class="fas fa-eye" aria-hidden="true"></i> </button></a>
