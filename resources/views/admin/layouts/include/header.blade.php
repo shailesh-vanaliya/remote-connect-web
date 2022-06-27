@@ -31,18 +31,18 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Messages Dropdown Menu -->
-        <!-- <li class="nav-item dropdown mt-2 maximize">
-            <i class="fa fa-compress " title="Maximize" onclick="openFullscreen();" aria-hidden="true">
+        <li class="nav-item dropdown mt-2 maximize">
+            <i class="fas fa-expand-arrows-alt" title="Maximize" onclick="openFullscreen();" aria-hidden="true">
             </i>
         </li>
         <li class="nav-item dropdown mt-2 ml-2 minimize" style="display: none;">
-            <i class="fa fa-expand " title="Minimize" onclick="closeFullscreen();" aria-hidden="true"></i>
-        </li> -->
-        <li class="nav-item">
+            <i class="fas fa-compress-arrows-alt" title="Minimize" onclick="closeFullscreen();" aria-hidden="true"></i>
+        </li>
+        <!-- <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
-      </li>
+      </li> -->
 
         @php
                 $notify = Helper::getNotificationList();

@@ -344,3 +344,8 @@ td.actionTd {
 [class*=sidebar-dark-] {
     background-color: #121213 !important;
 }
+.login-page, .register-page {
+    /* background-image: url('../../img/Background.png') !important; */
+    background: url('../../img/Background.png') repeat center center fixed;
+
+}

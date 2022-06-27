@@ -281,3 +281,6 @@ label {
     box-shadow: none;
 }
 
+td.actionTd {
+    display: flex !important;
+}

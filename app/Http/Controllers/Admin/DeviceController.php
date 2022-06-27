@@ -302,12 +302,12 @@ class DeviceController extends Controller
             }
             
             $queryBuilder =  DeviceMap::where('MODEM_ID', $request->all('modem_id'));
-            $queryBuilder->where('secret_key', $request->all('secret_key'));
+            $queryBuilder->where('secret_keys', $request->all('secret_key'));
             if (Auth::guard('admin')->user()->role == "USER" || Auth::guard('admin')->user()->role == "ADMIN") {
-                $queryBuilder->where('secret_key', Auth::guard('admin')->user()->organization_id);
+                $queryBuilder->where('organization_id', Auth::guard('admin')->user()->organization_id);
             }
             $mapCount = $queryBuilder->count();
-       
+  
             if ($mapCount == 0) {
                 return redirect('admin/device/create')->with('session_error', 'Sorry, Model Id or Secret key not available!')->withInput();
             }
@@ -427,7 +427,7 @@ class DeviceController extends Controller
             $queryBuilder =  DeviceMap::where('MODEM_ID', $request->all('modem_id'));
             $queryBuilder->where('secret_key', $request->all('secret_key'));
             if (Auth::guard('admin')->user()->role == "USER" || Auth::guard('admin')->user()->role == "ADMIN") {
-                $queryBuilder->where('secret_key', Auth::guard('admin')->user()->organization_id);
+                $queryBuilder->where('organization_id', Auth::guard('admin')->user()->organization_id);
             }
             $mapCount = $queryBuilder->count();
 

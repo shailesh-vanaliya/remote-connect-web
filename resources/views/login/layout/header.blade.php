@@ -41,7 +41,7 @@
 
 <!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/jvectormap/jquery-jvectormap.css') }}"> -->
 <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/adminlte.min.css') }}">
-<!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/custom.css') }}"> -->
+<link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/custom.css') }}">
 <!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'dist/css/skins/_all-skins.min.css') }}"> -->
 <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'bower_components/datatables-bs4/css/dataTables.bootstrap4.css') }}">
 <!-- <link rel="stylesheet" href="{{ URL::asset($dynamicUrl.'plugins/datatables/dataTables.bootstrap.css') }}"> -->
