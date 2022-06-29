@@ -155,145 +155,347 @@ var ColdStorageDashboard = function () {
 
                     root.container.children.clear();
 
-                    var chart = root.container.children.push(am5xy.XYChart.new(root, {
-                        panX: true,
-                        panY: true,
-                        wheelX: "panX",
-                        wheelY: "zoomX",
-                        maxTooltipDistance: 0,
-                        pinchZoomX: true
-                    }));
+                    	// Set themes
+		// https://www.amcharts.com/docs/v5/concepts/themes/
+		root.setThemes([
+            am5themes_Animated.new(root)
+          ]);
+          
+          // Create chart
+          // https://www.amcharts.com/docs/v5/charts/xy-chart/
+          var chart = root.container.children.push(
+            am5xy.XYChart.new(root, {
+              panX: true,
+              panY: true,
+              wheelX: "panX",
+              wheelY: "zoomX",
+              layout: root.verticalLayout,
+            pinchZoomX:true
+            })
+          );
+          
+          // Add cursor
+          // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+          var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+            behavior: "none"
+          }));
+          cursor.lineY.set("visible", false);
+          
+          // The data
+          var data = [
+            {
+              year: "33",
+              italy: 1,
+              germany: 5,
+              uk: 3
+            },
+            {
+              year: "1",
+              italy: 1,
+              germany: 2,
+              uk: 6
+            },
+            {
+              year: "22",
+              italy: 2,
+              germany: 3,
+              uk: 1
+            },
+            {
+              year: "44",
+              italy: 3,
+              germany: 4,
+              uk: 1
+            },
+            {
+              year: "44",
+              italy: 5,
+              germany: 1,
+              uk: 2
+            },
+            {
+              year: "33",
+              italy: 3,
+              germany: 2,
+              uk: 1
+            },
+            {
+              year: "53",
+              italy: 1,
+              germany: 2,
+              uk: 3
+            },
+            {
+              year: "4",
+              italy: 2,
+              germany: 1,
+              uk: 5
+            },
+            {
+              year: "65",
+              italy: 3,
+              germany: 5,
+              uk: 2
+            },
+            {
+              year: "1974",
+              italy: 4,
+              germany: 3,
+              uk: 6
+            },
+            {
+              year: "1978",
+              italy: 1,
+              germany: 2,
+              uk: 4
+            }
+          ];
+          
+          // Create axes
+          // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+          var xRenderer = am5xy.AxisRendererX.new(root, {});
+          xRenderer.grid.template.set("location", 0.5);
+          xRenderer.labels.template.setAll({
+            location: 0.5,
+            multiLocation: 0.5
+          });
+          
+          var xAxis = chart.xAxes.push(
+            am5xy.CategoryAxis.new(root, {
+              categoryField: "year",
+              renderer: xRenderer,
+              tooltip: am5.Tooltip.new(root, {})
+            })
+          );
+          
+          xAxis.data.setAll(data);
+          
+          var yAxis = chart.yAxes.push(
+            am5xy.ValueAxis.new(root, {
+              maxPrecision: 0,
+              renderer: am5xy.AxisRendererY.new(root, {
+                inversed: true
+              })
+            })
+          );
+          
+          // Add series
+          // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+          
+          function createSeries(name, field) {
+            var series = chart.series.push(
+              am5xy.LineSeries.new(root, {
+                name: name,
+                xAxis: xAxis,
+                yAxis: yAxis,
+                valueYField: field,
+                categoryXField: "year",
+                tooltip: am5.Tooltip.new(root, {
+                  pointerOrientation: "horizontal",
+                  labelText: "[bold]{name}[/]\n{categoryX}: {valueY}"
+                })
+              })
+            );
+          
+          
+            series.bullets.push(function() {
+              return am5.Bullet.new(root, {
+                sprite: am5.Circle.new(root, {
+                  radius: 5,
+                  fill: series.get("fill")
+                })
+              });
+            });
+          
+            // create hover state for series and for mainContainer, so that when series is hovered,
+            // the state would be passed down to the strokes which are in mainContainer.
+            series.set("setStateOnChildren", true);
+            series.states.create("hover", {});
+          
+            series.mainContainer.set("setStateOnChildren", true);
+            series.mainContainer.states.create("hover", {});
+          
+            series.strokes.template.states.create("hover", {
+              strokeWidth: 4
+            });
+          
+            series.data.setAll(data);
+            series.appear(1000);
+          }
+          
+          createSeries("Italy", "italy");
+          createSeries("Germany", "germany");
+          createSeries("UK", "uk");
+          
+          // Add scrollbar
+          // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+          chart.set("scrollbarX", am5.Scrollbar.new(root, {
+            orientation: "horizontal",
+            marginBottom: 20
+          }));
+          
+          var legend = chart.children.push(
+            am5.Legend.new(root, {
+              centerX: am5.p50,
+              x: am5.p50
+            })
+          );
+          
+          // Make series change state when legend item is hovered
+          legend.itemContainers.template.states.create("hover", {});
+          
+          legend.itemContainers.template.events.on("pointerover", function(e) {
+            e.target.dataItem.dataContext.hover();
+          });
+          legend.itemContainers.template.events.on("pointerout", function(e) {
+            e.target.dataItem.dataContext.unhover();
+          });
+          
+          legend.data.setAll(chart.series.values);
+          
+          // Make stuff animate on load
+          // https://www.amcharts.com/docs/v5/concepts/animations/
+          chart.appear(1000, 100);
+          
+                    // var chart = root.container.children.push(am5xy.XYChart.new(root, {
+                    //     panX: true,
+                    //     panY: true,
+                    //     wheelX: "panX",
+                    //     wheelY: "zoomX",
+                    //     maxTooltipDistance: 0,
+                    //     pinchZoomX: true
+                    // }));
         
         
-                    //var date = new Date();
-                    // date.setHours(0, 0, 0, 0);
-                    //var value = 100;
+                    // //var date = new Date();
+                    // // date.setHours(0, 0, 0, 0);
+                    // //var value = 100;
         
                    
                     
-                    var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
-                        maxDeviation: 0.2,
-                        baseInterval: {
-                            // timeUnit: "time",
-                            // timeUnit: "second",
-                            timeUnit: "second",
-                            count: 10
-                        },
-                        renderer: am5xy.AxisRendererX.new(root, {}),
-                        tooltip: am5.Tooltip.new(root, {})
-                    }));
+                    // var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+                    //     maxDeviation: 0.2,
+                    //     baseInterval: {
+                    //         // timeUnit: "time",
+                    //         // timeUnit: "second",
+                    //         timeUnit: "second",
+                    //         count: 10
+                    //     },
+                    //     renderer: am5xy.AxisRendererX.new(root, {}),
+                    //     tooltip: am5.Tooltip.new(root, {})
+                    // }));
         
-                    var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-                        renderer: am5xy.AxisRendererY.new(root, {})
-                    }));
+                    // var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+                    //     renderer: am5xy.AxisRendererY.new(root, {})
+                    // }));
                     
             
-                    function generateDatas(i) {
-                        var data = [];
-                        // for (var i = 0; i < 10; ++i) {
-                        for (var k = 0; k < result.length; ++k) {
-                            let ary = []
+                    // function generateDatas(i) {
+                    //     var data = [];
+                    //     // for (var i = 0; i < 10; ++i) {
+                    //     for (var k = 0; k < result.length; ++k) {
+                    //         let ary = []
                             
-                            ary = {date:result[k].date ,  value :result[k][i]};
-                            am5.time.add(new Date(result[k].date), "second",1);
-                            data.push(ary)
-                            // data.push(generateData(count[i]));
-                        }
-                        // console.log(result[0][0], "arraydatalength")
-                        // console.log(data, "datedatedate")
-                        return data;
-                    }
-                    // console.log(result.length, "result.lengthresult.length")
-                    let titlename = res.chart_alias;
-                    // let titlename = ["MASTER PV","MASTER SP","SLAVE1 PV","SLAVE1 SP","SLAVE2 PV","SLAVE2 SP","SLAVE3 PV","SLAVE3 SP","SLAVE4 PV","SLAVE4 SP","SLAVE5 PV","SLAVE5 SP"];
-                    console.log(res.dashboard_alias, " ==dashboard_alias ")
+                    //         ary = {date:result[k].date ,  value :result[k][i]};
+                    //         am5.time.add(new Date(result[k].date), "second",1);
+                    //         data.push(ary)
+                    //         // data.push(generateData(count[i]));
+                    //     }
+                    //     // console.log(result[0][0], "arraydatalength")
+                    //     // console.log(data, "datedatedate")
+                    //     return data;
+                    // }
+                    // // console.log(result.length, "result.lengthresult.length")
+                    // let titlename = res.chart_alias;
+                    // // let titlename = ["MASTER PV","MASTER SP","SLAVE1 PV","SLAVE1 SP","SLAVE2 PV","SLAVE2 SP","SLAVE3 PV","SLAVE3 SP","SLAVE4 PV","SLAVE4 SP","SLAVE5 PV","SLAVE5 SP"];
+                    // console.log(res.dashboard_alias, " ==dashboard_alias ")
 
-                    for (var i = 0; i < titlename.length; i++) {
-                        var series = chart.series.push(am5xy.LineSeries.new(root, {
-                            minBulletDistance: 10,
-                            connect: true,
-                            name: titlename[i],
-                            xAxis: xAxis,
-                            yAxis: yAxis,
-                            valueYField: "value",
-                            valueXField: "date",
-                            legendValueText: "{valueY}"+"°C",
-                            // seriesTooltipTarget: "bullet",
-                            tooltip: am5.Tooltip.new(root, {
-                              labelText: "{name}[/] {valueY}"+"°C",
-                              pointerOrientation: "right"
-                            })
-                        }));
+                    // for (var i = 0; i < titlename.length; i++) {
+                    //     var series = chart.series.push(am5xy.LineSeries.new(root, {
+                    //         minBulletDistance: 10,
+                    //         connect: true,
+                    //         name: titlename[i],
+                    //         xAxis: xAxis,
+                    //         yAxis: yAxis,
+                    //         valueYField: "value",
+                    //         valueXField: "date",
+                    //         legendValueText: "{valueY}"+"°C",
+                    //         // seriesTooltipTarget: "bullet",
+                    //         tooltip: am5.Tooltip.new(root, {
+                    //           labelText: "{name}[/] {valueY}"+"°C",
+                    //           pointerOrientation: "right"
+                    //         })
+                    //     }));
                         
-                        var data = generateDatas(i); 
-                        series.data.setAll(data);
+                    //     var data = generateDatas(i); 
+                    //     series.data.setAll(data);
                         
-                        series.appear();
-                    }
+                    //     series.appear();
+                    // }
                     
-                    var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
-                        behavior: "none"
-                    }));
-                    cursor.lineY.set("visible", true);
+                    // var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+                    //     behavior: "none"
+                    // }));
+                    // cursor.lineY.set("visible", true);
         
-                    var scrollbarX = am5xy.XYChartScrollbar.new(root, {
-                      orientation: "horizontal",
-                      height: 30
-                    });
+                    // var scrollbarX = am5xy.XYChartScrollbar.new(root, {
+                    //   orientation: "horizontal",
+                    //   height: 30
+                    // });
 
-                    chart.set("scrollbarX", scrollbarX);
+                    // chart.set("scrollbarX", scrollbarX);
             
-                    chart.set("scrollbarY", am5.Scrollbar.new(root, {
-                        orientation: "vertical"
-                    }));
+                    // chart.set("scrollbarY", am5.Scrollbar.new(root, {
+                    //     orientation: "vertical"
+                    // }));
         
-                    var legend = chart.rightAxesContainer.children.push(am5.Legend.new(root, {
-					  width: 200,
-					  paddingLeft: 15,
-					  height: am5.percent(100)
-					}));
+                    // var legend = chart.rightAxesContainer.children.push(am5.Legend.new(root, {
+					//   width: 200,
+					//   paddingLeft: 15,
+					//   height: am5.percent(100)
+					// }));
          
-                    legend.itemContainers.template.events.on("pointerover", function (e) {
-                        var itemContainer = e.target;
+                    // legend.itemContainers.template.events.on("pointerover", function (e) {
+                    //     var itemContainer = e.target;
         
-                        // As series list is data of a legend, dataContext is series
-                        var series = itemContainer.dataItem.dataContext;
+                    //     // As series list is data of a legend, dataContext is series
+                    //     var series = itemContainer.dataItem.dataContext;
         
-                        chart.series.each(function (chartSeries) {
-                            if (chartSeries != series) {
-                                chartSeries.strokes.template.setAll({
-                                    strokeOpacity: 0.15,
-                                    stroke: am5.color(0x000000)
-                                });
-                            } else {
-                                chartSeries.strokes.template.setAll({
-                                    strokeWidth: 2
-                                });
-                            }
-                        })
-                    })
+                    //     chart.series.each(function (chartSeries) {
+                    //         if (chartSeries != series) {
+                    //             chartSeries.strokes.template.setAll({
+                    //                 strokeOpacity: 0.15,
+                    //                 stroke: am5.color(0x000000)
+                    //             });
+                    //         } else {
+                    //             chartSeries.strokes.template.setAll({
+                    //                 strokeWidth: 2
+                    //             });
+                    //         }
+                    //     })
+                    // })
         
-                    legend.itemContainers.template.events.on("pointerout", function (e) {
-                        var itemContainer = e.target;
-                        var series = itemContainer.dataItem.dataContext;
+                    // legend.itemContainers.template.events.on("pointerout", function (e) {
+                    //     var itemContainer = e.target;
+                    //     var series = itemContainer.dataItem.dataContext;
         
-                        chart.series.each(function (chartSeries) {
-                            chartSeries.strokes.template.setAll({
-                                strokeOpacity: 1,
-                                strokeWidth: 2,
-                                stroke: chartSeries.get("fill")
-                            });
-                        });
-                    })
+                    //     chart.series.each(function (chartSeries) {
+                    //         chartSeries.strokes.template.setAll({
+                    //             strokeOpacity: 1,
+                    //             strokeWidth: 2,
+                    //             stroke: chartSeries.get("fill")
+                    //         });
+                    //     });
+                    // })
         
-                    legend.itemContainers.template.set("width", am5.p100);
-                    legend.valueLabels.template.setAll({
-                        width: am5.p100,
-                        textAlign: "right"
-                    });
+                    // legend.itemContainers.template.set("width", am5.p100);
+                    // legend.valueLabels.template.setAll({
+                    //     width: am5.p100,
+                    //     textAlign: "right"
+                    // });
         
-                    legend.data.setAll(chart.series.values);
-                    chart.appear(1000, 100);
+                    // legend.data.setAll(chart.series.values);
+                    // chart.appear(1000, 100);
                    
 
                 }
