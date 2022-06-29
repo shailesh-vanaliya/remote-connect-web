@@ -13,6 +13,7 @@ use App\Exports\DataLogExport;
 use Illuminate\View\View;
 use App\Models\DeviceAliasmap;
 use App\Models\DataLog;
+use App\Models\ColdStorage;
 use App\Models\Device;
 use PhpMqtt\Client\Facades\MQTT;
 
@@ -67,43 +68,15 @@ class ColdStorageDashboardController extends Controller
         $action = $request->input('action');
         // echo "Fsdf -> ". $action;exit;
         switch ($action) {
-            case 'getChartData':
-                $this->_getChartData($request->input('startDate'), $request->input('endDate'));
-                break;
-            case 'getChartDataV2':
-                $this->_getChartDataV2($request->all());
+            case 'getColdChartData':
+                $this->_getColdChartData($request->all());
                 break;
         }
         exit;
     }
  
-    public function _getChartData($start, $end)
-    {
-
-
-        if (empty($start) && empty($end)) {
-            $start = date('Y-m-d');
-            $end = date('Y-m-d');
-        } else {
-            $start = date('Y-m-d', strtotime($start));
-            $end = date('Y-m-d', strtotime($end));
-        }
-        // $start = date('Y-m-d', strtotime(date('Y-m-d') . '-10 day'));
-
-        $res =  DataLog::select(
-            'Temperature_PV',
-            DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as dtm'))
-            ->where("modem_id", $this->deviceName)
-            ->whereRaw(
-                "(dtm >= ? AND dtm <= ?)",
-                [$start . " 00:00:00", $end . " 23:59:59"]
-            )
-            ->orderBy('dtm', 'desc')
-            ->get()->toArray();
-        echo json_encode(array_reverse($res));
-        exit;
-    }
-    public function _getChartDataV2($data)
+   
+    public function _getColdChartData($data)
     {
         try {
         
@@ -112,25 +85,21 @@ class ColdStorageDashboardController extends Controller
             $end = $data['endDate'] . ":00";
             $this->deviceName = isset($data['modem_id'])  ? $data['modem_id'] : 'FT104';
             if (empty($start) && empty($end)) {
-                // $start = date('Y-m-d') . " 00:00:00";
-                // $end = date('Y-m-d') . " 23:59:59";
                 $start = date('Y-m-d h:i:s');
                 $end = date('Y-m-d h:i:s');
-            } else {
-                // $start = date('Y-m-d h:i:s', strtotime($start));
-                // $end = date('Y-m-d h:i:s', strtotime($end));
             }
-            $res =  DataLog::select(
-                'Temperature_PV as value',
-                // 'dtm as date',
-                DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
+            $res =  ColdStorage::select(
+                'temperature',
+                'co2',
+                'humidity',
+                'dtm as date',
+                // DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
             )
-                ->where("modem_id", $this->deviceName)
-                // ->where("modem_id", 'FT104')
-                ->whereRaw(
-                    "(dtm >= ? AND dtm <= ?)",
-                    [$start, $end]
-                )
+                // ->where("modem_id", $this->deviceName)
+                // ->whereRaw(
+                //     "(dtm >= ? AND dtm <= ?)",
+                //     [$start, $end]
+                // )
                 ->orderBy('dtm', 'desc')
                 ->get()->toArray();
 
