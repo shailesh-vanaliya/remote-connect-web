@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="theme-color"/>
-    <title>Futuristic Technologies | @yield('title')</title>
+    <title>IIOT CONNECT | @yield('title')</title>
     @include('admin.layouts.include.css')
 </head>
 <body class="sidebar-mini skin-black-light sidebar-collapse" >
