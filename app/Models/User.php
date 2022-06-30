@@ -32,7 +32,7 @@ class User extends Authenticatable
     ];
 
     protected $fillable = [
-        'email', 'password', 'full_name','organization_id', 'first_name', 'last_name', 'mobile_no', 'role', 'status', 'profile_pic','created_by', 'updated_by', 'remember_token', 'created_at', 'updated_at','email_alert','sms_alert','email_report'
+        'email', 'password', 'full_name','organization_id', 'first_name', 'last_name', 'mobile_no', 'role', 'status', "company_name",'profile_pic','created_by', 'updated_by', 'remember_token', 'created_at', 'updated_at','email_alert','sms_alert','email_report'
     ];
 
     /**

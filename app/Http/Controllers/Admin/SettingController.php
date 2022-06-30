@@ -72,10 +72,12 @@ class SettingController extends Controller
                     return redirect(route('profile'))->withErrors($validator)->withInput();
                 }
                 $users  = User::findOrFail($formData['userId']);
-                $files2 = $request->file('profile_pic');
-                $logo = time() . $files2->getClientOriginalName();
-                $files2->move(public_path() . '/uploads/profile_pic/', $logo);
-                $formData['profile_pic'] = $logo;
+                if( $request->has('profile_pic')){
+                    $files2 = $request->file('profile_pic');
+                    $logo = time() . $files2->getClientOriginalName();
+                    $files2->move(public_path() . '/uploads/profile_pic/', $logo);
+                    $formData['profile_pic'] = $logo;
+                }
                 $users->update($formData);
                 $request->session()->flash('session_success', 'Profile Updated successfully.');
 

@@ -51,6 +51,16 @@
                                     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
+
+                            <div class="form-group {{ $errors->has('company_name') ? 'has-error' : ''}}">
+                                <label for="company_name" class="col-sm-2 control-label">Company Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="company_name" name="company_name"
+                                           value="{{ $userDetails->company_name }}" placeholder="company_name">
+                                    {!! $errors->first('company_name', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+
                             <div class="form-group {{ $errors->has('profile_pic') ? 'has-error' : ''}}">
                                 <label for="profile_pic" class="col-sm-2 control-label">Picture</label>
                                 <div class="col-sm-10">

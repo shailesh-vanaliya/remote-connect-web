@@ -58,7 +58,6 @@
 @if(!empty($pluginjs))
     @foreach ($pluginjs as $pjs)
         <script src="{{ asset($dynamicUrl) }}/{{ $pjs }}"></script>
-        <!-- <script src="{{ asset($dynamicUrl.'assets/plugins') }}/{{ $pjs }}"></script> -->
     @endforeach
 @endif
 
@@ -69,6 +68,8 @@
 @endif
 <script>
  
+ 
+
     $('.datepicker').datepicker({
         autoclose: true,
         format: "mm/dd/yyyy",

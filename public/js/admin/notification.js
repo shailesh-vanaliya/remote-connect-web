@@ -1,6 +1,10 @@
 var Notification = function () {
     var handleList = function () {
-
+        $("#example5").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print"]
+          }).buttons().container().appendTo('#example5_wrapper .col-md-6:eq(0)');
+          
         function getNotification() {
             $('.preloader').show();
             $.ajax({
@@ -52,9 +56,9 @@ var Notification = function () {
                     var output = JSON.parse(data);
                     $('.preloader').hide();
                     showToster(output.status, output.message)
-                    $('.isAck_'+notificationId).removeClass('btn-secondary');
-                    $('.isAck_'+notificationId).addClass('btn-success'); 
-                    $('.isAckSub'+notificationId).prop('title', 'Already Acknowledged');
+                    $('.isAck_' + notificationId).removeClass('btn-secondary');
+                    $('.isAck_' + notificationId).addClass('btn-success');
+                    $('.isAckSub' + notificationId).prop('title', 'Already Acknowledged');
                 }
             });
         });

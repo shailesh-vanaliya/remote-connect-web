@@ -53,7 +53,7 @@ function handleAjaxFormSubmit(form, type) {
 
 function showToster(status, message) {
     toastr.options = { closeButton: true, progressBar: true, showMethod: 'slideDown', timeOut: 4000 };
-
+console.log(status, " statusstatus")
     if (status == 'success') {
         toastr.success(message, 'Success');
         $.playSound(site_url + "public/sound/success.wav");
@@ -729,6 +729,9 @@ setInterval(function () {
 
 function getNotification() {
     $('.preloader').show();
+    if(window.location.href.includes('admin') == false){
+        return false;
+    }
     $.ajax({
         type: "POST",
         headers: {
@@ -744,7 +747,7 @@ function getNotification() {
                 if (i == 0) {
                     readNotification(item.id);
                 }
-                showToster('Alert', item.modem_id + " : " + item.alert_message)
+                showToster('error', item.modem_id + " : " + item.alert_message)
             });
         }
     });

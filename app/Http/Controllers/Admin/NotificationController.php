@@ -41,10 +41,20 @@ class NotificationController extends Controller
                 ->where('created_by', Auth::guard('admin')->user()->id)
                 ->latest()->paginate($perPage);
         } else {
-            $data['notification'] = Notification::
-                where('created_by', Auth::guard('admin')->user()->id)->latest()->paginate($perPage);
+            $data['notification'] = Notification::where('created_by', Auth::guard('admin')->user()->id)->latest()->paginate($perPage);
         }
         $data['pagetitle']             = 'Notification';
+
+        $data['pluginjs']               = [
+            'plugins/datatables-buttons/js/dataTables.buttons.min.js',
+            'plugins/datatables-buttons/js/buttons.bootstrap4.min.js',
+            'plugins/jszip/jszip.min.js',
+            'plugins/pdfmake/pdfmake.min.js',
+            'plugins/pdfmake/vfs_fonts.js',
+            'plugins/datatables-buttons/js/buttons.html5.min.js',
+            'plugins/datatables-buttons/js/buttons.print.min.js',
+            'plugins/datatables-buttons/js/buttons.colVis.min.js',
+        ];
         $data['js']                    = ['admin/notification.js'];
         $data['funinit']               = ['Notification.init()'];
         $data['header']    = [
@@ -197,15 +207,14 @@ class NotificationController extends Controller
             case 'getNotification':
                 $this->_getUnreadNotification();
                 break;
-                
+
             case 'readNotification':
                 $this->_setReadNotification($request->all());
                 break;
-                
+
             case 'ackNotification':
                 $this->_setAckNotification($request->all());
                 break;
-                
         }
         exit;
     }
@@ -213,7 +222,7 @@ class NotificationController extends Controller
 
     public function _setReadNotification($postData)
     {
-       $notificationList = Notification::where('created_by', Auth::guard('admin')->user()->id)->where('id',">=",$postData['lastId'])->update(['viewed'=> 1]);
+        $notificationList = Notification::where('created_by', Auth::guard('admin')->user()->id)->where('id', ">=", $postData['lastId'])->update(['viewed' => 1]);
         echo json_encode($notificationList);
         exit;
     }
@@ -226,16 +235,16 @@ class NotificationController extends Controller
     }
     public function _setAckNotification($postData)
     {
-        $count = Notification::where('id',"=",$postData['notificationId'])->where(['is_ack'=> 1])->count();
-        $notificationList = Notification::where('id',"=",$postData['notificationId'])->update(['is_ack'=> 1]);
-        if($count == 0){
+        $count = Notification::where('id', "=", $postData['notificationId'])->where(['is_ack' => 1])->count();
+        $notificationList = Notification::where('id', "=", $postData['notificationId'])->update(['is_ack' => 1]);
+        if ($count == 0) {
             $res['status'] = "success";
-            $res['message'] = "Your message success set as acknowledged";    
-        }else{
+            $res['message'] = "Your message success set as acknowledged";
+        } else {
             $res['status'] = "success";
             $res['message'] = "Your have already set as acknowledged";
         }
-        
+
         echo json_encode($res);
         exit;
     }
