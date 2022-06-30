@@ -8,6 +8,7 @@ use Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Settings;
+use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 
 class SettingController extends Controller
@@ -52,6 +53,7 @@ class SettingController extends Controller
 
         if ($user) {
             $userId              = $user->id;
+           
             $data['userDetails'] = $user;
 
             if ($request->isMethod('post')) {
@@ -62,15 +64,19 @@ class SettingController extends Controller
                     'email' => 'required',
                 ];
 
-                if (isset($formData['image'])) {
-                    $rules['image'] =  'image|mimes:jpeg,png,jpg|max:2048';
+                if (isset($formData['profile_pic'])) {
+                    $rules['profile_pic'] =  'mimes:jpeg,png,jpg|max:2048';
                 }
                 $validator = Validator::make($request->all(), $rules);
                 if ($validator->fails()) {
                     return redirect(route('profile'))->withErrors($validator)->withInput();
                 }
-
-                $user->update($formData);
+                $users  = User::findOrFail($formData['userId']);
+                $files2 = $request->file('profile_pic');
+                $logo = time() . $files2->getClientOriginalName();
+                $files2->move(public_path() . '/uploads/profile_pic/', $logo);
+                $formData['profile_pic'] = $logo;
+                $users->update($formData);
                 $request->session()->flash('session_success', 'Profile Updated successfully.');
 
                 return redirect(route('profile'));

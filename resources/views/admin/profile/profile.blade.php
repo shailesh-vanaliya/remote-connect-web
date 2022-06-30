@@ -51,6 +51,14 @@
                                     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
+                            <div class="form-group {{ $errors->has('profile_pic') ? 'has-error' : ''}}">
+                                <label for="profile_pic" class="col-sm-2 control-label">Picture</label>
+                                <div class="col-sm-10">
+                                    <input type="file" class="form-control" id="profile_pic" name="profile_pic"
+                                           value="{{ $userDetails->pic }}" placeholder="profile_pic">
+                                    {!! $errors->first('profile_pic', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
                             {!! csrf_field() !!}
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
