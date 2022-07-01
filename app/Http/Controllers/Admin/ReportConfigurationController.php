@@ -180,7 +180,13 @@ class ReportConfigurationController extends Controller
      */
     public function show($id)
     {
-        $data['reportconfiguration'] = ReportConfiguration::findOrFail($id);
+        // $data['reportconfiguration'] = ReportConfiguration::findOrFail($id);
+        $data['reportconfiguration'] = ReportConfiguration::select('report_configurations.*','devices.modem_id','organizations.organization_name')
+        ->Join('devices',  'devices.id', '=', 'report_configurations.device_id')
+        ->Join('organizations',  'organizations.id', '=', 'report_configurations.organization_id')
+        ->where('report_configurations.id',$id)->first();
+// print_r($data['reportconfiguration']);
+// exit;
         $data['pagetitle']             = 'Report Configuration';
         $data['js']                    = ['admin/report.js'];
         $data['funinit']               = ['Report.init()'];
