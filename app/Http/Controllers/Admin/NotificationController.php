@@ -55,6 +55,9 @@ class NotificationController extends Controller
             'plugins/datatables-buttons/js/buttons.print.min.js',
             'plugins/datatables-buttons/js/buttons.colVis.min.js',
         ];
+        $data['plugincss']               = [
+            'plugins/datatables-buttons/css/buttons.bootstrap4.min.css',
+        ];
         $data['js']                    = ['admin/notification.js'];
         $data['funinit']               = ['Notification.init()'];
         $data['header']    = [
