@@ -53,7 +53,7 @@ function handleAjaxFormSubmit(form, type) {
 
 function showToster(status, message) {
     toastr.options = { closeButton: true, progressBar: true, showMethod: 'slideDown', timeOut: 4000 };
-console.log(status, " statusstatus")
+
     if (status == 'success') {
         toastr.success(message, 'Success');
         $.playSound(site_url + "public/sound/success.wav");
@@ -62,14 +62,15 @@ console.log(status, " statusstatus")
         }, 5000);
     }
     if (status == 'error') {
-        toastr.error(message, 'Fail');
+        toastr.error(message, 'Alert');
         $.playSound(site_url + "public/sound/alert.wav");
         setTimeout(() => {
             $.stopSound(site_url + "public/sound/alert.wav");
         }, 5000);
     }
     if (status == 'Alert') {
-        toastr.info(message, 'Success');
+        status = "error";
+        toastr.info(message, 'Alert');
         $.playSound(site_url + "public/sound/alert.wav");
         setTimeout(() => {
             $.stopSound(site_url + "public/sound/alert.wav");
@@ -724,7 +725,7 @@ $(".main-conntent").mouseup(function (e) {
 
 setInterval(function () {
     getNotification();
-}, 50000)
+}, 1000)
 
 
 function getNotification() {
