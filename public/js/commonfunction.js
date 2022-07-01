@@ -725,7 +725,7 @@ $(".main-conntent").mouseup(function (e) {
 
 setInterval(function () {
     getNotification();
-}, 1000)
+}, 50000)
 
 
 function getNotification() {

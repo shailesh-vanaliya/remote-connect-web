@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">ReportConfiguration {{ $reportconfiguration->id }}</h3>
+                    <!-- <h3 class="box-title">ReportConfiguration {{ $reportconfiguration->id }}</h3> -->
                     <a href="{{ url('/admin/report-configuration') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                     <a href="{{ url('/admin/report-configuration/' . $reportconfiguration->id . '/edit') }}" title="Edit ReportConfiguration"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt" aria-hidden="true"></i> Edit</button></a>
 
@@ -32,8 +32,8 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <th>ID</th>
-                                    <td>{{ $reportconfiguration->id }}</td>
+                                    <!-- <th>ID</th>
+                                    <td>{{ $reportconfiguration->id }}</td> -->
                                 </tr>
                                 <tr>
                                     <th> Report Id </th>
