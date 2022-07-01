@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-primary">
-                <div class="box-header with-border">
+                <div class="box-header with-border float-right mr-1 mb-2">
                     <h3 class="box-title">Report {{ $report->id }}</h3>
      <a href="{{ url('/admin/report') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <a href="{{ url('/admin/report/' . $report->id . '/edit') }}" title="Edit Report"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt" aria-hidden="true"></i> Edit</button></a>

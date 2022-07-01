@@ -178,6 +178,7 @@ class AlertConfigurationController extends Controller
             $requestData['created_by'] = Auth::guard('admin')->user()->id;
             $requestData['updated_by'] = Auth::guard('admin')->user()->id;
             $requestData['modem_id'] = $requestData['device_id'];
+            $requestData['is_updated'] = 1;
             $alertconfigration->update($requestData);
 
             return redirect('admin/alert-configration')->with('session_success', 'Alert Configuration updated!');

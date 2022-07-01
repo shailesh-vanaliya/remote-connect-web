@@ -26,7 +26,7 @@ class AlertConfigration extends Model
      *
      * @var array
      */
-    protected $fillable = ['modem_id', 'organization_id', 'parameter', 'condition', 'set_value', 'sms_alert', 'email_alert', 'created_by', 'updated_by','alert_message','alert_type'];
+    protected $fillable = ['modem_id', 'organization_id', 'parameter', 'condition', 'set_value', 'sms_alert', 'email_alert', 'created_by', "is_updated",'updated_by','alert_message','alert_type'];
 
 
     public function getAlertCong($postData)

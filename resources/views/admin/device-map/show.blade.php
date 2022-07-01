@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-primary">
-                <div class="box-header with-border">
+                <div class="box-header with-border float-right mr-1 mb-2">
                     <!-- <h3 class="box-title">DeviceMap {{ $devicemap->id }}</h3> -->
                     <a href="{{ url('/admin/device-map') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                     <a href="{{ url('/admin/device-map/' . $devicemap->id . '/edit') }}" title="Edit DeviceMap"><button class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt" aria-hidden="true"></i> Edit</button></a>
