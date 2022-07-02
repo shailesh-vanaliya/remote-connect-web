@@ -89,9 +89,9 @@ class ColdStorageDashboardController extends Controller
                 $end = date('Y-m-d h:i:s');
             }
             $res =  ColdStorage::select(
-                'temperature',
-                'co2',
-                'humidity',
+                'D0 as temperature',
+                'D1 as co2',
+                'D2 as humidity',
                 'dtm as date',
                 // DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
             )

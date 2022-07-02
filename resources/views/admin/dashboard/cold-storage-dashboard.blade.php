@@ -121,7 +121,7 @@ if ($device->Status == 1) {
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY11_TITLE']) ? $dashboard_alias['DISPLAY11_TITLE'] : 'Temperature' }} </p>
                         </div>
                         <div class="icon">
-                          <i class="fa fa-thermometer-empty iconColor"></i>
+                          <i class="fa fa-cloud iconColor"></i>
                         </div>
                         <p class="small-box-footer">
                           <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
@@ -135,7 +135,7 @@ if ($device->Status == 1) {
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY12_TITLE']) ? $dashboard_alias['DISPLAY12_TITLE'] : 'Pressure' }} </p>
                         </div>
                         <div class="icon">
-                          <i class="ion ion-stats-bars iconColor"></i>
+                          <i class="fa fa-cloud iconColor"></i>
                         </div>
                         <p class="small-box-footer">
                           <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
@@ -150,7 +150,7 @@ if ($device->Status == 1) {
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY13_TITLE']) ? $dashboard_alias['DISPLAY13_TITLE'] : 'Water Valve1' }} </p>
                         </div>
                         <div class="icon">
-                          <i class="ion ion-stats-bars iconColor"></i>
+                          <i class="fa fa-cloud iconColor"></i>
                         </div>
                         <p class="small-box-footer">
                           <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
