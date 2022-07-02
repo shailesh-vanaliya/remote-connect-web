@@ -124,7 +124,7 @@ if ($device->Status == 1) {
                           <i class="fa fa-thermometer-half iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
+                          <i class="fas fa-clock"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
                         </p>
                       </div>
                     </div>
@@ -138,7 +138,7 @@ if ($device->Status == 1) {
                           <i class="fa fa-thermometer-half iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
+                          <i class="fas fa-clock"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
                         </p>
                       </div>
                     </div>
@@ -153,7 +153,7 @@ if ($device->Status == 1) {
                           <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <p class="small-box-footer">
-                          <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
+                          <i class="fas fa-clock"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
                         </p>
                       </div>
                     </div>
