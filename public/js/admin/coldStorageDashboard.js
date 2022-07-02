@@ -443,11 +443,50 @@ var ColdStorageDashboard = function () {
 
                 }
             });
-
+            setMap();
         }
 
         $('.customSelect').trigger('change');
+
+
+        function setMap(){
+           
+                let latitude = ($('.latitude').val() != '' && $('.latitude').val() != undefined) ? $('.latitude').val() : ''
+                let longitude = ($('.longitude').val() != '' && $('.longitude').val() != undefined) ? $('.longitude').val() : ''
+                let location = $('.location').val()
+                var locations = [
+                    [location, latitude, longitude]
+                ];
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 5,
+                    mapTypeControl: false,
+                    streetViewControl: false,
+                    overviewMapControl: true,
+                    rotateControl: false,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    center: new google.maps.LatLng(20.5937, 78.9629),
+                });
+
+                var infowindow = new google.maps.InfoWindow();
+
+                var marker, i;
+
+                for (i = 0; i < locations.length; i++) {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        map: map
+                    });
+
+                    google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                        return function () {
+                            infowindow.setContent(locations[i][0]);
+                            infowindow.open(map, marker);
+                        }
+                    })(marker, i));
+                }
+        }
     }
+
     return {
         init: function () {
             handleList();
