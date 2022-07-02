@@ -34,8 +34,10 @@ class DeviceController extends Controller
 
         $keyword = $request->get('search');
         $perPage = 100;
-        $collected_items = Device::whereNotNull('latitude')->whereNotNull('longitude')
+        $modelName= 'App\Models\Device';
+        $collected_items = $modelName::whereNotNull('latitude')->whereNotNull('longitude')
             ->get()->toArray();
+          
         $mainArray = [];
         foreach ($collected_items as $key => $values) {
             // print_r($values['location']);
