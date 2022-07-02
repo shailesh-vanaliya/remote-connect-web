@@ -228,7 +228,8 @@ var Flowmeter = function () {
 
                     function createSeries(name, field) {
                         // res.unit_alias.map(x => console.log(x))
-                        let celVel = $.map(res.unit_alias, function(element,index) {
+                        let celVel = '';
+                        celVel = $.map(res.unit_alias, function(element,index) {
                             if(index == name){
                                 return element
                             }
@@ -276,6 +277,9 @@ var Flowmeter = function () {
                     createSeries("Temperature", "temperature");
                     createSeries("CO2", "co2");
                     createSeries("Humidity", "humidity");
+                    createSeries("ss", "ss");
+                    createSeries("D3", "D3");
+                    createSeries("D4", "D4");
 
                     // Add scrollbar
                     // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/

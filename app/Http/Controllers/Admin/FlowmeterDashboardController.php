@@ -37,7 +37,12 @@ class FlowmeterDashboardController extends Controller
      */
     public function index(Request $request)
     {
+        // echo $this->deviceName;
         $result =  Flowmeter::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
+        $data['flmNo'] =  Flowmeter::select('flm_no', 'flm_no')
+            ->where("modem_id", $this->deviceName)
+            ->pluck('flm_no', 'flm_no')
+            ->toArray();
 
         $deviceObject = new Device();
 
@@ -96,6 +101,9 @@ class FlowmeterDashboardController extends Controller
                 'D0 as temperature',
                 'D1 as co2',
                 'D2 as humidity',
+                'D3 as D3',
+                'D4 as D4',
+                'D5 as D5',
                 'dtm as date',
                 // DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
             )

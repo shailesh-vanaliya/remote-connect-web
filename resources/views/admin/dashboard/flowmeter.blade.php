@@ -184,7 +184,12 @@ if ($device->Status == 1) {
                         <option value="Last Month">Last Month</option>
                         <option value="Custom">Custom Range</option>
                       </select>
+                     
+
                       <input class="form-control endDate" id="endDate" name="end" type="hidden" placeholder="End date" aria-label="Search">
+                    </div>
+                    <div class=" col-sm-12 col-md-2 ">
+                      {{ Form::select('flm_no', $flmNo ,  null  , array('class' => 'form-control flm_no', 'id' => 'flm_no')) }}
                     </div>
                     <div class=" col-sm-12 col-md-5 dateDiv hidden" style="display: none;">
                       <input type="text" name="dateRange" class="form-control float-right" id="dateRange">
