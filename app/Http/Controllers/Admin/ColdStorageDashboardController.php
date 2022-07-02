@@ -36,14 +36,14 @@ class ColdStorageDashboardController extends Controller
      * @return Factory|View
      */
     public function index(Request $request)
-    { 
-        $result =  DataLog::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
- 
+    {
+        $result =  ColdStorage::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
+
         $deviceObject = new Device();
-      
+
         $data['device'] =  $deviceObject->deviceDetail($this->deviceDetail->id);
         $alias =  DeviceAliasmap::where("modem_id", $this->deviceName)->first();
-        $data['dashboard_alias']= (isset($alias->dashboard_alias) && !empty($alias->dashboard_alias)) ? json_decode($alias->dashboard_alias,TRUE) : "";
+        $data['dashboard_alias'] = (isset($alias->dashboard_alias) && !empty($alias->dashboard_alias)) ? json_decode($alias->dashboard_alias, TRUE) : "";
 
         $data['client']                = User::where("role", 'USER')->count();
         $data['pagetitle']             = 'Dashboard';
@@ -74,13 +74,13 @@ class ColdStorageDashboardController extends Controller
         }
         exit;
     }
- 
-   
+
+
     public function _getColdChartData($data)
     {
         try {
-        
-		ini_set('memory_limit', -1);
+
+            ini_set('memory_limit', -1);
             $start = $data['startDate'] . ":00";
             $end = $data['endDate'] . ":00";
             $this->deviceName = isset($data['modem_id'])  ? $data['modem_id'] : 'FT104';

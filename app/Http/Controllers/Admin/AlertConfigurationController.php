@@ -10,6 +10,7 @@ use App\Models\AlertConfigration;
 use Illuminate\Http\Request;
 use Auth;
 use Config;
+use Illuminate\Database\Eloquent\ModelNotFoundException;  
 
 class AlertConfigurationController extends Controller
 {
@@ -70,7 +71,7 @@ class AlertConfigurationController extends Controller
         ];
         $data['column'] = array();
         $deviceObj = new Device();
-        $data['device']= $deviceObj->getDeviceForDropdown();
+        $data['device'] = $deviceObj->getDeviceForDropdown();
         $userObj = new User();
         $data['createdBy'] = $userObj->getAssignToUser();
         $data['alertType'] =  Config::get('constants.alertType');
@@ -107,32 +108,37 @@ class AlertConfigurationController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show(Request $request,$id)
+    public function show(Request $request, $id)
     {
-        $postData = $request->all();
-        $alertConfigObj = new AlertConfigration();
-        $postData['id'] = $id;
-        $data['alertconfigration'] = $alertConfigObj->getAlertCong($postData);
-        
-        // AlertConfigration::findOrFail($id);
-        $data['pagetitle']             = 'Dashboard';
-        $data['js']                    = ['admin/dashboard.js'];
-        // $data['funinit']               = [''];
-        $data['funinit']               = ['Dashboard.initMeter()'];
-        $data['header']    = [
-            'title'      => 'Alert Configuration',
-            'breadcrumb' => [
-                'Alert Configuration'     => '',
-                'View' => '',
-            ],
-        ];
-        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
-            $data['device'] = Device::select('modem_id', 'id',)->pluck('modem_id', 'id')->toArray();
-        } else {
-            $data['device'] = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
-            // $data['organization'] = Organization::select('organization_name','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('organization_name', 'id')->toArray();
+        try {
+            $postData = $request->all();
+            $alertConfigObj = new AlertConfigration();
+            $postData['id'] = $id;
+            $data['alertconfigration'] = $alertConfigObj->getAlertCong($postData);
+
+            // AlertConfigration::findOrFail($id);
+            $data['pagetitle']             = 'Dashboard';
+            $data['js']                    = ['admin/dashboard.js'];
+            // $data['funinit']               = [''];
+            $data['funinit']               = ['Dashboard.initMeter()'];
+            $data['header']    = [
+                'title'      => 'Alert Configuration',
+                'breadcrumb' => [
+                    'Alert Configuration'     => '',
+                    'View' => '',
+                ],
+            ];
+            if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+                $data['device'] = Device::select('modem_id', 'id',)->pluck('modem_id', 'id')->toArray();
+            } else {
+                $data['device'] = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
+                // $data['organization'] = Organization::select('organization_name','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('organization_name', 'id')->toArray();
+            }
+            $data['condition'] = Config::get('constants.condition');
+        } catch (\Exception $e) {
+            return redirect('admin/alert-configration')->with('session_error', $e->getMessage());
         }
-        $data['condition'] = Config::get('constants.condition');
+       
         return view('admin.alert-configration.show', $data);
     }
 
@@ -159,7 +165,7 @@ class AlertConfigurationController extends Controller
         ];
         $data['column'] = array();
         $deviceObj = new Device();
-        $data['device']= $deviceObj->getDeviceForDropdown();
+        $data['device'] = $deviceObj->getDeviceForDropdown();
         $userObj = new User();
         $data['createdBy'] = $userObj->getAssignToUser();
         $data['alertType'] =  Config::get('constants.alertType');
@@ -178,7 +184,7 @@ class AlertConfigurationController extends Controller
     {
         try {
             $requestData = $request->all();
-            
+
             $requestData['organization_id'] = 1;
             $alertconfigration = AlertConfigration::findOrFail($id);
             $requestData['created_by'] = Auth::guard('admin')->user()->id;

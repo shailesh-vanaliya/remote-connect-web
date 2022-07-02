@@ -100,8 +100,9 @@ class CronController extends Controller
         // }
     }
 
-    public function deviceAlias()
+    public function deviceAlias(Request $request, $id)
     {
+        
         $subQuery =  Device::select(
             'device_map.MQTT_ID',
             'device_map.max_user_access',
@@ -129,12 +130,14 @@ class CronController extends Controller
         $subQuery->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
         $subQuery->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
         $subQuery->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
+        if(!empty($id)){
+            $subQuery->where('devices.id', $id);
+        }
         $subQuery->groupBy('devices.id');
         $retun =   $subQuery->get()->toArray();
-   
+ 
         foreach ($retun as $key => $val) {
-            // print_r($val);
-            // exit;
+       
             $count = DeviceAliasmap::where(['modem_id' => $val['modem_id']])->count();
             // if ($count == 0) {
                 $collegeDetails = DeviceAliasmap::firstOrNew(array('modem_id' => $val['modem_id']));

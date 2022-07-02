@@ -117,7 +117,7 @@ if ($device->Status == 1) {
                     <div class="col-lg-3 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ (isset($result->Temperature_PV) ? $result->Temperature_PV : 'N/A' )}}<sup style="font-size: 20px">°C</sup></h3>
+                          <h3 style="font-size: 3.2rem">{{ (isset($result->D0) ? $result->D0 : 'N/A' )}}<sup style="font-size: 20px">°C</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY11_TITLE']) ? $dashboard_alias['DISPLAY11_TITLE'] : 'Temperature' }} </p>
                         </div>
                         <div class="icon">
@@ -131,7 +131,7 @@ if ($device->Status == 1) {
                     <div class="col-lg-3 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->Pressure_PV) ? $result->Pressure_PV : '' }}<sup style="font-size: 20px">Bar</sup></h3>
+                          <h3 style="font-size: 3.2rem">{{ isset($result->D1) ? $result->D1 : '' }}<sup style="font-size: 20px">Bar</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY12_TITLE']) ? $dashboard_alias['DISPLAY12_TITLE'] : 'Pressure' }} </p>
                         </div>
                         <div class="icon">
@@ -146,7 +146,7 @@ if ($device->Status == 1) {
                     <div class="col-lg-3 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->WATER_VALVE1) ? $result->WATER_VALVE1 : '' }}<sup style="font-size: 20px">%</sup></h3>
+                          <h3 style="font-size: 3.2rem">{{ isset($result->D2) ? $result->D2 : '' }}<sup style="font-size: 20px">%</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY13_TITLE']) ? $dashboard_alias['DISPLAY13_TITLE'] : 'Water Valve1' }} </p>
                         </div>
                         <div class="icon">
@@ -159,142 +159,6 @@ if ($device->Status == 1) {
                     </div>
                   </div>
                 </div>
-
-                <div class="tab-pane fade show" id="custom-tabs-five-overlay-dark" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-dark-tab">
-                  <div class="row">
-                    <div class="col-md-4 col-sm-6 col-12">
-                      <div class="info-box shadow-lg">
-                        <span class="info-box-icon bg-info mr-3"><i class="fa fa-thermometer-empty"></i></span>
-
-                        <div class="info-box-content ">
-                          <span class="info-box-text ">{{ isset($dashboard_alias['SWITCH1_TITLE']) ? $dashboard_alias['SWITCH1_TITLE'] : 'Machine' }}</span>
-                          <span class="info-box-number " style="{{ $sss }}">
-                            <input type="checkbox" style="{{ $sss }}" name="machine" class="machine form-control" value="{{ isset($result->MACHINE_STATUS) && $result->MACHINE_STATUS == 1 ? 1 : 0 }}" id="machine" data-bootstrap-switch data-off-color="danger" checked data-on-color="success">
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-12">
-                      <div class="info-box shadow-lg">
-                        <span class="info-box-icon bg-info mr-3"><i class="fa fa-thermometer-empty"></i></span>
-                        <div class="info-box-content">
-                          <span class="info-box-text">{{ isset($dashboard_alias['SWITCH2_TITLE']) ? $dashboard_alias['SWITCH2_TITLE'] : 'Moisture' }}</span>
-                          <span class="info-box-number" style="{{ $sss }}">
-                            <input type="checkbox" style="{{ $sss }}" class="moisture form-control" id="moisture" name="moisture" value="{{ isset($result->MOISTURE_STATUS) && $result->MOISTURE_STATUS == 1 ? 1 : 0 }}" data-bootstrap-switch data-off-color="danger" data-on-color="success">
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane fade show" id="custom-tabs-flow-meter-dark" role="tabpanel" aria-labelledby="custom-tabs-flow-meter-dark-tab">
-                  <div class="row">
-                    <table id="" class="table table-bordered table-striped">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>Water Flow</th>
-                          <th>Reset</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Daily</td>
-                          <td>{{ isset($result->DAILY_FLOW) ? $result->DAILY_FLOW : 'N/A' }}</td>
-                          <td><i data-name="DAILY_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}" class="fas fa-undo resetBtn"></i></td>
-                        </tr>
-                        <tr>
-                          <td>Weekly</td>
-                          <td>{{ isset($result->WEEKLY_FLOW) ? $result->WEEKLY_FLOW : 'N/A' }}</td>
-                          <td><i data-name="WEEKLY_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}" class="fas fa-undo resetBtn"></i></td>
-                        </tr>
-                        <tr>
-                          <td>Monthly</td>
-                          <td>{{ isset($result->MONTHLY_FLOW) ? $result->MONTHLY_FLOW : 'N/A' }}</td>
-                          <td><i data-name="MONTHLY_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}" class="fas fa-undo resetBtn"></i></td>
-                        </tr>
-                        <tr>
-                          <td>6 Months</td>
-                          <td>{{ isset($result->MONTH6_FLOW) ? $result->MONTH6_FLOW : 'N/A' }}</td>
-                          <td><i data-name="MONTH6_FLOW" data-modem_id="{{ isset($result->modem_id) ? $result->modem_id : '' }}" class="fas fa-undo resetBtn"></i></td>
-                        </tr>
-                        <tr>
-                          <td>Total</td>
-                          <td>{{ isset($result->TOTAL_FLOW) ? $result->TOTAL_FLOW : 'N/A' }}</td>
-                          <td></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                <div class="tab-pane fade show" id="custom-tabs-setting-dark" role="tabpanel" aria-labelledby="custom-tabs-setting-tab">
-                  <div class="row">
-                    <div class="col-md-3 col-sm-6 col-12">
-                      <div class="card card-primary card-outline direct-chat direct-chat-primary">
-                        <div class="card-header">
-                          <h3 class="card-title">WATER VALVE1 %</h3>
-                        </div>
-                        <div class="card-footer">
-                          <div class="input-group">
-                            <input type="number" value="{{ isset($result->WATER_VALVE1) ? $result->WATER_VALVE1 : '' }}" min="0" max="100" name="WATEROUT_1" placeholder="WATER VALVE1 ..." class="form-control numberValid">
-                            <span class="input-group-append">
-                              <button data-valve="WATEROUT_1" style="{{ $sss }}" type="button" class="btn btn-success setVALVE">set</button>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-12">
-                      <div class="card card-primary card-outline direct-chat direct-chat-primary">
-                        <div class="card-header">
-                          <h3 class="card-title">WATER VALVE2 %</h3>
-                        </div>
-                        <div class="card-footer">
-                          <div class="input-group">
-                            <input type="number" value="{{ isset($result->WATER_VALVE2) ? $result->WATER_VALVE2 : '' }}" min="0" max="100" name="WATEROUT_2" placeholder="WATER VALVE1 ..." class="form-control numberValid">
-                            <span class="input-group-append">
-                              <button data-valve="WATEROUT_2" style="{{ $sss }}" type="button" class="btn btn-success setVALVE">Set</button>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    @if(Auth::guard('admin')->user()->role != 'USER')
-                    <div class="col-md-3 col-sm-6 col-12">
-                      <div class="card card-primary card-outline direct-chat direct-chat-primary">
-                        <div class="card-header">
-                          <h3 class="card-title">Pressure Set Point</h3>
-                        </div>
-                        <div class="card-footer">
-                          <div class="input-group">
-                            <input type="number" value="{{ isset($result->Pressure_SP) ? $result->Pressure_SP : '' }}" min="0" max="100" name="H_PRS_SP" placeholder="Pressure Set Point" class="form-control numberValid">
-                            <span class="input-group-append">
-                              <button data-valve="H_PRS_SP" style="{{ $sss }}" type="button" class="btn btn-success setVALVE">Set</button>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-12">
-                      <div class="card card-primary card-outline direct-chat direct-chat-primary">
-                        <div class="card-header">
-                          <h3 class="card-title">High Temp. set Point</h3>
-                        </div>
-                        <div class="card-footer">
-                          <div class="input-group">
-                            <input type="number" value="" min="0" max="100" name="H_TEMP_ALT_SP" placeholder="High Temp. set Point" class="form-control numberValid">
-                            <span class="input-group-append">
-                              <button data-valve="H_TEMP_ALT_SP" style="{{ $sss }}" type="button" class="btn btn-success setVALVE">Set</button>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    @endif
-                  </div>
-                </div>
-
               </div>
             </div>
           </div>
