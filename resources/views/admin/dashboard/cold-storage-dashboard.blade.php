@@ -97,10 +97,10 @@ if ($device->Status == 1) {
                 <li class="nav-item">
                   <a class="nav-link active" id="custom-tabs-five-overlay-tab" data-toggle="pill" href="#custom-tabs-five-overlay" role="tab" aria-controls="custom-tabs-five-overlay" aria-selected="true">Display</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a class="nav-link" id="custom-tabs-five-overlay-dark-tab" data-toggle="pill" href="#custom-tabs-five-overlay-dark" role="tab" aria-controls="custom-tabs-five-overlay-dark" aria-selected="false">Control</a>
                 </li>
-                <!-- <li class="nav-item">
+                <li class="nav-item">
                   <a class="nav-link" id="custom-tabs-flow-meter-dark-tab" data-toggle="pill" href="#custom-tabs-flow-meter-dark" role="tab" aria-controls="custom-tabs-flow-meter-dark" aria-selected="false">Flow Meter</a>
                 </li>
                 <li class="nav-item">
@@ -117,11 +117,11 @@ if ($device->Status == 1) {
                     <div class="col-lg-3 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ (isset($result->D0) ? $result->D0 : 'N/A' )}}<sup style="font-size: 20px">°C</sup></h3>
+                          <h3 style="font-size: 3.2rem">{{ (isset($result->D0) ? $result->D0 : 'N/A' )}}<sup style="font-size: 20px">{{ isset($unit_alias['Temperature']) ? $unit_alias['Temperature'] : '' }}</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY11_TITLE']) ? $dashboard_alias['DISPLAY11_TITLE'] : 'Temperature' }} </p>
                         </div>
                         <div class="icon">
-                          <i class="fa fa-cloud iconColor"></i>
+                          <i class="fa fa-thermometer-half iconColor"></i>
                         </div>
                         <p class="small-box-footer">
                           <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
@@ -131,11 +131,11 @@ if ($device->Status == 1) {
                     <div class="col-lg-3 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->D1) ? $result->D1 : '' }}<sup style="font-size: 20px">Bar</sup></h3>
+                          <h3 style="font-size: 3.2rem">{{ isset($result->D1) ? $result->D1 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['Humidity']) ? $unit_alias['Humidity'] : '' }}</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY12_TITLE']) ? $dashboard_alias['DISPLAY12_TITLE'] : 'Pressure' }} </p>
                         </div>
                         <div class="icon">
-                          <i class="fa fa-cloud iconColor"></i>
+                          <i class="fa fa-thermometer-half iconColor"></i>
                         </div>
                         <p class="small-box-footer">
                           <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
@@ -146,11 +146,11 @@ if ($device->Status == 1) {
                     <div class="col-lg-3 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->D2) ? $result->D2 : '' }}<sup style="font-size: 20px">%</sup></h3>
+                          <h3 style="font-size: 3.2rem">{{ isset($result->D2) ? $result->D2 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['CO2']) ? $unit_alias['CO2'] : '' }}</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY13_TITLE']) ? $dashboard_alias['DISPLAY13_TITLE'] : 'Water Valve1' }} </p>
                         </div>
                         <div class="icon">
-                          <i class="fa fa-cloud iconColor"></i>
+                          <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <p class="small-box-footer">
                           <i class="fas fa-arrow-circle-right"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
@@ -200,10 +200,10 @@ if ($device->Status == 1) {
                         <i class="fas fa-sync-alt"></i>
                       </button>&nbsp;
 
-                      <button type="submit" class="btn btn-default btn-sm" title="Download">
+                      <!-- <button type="submit" class="btn btn-default btn-sm" title="Download">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <i class="fas fa-download"> Export </i>
-                      </button>
+                      </button> -->
 
                     </div>
                   </div>

@@ -43,7 +43,11 @@ class ColdStorageDashboardController extends Controller
 
         $data['device'] =  $deviceObject->deviceDetail($this->deviceDetail->id);
         $alias =  DeviceAliasmap::where("modem_id", $this->deviceName)->first();
+        // print_r($alias);
+        // exit;
         $data['dashboard_alias'] = (isset($alias->dashboard_alias) && !empty($alias->dashboard_alias)) ? json_decode($alias->dashboard_alias, TRUE) : "";
+        $data['unit_alias'] = (isset($alias->unit_alias) && !empty($alias->unit_alias)) ? json_decode($alias->unit_alias, TRUE) : "";
+        $data['parameter_alias'] = (isset($alias->parameter_alias) && !empty($alias->parameter_alias)) ? json_decode($alias->parameter_alias, TRUE) : "";
 
         $data['client']                = User::where("role", 'USER')->count();
         $data['pagetitle']             = 'Dashboard';
