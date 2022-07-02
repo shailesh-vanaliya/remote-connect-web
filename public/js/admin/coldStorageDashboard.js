@@ -464,7 +464,7 @@ var ColdStorageDashboard = function () {
                     overviewMapControl: true,
                     rotateControl: false,
                     mapTypeId: google.maps.MapTypeId.ROADMAP,
-                    center: new google.maps.LatLng(20.5937, 78.9629),
+                    center: new google.maps.LatLng(latitude, longitude),
                 });
 
                 var infowindow = new google.maps.InfoWindow();
