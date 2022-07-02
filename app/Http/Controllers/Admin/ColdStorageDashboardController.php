@@ -95,11 +95,11 @@ class ColdStorageDashboardController extends Controller
                 'dtm as date',
                 // DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
             )
-                // ->where("modem_id", $this->deviceName)
-                // ->whereRaw(
-                //     "(dtm >= ? AND dtm <= ?)",
-                //     [$start, $end]
-                // )
+                ->where("modem_id", $this->deviceName)
+                ->whereRaw(
+                    "(dtm >= ? AND dtm <= ?)",
+                    [$start, $end]
+                )
                 ->orderBy('dtm', 'desc')
                 ->get()->toArray();
 
