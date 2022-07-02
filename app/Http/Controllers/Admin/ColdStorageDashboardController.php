@@ -106,8 +106,10 @@ class ColdStorageDashboardController extends Controller
                 )
                 ->orderBy('dtm', 'desc')
                 ->get()->toArray();
-
-            echo json_encode(array_reverse($res));
+            $alias =  DeviceAliasmap::where("modem_id", $this->deviceName)->first();
+            $output['unit_alias'] = (isset($alias->unit_alias) && !empty($alias->unit_alias)) ? json_decode($alias->unit_alias, TRUE) : "";
+            $output['chart'] = $res;
+            echo json_encode(array_reverse($output));
             exit;
         } catch (Exception $e) {
             $result['type'] = 'error';

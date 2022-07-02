@@ -155,6 +155,7 @@ var ColdStorageDashboard = function () {
                 success: function (out) {
                     $('.preloader').hide();
                     let res = JSON.parse(out);
+                    
                     let result = res.chart;
                     root.setThemes([
                         am5themes_Animated.new(root)
@@ -189,7 +190,7 @@ var ColdStorageDashboard = function () {
                     cursor.lineY.set("visible", false);
 
                     // The data
-                    var data = res
+                    var data = res.chart
                     // var data = [
                     //     {date: 1655044837000,temperature: 18.3, co2: 700, humidity: 45.5 }
                     // ];
@@ -226,6 +227,14 @@ var ColdStorageDashboard = function () {
                     // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
 
                     function createSeries(name, field) {
+                        console.log(name , " namename")
+                        console.log(res.unit_alias , " ===")
+                        // res.unit_alias.map(x => console.log(x))
+                        let celVel = $.map(res.unit_alias, function(element,index) {
+                            if(index == name){
+                                return element
+                            }
+                        })
                         var series = chart.series.push(
                             am5xy.LineSeries.new(root, {
                                 name: name,
@@ -235,7 +244,7 @@ var ColdStorageDashboard = function () {
                                 categoryXField: "date",
                                 tooltip: am5.Tooltip.new(root, {
                                     pointerOrientation: "horizontal",
-                                    labelText: "[bold]{name}[/]\n{categoryX}: {valueY}"
+                                    labelText: "[bold]{name}[/]\n{categoryX} : {valueY} " + celVel
                                 })
                             })
                         );
@@ -267,7 +276,7 @@ var ColdStorageDashboard = function () {
                     }
 
                     createSeries("Temperature", "temperature");
-                    createSeries("Co2", "co2");
+                    createSeries("CO2", "co2");
                     createSeries("Humidity", "humidity");
 
                     // Add scrollbar
