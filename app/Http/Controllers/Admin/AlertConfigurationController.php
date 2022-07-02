@@ -46,6 +46,7 @@ class AlertConfigurationController extends Controller
                 'Alert Configuration List' => '',
             ],
         ];
+        $data['condition'] = Config::get('constants.condition');
         return view('admin.alert-configration.index', $data);
     }
 
@@ -106,9 +107,14 @@ class AlertConfigurationController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-        $data['alertconfigration'] = AlertConfigration::findOrFail($id);
+        $postData = $request->all();
+        $alertConfigObj = new AlertConfigration();
+        $postData['id'] = $id;
+        $data['alertconfigration'] = $alertConfigObj->getAlertCong($postData);
+        
+        // AlertConfigration::findOrFail($id);
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/dashboard.js'];
         // $data['funinit']               = [''];
@@ -126,7 +132,7 @@ class AlertConfigurationController extends Controller
             $data['device'] = Device::select('modem_id', 'id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('modem_id', 'id')->toArray();
             // $data['organization'] = Organization::select('organization_name','id',)->where('created_by', Auth::guard('admin')->user()->id)->pluck('organization_name', 'id')->toArray();
         }
-
+        $data['condition'] = Config::get('constants.condition');
         return view('admin.alert-configration.show', $data);
     }
 

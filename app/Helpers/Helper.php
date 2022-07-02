@@ -72,4 +72,5 @@ class Helper
 		$notification = Notification::where('created_by', Auth::guard('admin')->user()->id)->where('viewed', 0)->take(10)->latest('id')->get()->toArray();
 		return $notification;
 	}
+	
 }

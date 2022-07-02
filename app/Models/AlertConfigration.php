@@ -35,15 +35,19 @@ class AlertConfigration extends Model
             'alert_configuration.*',
             'devices.modem_id',
         );
-
+        $subQuery->leftJoin('devices',  'devices.id', '=', 'alert_configuration.modem_id');
         if (Auth::guard('admin')->user()->role == "ADMIN") {
             $subQuery->where('devices.organization_id', Auth::guard('admin')->user()->organization_id);
         } else if (Auth::guard('admin')->user()->role == "USER") {
             $subQuery->where('devices.created_by', Auth::guard('admin')->user()->id);
         }
-
-        $subQuery->leftJoin('devices',  'devices.id', '=', 'alert_configuration.modem_id');
-        $alertResult =  $subQuery->latest('devices.created_at')->get();
+        if(!empty($postData) && isset($postData['id'])){
+            $subQuery->where('alert_configuration.id', $postData['id']);
+            $alertResult =  $subQuery->first();
+        }else{
+            $alertResult =  $subQuery->latest('devices.created_at')->get();
+        }
+       
 
         return $alertResult;
     }

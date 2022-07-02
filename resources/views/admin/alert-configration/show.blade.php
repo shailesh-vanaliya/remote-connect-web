@@ -26,18 +26,18 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                                
                                 <tr>
                                     <th> Modem Id </th>
                                     <td> {{ $alertconfigration->modem_id }} </td>
                                 </tr>
                                 <tr>
                                     <th> Parameter </th>
-                                    <td> {{ $alertconfigration->parameter }} </td>
+                                    <td> {{ Helper::gerReportParameter(array($alertconfigration->parameter), $alertconfigration->modem_id) }}
+                                 </td>
                                 </tr>
                                 <tr>
                                     <th> Condition </th>
-                                    <td> {{ $alertconfigration->condition }} </td>
+                                    <td> {{ $condition[$alertconfigration->condition] }} </td>
                                 </tr>
                                 <tr>
                                     <th> Set Value </th>
@@ -45,11 +45,27 @@
                                 </tr>
                                 <tr>
                                     <th> Sms Alert </th>
-                                    <td> {{ $alertconfigration->sms_alert }} </td>
+                                    <td> @if($alertconfigration->sms_alert == 1)
+                                        <small class=" badge bg-success">
+                                            Yes
+                                        </small>
+                                        @else
+                                        <small class=" badge bg-secondary ">
+                                            No
+                                        </small>
+                                        @endif   </td>
                                 </tr>
                                 <tr>
                                     <th> Email Alert </th>
-                                    <td> {{ $alertconfigration->email_alert }} </td>
+                                    <td>@if($alertconfigration->email_alert == 1)
+                                        <small class=" badge bg-success">
+                                            Yes
+                                        </small>
+                                        @else
+                                        <small class=" badge bg-secondary ">
+                                            No
+                                        </small>
+                                        @endif</td>
                                 </tr>
                             </tbody>
                         </table>

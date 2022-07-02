@@ -38,10 +38,29 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->modem_id }}</td>
                                     <td>{{ Helper::gerReportParameter(array($item->parameter), $item->modem_id) }}</td>
-                                    <td>{{ $item->condition }}</td>
+                                    <td>{{ $condition[$item->condition] }}</td>
                                     <td>{{ $item->set_value }}</td>
-                                    <td>{{ $item->sms_alert }}</td>
-                                    <td>{{ $item->email_alert }}</td>
+                                    <td>
+                                        @if($item->sms_alert == 1)
+                                        <small class=" badge bg-success">
+                                            Yes
+                                        </small>
+                                        @else
+                                        <small class=" badge bg-secondary ">
+                                            No
+                                        </small>
+                                        @endif
+                                    </td>
+                                    <td>@if($item->email_alert == 1)
+                                        <small class=" badge bg-success">
+                                            Yes
+                                        </small>
+                                        @else
+                                        <small class=" badge bg-secondary ">
+                                            No
+                                        </small>
+                                        @endif 
+                                    </td>
                                     <td>
                                         <a href="{{ url('/admin/alert-configration/' . $item->id) }}" title="View AlertConfigration"><button class="btn btn-info btn-xs"><i class="fas fa-eye" aria-hidden="true"></i> </button></a>
                                         <a href="{{ url('/admin/alert-configration/' . $item->id . '/edit') }}" title="Edit AlertConfigration"><button class="btn btn-primary btn-xs"><i class="fas fa-pencil-alt" aria-hidden="true"></i> </button></a>
