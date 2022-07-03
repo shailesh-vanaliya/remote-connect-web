@@ -139,6 +139,7 @@ var Flowmeter = function () {
             let endDate = ($('#endDate').val() != undefined) ? $('#endDate').val() : '';
             let dateRange = ($('#dateRange').val() != undefined) ? $('#dateRange').val() : '';
             let modem_id = ($('#modem_id').val() != undefined) ? $('#modem_id').val() : '';
+            let flm_no = ($('#flm_no').val() != undefined) ? $('#flm_no').val() : '';
 
             if ($('#customSelect').val() == 'Today') {
                 startDate = moment().format('YYYY-MM-DD') + ' 00:00';
@@ -151,7 +152,7 @@ var Flowmeter = function () {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
                 url: site_url + "admin/flowmeter/ajaxAction",
-                data: { 'action': 'getFlowmeterData', 'endDate': endDate, 'startDate': startDate, 'dateRange': dateRange, "modem_id": modem_id },
+                data: { 'action': 'getFlowmeterData', 'endDate': endDate, 'startDate': startDate, 'dateRange': dateRange, "modem_id": modem_id ,'flm_no':flm_no},
                 success: function (out) {
                     $('.preloader').hide();
                     let res = JSON.parse(out);

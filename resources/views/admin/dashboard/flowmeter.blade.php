@@ -75,6 +75,8 @@ if ($device->Status == 1) {
               @endif
             </p>
             <p class="text-muted text-center">Added On: <small>{{ (isset($device->created_at) && !empty($device->created_at) ?  date('d/m/Y h:i:s A', strtotime($device->created_at)) : 'N/A') }}</small></p>
+            
+            <p class="text-muted text-center">Last Data At: <small> {{ isset($result->dtm) &&  !empty($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}</small></p>
 
             <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVqNumGk1DCDuthLx-X7YqutsMm6DReNA&region=india&libraries=places"></script>
             <div id="map" class="col-md-12" style=" height: 220px;"></div>
@@ -123,9 +125,7 @@ if ($device->Status == 1) {
                         <div class="icon">
                           <i class="fa fa-thermometer-half iconColor"></i>
                         </div>
-                        <p class="small-box-footer">
-                          <i class="fas fa-clock"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
-                        </p>
+                    
                       </div>
                     </div>
                     <div class="col-lg-3 col-6">
@@ -137,9 +137,9 @@ if ($device->Status == 1) {
                         <div class="icon">
                           <i class="fa fa-thermometer-half iconColor"></i>
                         </div>
-                        <p class="small-box-footer">
+                        <!-- <p class="small-box-footer">
                           <i class="fas fa-clock"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
-                        </p>
+                        </p> -->
                       </div>
                     </div>
 
@@ -152,9 +152,51 @@ if ($device->Status == 1) {
                         <div class="icon">
                           <i class="ion ion-stats-bars iconColor"></i>
                         </div>
-                        <p class="small-box-footer">
+                        <!-- <p class="small-box-footer">
                           <i class="fas fa-clock"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
-                        </p>
+                        </p> -->
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                      <div class="small-box bg-success">
+                        <div class="inner">
+                          <h3 style="font-size: 3.2rem">{{ isset($result->D3) ? $result->D3 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['CO2']) ? $unit_alias['CO2'] : '' }}</sup></h3>
+                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY14_TITLE']) ? $dashboard_alias['DISPLAY14_TITLE'] : 'Water Valve1' }} </p>
+                        </div>
+                        <div class="icon">
+                          <i class="ion ion-stats-bars iconColor"></i>
+                        </div>
+                        <!-- <p class="small-box-footer">
+                          <i class="fas fa-clock"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
+                        </p> -->
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                      <div class="small-box bg-success">
+                        <div class="inner">
+                          <h3 style="font-size: 3.2rem">{{ isset($result->D4) ? $result->D4 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['CO2']) ? $unit_alias['CO2'] : '' }}</sup></h3>
+                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY21_TITLE']) ? $dashboard_alias['DISPLAY21_TITLE'] : 'Water Valve1' }} </p>
+                        </div>
+                        <div class="icon">
+                          <i class="ion ion-stats-bars iconColor"></i>
+                        </div>
+                        <!-- <p class="small-box-footer">
+                          <i class="fas fa-clock"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
+                        </p> -->
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                      <div class="small-box bg-success">
+                        <div class="inner">
+                          <h3 style="font-size: 3.2rem">{{ isset($result->D5) ? $result->D5 : '0' }}<sup style="font-size: 20px">{{ isset($unit_alias['CO2']) ? $unit_alias['CO2'] : '0' }}</sup></h3>
+                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY22_TITLE']) ? $dashboard_alias['DISPLAY22_TITLE'] : 'Water Valve1' }} </p>
+                        </div>
+                        <div class="icon">
+                          <i class="ion ion-stats-bars iconColor"></i>
+                        </div>
+                        <!-- <p class="small-box-footer">
+                          <i class="fas fa-clock"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
+                        </p> -->
                       </div>
                     </div>
                   </div>
@@ -189,7 +231,7 @@ if ($device->Status == 1) {
                       <input class="form-control endDate" id="endDate" name="end" type="hidden" placeholder="End date" aria-label="Search">
                     </div>
                     <div class=" col-sm-12 col-md-2 ">
-                      {{ Form::select('flm_no', $flmNo ,  null  , array('class' => 'form-control flm_no', 'id' => 'flm_no')) }}
+                      {{ Form::select('flm_no', array(''=>"Select flm No") + $flmNo ,  null  , array('class' => 'form-control flm_no', 'id' => 'flm_no')) }}
                     </div>
                     <div class=" col-sm-12 col-md-5 dateDiv hidden" style="display: none;">
                       <input type="text" name="dateRange" class="form-control float-right" id="dateRange">

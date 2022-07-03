@@ -97,7 +97,7 @@ class FlowmeterDashboardController extends Controller
                 $start = date('Y-m-d h:i:s');
                 $end = date('Y-m-d h:i:s');
             }
-            $res =  Flowmeter::select(
+            $queryBuilder  =    Flowmeter::select(
                 'D0 as temperature',
                 'D1 as co2',
                 'D2 as humidity',
@@ -106,14 +106,18 @@ class FlowmeterDashboardController extends Controller
                 'D5 as D5',
                 'dtm as date',
                 // DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
-            )
-                ->where("modem_id", $this->deviceName)
-                ->whereRaw(
-                    "(dtm >= ? AND dtm <= ?)",
-                    [$start, $end]
-                )
-                ->orderBy('dtm', 'desc')
-                ->get()->toArray();
+            );
+            $queryBuilder->where("modem_id", $this->deviceName);
+            
+            $queryBuilder->whereRaw(
+                "(dtm >= ? AND dtm <= ?)",
+                [$start, $end]
+            );
+            if(!empty($data['flm_no'])){
+                $queryBuilder->where("flm_no", $data['flm_no']);
+            }
+            $queryBuilder->orderBy('dtm', 'desc');
+            $res =   $queryBuilder->get()->toArray();
             $alias =  DeviceAliasmap::where("modem_id", $this->deviceName)->first();
             $output['unit_alias'] = (isset($alias->unit_alias) && !empty($alias->unit_alias)) ? json_decode($alias->unit_alias, TRUE) : "";
             $output['chart'] = $res;
