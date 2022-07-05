@@ -57,13 +57,14 @@ if ($device->Status == 1) {
         <div class="card card-primary card-outline">
           <div class="card-body box-profile">
             <div class="text-center">
-              <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/ICON/Devices.svg') }}" alt="Device picture">
+              <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/ICON/flowmeter.png') }}" alt="Device picture">
             </div>
 
             <h3 class="profile-username text-center">{{ (isset($device->modem_id) && !empty($device->modem_id) ? $device->modem_id : 'N/A') }}</h3>
 
-            <p class="text-muted text-center">{{ (isset($device->project_name) && !empty($device->project_name) ? $device->project_name : 'N/A') }}</p>
-            <p class="text-muted text-center">Status:
+            <p class="text-muted text-center" style="margin-bottom: 0.1rem">{{ (isset($device->project_name) && !empty($device->project_name) ? $device->project_name : 'N/A') }}</p>
+            
+            <p class="text-muted text-center" style="margin-bottom: 0.1rem">Status:
               @if($device->Status == 1)
               <small class=" badge bg-success">
                 Online
@@ -74,10 +75,12 @@ if ($device->Status == 1) {
               </small>
               @endif
             </p>
-            <p class="text-muted text-center">Added On: <small>{{ (isset($device->created_at) && !empty($device->created_at) ?  date('d/m/Y h:i:s A', strtotime($device->created_at)) : 'N/A') }}</small></p>
+            <p class="text-muted text-center" style="margin-bottom: 0.1rem">Last Network Strength: <small class=" badge bg-success">
+                 Good</small></p>
             
-            <p class="text-muted text-center">Last Data At: <small> {{ isset($result->dtm) &&  !empty($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}</small></p>
-
+            
+            <p class="text-muted text-center" style="margin-bottom: 0.1rem">Last Data At: <small> {{ isset($result->dtm) &&  !empty($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}</small></p>
+            <p class="text-muted text-center" style="margin-bottom: 0.1rem">Added On: <small>{{ (isset($device->created_at) && !empty($device->created_at) ?  date('d/m/Y h:i:s A', strtotime($device->created_at)) : 'N/A') }}</small></p>
             <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVqNumGk1DCDuthLx-X7YqutsMm6DReNA&region=india&libraries=places"></script>
             <div id="map" class="col-md-12" style=" height: 220px;"></div>
             <input type="hidden" name="latitude" class="latitude" value="{{ isset($device->latitude) ? $device->latitude : 'N/A' }}">
@@ -116,26 +119,26 @@ if ($device->Status == 1) {
                 <div class="tab-pane fade show active" id="custom-tabs-five-overlay" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-tab">
                   <div class="row">
 
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ (isset($result->D0) ? $result->D0 : 'N/A' )}}<sup style="font-size: 20px">{{ isset($unit_alias['Temperature']) ? $unit_alias['Temperature'] : '' }}</sup></h3>
-                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY11_TITLE']) ? $dashboard_alias['DISPLAY11_TITLE'] : 'Temperature' }} </p>
+                          <h3 style="font-size: 3.2rem">{{ (isset($result->D0) ? $result->D0 : '' )}}<sup style="font-size: 20px">{{ isset($unit_alias['D0']) ? $unit_alias['D0'] : '' }}</sup></h3>
+                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY11_TITLE']) ? $dashboard_alias['DISPLAY11_TITLE'] : '' }} </p>
                         </div>
                         <div class="icon">
-                          <i class="fa fa-thermometer-half iconColor"></i>
+                          <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                     
                       </div>
                     </div>
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->D1) ? $result->D1 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['Humidity']) ? $unit_alias['Humidity'] : '' }}</sup></h3>
-                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY12_TITLE']) ? $dashboard_alias['DISPLAY12_TITLE'] : 'Pressure' }} </p>
+                          <h3 style="font-size: 3.2rem">{{ isset($result->D1) ? $result->D1 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['D1']) ? $unit_alias['D1'] : '' }}</sup></h3>
+                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY12_TITLE']) ? $dashboard_alias['DISPLAY12_TITLE'] : '' }} </p>
                         </div>
                         <div class="icon">
-                          <i class="fa fa-thermometer-half iconColor"></i>
+                          <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <!-- <p class="small-box-footer">
                           <i class="fas fa-clock"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
@@ -143,11 +146,11 @@ if ($device->Status == 1) {
                       </div>
                     </div>
 
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->D2) ? $result->D2 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['CO2']) ? $unit_alias['CO2'] : '' }}</sup></h3>
-                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY13_TITLE']) ? $dashboard_alias['DISPLAY13_TITLE'] : 'Water Valve1' }} </p>
+                          <h3 style="font-size: 3.2rem">{{ isset($result->D2) ? $result->D2 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['D2']) ? $unit_alias['D2'] : '' }}</sup></h3>
+                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY13_TITLE']) ? $dashboard_alias['DISPLAY13_TITLE'] : '' }} </p>
                         </div>
                         <div class="icon">
                           <i class="ion ion-stats-bars iconColor"></i>
@@ -157,11 +160,11 @@ if ($device->Status == 1) {
                         </p> -->
                       </div>
                     </div>
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->D3) ? $result->D3 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['CO2']) ? $unit_alias['CO2'] : '' }}</sup></h3>
-                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY14_TITLE']) ? $dashboard_alias['DISPLAY14_TITLE'] : 'Water Valve1' }} </p>
+                          <h3 style="font-size: 3.2rem">{{ isset($result->D3) ? $result->D3 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['D3']) ? $unit_alias['D3'] : '' }}</sup></h3>
+                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY14_TITLE']) ? $dashboard_alias['DISPLAY14_TITLE'] : '' }} </p>
                         </div>
                         <div class="icon">
                           <i class="ion ion-stats-bars iconColor"></i>
@@ -171,11 +174,11 @@ if ($device->Status == 1) {
                         </p> -->
                       </div>
                     </div>
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->D4) ? $result->D4 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['CO2']) ? $unit_alias['CO2'] : '' }}</sup></h3>
-                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY21_TITLE']) ? $dashboard_alias['DISPLAY21_TITLE'] : 'Water Valve1' }} </p>
+                          <h3 style="font-size: 3.2rem">{{ isset($result->D4) ? $result->D4 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['D4']) ? $unit_alias['D4'] : '' }}</sup></h3>
+                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY15_TITLE']) ? $dashboard_alias['DISPLAY15_TITLE'] : '' }} </p>
                         </div>
                         <div class="icon">
                           <i class="ion ion-stats-bars iconColor"></i>
@@ -185,19 +188,7 @@ if ($device->Status == 1) {
                         </p> -->
                       </div>
                     </div>
-                    <div class="col-lg-3 col-6">
-                      <div class="small-box bg-success">
-                        <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->D5) ? $result->D5 : '0' }}<sup style="font-size: 20px">{{ isset($unit_alias['CO2']) ? $unit_alias['CO2'] : '0' }}</sup></h3>
-                          <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY22_TITLE']) ? $dashboard_alias['DISPLAY22_TITLE'] : 'Water Valve1' }} </p>
-                        </div>
-                        <div class="icon">
-                          <i class="ion ion-stats-bars iconColor"></i>
-                        </div>
-                        <!-- <p class="small-box-footer">
-                          <i class="fas fa-clock"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
-                        </p> -->
-                      </div>
+                
                     </div>
                   </div>
                 </div>
@@ -207,7 +198,7 @@ if ($device->Status == 1) {
           <div class="col-md-12-">
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Flowmeter Chart</h3>
+                <h3 class="card-title">Flow Chart</h3>
               </div>
 
               <div class="mailbox-controls with-border text-center">

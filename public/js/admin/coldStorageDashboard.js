@@ -197,21 +197,35 @@ var ColdStorageDashboard = function () {
 
                     // Create axes
                     // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-                    var xRenderer = am5xy.AxisRendererX.new(root, {});
-                    xRenderer.grid.template.set("location", 0.5);
-                    xRenderer.labels.template.setAll({
-                        location: 0.5,
-                        multiLocation: 0.5
-                    });
+                    
 
                     var xAxis = chart.xAxes.push(
-                        am5xy.CategoryAxis.new(root, {
-                            categoryField: "date",
-                            renderer: xRenderer,
-                            tooltip: am5.Tooltip.new(root, {})
-                        })
+                        am5xy.CategoryDateAxis.new(root, {
+                        groupData: true,
+                        maxDeviation: 0.2,
+                        baseInterval: { timeUnit: "second", count: 1 },
+                        categoryField: "date",
+                        renderer: am5xy.AxisRendererX.new(root, {}),
+                        tooltip: am5.Tooltip.new(root, {}),
+                        
+                        
+                      })
                     );
 
+                    //  function generateDatas() {
+                       
+                    //     // for (var i = 0; i < 10; ++i) {
+                    //     for (var k = 0; k < data.length; ++k) {
+                           
+                            
+                           
+                    //         am5.time.add(new Date(data[k].date), "second",1);
+                    //         console.log(data[k].date,"Dtaeeee")
+                    //         // data.push(generateData(count[i]));
+                    //     }
+                       
+                    // }
+                    // generateDatas()
                     xAxis.data.setAll(data);
 
                     var yAxis = chart.yAxes.push(
@@ -227,11 +241,11 @@ var ColdStorageDashboard = function () {
                     // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
 
                     function createSeries(name, field) {
-                        console.log(name , " namename")
-                        console.log(res.unit_alias , " ===")
+                        //console.log(name , " namename")
+                        //console.log(res.unit_alias , " ===")
                         // res.unit_alias.map(x => console.log(x))
                         let celVel = $.map(res.unit_alias, function(element,index) {
-                            if(index == name){
+                            if(index == field){
                                 return element
                             }
                         })
@@ -244,7 +258,7 @@ var ColdStorageDashboard = function () {
                                 categoryXField: "date",
                                 tooltip: am5.Tooltip.new(root, {
                                     pointerOrientation: "horizontal",
-                                    labelText: "[bold]{name}[/]\n{categoryX} : {valueY} " + celVel
+                                    labelText:"[bold]{name}[/] {valueY}" + celVel +"\n{date.formatDate()}"
                                 })
                             })
                         );
@@ -275,16 +289,16 @@ var ColdStorageDashboard = function () {
                         series.appear(1000);
                     }
 
-                    createSeries("Temperature", "temperature");
-                    createSeries("CO2", "co2");
-                    createSeries("Humidity", "humidity");
+                    createSeries(res.chart_alias['Line1'], "D0");
+                    createSeries(res.chart_alias['Line2'], "D1");
+                    createSeries(res.chart_alias['Line3'], "D2");
 
                     // Add scrollbar
                     // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
                     chart.set("scrollbarX", am5.Scrollbar.new(root, {
                         orientation: "horizontal",
-                        marginTop: 25,
-                        marginBottom: 20,
+                        marginTop: 15,
+                        marginBottom: 25,
                     }));
 
                     var legend = chart.children.push(
@@ -312,9 +326,9 @@ var ColdStorageDashboard = function () {
                
                 }
             });
-            setMap();
+            
         }
-
+        setMap();
         $('.customSelect').trigger('change');
 
 

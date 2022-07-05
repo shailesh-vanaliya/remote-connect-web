@@ -48,7 +48,8 @@ class ColdStorageDashboardController extends Controller
         $data['dashboard_alias'] = (isset($alias->dashboard_alias) && !empty($alias->dashboard_alias)) ? json_decode($alias->dashboard_alias, TRUE) : "";
         $data['unit_alias'] = (isset($alias->unit_alias) && !empty($alias->unit_alias)) ? json_decode($alias->unit_alias, TRUE) : "";
         $data['parameter_alias'] = (isset($alias->parameter_alias) && !empty($alias->parameter_alias)) ? json_decode($alias->parameter_alias, TRUE) : "";
-
+        // print_r($data['unit_alias_cold']);
+        // exit;
         $data['client']                = User::where("role", 'USER')->count();
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/coldStorageDashboard.js'];
@@ -93,10 +94,10 @@ class ColdStorageDashboardController extends Controller
                 $end = date('Y-m-d h:i:s');
             }
             $res =  ColdStorage::select(
-                'D0 as temperature',
-                'D1 as co2',
-                'D2 as humidity',
-                'dtm as date',
+                'D0 as D0',
+                'D1 as D1',
+                'D2 as D2',
+                DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
                 // DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
             )
                 ->where("modem_id", $this->deviceName)
@@ -104,10 +105,11 @@ class ColdStorageDashboardController extends Controller
                     "(dtm >= ? AND dtm <= ?)",
                     [$start, $end]
                 )
-                ->orderBy('dtm', 'desc')
+                ->orderBy('dtm', 'asc')
                 ->get()->toArray();
             $alias =  DeviceAliasmap::where("modem_id", $this->deviceName)->first();
             $output['unit_alias'] = (isset($alias->unit_alias) && !empty($alias->unit_alias)) ? json_decode($alias->unit_alias, TRUE) : "";
+            $output['chart_alias'] = (isset($alias->chart_alias) && !empty($alias->chart_alias)) ? json_decode($alias->chart_alias, TRUE) : "";
             $output['chart'] = $res;
             echo json_encode(array_reverse($output));
             exit;

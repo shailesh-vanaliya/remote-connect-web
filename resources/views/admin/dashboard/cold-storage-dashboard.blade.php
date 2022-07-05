@@ -57,7 +57,7 @@ if ($device->Status == 1) {
         <div class="card card-primary card-outline">
           <div class="card-body box-profile">
             <div class="text-center">
-              <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/ICON/Devices.svg') }}" alt="Device picture">
+              <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/ICON/coldstorage.png') }}" alt="Device picture">
             </div>
 
             <h3 class="profile-username text-center">{{ (isset($device->modem_id) && !empty($device->modem_id) ? $device->modem_id : 'N/A') }}</h3>
@@ -114,10 +114,10 @@ if ($device->Status == 1) {
                 <div class="tab-pane fade show active" id="custom-tabs-five-overlay" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-tab">
                   <div class="row">
 
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ (isset($result->D0) ? $result->D0 : 'N/A' )}}<sup style="font-size: 20px">{{ isset($unit_alias['Temperature']) ? $unit_alias['Temperature'] : '' }}</sup></h3>
+                          <h3 style="font-size: 2.5rem">{{ (isset($result->D0) ? $result->D0 : 'N/A' )}}<sup style="font-size: 15px">{{ isset($unit_alias['D0']) ? $unit_alias['D0'] : '°C' }}</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY11_TITLE']) ? $dashboard_alias['DISPLAY11_TITLE'] : 'Temperature' }} </p>
                         </div>
                         <div class="icon">
@@ -128,14 +128,14 @@ if ($device->Status == 1) {
                         </p>
                       </div>
                     </div>
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->D1) ? $result->D1 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['Humidity']) ? $unit_alias['Humidity'] : '' }}</sup></h3>
+                          <h3 style="font-size: 2.5rem">{{ isset($result->D1) ? $result->D1 : '' }}<sup style="font-size: 15px">{{ isset($unit_alias['D1']) ? $unit_alias['D1'] : '%' }}</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY12_TITLE']) ? $dashboard_alias['DISPLAY12_TITLE'] : 'Pressure' }} </p>
                         </div>
                         <div class="icon">
-                          <i class="fa fa-thermometer-half iconColor"></i>
+                          <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <p class="small-box-footer">
                           <i class="fas fa-clock"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
@@ -143,10 +143,10 @@ if ($device->Status == 1) {
                       </div>
                     </div>
 
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-4 col-6">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->D2) ? $result->D2 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['CO2']) ? $unit_alias['CO2'] : '' }}</sup></h3>
+                          <h3 style="font-size: 2.5rem">{{ isset($result->D2) ? $result->D2 : '' }}<sup style="font-size: 15px">{{ isset($unit_alias['D2']) ? $unit_alias['D2'] : 'ppm' }}</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY13_TITLE']) ? $dashboard_alias['DISPLAY13_TITLE'] : 'Water Valve1' }} </p>
                         </div>
                         <div class="icon">
@@ -210,7 +210,7 @@ if ($device->Status == 1) {
                 </form>
               </div>
               <div class="card-body--">
-                <div id="chartdiv" style="height: 300px; width: 100%;"></div>
+                <div id="chartdiv" style="height: 350px; width: 100%;"></div>
               </div>
             </div>
           </div>

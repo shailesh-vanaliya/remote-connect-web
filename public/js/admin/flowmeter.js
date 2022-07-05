@@ -198,19 +198,25 @@ var Flowmeter = function () {
 
                     // Create axes
                     // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-                    var xRenderer = am5xy.AxisRendererX.new(root, {});
-                    xRenderer.grid.template.set("location", 0.5);
-                    xRenderer.labels.template.setAll({
-                        location: 0.5,
-                        multiLocation: 0.5
-                    });
+                    // var xRenderer = am5xy.AxisRendererX.new(root, {});
+                    // xRenderer.grid.template.set("location", 0.5);
+                    // xRenderer.labels.template.setAll({
+                    //     location: 0.5,
+                    //     multiLocation: 0.5
+                    // });
+                    
 
                     var xAxis = chart.xAxes.push(
-                        am5xy.CategoryAxis.new(root, {
-                            categoryField: "date",
-                            renderer: xRenderer,
-                            tooltip: am5.Tooltip.new(root, {})
-                        })
+                        am5xy.CategoryDateAxis.new(root, {
+                        groupData: true,
+                        maxDeviation: 0.2,
+                        baseInterval: { timeUnit: "second", count: 1 },
+                        categoryField: "date",
+                        renderer: am5xy.AxisRendererX.new(root, {}),
+                        tooltip: am5.Tooltip.new(root, {}),
+                        
+                        
+                      })
                     );
 
                     xAxis.data.setAll(data);
@@ -231,7 +237,7 @@ var Flowmeter = function () {
                         // res.unit_alias.map(x => console.log(x))
                         let celVel = '';
                         celVel = $.map(res.unit_alias, function(element,index) {
-                            if(index == name){
+                            if(index == field){
                                 return element
                             }
                         })
@@ -244,7 +250,7 @@ var Flowmeter = function () {
                                 categoryXField: "date",
                                 tooltip: am5.Tooltip.new(root, {
                                     pointerOrientation: "horizontal",
-                                    labelText: "[bold]{name}[/]\n{categoryX} : {valueY} " + celVel
+                                    labelText:"[bold]{name}[/] {valueY}" + celVel +"\n{date.formatDate()}"
                                 })
                             })
                         );
@@ -275,19 +281,15 @@ var Flowmeter = function () {
                         series.appear(1000);
                     }
 
-                    createSeries("Temperature", "temperature");
-                    createSeries("CO2", "co2");
-                    createSeries("Humidity", "humidity");
-                    createSeries("ss", "ss");
-                    createSeries("D3", "D3");
-                    createSeries("D4", "D4");
+                    createSeries(res.chart_alias['Line1'],"D0");
+                    
 
                     // Add scrollbar
                     // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
                     chart.set("scrollbarX", am5.Scrollbar.new(root, {
                         orientation: "horizontal",
-                        marginTop: 25,
-                        marginBottom: 20,
+                        marginTop: 15,
+                        marginBottom: 25,
                     }));
 
                     var legend = chart.children.push(
@@ -315,12 +317,12 @@ var Flowmeter = function () {
                
                 }
             });
-            setMap();
+            
         }
-
+        setMap();
         $('.customSelect').trigger('change');
 
-
+        
         function setMap(){
            
                 let latitude = ($('.latitude').val() != '' && $('.latitude').val() != undefined) ? $('.latitude').val() : ''

@@ -52,8 +52,9 @@ class FlowmeterDashboardController extends Controller
         // exit;
         $data['dashboard_alias'] = (isset($alias->dashboard_alias) && !empty($alias->dashboard_alias)) ? json_decode($alias->dashboard_alias, TRUE) : "";
         $data['unit_alias'] = (isset($alias->unit_alias) && !empty($alias->unit_alias)) ? json_decode($alias->unit_alias, TRUE) : "";
+       
         $data['parameter_alias'] = (isset($alias->parameter_alias) && !empty($alias->parameter_alias)) ? json_decode($alias->parameter_alias, TRUE) : "";
-
+        
         $data['client']                = User::where("role", 'USER')->count();
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/flowmeter.js'];
@@ -98,13 +99,8 @@ class FlowmeterDashboardController extends Controller
                 $end = date('Y-m-d h:i:s');
             }
             $queryBuilder  =    Flowmeter::select(
-                'D0 as temperature',
-                'D1 as co2',
-                'D2 as humidity',
-                'D3 as D3',
-                'D4 as D4',
-                'D5 as D5',
-                'dtm as date',
+                'D0 as D0',
+                 DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
                 // DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
             );
             $queryBuilder->where("modem_id", $this->deviceName);
@@ -116,10 +112,11 @@ class FlowmeterDashboardController extends Controller
             if(!empty($data['flm_no'])){
                 $queryBuilder->where("flm_no", $data['flm_no']);
             }
-            $queryBuilder->orderBy('dtm', 'desc');
+            $queryBuilder->orderBy('dtm', 'asc');
             $res =   $queryBuilder->get()->toArray();
             $alias =  DeviceAliasmap::where("modem_id", $this->deviceName)->first();
             $output['unit_alias'] = (isset($alias->unit_alias) && !empty($alias->unit_alias)) ? json_decode($alias->unit_alias, TRUE) : "";
+            $output['chart_alias'] = (isset($alias->chart_alias) && !empty($alias->chart_alias)) ? json_decode($alias->chart_alias, TRUE) : "";
             $output['chart'] = $res;
             echo json_encode(array_reverse($output));
             exit;
