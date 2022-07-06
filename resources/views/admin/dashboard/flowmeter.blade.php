@@ -63,7 +63,7 @@ if ($device->Status == 1) {
             <h3 class="profile-username text-center">{{ (isset($device->modem_id) && !empty($device->modem_id) ? $device->modem_id : 'N/A') }}</h3>
 
             <p class="text-muted text-center" style="margin-bottom: 0.1rem">{{ (isset($device->project_name) && !empty($device->project_name) ? $device->project_name : 'N/A') }}</p>
-            
+
             <p class="text-muted text-center" style="margin-bottom: 0.1rem">Status:
               @if($device->Status == 1)
               <small class=" badge bg-success">
@@ -76,9 +76,9 @@ if ($device->Status == 1) {
               @endif
             </p>
             <p class="text-muted text-center" style="margin-bottom: 0.1rem">Last Network Strength: <small class=" badge bg-success">
-                 Good</small></p>
-            
-            
+                Good</small></p>
+
+
             <p class="text-muted text-center" style="margin-bottom: 0.1rem">Last Data At: <small> {{ isset($result->dtm) &&  !empty($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}</small></p>
             <p class="text-muted text-center" style="margin-bottom: 0.1rem">Added On: <small>{{ (isset($device->created_at) && !empty($device->created_at) ?  date('d/m/Y h:i:s A', strtotime($device->created_at)) : 'N/A') }}</small></p>
             <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVqNumGk1DCDuthLx-X7YqutsMm6DReNA&region=india&libraries=places"></script>
@@ -128,7 +128,7 @@ if ($device->Status == 1) {
                         <div class="icon">
                           <i class="ion ion-stats-bars iconColor"></i>
                         </div>
-                    
+
                       </div>
                     </div>
                     <div class="col-lg-4 col-12">
@@ -188,73 +188,83 @@ if ($device->Status == 1) {
                         </p> -->
                       </div>
                     </div>
-                
-                    </div>
+
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-12">
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Flow Chart</h3>
-              </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Flow Chart</h3>
+            </div>
 
-              <div class="mailbox-controls with-border text-center">
-                <form class="" method="POST" action="{{ url('/admin/meter-dashboard-export/') }}">
-                  <div class="row">
-                    <div class=" col-sm-12 col-md-1 mt-2">
-                      Filter
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                      <select class="form-control select2 customSelect" id="customSelect">
-                        <option value="Today" selected="selected">Today</option>
-                        <option value="Yesterday">Yesterday</option>
-                        <option value="Last 7 Days">Last 7 Days</option>
-                        <option value="Last 30 Days">Last 30 Days</option>
-                        <option value="This Month">This Month</option>
-                        <option value="Last Month">Last Month</option>
-                        <option value="Custom">Custom Range</option>
-                      </select>
-                     
+            <div class="mailbox-controls with-border text-center">
+              <form class="" method="POST" action="{{ url('/admin/meter-dashboard-export/') }}">
+                <div class="row">
+                  <div class=" col-sm-12 col-md-1 mt-2">
+                    Filter
+                  </div>
+                  <div class="col-sm-12 col-md-3">
+                    <select class="form-control select2 customSelect" id="customSelect">
+                      <option value="Today" selected="selected">Today</option>
+                      <option value="Yesterday">Yesterday</option>
+                      <option value="Last 7 Days">Last 7 Days</option>
+                      <option value="Last 30 Days">Last 30 Days</option>
+                      <option value="This Month">This Month</option>
+                      <option value="Last Month">Last Month</option>
+                      <option value="Custom">Custom Range</option>
+                    </select>
 
-                      <input class="form-control endDate" id="endDate" name="end" type="hidden" placeholder="End date" aria-label="Search">
-                    </div>
-                    <div class=" col-sm-12 col-md-2 ">
-                      {{ Form::select('flm_no', array(''=>"Select flm No") + $flmNo ,  null  , array('class' => 'form-control flm_no', 'id' => 'flm_no')) }}
-                    </div>
-                    <div class=" col-sm-12 col-md-5 dateDiv hidden" style="display: none;">
-                      <input type="text" name="dateRange" class="form-control float-right" id="dateRange">
-                      <input type="hidden" id="modem_id" name="modem_id" class="modem_id" value="{{ isset($result->modem_id) ? $result->modem_id : '' }}">
-                      <input class="form-control startDate" id="startDate" name="start" type="hidden" placeholder="Start Date" aria-label="Search">
-                    </div>
 
-                    <div class="col-sm-12 col-md-3">
-                      <button type="button" class="btn btn-default btn-sm search" title="Filter">
-                        <i class="fas fa-check"></i>
-                      </button> &nbsp;
-                      <button type="button" class="btn btn-default btn-sm reset" title="Reset">
-                        <i class="fas fa-sync-alt"></i>
-                      </button>&nbsp;
+                    <input class="form-control endDate" id="endDate" name="end" type="hidden" placeholder="End date" aria-label="Search">
+                  </div>
+                  <div class=" col-sm-12 col-md-2 ">
+                    {{ Form::select('flm_no', array(''=>"Select flm No") + $flmNo ,  null  , array('class' => 'form-control flm_no', 'id' => 'flm_no')) }}
+                  </div>
+                  <div class=" col-sm-12 col-md-5 dateDiv hidden" style="display: none;">
+                    <input type="text" name="dateRange" class="form-control float-right" id="dateRange">
+                    <input type="hidden" id="modem_id" name="modem_id" class="modem_id" value="{{ isset($result->modem_id) ? $result->modem_id : '' }}">
+                    <input class="form-control startDate" id="startDate" name="start" type="hidden" placeholder="Start Date" aria-label="Search">
+                  </div>
 
-                      <!-- <button type="submit" class="btn btn-default btn-sm" title="Download">
+                  <div class="col-sm-12 col-md-3">
+                    <button type="button" class="btn btn-default btn-sm search" title="Filter">
+                      <i class="fas fa-check"></i>
+                    </button> &nbsp;
+                    <button type="button" class="btn btn-default btn-sm reset" title="Reset">
+                      <i class="fas fa-sync-alt"></i>
+                    </button>&nbsp;
+
+                    <!-- <button type="submit" class="btn btn-default btn-sm" title="Download">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <i class="fas fa-download"> Export </i>
                       </button> -->
 
-                    </div>
                   </div>
-                </form>
-              </div>
-              <div class="card-body--">
-                <div id="chartdiv" style="height: 300px; width: 100%;"></div>
-              </div>
+                </div>
+              </form>
             </div>
+            <div class="card-body--">
+              <div id="chartdiv" style="height: 300px; width: 100%;"></div>
+            </div>
+
           </div>
         </div>
+
       </div>
     </div>
+    <div class="row">
+   <div class="col-md-6">
+        <div id="chartdiv2" style="height: 300px; width: 100%;"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="chartdiv3" style="height: 300px; width: 100%;"></div>
+      </div>
+    </div>
+  </div>
   </div>
 </section>
 @endsection

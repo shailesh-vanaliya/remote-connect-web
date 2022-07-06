@@ -36,13 +36,30 @@
   .show > .btn-iio.dropdown-toggle:focus {
     box-shadow: 0 0 0 0 rgba(38, 143, 255, 0.5);
   }
+ 
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+}
+
+  
 </style>
-<div class="login-box">
-  <div class="login-logo">
-  <div class="login-logo"> <img src="{{ asset("/public/img/futuristics.png") }}" class="logo"> </div>
-  </div>
+<video autoplay muted loop id="myVideo">
+  <source src='{{ asset("/public/img/ft.mp4") }}' type="video/webm">
+  </video>
+<div class="login-box ">
+
+  <!-- <div class="login-logo ">
+  <div class="login-logo"> <img src='{{ asset("/public/img/futuristics.png") }}' class="logo"> </div>
+  </div> -->
+ 
   <!-- /.login-logo -->
-  <div class="card">
+  <div class="card ">
+  <div class="login-logo"> <img src='{{ asset("/public/img/futuristics.png") }}' class="logo"> </div>
     <div class="card-body login-card-body">
     <p class="login-box-msg">IIOT Connect Sign in</p>
      @include('login.layout.message')
@@ -158,4 +175,18 @@
     </div>
   </div>
 </div> -->
+<script>
+var video = document.getElementById("myVideo");
+var btn = document.getElementById("myBtn");
+
+function myFunction() {
+  if (video.paused) {
+    video.play();
+    btn.innerHTML = "Pause";
+  } else {
+    video.pause();
+    btn.innerHTML = "Play";
+  }
+}
+</script>
 @include('login.layout.footer')
