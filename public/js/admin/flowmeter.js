@@ -129,7 +129,8 @@ var Flowmeter = function () {
             });
 
         });
-        getAmChart()
+        getAmChart();
+        getChart2Data();
 
 
 
@@ -152,11 +153,11 @@ var Flowmeter = function () {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
                 url: site_url + "admin/flowmeter/ajaxAction",
-                data: { 'action': 'getFlowmeterData', 'endDate': endDate, 'startDate': startDate, 'dateRange': dateRange, "modem_id": modem_id ,'flm_no':flm_no},
+                data: { 'action': 'getFlowmeterData', 'endDate': endDate, 'startDate': startDate, 'dateRange': dateRange, "modem_id": modem_id, 'flm_no': flm_no },
                 success: function (out) {
                     $('.preloader').hide();
                     let res = JSON.parse(out);
-                    
+
                     let result = res.chart;
                     root.setThemes([
                         am5themes_Animated.new(root)
@@ -204,19 +205,19 @@ var Flowmeter = function () {
                     //     location: 0.5,
                     //     multiLocation: 0.5
                     // });
-                    
+
 
                     var xAxis = chart.xAxes.push(
                         am5xy.CategoryDateAxis.new(root, {
-                        groupData: true,
-                        maxDeviation: 0.2,
-                        baseInterval: { timeUnit: "second", count: 1 },
-                        categoryField: "date",
-                        renderer: am5xy.AxisRendererX.new(root, {}),
-                        tooltip: am5.Tooltip.new(root, {}),
-                        
-                        
-                      })
+                            groupData: true,
+                            maxDeviation: 0.2,
+                            baseInterval: { timeUnit: "second", count: 1 },
+                            categoryField: "date",
+                            renderer: am5xy.AxisRendererX.new(root, {}),
+                            tooltip: am5.Tooltip.new(root, {}),
+
+
+                        })
                     );
 
                     xAxis.data.setAll(data);
@@ -236,8 +237,8 @@ var Flowmeter = function () {
                     function createSeries(name, field) {
                         // res.unit_alias.map(x => console.log(x))
                         let celVel = '';
-                        celVel = $.map(res.unit_alias, function(element,index) {
-                            if(index == field){
+                        celVel = $.map(res.unit_alias, function (element, index) {
+                            if (index == field) {
                                 return element
                             }
                         })
@@ -250,7 +251,7 @@ var Flowmeter = function () {
                                 categoryXField: "date",
                                 tooltip: am5.Tooltip.new(root, {
                                     pointerOrientation: "horizontal",
-                                    labelText:"[bold]{name}[/] {valueY}" + celVel +"\n{date.formatDate()}"
+                                    labelText: "[bold]{name}[/] {valueY}" + celVel + "\n{date.formatDate()}"
                                 })
                             })
                         );
@@ -281,8 +282,8 @@ var Flowmeter = function () {
                         series.appear(1000);
                     }
 
-                    createSeries(res.chart_alias['Line1'],"D0");
-                    
+                    createSeries(res.chart_alias['Line1'], "D0");
+
 
                     // Add scrollbar
                     // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
@@ -314,50 +315,277 @@ var Flowmeter = function () {
                     // Make stuff animate on load
                     // https://www.amcharts.com/docs/v5/concepts/animations/
                     chart.appear(1000, 100);
-               
+
                 }
             });
-            
+
         }
         setMap();
         $('.customSelect').trigger('change');
 
         
-        function setMap(){
-           
-                let latitude = ($('.latitude').val() != '' && $('.latitude').val() != undefined) ? $('.latitude').val() : ''
-                let longitude = ($('.longitude').val() != '' && $('.longitude').val() != undefined) ? $('.longitude').val() : ''
-                let location = $('.location').val()
-                var locations = [
-                    [location, latitude, longitude]
-                ];
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 5,
-                    mapTypeControl: false,
-                    streetViewControl: false,
-                    overviewMapControl: true,
-                    rotateControl: false,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP,
-                    center: new google.maps.LatLng(latitude, longitude),
+        function setMap() {
+
+            let latitude = ($('.latitude').val() != '' && $('.latitude').val() != undefined) ? $('.latitude').val() : ''
+            let longitude = ($('.longitude').val() != '' && $('.longitude').val() != undefined) ? $('.longitude').val() : ''
+            let location = $('.location').val()
+            var locations = [
+                [location, latitude, longitude]
+            ];
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 5,
+                mapTypeControl: false,
+                streetViewControl: false,
+                overviewMapControl: true,
+                rotateControl: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                center: new google.maps.LatLng(latitude, longitude),
+            });
+
+            var infowindow = new google.maps.InfoWindow();
+
+            var marker, i;
+
+            for (i = 0; i < locations.length; i++) {
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map
                 });
 
-                var infowindow = new google.maps.InfoWindow();
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                        infowindow.setContent(locations[i][0]);
+                        infowindow.open(map, marker);
+                    }
+                })(marker, i));
+            }
+        }
 
-                var marker, i;
+        function getChart2Data() {
+            // Create root2 element
+            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+            var root2 = am5.Root.new("chartdiv2");
 
-                for (i = 0; i < locations.length; i++) {
-                    marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                        map: map
-                    });
 
-                    google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                        return function () {
-                            infowindow.setContent(locations[i][0]);
-                            infowindow.open(map, marker);
-                        }
-                    })(marker, i));
+            // Set themes
+            // https://www.amcharts.com/docs/v5/concepts/themes/
+            root2.setThemes([
+                am5themes_Animated.new(root2)
+            ]);
+
+
+            // Create chart
+            // https://www.amcharts.com/docs/v5/charts/xy-chart/
+            var chart = root2.container.children.push(am5xy.XYChart.new(root2, {
+                panX: false,
+                panY: false,
+                wheelX: "panX",
+                wheelY: "zoomX"
+            }));
+
+
+            // Add cursor
+            // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+            var cursor = chart.set("cursor", am5xy.XYCursor.new(root2, {
+                behavior: "zoomX"
+            }));
+            cursor.lineY.set("visible", false);
+
+            var date = new Date();
+            date.setHours(0, 0, 0, 0);
+            var value = 100;
+
+            function generateData() {
+                value = Math.round((Math.random() * 10 - 5) + value);
+                am5.time.add(date, "day", 1);
+                return {
+                    date: date.getTime(),
+                    value: value
+                };
+            }
+
+            function generateDatas(count) {
+                var data = [];
+                for (var i = 0; i < count; ++i) {
+                    data.push(generateData());
                 }
+                return data;
+            }
+
+
+            // Create axes
+            // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+            var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root2, {
+                maxDeviation: 0,
+                baseInterval: {
+                    timeUnit: "day",
+                    count: 1
+                },
+                renderer: am5xy.AxisRendererX.new(root2, {}),
+                tooltip: am5.Tooltip.new(root2, {})
+            }));
+
+            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root2, {
+                renderer: am5xy.AxisRendererY.new(root2, {})
+            }));
+
+
+            // Add series
+            // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+            var series = chart.series.push(am5xy.ColumnSeries.new(root2, {
+                name: "Series",
+                xAxis: xAxis,
+                yAxis: yAxis,
+                valueYField: "value",
+                valueXField: "date",
+                tooltip: am5.Tooltip.new(root2, {
+                    labelText: "{valueY}"
+                })
+            }));
+
+
+
+            // Add scrollbar
+            // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+            chart.set("scrollbarX", am5.Scrollbar.new(root2, {
+                orientation: "horizontal"
+            }));
+
+            var data = generateDatas(50);
+            series.data.setAll(data);
+
+
+            // Make stuff animate on load
+            // https://www.amcharts.com/docs/v5/concepts/animations/
+            series.appear(1000);
+            chart.appear(1000, 100);
+
+        }
+        getChart3Data()
+        function getChart3Data() {
+            	// Create root3 element
+		// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+		var root3 = am5.Root.new("chartdiv3");
+
+
+		// Set themes
+		// https://www.amcharts.com/docs/v5/concepts/themes/
+		root3.setThemes([
+			am5themes_Animated.new(root3)
+		]);
+
+
+		// Create chart
+		// https://www.amcharts.com/docs/v5/charts/xy-chart/
+		var chart = root3.container.children.push(am5xy.XYChart.new(root3, {
+			panX: true,
+			panY: true,
+			wheelX: "panX",
+			wheelY: "zoomX",
+			pinchZoomX: true
+		}));
+
+		// Add cursor
+		// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+		var cursor = chart.set("cursor", am5xy.XYCursor.new(root3, {}));
+		cursor.lineY.set("visible", false);
+
+
+		// Create axes
+		// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+		var xRenderer = am5xy.AxisRendererX.new(root3, { minGridDistance: 30 });
+		xRenderer.labels.template.setAll({
+			rotation: -90,
+			centerY: am5.p50,
+			centerX: am5.p100,
+			paddingRight: 15
+		});
+
+		var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root3, {
+			maxDeviation: 0.3,
+			categoryField: "country",
+			renderer: xRenderer,
+			tooltip: am5.Tooltip.new(root3, {})
+		}));
+
+		var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root3, {
+			maxDeviation: 0.3,
+			renderer: am5xy.AxisRendererY.new(root3, {})
+		}));
+
+
+		// Create series
+		// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+		var series = chart.series.push(am5xy.ColumnSeries.new(root3, {
+			name: "Series 1",
+			xAxis: xAxis,
+			yAxis: yAxis,
+			valueYField: "value",
+			sequencedInterpolation: true,
+			categoryXField: "country",
+			tooltip: am5.Tooltip.new(root3, {
+				labelText: "{valueY}"
+			})
+		}));
+
+		series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
+		series.columns.template.adapters.add("fill", function (fill, target) {
+			return chart.get("colors").getIndex(series.columns.indexOf(target));
+		});
+
+		series.columns.template.adapters.add("stroke", function (stroke, target) {
+			return chart.get("colors").getIndex(series.columns.indexOf(target));
+		});
+
+
+		// Set data
+		var data = [{
+			country: "USA",
+			value: 2025
+		}, {
+			country: "China",
+			value: 1882
+		}, {
+			country: "Japan",
+			value: 1809
+		}, {
+			country: "Germany",
+			value: 1322
+		}, {
+			country: "UK",
+			value: 1122
+		}, {
+			country: "France",
+			value: 1114
+		}, {
+			country: "India",
+			value: 984
+		}, {
+			country: "Spain",
+			value: 711
+		}, {
+			country: "Netherlands",
+			value: 665
+		}, {
+			country: "Russia",
+			value: 580
+		}, {
+			country: "South Korea",
+			value: 443
+		}, {
+			country: "Canada",
+			value: 441
+		}];
+
+		xAxis.data.setAll(data);
+		series.data.setAll(data);
+
+
+		// Make stuff animate on load
+		// https://www.amcharts.com/docs/v5/concepts/animations/
+		series.appear(1000);
+		chart.appear(1000, 100);
+
         }
     }
 
