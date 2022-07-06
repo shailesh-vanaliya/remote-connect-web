@@ -346,6 +346,9 @@ td.actionTd {
 }
 .login-page, .register-page {
     /* background-image: url('../../img/Background.png') !important; */
-    background: url('../../img/Background.png') repeat center center fixed;
+    /* background: url(../images/backgroundImage.jpg) no-repeat center center fixed; */
 
+}
+.login-logo {
+    /* background: url(../../img/futuristics.png) !important; */
 }
