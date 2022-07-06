@@ -1,77 +1,82 @@
 @include('login.layout.header')
 <style>
-   .btn-iio {
+  .btn-iio {
     color: #ffffff;
     background-color: #01a89d;
     border-color: #01a89d;
     box-shadow: none;
   }
-.btn-iio:hover {
+
+  .btn-iio:hover {
     color: #01a89d;
     background-color: #ffffff;
     border-color: #01a89d;
   }
-  
-  .btn-iio:focus, .btn-iio.focus {
+
+  .btn-iio:focus,
+  .btn-iio.focus {
     color: #ffffff;
     background-color: #01a89d;
     border-color: #0062cc;
     box-shadow: none, 0 0 0 0 rgba(38, 143, 255, 0.5);
   }
-  
-  .btn-iio.disabled, .btn-iio:disabled {
+
+  .btn-iio.disabled,
+  .btn-iio:disabled {
     color: #ffffff;
     background-color: #007bff;
     border-color: #007bff;
   }
-  
-  .btn-iio:not(:disabled):not(.disabled):active, .btn-iio:not(:disabled):not(.disabled).active,
-  .show > .btn-iio.dropdown-toggle {
+
+  .btn-iio:not(:disabled):not(.disabled):active,
+  .btn-iio:not(:disabled):not(.disabled).active,
+  .show>.btn-iio.dropdown-toggle {
     color: #ffffff;
     background-color: #01a89d;
     border-color: #ffffff;
   }
-  
-  .btn-iio:not(:disabled):not(.disabled):active:focus, .btn-iio:not(:disabled):not(.disabled).active:focus,
-  .show > .btn-iio.dropdown-toggle:focus {
+
+  .btn-iio:not(:disabled):not(.disabled):active:focus,
+  .btn-iio:not(:disabled):not(.disabled).active:focus,
+  .show>.btn-iio.dropdown-toggle:focus {
     box-shadow: 0 0 0 0 rgba(38, 143, 255, 0.5);
   }
- 
 
-#myVideo {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%; 
-  min-height: 100%;
-}
 
-  
+  #myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    /* top: 1px; */
+    min-width: 100%;
+    width: 100%;
+    min-height: 100%;
+  }
 </style>
 <video autoplay muted loop id="myVideo">
   <source src='{{ asset("/public/img/ft.mp4") }}' type="video/webm">
-  </video>
+</video>
 <div class="login-box ">
 
   <!-- <div class="login-logo ">
   <div class="login-logo"> <img src='{{ asset("/public/img/futuristics.png") }}' class="logo"> </div>
   </div> -->
- 
+
   <!-- /.login-logo -->
   <div class="card ">
-  <div class="login-logo"> <img src='{{ asset("/public/img/futuristics.png") }}' class="logo"> </div>
+    <div class="login-logo"> <img src='{{ asset("/public/img/futuristics.png") }}' class="logo"> </div>
     <div class="card-body login-card-body">
-    <p class="login-box-msg">IIOT Connect Sign in</p>
-     @include('login.layout.message')
-     @if ( count( $errors ) > 0 )
-        <div class="alert alert-danger">
-          @foreach ($errors->all() as $error)
-            {{ $error }}<br>
-          @endforeach
-        </div>
-    @endif
+      <p class="login-box-msg">IIOT Connect Sign in</p>
+      @include('login.layout.message')
+      @if ( count( $errors ) > 0 )
+      <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+        {{ $error }}<br>
+        @endforeach
+      </div>
+      @endif
 
-    <form role="form" method="post" autocomplete="off" class="loginFrm" id="loginFrm" action="{{ route('login') }}">
+      <form role="form" method="post" autocomplete="off" class="loginFrm" id="loginFrm" action="{{ route('login') }}">
         {{ csrf_field() }}
         <div class="input-group mb-3">
           <input type="email" class="form-control" name="email" placeholder="Email">
@@ -116,7 +121,7 @@
         </a>
       </div> -->
       <!-- /.social-auth-links -->
-<!-- 
+      <!-- 
       <p class="mb-1">
         <a href="#">I forgot my password</a>
       </p>
@@ -176,17 +181,17 @@
   </div>
 </div> -->
 <script>
-var video = document.getElementById("myVideo");
-var btn = document.getElementById("myBtn");
+  var video = document.getElementById("myVideo");
+  var btn = document.getElementById("myBtn");
 
-function myFunction() {
-  if (video.paused) {
-    video.play();
-    btn.innerHTML = "Pause";
-  } else {
-    video.pause();
-    btn.innerHTML = "Play";
+  function myFunction() {
+    if (video.paused) {
+      video.play();
+      btn.innerHTML = "Pause";
+    } else {
+      video.pause();
+      btn.innerHTML = "Play";
+    }
   }
-}
 </script>
 @include('login.layout.footer')
