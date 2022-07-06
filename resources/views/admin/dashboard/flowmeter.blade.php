@@ -26,7 +26,7 @@
   }
 
   .profile-user-img {
-    border: 3px solid #01A89D;
+    border: 4px solid #3e9ae2;
     padding: 5px;
   }
 </style>
