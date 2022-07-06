@@ -144,7 +144,7 @@ var ColdStorageDashboard = function () {
                 startDate = moment().format('YYYY-MM-DD') + ' 00:00';
                 endDate = moment().format('YYYY-MM-DD') + ' 23:59';
             }
-            console.log(startDate, endDate)
+            //console.log(startDate, endDate)
             $.ajax({
                 type: "POST",
                 headers: {
@@ -297,8 +297,8 @@ var ColdStorageDashboard = function () {
                     // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
                     chart.set("scrollbarX", am5.Scrollbar.new(root, {
                         orientation: "horizontal",
-                        marginTop: 15,
-                        marginBottom: 25,
+                        marginTop: 25,
+                        marginBottom: 20,
                     }));
 
                     var legend = chart.children.push(

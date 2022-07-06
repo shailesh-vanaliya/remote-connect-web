@@ -119,10 +119,10 @@ if ($device->Status == 1) {
                 <div class="tab-pane fade show active" id="custom-tabs-five-overlay" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-tab">
                   <div class="row">
 
-                    <div class="col-lg-4 col-6">
+                    <div class="col-lg-4 col-12">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ (isset($result->D0) ? $result->D0 : '' )}}<sup style="font-size: 20px">{{ isset($unit_alias['D0']) ? $unit_alias['D0'] : '' }}</sup></h3>
+                          <h3 style="font-size: 2.8rem">{{ (isset($result->D0) ? $result->D0 : '' )}}<sup style="font-size: 20px">{{ isset($unit_alias['D0']) ? $unit_alias['D0'] : '' }}</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY11_TITLE']) ? $dashboard_alias['DISPLAY11_TITLE'] : '' }} </p>
                         </div>
                         <div class="icon">
@@ -131,10 +131,10 @@ if ($device->Status == 1) {
                     
                       </div>
                     </div>
-                    <div class="col-lg-4 col-6">
+                    <div class="col-lg-4 col-12">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->D1) ? $result->D1 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['D1']) ? $unit_alias['D1'] : '' }}</sup></h3>
+                          <h3 style="font-size: 2.8rem">{{ isset($result->D1) ? $result->D1 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['D1']) ? $unit_alias['D1'] : '' }}</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY12_TITLE']) ? $dashboard_alias['DISPLAY12_TITLE'] : '' }} </p>
                         </div>
                         <div class="icon">
@@ -146,10 +146,10 @@ if ($device->Status == 1) {
                       </div>
                     </div>
 
-                    <div class="col-lg-4 col-6">
+                    <div class="col-lg-4 col-12">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->D2) ? $result->D2 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['D2']) ? $unit_alias['D2'] : '' }}</sup></h3>
+                          <h3 style="font-size: 2.8rem">{{ isset($result->D2) ? $result->D2 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['D2']) ? $unit_alias['D2'] : '' }}</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY13_TITLE']) ? $dashboard_alias['DISPLAY13_TITLE'] : '' }} </p>
                         </div>
                         <div class="icon">
@@ -160,10 +160,10 @@ if ($device->Status == 1) {
                         </p> -->
                       </div>
                     </div>
-                    <div class="col-lg-4 col-6">
+                    <div class="col-lg-4 col-12">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->D3) ? $result->D3 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['D3']) ? $unit_alias['D3'] : '' }}</sup></h3>
+                          <h3 style="font-size: 2.8rem">{{ isset($result->D3) ? $result->D3 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['D3']) ? $unit_alias['D3'] : '' }}</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY14_TITLE']) ? $dashboard_alias['DISPLAY14_TITLE'] : '' }} </p>
                         </div>
                         <div class="icon">
@@ -174,10 +174,10 @@ if ($device->Status == 1) {
                         </p> -->
                       </div>
                     </div>
-                    <div class="col-lg-4 col-6">
+                    <div class="col-lg-4 col-12">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.2rem">{{ isset($result->D4) ? $result->D4 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['D4']) ? $unit_alias['D4'] : '' }}</sup></h3>
+                          <h3 style="font-size: 2.8rem">{{ isset($result->D4) ? $result->D4 : '' }}<sup style="font-size: 20px">{{ isset($unit_alias['D4']) ? $unit_alias['D4'] : '' }}</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY15_TITLE']) ? $dashboard_alias['DISPLAY15_TITLE'] : '' }} </p>
                         </div>
                         <div class="icon">
@@ -195,7 +195,7 @@ if ($device->Status == 1) {
               </div>
             </div>
           </div>
-          <div class="col-md-12-">
+          <div class="col-md-12">
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Flow Chart</h3>
