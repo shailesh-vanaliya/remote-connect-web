@@ -375,7 +375,7 @@ var Flowmeter = function () {
                     'X-CSRF-TOKEN': $('input[name="_token"]').val(),
                 },
                 url: site_url + "admin/flowmeter/ajaxAction",
-                data: { 'action': 'getChartDataV2' },
+                data: { 'action': 'getWeeklyChart' },
                 success: function (out) {
                     let res = JSON.parse(out);
                     console.log(res?.chart, " resresresres")
@@ -477,123 +477,138 @@ var Flowmeter = function () {
         }
 
 
+        getMonthChartData();
+
+        function getMonthChartData() {
 
 
-        getonthChartData()
-        function getonthChartData() {
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: site_url + "admin/flowmeter/ajaxAction",
+                data: { 'action': 'getMonthlyChart' },
+                success: function (out) {
+                    let res = JSON.parse(out);
+                    console.log(res?.chart, " resresresres")
+                    var data = res?.chart
+                    $('.preloader').hide();
 
-            var monthlyRoot = am5.Root.new("chartdiv3");
+                    var monthlyRoot = am5.Root.new("chartdiv3");
 
+                    monthlyRoot.setThemes([
+                        am5themes_Animated.new(monthlyRoot)
+                    ]);
+        
+                    var chart = monthlyRoot.container.children.push(am5xy.XYChart.new(monthlyRoot, {
+                        panX: true,
+                        panY: true,
+                        wheelX: "panX",
+                        wheelY: "zoomX",
+                        pinchZoomX: true
+                    }));
+        
+        
+                    var cursor = chart.set("cursor", am5xy.XYCursor.new(monthlyRoot, {}));
+                    cursor.lineY.set("visible", false);
+        
+                    var xRenderer = am5xy.AxisRendererX.new(monthlyRoot, { minGridDistance: 30 });
+                    xRenderer.labels.template.setAll({
+                        rotation: -90,
+                        centerY: am5.p50,
+                        centerX: am5.p100,
+                        paddingRight: 15
+                    });
+        
+                    var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(monthlyRoot, {
+                        maxDeviation: 0.3,
+                        categoryField: "monthName",
+                        renderer: xRenderer,
+                        tooltip: am5.Tooltip.new(monthlyRoot, {})
+                    }));
+        
+                    var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(monthlyRoot, {
+                        maxDeviation: 0.3,
+                        renderer: am5xy.AxisRendererY.new(monthlyRoot, {})
+                    }));
+        
+        
+                    // Create series
+                    // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+                    var series = chart.series.push(am5xy.ColumnSeries.new(monthlyRoot, {
+                        name: "Series 1",
+                        xAxis: xAxis,
+                        yAxis: yAxis,
+                        valueYField: "value",
+                        sequencedInterpolation: true,
+                        categoryXField: "monthName",
+                        tooltip: am5.Tooltip.new(monthlyRoot, {
+                            labelText: "{valueY}" + "KL"
+                        })
+                    }));
+        
+                    series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
+                    series.columns.template.adapters.add("fill", function (fill, target) {
+                        return chart.get("colors").getIndex(series.columns.indexOf(target));
+                    });
+        
+                    series.columns.template.adapters.add("stroke", function (stroke, target) {
+                        return chart.get("colors").getIndex(series.columns.indexOf(target));
+                    });
+        
+        
+                    // Set data
+                    // var data = [{
+                    //     monthName: "Jan",
+                    //     value: 2025
+                    // }, {
+                    //     monthName: "Feb",
+                    //     value: 1882
+                    // }, {
+                    //     monthName: "Mar",
+                    //     value: 1809
+                    // }, {
+                    //     monthName: "Apr",
+                    //     value: 1322
+                    // }, {
+                    //     monthName: "May",
+                    //     value: 1122
+                    // }, {
+                    //     monthName: "Jun",
+                    //     value: 1114
+                    // }, {
+                    //     monthName: "Jul",
+                    //     value: 984
+                    // }, {
+                    //     monthName: "Aug",
+                    //     value: 711
+                    // }, {
+                    //     monthName: "Sep",
+                    //     value: 665
+                    // }, {
+                    //     monthName: "Oct",
+                    //     value: 580
+                    // }, {
+                    //     monthName: "Nov",
+                    //     value: 443
+                    // }, {
+                    //     monthName: "Dec",
+                    //     value: 441
+                    // }];
+        
+                    xAxis.data.setAll(data);
+                    series.data.setAll(data);
+        
+        
+                    // Make stuff animate on load
+                    // https://www.amcharts.com/docs/v5/concepts/animations/
+                    series.appear(1000);
+                    chart.appear(1000, 100);
 
-
-            monthlyRoot.setThemes([
-                am5themes_Animated.new(monthlyRoot)
-            ]);
-
-            var chart = monthlyRoot.container.children.push(am5xy.XYChart.new(monthlyRoot, {
-                panX: true,
-                panY: true,
-                wheelX: "panX",
-                wheelY: "zoomX",
-                pinchZoomX: true
-            }));
-
-
-            var cursor = chart.set("cursor", am5xy.XYCursor.new(monthlyRoot, {}));
-            cursor.lineY.set("visible", false);
-
-            var xRenderer = am5xy.AxisRendererX.new(monthlyRoot, { minGridDistance: 30 });
-            xRenderer.labels.template.setAll({
-                rotation: -90,
-                centerY: am5.p50,
-                centerX: am5.p100,
-                paddingRight: 15
+                }
             });
-
-            var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(monthlyRoot, {
-                maxDeviation: 0.3,
-                categoryField: "country",
-                renderer: xRenderer,
-                tooltip: am5.Tooltip.new(monthlyRoot, {})
-            }));
-
-            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(monthlyRoot, {
-                maxDeviation: 0.3,
-                renderer: am5xy.AxisRendererY.new(monthlyRoot, {})
-            }));
-
-
-            // Create series
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-            var series = chart.series.push(am5xy.ColumnSeries.new(monthlyRoot, {
-                name: "Series 1",
-                xAxis: xAxis,
-                yAxis: yAxis,
-                valueYField: "value",
-                sequencedInterpolation: true,
-                categoryXField: "country",
-                tooltip: am5.Tooltip.new(monthlyRoot, {
-                    labelText: "{valueY}" + "KL"
-                })
-            }));
-
-            series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
-            series.columns.template.adapters.add("fill", function (fill, target) {
-                return chart.get("colors").getIndex(series.columns.indexOf(target));
-            });
-
-            series.columns.template.adapters.add("stroke", function (stroke, target) {
-                return chart.get("colors").getIndex(series.columns.indexOf(target));
-            });
-
-
-            // Set data
-            var data = [{
-                country: "Jan",
-                value: 2025
-            }, {
-                country: "Feb",
-                value: 1882
-            }, {
-                country: "Mar",
-                value: 1809
-            }, {
-                country: "Apr",
-                value: 1322
-            }, {
-                country: "May",
-                value: 1122
-            }, {
-                country: "Jun",
-                value: 1114
-            }, {
-                country: "Jul",
-                value: 984
-            }, {
-                country: "Aug",
-                value: 711
-            }, {
-                country: "Sep",
-                value: 665
-            }, {
-                country: "Oct",
-                value: 580
-            }, {
-                country: "Nov",
-                value: 443
-            }, {
-                country: "Dec",
-                value: 441
-            }];
-
-            xAxis.data.setAll(data);
-            series.data.setAll(data);
-
-
-            // Make stuff animate on load
-            // https://www.amcharts.com/docs/v5/concepts/animations/
-            series.appear(1000);
-            chart.appear(1000, 100);
+           
 
         }
     }
