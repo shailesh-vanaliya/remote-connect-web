@@ -130,7 +130,7 @@ var Flowmeter = function () {
 
         });
         getAmChart();
-        getChart2Data();
+        getWeeklyChartData();
 
 
 
@@ -325,7 +325,7 @@ var Flowmeter = function () {
         setMap();
         $('.customSelect').trigger('change');
 
-        
+
         function setMap() {
 
             let latitude = ($('.latitude').val() != '' && $('.latitude').val() != undefined) ? $('.latitude').val() : ''
@@ -363,97 +363,230 @@ var Flowmeter = function () {
             }
         }
 
-        function getChart2Data() {
-            // Create root2 element
+        function getWeeklyChartData() {
+
+            // Create weeklyRoot element
             // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-            var root2 = am5.Root.new("chartdiv2");
+            var weeklyRoot = am5.Root.new("chartdiv2");
+
+            $.ajax({
+                type: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val(),
+                },
+                url: site_url + "admin/flowmeter/ajaxAction",
+                data: { 'action': 'getChartDataV2' },
+                success: function (out) {
+                    let res = JSON.parse(out);
+                    console.log(res?.chart, " resresresres")
+                    $('.preloader').hide();
 
 
-            // Set themes
-            // https://www.amcharts.com/docs/v5/concepts/themes/
-            root2.setThemes([
-                am5themes_Animated.new(root2)
+                    // Set themes
+                    // https://www.amcharts.com/docs/v5/concepts/themes/
+                    weeklyRoot.setThemes([
+                        am5themes_Animated.new(weeklyRoot)
+                    ]);
+
+
+                    // Create chart
+                    // https://www.amcharts.com/docs/v5/charts/xy-chart/
+                    var chart = weeklyRoot.container.children.push(am5xy.XYChart.new(weeklyRoot, {
+                        panX: false,
+                        panY: false,
+                        wheelX: "panX",
+                        wheelY: "zoomX"
+                    }));
+
+
+                    // Add cursor
+                    // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
+                    var cursor = chart.set("cursor", am5xy.XYCursor.new(weeklyRoot, {
+                        behavior: "zoomX"
+                    }));
+                    cursor.lineY.set("visible", false);
+
+                    var date = new Date();
+                    date.setHours(0, 0, 0, 0);
+                    var value = 100;
+
+                    function generateData() {
+                        value = Math.round((Math.random() * 10 - 5) + value);
+                        am5.time.add(date, "day", 1);
+                        return {
+                            date: date.getTime(),
+                            value: value
+                        };
+                    }
+
+                    function generateDatas(count) {
+                        var data = [];
+                        for (var i = 0; i < count; ++i) {
+                            data.push(generateData());
+                        }
+                        return data;
+                    }
+
+
+                    // Create axes
+                    // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+                    var xAxis = chart.xAxes.push(am5xy.DateAxis.new(weeklyRoot, {
+                        maxDeviation: 0.2,
+                        baseInterval: {
+                            timeUnit: "day",
+                            count: 1
+                        },
+                        renderer: am5xy.AxisRendererX.new(weeklyRoot, {}),
+                        tooltip: am5.Tooltip.new(weeklyRoot, {})
+                    }));
+
+                    var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(weeklyRoot, {
+                        renderer: am5xy.AxisRendererY.new(weeklyRoot, {})
+                    }));
+
+
+                    // Add series
+                    // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+                    var series = chart.series.push(am5xy.ColumnSeries.new(weeklyRoot, {
+                        name: "Weekly Flow",
+                        xAxis: xAxis,
+                        yAxis: yAxis,
+                        valueYField: "value",
+                        valueXField: "date",
+                        tooltip: am5.Tooltip.new(weeklyRoot, {
+                            labelText: "{valueY}"
+                        })
+                    }));
+
+                    chart.set("scrollbarX", am5.Scrollbar.new(weeklyRoot, {
+                        orientation: "horizontal"
+                    }));
+
+                    var data = res?.chart;
+                    // var data = generateDatas(10);
+                    console.log(data, " datadata")
+                    series.data.setAll(data);
+
+
+                    // Make stuff animate on load
+                    // https://www.amcharts.com/docs/v5/concepts/animations/
+                    series.appear(1000);
+                    chart.appear(1000, 100);
+                }
+            });
+        }
+
+
+
+
+        getonthChartData()
+        function getonthChartData() {
+
+            var monthlyRoot = am5.Root.new("chartdiv3");
+
+
+
+            monthlyRoot.setThemes([
+                am5themes_Animated.new(monthlyRoot)
             ]);
 
-
-            // Create chart
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/
-            var chart = root2.container.children.push(am5xy.XYChart.new(root2, {
-                panX: false,
-                panY: false,
+            var chart = monthlyRoot.container.children.push(am5xy.XYChart.new(monthlyRoot, {
+                panX: true,
+                panY: true,
                 wheelX: "panX",
-                wheelY: "zoomX"
+                wheelY: "zoomX",
+                pinchZoomX: true
             }));
 
 
-            // Add cursor
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-            var cursor = chart.set("cursor", am5xy.XYCursor.new(root2, {
-                behavior: "zoomX"
-            }));
+            var cursor = chart.set("cursor", am5xy.XYCursor.new(monthlyRoot, {}));
             cursor.lineY.set("visible", false);
 
-            var date = new Date();
-            date.setHours(0, 0, 0, 0);
-            var value = 100;
+            var xRenderer = am5xy.AxisRendererX.new(monthlyRoot, { minGridDistance: 30 });
+            xRenderer.labels.template.setAll({
+                rotation: -90,
+                centerY: am5.p50,
+                centerX: am5.p100,
+                paddingRight: 15
+            });
 
-            function generateData() {
-                value = Math.round((Math.random() * 10 - 5) + value);
-                am5.time.add(date, "day", 1);
-                return {
-                    date: date.getTime(),
-                    value: value
-                };
-            }
-
-            function generateDatas(count) {
-                var data = [];
-                for (var i = 0; i < count; ++i) {
-                    data.push(generateData());
-                }
-                return data;
-            }
-
-
-            // Create axes
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-            var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root2, {
-                maxDeviation: 0,
-                baseInterval: {
-                    timeUnit: "day",
-                    count: 1
-                },
-                renderer: am5xy.AxisRendererX.new(root2, {}),
-                tooltip: am5.Tooltip.new(root2, {})
+            var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(monthlyRoot, {
+                maxDeviation: 0.3,
+                categoryField: "country",
+                renderer: xRenderer,
+                tooltip: am5.Tooltip.new(monthlyRoot, {})
             }));
 
-            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root2, {
-                renderer: am5xy.AxisRendererY.new(root2, {})
+            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(monthlyRoot, {
+                maxDeviation: 0.3,
+                renderer: am5xy.AxisRendererY.new(monthlyRoot, {})
             }));
 
 
-            // Add series
+            // Create series
             // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-            var series = chart.series.push(am5xy.ColumnSeries.new(root2, {
-                name: "Series",
+            var series = chart.series.push(am5xy.ColumnSeries.new(monthlyRoot, {
+                name: "Series 1",
                 xAxis: xAxis,
                 yAxis: yAxis,
                 valueYField: "value",
-                valueXField: "date",
-                tooltip: am5.Tooltip.new(root2, {
-                    labelText: "{valueY}"
+                sequencedInterpolation: true,
+                categoryXField: "country",
+                tooltip: am5.Tooltip.new(monthlyRoot, {
+                    labelText: "{valueY}" + "KL"
                 })
             }));
 
+            series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
+            series.columns.template.adapters.add("fill", function (fill, target) {
+                return chart.get("colors").getIndex(series.columns.indexOf(target));
+            });
+
+            series.columns.template.adapters.add("stroke", function (stroke, target) {
+                return chart.get("colors").getIndex(series.columns.indexOf(target));
+            });
 
 
-            // Add scrollbar
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
-            chart.set("scrollbarX", am5.Scrollbar.new(root2, {
-                orientation: "horizontal"
-            }));
+            // Set data
+            var data = [{
+                country: "Jan",
+                value: 2025
+            }, {
+                country: "Feb",
+                value: 1882
+            }, {
+                country: "Mar",
+                value: 1809
+            }, {
+                country: "Apr",
+                value: 1322
+            }, {
+                country: "May",
+                value: 1122
+            }, {
+                country: "Jun",
+                value: 1114
+            }, {
+                country: "Jul",
+                value: 984
+            }, {
+                country: "Aug",
+                value: 711
+            }, {
+                country: "Sep",
+                value: 665
+            }, {
+                country: "Oct",
+                value: 580
+            }, {
+                country: "Nov",
+                value: 443
+            }, {
+                country: "Dec",
+                value: 441
+            }];
 
-            var data = generateDatas(50);
+            xAxis.data.setAll(data);
             series.data.setAll(data);
 
 
@@ -461,132 +594,6 @@ var Flowmeter = function () {
             // https://www.amcharts.com/docs/v5/concepts/animations/
             series.appear(1000);
             chart.appear(1000, 100);
-
-        }
-        getChart3Data()
-        function getChart3Data() {
-            	// Create root3 element
-		// https://www.amcharts.com/docs/v5/getting-started/#Root_element
-		var root3 = am5.Root.new("chartdiv3");
-
-
-		// Set themes
-		// https://www.amcharts.com/docs/v5/concepts/themes/
-		root3.setThemes([
-			am5themes_Animated.new(root3)
-		]);
-
-
-		// Create chart
-		// https://www.amcharts.com/docs/v5/charts/xy-chart/
-		var chart = root3.container.children.push(am5xy.XYChart.new(root3, {
-			panX: true,
-			panY: true,
-			wheelX: "panX",
-			wheelY: "zoomX",
-			pinchZoomX: true
-		}));
-
-		// Add cursor
-		// https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-		var cursor = chart.set("cursor", am5xy.XYCursor.new(root3, {}));
-		cursor.lineY.set("visible", false);
-
-
-		// Create axes
-		// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-		var xRenderer = am5xy.AxisRendererX.new(root3, { minGridDistance: 30 });
-		xRenderer.labels.template.setAll({
-			rotation: -90,
-			centerY: am5.p50,
-			centerX: am5.p100,
-			paddingRight: 15
-		});
-
-		var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root3, {
-			maxDeviation: 0.3,
-			categoryField: "country",
-			renderer: xRenderer,
-			tooltip: am5.Tooltip.new(root3, {})
-		}));
-
-		var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root3, {
-			maxDeviation: 0.3,
-			renderer: am5xy.AxisRendererY.new(root3, {})
-		}));
-
-
-		// Create series
-		// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-		var series = chart.series.push(am5xy.ColumnSeries.new(root3, {
-			name: "Series 1",
-			xAxis: xAxis,
-			yAxis: yAxis,
-			valueYField: "value",
-			sequencedInterpolation: true,
-			categoryXField: "country",
-			tooltip: am5.Tooltip.new(root3, {
-				labelText: "{valueY}"+"KL"
-			})
-		}));
-
-		series.columns.template.setAll({ cornerRadiusTL: 5, cornerRadiusTR: 5 });
-		series.columns.template.adapters.add("fill", function (fill, target) {
-			return chart.get("colors").getIndex(series.columns.indexOf(target));
-		});
-
-		series.columns.template.adapters.add("stroke", function (stroke, target) {
-			return chart.get("colors").getIndex(series.columns.indexOf(target));
-		});
-
-
-		// Set data
-		var data = [{
-			country: "Jan",
-			value: 2025
-		}, {
-			country: "Feb",
-			value: 1882
-		}, {
-			country: "Mar",
-			value: 1809
-		}, {
-			country: "Apr",
-			value: 1322
-		}, {
-			country: "May",
-			value: 1122
-		}, {
-			country: "Jun",
-			value: 1114
-		}, {
-			country: "Jul",
-			value: 984
-		}, {
-			country: "Aug",
-			value: 711
-		}, {
-			country: "Sep",
-			value: 665
-		}, {
-			country: "Oct",
-			value: 580
-		}, {
-			country: "Nov",
-			value: 443
-		}, {
-			country: "Dec",
-			value: 441
-		}];
-
-		xAxis.data.setAll(data);
-		series.data.setAll(data);
-
-
-		// Make stuff animate on load
-		// https://www.amcharts.com/docs/v5/concepts/animations/
-		series.appear(1000);
-		chart.appear(1000, 100);
 
         }
     }

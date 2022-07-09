@@ -102,13 +102,13 @@ if ($device->Status == 1) {
                 <li class="nav-item">
                   <a class="nav-link active" id="custom-tabs-five-overlay-tab" data-toggle="pill" href="#custom-tabs-five-overlay" role="tab" aria-controls="custom-tabs-five-overlay" aria-selected="true">Display</a>
                 </li>
+                 <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-five-overlay-dark-tab" data-toggle="pill" href="#custom-tabs-five-overlay-dark" role="tab" aria-controls="custom-tabs-five-overlay-dark" aria-selected="false">Weekly Flow</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-flow-meter-dark-tab" data-toggle="pill" href="#custom-tabs-flow-meter-dark" role="tab" aria-controls="custom-tabs-flow-meter-dark" aria-selected="false">Monthly Flow</a>
+                </li>
                 <!-- <li class="nav-item">
-                  <a class="nav-link" id="custom-tabs-five-overlay-dark-tab" data-toggle="pill" href="#custom-tabs-five-overlay-dark" role="tab" aria-controls="custom-tabs-five-overlay-dark" aria-selected="false">Control</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="custom-tabs-flow-meter-dark-tab" data-toggle="pill" href="#custom-tabs-flow-meter-dark" role="tab" aria-controls="custom-tabs-flow-meter-dark" aria-selected="false">Flow Meter</a>
-                </li>
-                <li class="nav-item">
                   <a class="nav-link" id="custom-tabs-setting-tab" data-toggle="pill" href="#custom-tabs-setting-dark" role="tab" aria-controls="custom-tabs-setting-dark" aria-selected="false">Setting</a>
                 </li> -->
               </ul>
@@ -191,6 +191,16 @@ if ($device->Status == 1) {
 
                   </div>
                 </div>
+                <div class="tab-pane fade show" id="custom-tabs-five-overlay-dark" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-dark-tab">
+                  <div class="row">  
+                  <div id="chartdiv2" style="height: 300px; width: 100%;"></div>
+                  </div>
+                </div>
+                <div class="tab-pane fade show" id="custom-tabs-flow-meter-dark" role="tabpanel" aria-labelledby="custom-tabs-flow-meter-dark-tab">
+                  <div class="row">
+                  <div id="chartdiv3" style="height: 300px; width: 100%;"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -237,9 +247,9 @@ if ($device->Status == 1) {
                     <button type="button" class="btn btn-default btn-sm reset" title="Reset">
                       <i class="fas fa-sync-alt"></i>
                     </button>&nbsp;
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <!-- <button type="submit" class="btn btn-default btn-sm" title="Download">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <i class="fas fa-download"> Export </i>
                       </button> -->
 
@@ -258,10 +268,10 @@ if ($device->Status == 1) {
     </div>
     <div class="row">
    <div class="col-md-6">
-        <div id="chartdiv2" style="height: 300px; width: 100%;"></div>
+        
       </div>
       <div class="col-md-6">
-        <div id="chartdiv3" style="height: 300px; width: 100%;"></div>
+        
       </div>
     </div>
   </div>

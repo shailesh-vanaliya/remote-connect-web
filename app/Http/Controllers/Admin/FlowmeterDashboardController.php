@@ -52,9 +52,9 @@ class FlowmeterDashboardController extends Controller
         // exit;
         $data['dashboard_alias'] = (isset($alias->dashboard_alias) && !empty($alias->dashboard_alias)) ? json_decode($alias->dashboard_alias, TRUE) : "";
         $data['unit_alias'] = (isset($alias->unit_alias) && !empty($alias->unit_alias)) ? json_decode($alias->unit_alias, TRUE) : "";
-       
+
         $data['parameter_alias'] = (isset($alias->parameter_alias) && !empty($alias->parameter_alias)) ? json_decode($alias->parameter_alias, TRUE) : "";
-        
+
         $data['client']                = User::where("role", 'USER')->count();
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/flowmeter.js'];
@@ -74,12 +74,16 @@ class FlowmeterDashboardController extends Controller
 
     public function ajaxAction(Request $request)
     {
+        
         $collegeId = Auth::guard('admin')->user()->id;
         $action = $request->input('action');
         // echo "Fsdf -> ". $action;exit;
         switch ($action) {
             case 'getFlowmeterData':
                 $this->_getFlowmeterData($request->all());
+                break;
+            case 'getChartDataV2':
+                $this->_getChartDataV2($request->all());
                 break;
         }
         exit;
@@ -100,16 +104,16 @@ class FlowmeterDashboardController extends Controller
             }
             $queryBuilder  =    Flowmeter::select(
                 'D0 as D0',
-                 DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
+                DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
                 // DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'),
             );
             $queryBuilder->where("modem_id", $this->deviceName);
-            
+
             $queryBuilder->whereRaw(
                 "(dtm >= ? AND dtm <= ?)",
                 [$start, $end]
             );
-            if(!empty($data['flm_no'])){
+            if (!empty($data['flm_no'])) {
                 $queryBuilder->where("flm_no", $data['flm_no']);
             }
             $queryBuilder->orderBy('dtm', 'asc');
@@ -128,6 +132,10 @@ class FlowmeterDashboardController extends Controller
         }
     }
 
+
+   
+
+
     public function meterDashboardExport(Request $request)
     {
         try {
@@ -137,4 +145,67 @@ class FlowmeterDashboardController extends Controller
             return redirect('admin/meter-dashboard')->with('session_error', 'DataLogExport Exports failed');
         }
     }
+
+
+    public function _getChartDataV2($data)
+    {
+
+        try {
+            $today = date('Y-m-d');
+            
+            // echo date('d-m-Y', strtotime('last day of this month'));
+            // echo " === \n ";
+            // echo date('d-m-Y', strtotime('first day of this month'));
+            // echo " === \n";
+            // $week_start = date("Y-m-d", strtotime('monday this week')) ;   
+            // $week_end = date("Y-m-d", strtotime('sunday this week')) ;
+
+            $day = date('w');
+            $week_start = date('Y-m-d', strtotime('-'.$day.' days'));
+            $week_end = date('Y-m-d', strtotime('+'.(6-$day).' days'));
+            // echo $week_start . " === " . $week_end;
+            $result = [];
+            // $weekDateList = $this->displayDates($week_start, $week_end);
+            $weekDateList = $this->displayDates('2022-05-15', '2022-05-25');
+            foreach($weekDateList as $key => $val){
+                $queryResFirst =  DataLog::select('TOTAL_FLOW','dtm', DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'))
+                // ->where("modem_id", $this->deviceName)
+                ->where("dtm",'LIKE',"%$val%")
+                ->orderBy('dtm','asc')
+                ->first()->toArray();
+                $queryReslast =  DataLog::select('TOTAL_FLOW','dtm', DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'))
+                // ->where("modem_id", $this->deviceName)
+                ->where("dtm",'LIKE',"%$val%")
+                ->orderBy('dtm','desc')
+                ->first()->toArray();
+                $amount = number_format($queryResFirst['TOTAL_FLOW'] - $queryReslast['TOTAL_FLOW'], 2);
+                $result[$key]['date'] = $queryResFirst['date'] ;
+                $result[$key]['value'] = floor($amount);
+                // $result[$key]['value'] = number_format($queryResFirst['TOTAL_FLOW'] - $queryReslast['TOTAL_FLOW'], 2);
+            }
+          
+            $res['chart'] = array_reverse($result);
+            echo json_encode($res);
+            //print_r(json_encode(array_reverse($array)));
+            exit;
+        } catch (Exception $e) {
+            $result['type'] = 'error';
+            $result['message'] = $e->getMessage();
+            echo json_encode($result);
+            exit;
+        }
+    }
+
+    function displayDates($date1, $date2, $format = 'Y-m-d' ) {
+        $dates = array();
+        $current = strtotime($date1);
+        $date2 = strtotime($date2);
+        $stepVal = '+1 day';
+        while( $current <= $date2 ) {
+           $dates[] = date($format, $current);
+           $current = strtotime($stepVal, $current);
+        }
+        return $dates;
+     }
+    
 }
