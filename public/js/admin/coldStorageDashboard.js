@@ -232,7 +232,7 @@ var ColdStorageDashboard = function () {
                         am5xy.ValueAxis.new(root, {
                             maxPrecision: 0,
                             renderer: am5xy.AxisRendererY.new(root, {
-                                inversed: true
+                                inversed: false
                             })
                         })
                     );
@@ -254,6 +254,8 @@ var ColdStorageDashboard = function () {
                                 name: name,
                                 xAxis: xAxis,
                                 yAxis: yAxis,
+                                minBulletDistance: 10,
+                                connect: true,
                                 valueYField: field,
                                 categoryXField: "date",
                                 tooltip: am5.Tooltip.new(root, {
@@ -267,7 +269,7 @@ var ColdStorageDashboard = function () {
                         series.bullets.push(function () {
                             return am5.Bullet.new(root, {
                                 sprite: am5.Circle.new(root, {
-                                    radius: 5,
+                                    radius: 4,
                                     fill: series.get("fill")
                                 })
                             });

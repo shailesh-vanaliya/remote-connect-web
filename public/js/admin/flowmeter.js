@@ -226,7 +226,7 @@ var Flowmeter = function () {
                         am5xy.ValueAxis.new(root, {
                             maxPrecision: 0,
                             renderer: am5xy.AxisRendererY.new(root, {
-                                inversed: true
+                                inversed: false
                             })
                         })
                     );
@@ -247,6 +247,8 @@ var Flowmeter = function () {
                                 name: name,
                                 xAxis: xAxis,
                                 yAxis: yAxis,
+                                minBulletDistance: 10,
+                                connect: true,
                                 valueYField: field,
                                 categoryXField: "date",
                                 tooltip: am5.Tooltip.new(root, {
@@ -524,7 +526,7 @@ var Flowmeter = function () {
 			sequencedInterpolation: true,
 			categoryXField: "country",
 			tooltip: am5.Tooltip.new(root3, {
-				labelText: "{valueY}"
+				labelText: "{valueY}"+"KL"
 			})
 		}));
 
@@ -540,40 +542,40 @@ var Flowmeter = function () {
 
 		// Set data
 		var data = [{
-			country: "USA",
+			country: "Jan",
 			value: 2025
 		}, {
-			country: "China",
+			country: "Feb",
 			value: 1882
 		}, {
-			country: "Japan",
+			country: "Mar",
 			value: 1809
 		}, {
-			country: "Germany",
+			country: "Apr",
 			value: 1322
 		}, {
-			country: "UK",
+			country: "May",
 			value: 1122
 		}, {
-			country: "France",
+			country: "Jun",
 			value: 1114
 		}, {
-			country: "India",
+			country: "Jul",
 			value: 984
 		}, {
-			country: "Spain",
+			country: "Aug",
 			value: 711
 		}, {
-			country: "Netherlands",
+			country: "Sep",
 			value: 665
 		}, {
-			country: "Russia",
+			country: "Oct",
 			value: 580
 		}, {
-			country: "South Korea",
+			country: "Nov",
 			value: 443
 		}, {
-			country: "Canada",
+			country: "Dec",
 			value: 441
 		}];
 

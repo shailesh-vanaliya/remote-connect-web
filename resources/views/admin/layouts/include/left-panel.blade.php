@@ -15,7 +15,7 @@ $imageName = asset('/public/img/futuristic.png');
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="#" class="brand-link">
-    <img src="{{ $imageName }}" alt="futuristic Logo" class="brand-image" style="opacity: .99">
+    <img src="{{ $imageName }}" alt="futuristic Logo" class="brand-image" style="opacity: 1.0">
     <span class="brand-text font-weight-light">IIOT Connect</span>
   </a>
 

@@ -131,7 +131,7 @@ if ($device->Status == 1) {
                     <div class="col-lg-4 col-12">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.0rem">{{ isset($result->D1) ? $result->D1 : '' }}<sup style="font-size: 15px">{{ isset($unit_alias['D1']) ? $unit_alias['D1'] : '%' }}</sup></h3>
+                          <h3 style="font-size: 3.0rem">{{ isset($result->D1) ? $result->D1 : 'N/A' }}<sup style="font-size: 15px">{{ isset($unit_alias['D1']) ? $unit_alias['D1'] : '%' }}</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY12_TITLE']) ? $dashboard_alias['DISPLAY12_TITLE'] : 'Pressure' }} </p>
                         </div>
                         <div class="icon">
@@ -146,7 +146,7 @@ if ($device->Status == 1) {
                     <div class="col-lg-4 col-12">
                       <div class="small-box bg-success">
                         <div class="inner">
-                          <h3 style="font-size: 3.0rem">{{ isset($result->D2) ? $result->D2 : '' }}<sup style="font-size: 15px">{{ isset($unit_alias['D2']) ? $unit_alias['D2'] : 'ppm' }}</sup></h3>
+                          <h3 style="font-size: 3.0rem">{{ isset($result->D2) ? $result->D2 : 'N/A' }}<sup style="font-size: 15px">{{ isset($unit_alias['D2']) ? $unit_alias['D2'] : 'ppm' }}</sup></h3>
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY13_TITLE']) ? $dashboard_alias['DISPLAY13_TITLE'] : 'Water Valve1' }} </p>
                         </div>
                         <div class="icon">
