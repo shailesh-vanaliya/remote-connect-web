@@ -176,7 +176,8 @@ if ($device->Status == 1) {
                     </div>
                     <div class="col-sm-12 col-md-3">
                       <select class="form-control select2 customSelect" id="customSelect">
-                        <option value="Today" selected="selected">Today</option>
+                        <option value="12Hours" selected="selected">Today 12Hours</option>
+                        <option value="Today">Today</option>
                         <option value="Yesterday">Yesterday</option>
                         <option value="Last 7 Days">Last 7 Days</option>
                         <option value="Last 30 Days">Last 30 Days</option>

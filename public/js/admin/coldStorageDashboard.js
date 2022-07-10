@@ -53,7 +53,10 @@ var ColdStorageDashboard = function () {
             let startDate = '';
             let endDate = '';
             $('.dateDiv').hide();
-            if ($('#customSelect').val() == 'Today') {
+            if ($('#customSelect').val() == '12Hours') {
+                startDate = moment().format('YYYY-MM-DD') + ' 00:00';
+                endDate = moment().format('YYYY-MM-DD') + ' 11:59';
+            } else if ($('#customSelect').val() == 'Today') {
                 startDate = moment().format('YYYY-MM-DD') + ' 00:00';
                 endDate = moment().format('YYYY-MM-DD') + ' 23:59';
             } else if ($('#customSelect').val() == 'Yesterday') {

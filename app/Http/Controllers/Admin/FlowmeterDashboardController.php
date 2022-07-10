@@ -236,7 +236,7 @@ class FlowmeterDashboardController extends Controller
                 }
             }
          
-            $res['chart'] = array_reverse($result);
+            $res['chart'] = $result;
             echo json_encode($res);
             exit;
         } catch (Exception $e) {

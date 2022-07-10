@@ -60,9 +60,12 @@ var DashboardV2 = function () {
             let startDate = '';
             let endDate = '';
             $('.dateDiv').hide();
-            if($('#customSelect').val() == 'Today'){
-                startDate = moment().format('YYYY-MM-DD') +' 00:00';
-                endDate = moment().format('YYYY-MM-DD') +' 23:59';
+            if ($('#customSelect').val() == '12Hours') {
+                startDate = moment().format('YYYY-MM-DD') + ' 00:00';
+                endDate = moment().format('YYYY-MM-DD') + ' 11:59';
+            } else if ($('#customSelect').val() == 'Today') {
+                startDate = moment().format('YYYY-MM-DD') + ' 00:00';
+                endDate = moment().format('YYYY-MM-DD') + ' 23:59';
             }else if($('#customSelect').val() == 'Yesterday'){
                 
                 startDate = moment().subtract(1, 'days').format('YYYY-MM-DD') +' 00:00';
@@ -180,9 +183,12 @@ var DashboardV2 = function () {
             let dateRange = ($('#dateRange').val() != undefined) ? $('#dateRange').val() : '';
             let modem_id = ($('#modem_id').val() != undefined) ? $('#modem_id').val() : '';
        
-             if($('#customSelect').val() == 'Today'){
-                startDate = moment().format('YYYY-MM-DD') +' 00:00';
-                endDate = moment().format('YYYY-MM-DD') +' 23:59';
+            if ($('#customSelect').val() == '12Hours') {
+                startDate = moment().format('YYYY-MM-DD') + ' 00:00';
+                endDate = moment().format('YYYY-MM-DD') + ' 11:59';
+            } else if ($('#customSelect').val() == 'Today') {
+                startDate = moment().format('YYYY-MM-DD') + ' 00:00';
+                endDate = moment().format('YYYY-MM-DD') + ' 23:59';
             }
             console.log(startDate, endDate)
             $.ajax({
