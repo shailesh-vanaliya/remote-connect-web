@@ -13,9 +13,7 @@
                                 <h3 class="card-title">quota list</h3>
                             </div>
                             <div class="col-md-1 col-sm-6 col-12">
-                                <a href="{{ url('/admin/users/create') }}" class="btn btn-primary btn-xs pull-right" title="Add New User">
-                                    <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                                </a>
+                                <a href="{{ url('/admin/users/' ) }}" title="Back"><button class="btn  btn-warning btn-xs pull-right"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                             </div>
                         </div>
                     </div>
