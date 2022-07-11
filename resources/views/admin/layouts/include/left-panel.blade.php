@@ -154,6 +154,14 @@ $imageName = asset('/public/img/futuristic.png');
             <p>Report Schedules</p>
           </a>
         </li>
+        @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')
+        <li class="nav-item">
+          <a href="{{ url('/admin/device-map')}}" class="{{ ($currRoute == 'quota') ? 'active nav-link': 'nav-link' }}">
+            <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/Device_map.svg') }}" alt="">
+            <p class="spn">Quota</p>
+          </a>
+        </li>
+        @endif
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

@@ -61,6 +61,7 @@ class UserController extends Controller
         $data['title'] = 'Users List';
         return view('admin/users.index', $data);
     }
+  
 
     /**
      * Show the form for creating a new resource.
@@ -406,4 +407,36 @@ class UserController extends Controller
         $data['title'] = 'Seller List';
         return view('admin/users.seller', $data);
     }
+
+
+    public function quota(Request $request)
+    {
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $data['users'] = User::select('users.*')
+                ->where('users.role', User::ROLES['ADMIN'])
+                ->orWhere('users.role', User::ROLES['USER'])
+                ->orWhere('users.role', User::ROLES['ENG'])
+                ->latest('created_at')
+                ->get();
+        } else {
+            $data['users'] = User::select('users.*')
+                ->orWhere('users.role', User::ROLES['USER'])
+                ->where('organization_id', Auth::guard('admin')->user()->organization_id)
+                ->latest('created_at')
+                ->get();
+        }
+ 
+        $data['header'] = [
+            'title' => 'Users quota',
+            'breadcrumb' => [
+                'Home' => route('admin_dashboard'),
+                'Users' => '',
+                'quota' => '',
+            ],
+        ];
+        $data['pagetitle'] = 'Users quota';
+        $data['title'] = 'Users quota';
+        return view('admin.users.quota', $data);
+    }
+
 }

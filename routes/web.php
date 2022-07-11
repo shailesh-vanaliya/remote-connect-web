@@ -98,6 +98,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::post('/cold-storage/ajaxAction', [ColdStorageDashboardController::class, 'ajaxAction'])->name('ajaxAction');
     Route::get('/flowmeter/{modemId?}', [FlowmeterDashboardController::class, 'index'])->name('flow-meter');
     Route::post('/flowmeter/ajaxAction', [FlowmeterDashboardController::class, 'ajaxAction'])->name('flow-ajaxAction');
+    Route::get('/quota', [UserController::class, 'quota'])->name('quota');
 
 });
 
