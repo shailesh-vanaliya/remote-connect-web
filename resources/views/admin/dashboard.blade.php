@@ -102,48 +102,111 @@
     <!-- /.col -->
 
     <div class="col-md-4">
-      <div class="info-box mb-3 bg-warning">
-        <span class="info-box-icon"><i class="fas fa-tag"></i></span>
+      <div class="col-md-12">
+        <div class="info-box mb-3 bg-warning">
+          <span class="info-box-icon"><i class="fas fa-tag"></i></span>
 
-        <div class="info-box-content">
-          <span class="info-box-text">Total Device</span>
-          <span class="info-box-number">{{ $device }}</span>
+          <div class="info-box-content">
+            <span class="info-box-text">Total Device</span>
+            <span class="info-box-number">{{ $device }}</span>
+          </div>
+        </div>
+        <div class="info-box mb-3 bg-success">
+          <span class="info-box-icon"><i class="fas fa-wifi"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Online Device</span>
+            <span class="info-box-number">{{ $onlineDevice }}</span>
+          </div>
+        </div>
+
+        <div class="info-box mb-3 bg-red">
+          <span class="info-box-icon"><i class="fas fa-unlink"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Offline Device</span>
+            <span class="info-box-number">{{ $device - $onlineDevice }}</span>
+          </div>
+        </div>
+
+        <div class="info-box mb-3 bg-secondary">
+          <span class="info-box-icon"><i class="far fa-file-alt"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Total Reports Config</span>
+            <span class="info-box-number">{{ $reportCount }}</span>
+          </div>
+        </div>
+
+        <div class="info-box mb-3 bg-info">
+          <span class="info-box-icon"><i class="far fa-bell"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Total Alert Config</span>
+            <span class="info-box-number">{{ $alertCount }}</span>
+          </div>
         </div>
       </div>
-      <div class="info-box mb-3 bg-success">
-        <span class="info-box-icon"><i class="fas fa-wifi"></i></span>
-
-        <div class="info-box-content">
-          <span class="info-box-text">Online Device</span>
-          <span class="info-box-number">{{ $onlineDevice }}</span>
+      <div class="col-md-11">
+        <p class="text-center">
+          <strong>Quota Limit</strong>
+        </p>
+        @php
+        $var1 = (  $users->storage_quota > 0 && ($users->storage_usage * 100) > 0 ) ? ($users->storage_usage * 100) / $users->storage_quota : 0;
+        @endphp
+        <div class="progress-group">
+          Storage Usage
+          <span class="float-right"><b>{{ $users->storage_usage}}</b>/{{ $users->storage_quota }}</span>
+          <div class="progress progress-sm">
+            <div class="progress-bar bg-primary" style="width: {{ $var1 }}%"></div>
+          </div>
         </div>
-      </div>
-
-      <div class="info-box mb-3 bg-red">
-        <span class="info-box-icon"><i class="fas fa-unlink"></i></span>
-
-        <div class="info-box-content">
-          <span class="info-box-text">Offline Device</span>
-          <span class="info-box-number">{{ $device - $onlineDevice }}</span>
+        <!-- /.progress-group -->
+        @php 
+        $var1 = ( $users->report_quota > 0 && ($users->report_counter * 100) > 0 ) ? ($users->report_counter * 100) / $users->report_quota : 0;
+        @endphp
+        <div class="progress-group">
+          Report Counter
+          <span class="float-right">{{ $users->report_counter}}</b>/{{ $users->report_quota }}</span>
+          <div class="progress progress-sm">
+            <div class="progress-bar bg-danger" style="width: {{ $var1 }}%"></div>
+          </div>
         </div>
-      </div>
-
-      <div class="info-box mb-3 bg-secondary">
-        <span class="info-box-icon"><i class="far fa-file-alt"></i></span>
-        <div class="info-box-content">
-          <span class="info-box-text">Total Reports Config</span>
-          <span class="info-box-number">{{ $reportCount }}</span>
+        @php
+        $var1 = ( $users->sms_quota > 0 && ($users->sms_counter * 100) > 0 ) ? ($users->sms_counter * 100) / $users->sms_quota : 0;
+        @endphp
+        <!-- /.progress-group -->
+        <div class="progress-group">
+          <span class="progress-text">SMS Counter</span>
+          <span class="float-right"><b>{{ $users->sms_counter}}</b>/{{ $users->sms_quota }}</span>
+          <div class="progress progress-sm">
+            <div class="progress-bar bg-success" style="width: {{ $var1 }}%"></div>
+          </div>
         </div>
-      </div>
 
-      <div class="info-box mb-3 bg-info">
-        <span class="info-box-icon"><i class="far fa-bell"></i></span>
-        <div class="info-box-content">
-          <span class="info-box-text">Total Alert Config</span>
-          <span class="info-box-number">{{ $alertCount }}</span>
+        <!-- /.progress-group -->
+        <div class="progress-group">
+          EMAIL Counter
+          @php
+            $var = ( $users->email_quota > 0 && ($users->email_counter * 100) > 0 ) ? ($users->email_counter * 100) / $users->email_quota : 0;
+            @endphp
+          <span class="float-right"><b>{{ $users->email_counter}}</b>/{{ $users->email_quota }}</span>
+          <div class="progress progress-sm">
+            <div class="progress-bar bg-warning" style="width: {{ $var }}%"></div>
+          </div>
         </div>
+        @php
+        $var1 = ( $users->notification_quota > 0 && ($users->notification_counter * 100) > 0 ) ? ($users->notification_counter * 100) / $users->notification_quota : 0;
+        @endphp
+        <div class="progress-group">
+          Notification
+          <span class="float-right"><b>{{ $users->notification_counter}}</b>/{{ $users->notification_quota }}</span>
+          <div class="progress progress-sm">
+            <div class="progress-bar bg-secondary" style="width: {{ $var1 }}%"></div>
+          </div>
+        </div>
+        <!-- /.progress-group -->
       </div>
     </div>
+
   </div>
 </section>
 @endsection

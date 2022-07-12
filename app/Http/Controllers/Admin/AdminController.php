@@ -49,17 +49,17 @@ class AdminController extends Controller
         $deviceObj = new Device();
         $device = $deviceObj->getDeviceByUser();
         $data['device'] =  $device->count();
-        
+
         $data['client']                = User::where("role", 'USER')->count();
         $data['pagetitle']             = 'Dashboard';
         $data['js']                    = ['admin/dashboard.js'];
         $data['funinit']               = ['Dashboard.init()'];
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
             $data['alertCount'] = AlertConfigration::count();
-        }  else {
+        } else {
             $data['alertCount'] = AlertConfigration::where('created_by', Auth::guard('admin')->user()->id)->count();
         }
-      
+
         if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
             $onlineDevice =  Device::select(
                 'device_map.MQTT_ID',
@@ -81,7 +81,7 @@ class AdminController extends Controller
             $onlineDevice->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
             $onlineDevice->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
             $onlineDevice->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
-            $onlineDevice->where('device_status.Status',1);
+            $onlineDevice->where('device_status.Status', 1);
             $onlineDevice->groupBy('devices.id');
             $data['onlineDevice'] =  $onlineDevice->get()->toArray();
             $data['onlineDevice'] = count($data['onlineDevice']);
@@ -108,11 +108,10 @@ class AdminController extends Controller
             $onlineDevice->leftJoin('device_status',  'device_status.Client_id', '=', 'device_map.MQTT_ID');
             $onlineDevice->leftJoin('device_type',  'device_type.id', '=', 'device_map.device_type_id');
             $onlineDevice->leftJoin('remote',  'remote.MODEM_ID', '=', 'devices.modem_id');
-            $onlineDevice->where('device_status.Status',1);
+            $onlineDevice->where('device_status.Status', 1);
             $onlineDevice->groupBy('devices.id');
             $data['onlineDevice'] =  $onlineDevice->get()->toArray();
             $data['onlineDevice'] = count($data['onlineDevice']);
-       
         }
         $data['header']    = [
             'title'      => 'Dashboard',
@@ -121,56 +120,35 @@ class AdminController extends Controller
                 'View' => '',
             ],
         ];
+        $query = User::select(
+            'users.*',
+            DB::raw("SUM(users.report_schedule_quota) as report_schedule_quota"),
+            DB::raw("SUM(users.storage_usage) as storage_usage"),
+            DB::raw("SUM(users.storage_quota) as storage_quota"),
+            DB::raw("SUM(users.report_counter) as report_counter"),
+            DB::raw("SUM(users.report_quota) as report_quota"),
+            DB::raw("SUM(users.sms_counter) as sms_counter"),
+            DB::raw("SUM(users.sms_quota) as sms_quota"),
+            DB::raw("SUM(users.email_counter) as email_counter"),
+            DB::raw("SUM(users.email_quota) as email_quota"),
+            DB::raw("SUM(users.notification_quota) as notification_quota"),
+            DB::raw("SUM(users.notification_counter) as notification_counter"),
+        );
+        if (Auth::guard('admin')->user()->role == 'SUPERADMIN') {
+            $query->where('users.role', User::ROLES['ADMIN']);
+            $query->orWhere('users.role', User::ROLES['USER']);
+            $query->orWhere('users.role', User::ROLES['ENG']);
+            $query->latest('created_at');
+        }
+        if (Auth::guard('admin')->user()->role == 'ORGANIZATION') {
+            $query->orWhere('users.role', User::ROLES['USER']);
+            $query->where('organization_id', Auth::guard('admin')->user()->organization_id);
+        }
+        if (Auth::guard('admin')->user()->role == 'USER') {
+            $query->where('organization_id', Auth::guard('admin')->user()->id);
+        }
+        $data['users'] = $query->first();
+
         return view('admin.dashboard', $data);
-
-        // $server   = 'm2m.iiotconnect.in';
-        // $port     = 1883;
-        // $client_id = 'shailesh-Sub';
-        // $username = 'shailesh';
-        // $password = 'shailesh';
-        // $clean_session = true;
-
-        // $connectionSettings  = new ConnectionSettings();
-        // $connectionSettings
-        //     ->setUsername($username)
-        //     ->setPassword($password)
-        //     ->setKeepAliveInterval(60)
-        //     ->setLastWillTopic('shailesh/zzz')
-        //     ->setLastWillMessage('client disconnect')
-        //     ->setLastWillQualityOfService(1);
-
-
-        // $mqtt = new MqttClient($server, $port, $client_id);
-
-        // $mqtt->connect($connectionSettings, $clean_session);
-        // printf("client connected\n");
-
-        // $mqtt->subscribe('emqx/test', function ($topic, $message) {
-        //     printf("Received message on topic [%s]: %s\n", $topic, $message);
-        // }, 0);
-
-        // for ($i = 0; $i < 10; $i++) {
-        //     $payload = array(
-        //         'protocol' => 'tcp',
-        //         'date' => date('Y-m-d H:i:s'),
-        //         'url' => 'https://github.com/emqx/MQTT-Client-Examples'
-        //     );
-        //     $mqtt->publish(
-        //         // topic
-        //         'emqx/test',
-        //         // payload
-        //         json_encode($payload),
-        //         // qos
-        //         0,
-        //         // retain
-        //         true
-        //     );
-        //     printf("msg $i send\n");
-        //     sleep(1);
-        // }
-
-        // $mqtt->loop(true);
     }
- 
-    
 }
