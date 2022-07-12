@@ -156,8 +156,8 @@ $imageName = asset('/public/img/futuristic.png');
         </li>
         @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')
         <li class="nav-item">
-          <a href="{{ url('/quota')}}" class="{{ ($currRoute == 'quota') ? 'active nav-link': 'nav-link' }}">
-            <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/Device_map.svg') }}" alt="">
+          <a href="{{ url('/admin/quota')}}" class="{{ ($currRoute == 'quota') ? 'active nav-link': 'nav-link' }}">
+            <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/quota.svg') }}" alt="">
             <p class="spn">Quota</p>
           </a>
         </li>

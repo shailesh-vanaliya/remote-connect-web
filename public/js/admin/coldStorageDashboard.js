@@ -54,8 +54,8 @@ var ColdStorageDashboard = function () {
             let endDate = '';
             $('.dateDiv').hide();
             if ($('#customSelect').val() == '12Hours') {
-                startDate = moment().format('YYYY-MM-DD') + ' 00:00';
-                endDate = moment().format('YYYY-MM-DD') + ' 11:59';
+                startDate = moment().subtract(12,'h').format('YYYY-MM-DD HH:mm');
+                endDate = moment().format('YYYY-MM-DD HH:mm');
             } else if ($('#customSelect').val() == 'Today') {
                 startDate = moment().format('YYYY-MM-DD') + ' 00:00';
                 endDate = moment().format('YYYY-MM-DD') + ' 23:59';
@@ -85,6 +85,7 @@ var ColdStorageDashboard = function () {
             }
             $('#startDate').val(startDate);
             $('#endDate').val(endDate);
+            console.log(startDate,endDate);
 
         });
 
@@ -143,9 +144,9 @@ var ColdStorageDashboard = function () {
             let dateRange = ($('#dateRange').val() != undefined) ? $('#dateRange').val() : '';
             let modem_id = ($('#modem_id').val() != undefined) ? $('#modem_id').val() : '';
 
-            if ($('#customSelect').val() == 'Today') {
-                startDate = moment().format('YYYY-MM-DD') + ' 00:00';
-                endDate = moment().format('YYYY-MM-DD') + ' 23:59';
+            if ($('#customSelect').val() == '12Hours') {
+                startDate = moment().subtract(12,'h').format('YYYY-MM-DD HH:mm');
+                endDate =moment().format('YYYY-MM-DD HH:mm');
             }
             //console.log(startDate, endDate)
             $.ajax({

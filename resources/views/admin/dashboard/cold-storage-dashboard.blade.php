@@ -121,7 +121,7 @@ if ($device->Status == 1) {
                           <p style="margin: 0;margin-bottom: unset">{{ isset($dashboard_alias['DISPLAY11_TITLE']) ? $dashboard_alias['DISPLAY11_TITLE'] : 'Temperature' }} </p>
                         </div>
                         <div class="icon">
-                          <i class="fa fa-thermometer-half iconColor"></i>
+                          <i class="ion ion-stats-bars iconColor"></i>
                         </div>
                         <p class="small-box-footer">
                           <i class="fas fa-clock"></i> Last Data At: {{ isset($result->dtm) ?  date('d/m/Y h:i:s A', strtotime($result->dtm)) : '' }}
@@ -176,7 +176,7 @@ if ($device->Status == 1) {
                     </div>
                     <div class="col-sm-12 col-md-3">
                       <select class="form-control select2 customSelect" id="customSelect">
-                        <option value="12Hours" selected="selected">Today 12Hours</option>
+                        <option value="12Hours" selected="selected">Last 12Hours</option>
                         <option value="Today">Today</option>
                         <option value="Yesterday">Yesterday</option>
                         <option value="Last 7 Days">Last 7 Days</option>
