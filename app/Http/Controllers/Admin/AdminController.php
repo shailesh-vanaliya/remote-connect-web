@@ -145,7 +145,7 @@ class AdminController extends Controller
             $query->where('organization_id', Auth::guard('admin')->user()->organization_id);
         }
         if (Auth::guard('admin')->user()->role == 'USER') {
-            $query->where('organization_id', Auth::guard('admin')->user()->id);
+            $query->where('id', Auth::guard('admin')->user()->id);
         }
         $data['users'] = $query->first();
 
