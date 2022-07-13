@@ -9,7 +9,7 @@
     <div class="form-group row {{ $errors->has('report_config_id') ? 'has-error' : ''}}">
         <label for="device_id" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Report Config Id' }}</label>
         <div class="col-sm-5">
-            {{ Form::select('report_config_id', $reportConfiguration , empty($report->report_config_id) ? null : $report->report_config_id , array('class' => 'form-control report_config_id', 'id' => 'report_config_id','required')) }}
+            {{ Form::select('report_config_id', $reportConfiguration , empty($reportschedule->report_config_id) ? null : $reportschedule->report_config_id , array('class' => 'form-control report_config_id', 'id' => 'report_config_id','required')) }}
             {!! $errors->first('report_config_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
