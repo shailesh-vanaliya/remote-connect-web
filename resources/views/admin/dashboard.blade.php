@@ -147,14 +147,14 @@
       </div>
       <div class="col-md-11">
         <p class="text-center">
-          <strong>Quota Limit</strong>
+          <strong>Usage Counter</strong>
         </p>
         @php
         $var1 = (  $users->storage_quota > 0 && ($users->storage_usage * 100) > 0 ) ? ($users->storage_usage * 100) / $users->storage_quota : 0;
         @endphp
         <div class="progress-group">
           Storage Usage
-          <span class="float-right"><b>{{ $users->storage_usage}}</b>/{{ $users->storage_quota }}</span>
+          <span class="float-right"><b>{{ $users->storage_usage}}</b>/{{ $users->storage_quota }}mb</span>
           <div class="progress progress-sm">
             <div class="progress-bar bg-primary" style="width: {{ $var1 }}%"></div>
           </div>

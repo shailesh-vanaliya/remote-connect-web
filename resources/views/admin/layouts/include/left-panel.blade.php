@@ -123,7 +123,7 @@ $imageName = asset('/public/img/futuristic.png');
           <a href="{{ url('/admin/notification') }}" class="{{ ($currRoute == 'notification.create' || $currRoute == 'notification.show' || $currRoute == 'notification.edit' || $currRoute == 'notification.index') ? 'active nav-link': 'nav-link' }}">
             <!-- <i class="nav-icon far fa-bell text-info"></i> -->
             <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/notification.svg') }}" alt="">
-            <p>Notification</p>
+            <p>Alerts</p>
           </a>
         </li>
         <li class="nav-item">

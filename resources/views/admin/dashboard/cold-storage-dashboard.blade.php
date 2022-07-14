@@ -26,7 +26,7 @@
   }
 
   .profile-user-img {
-    border: 4px solid #676767;
+    border: 3px solid #01a89d;
     padding: 5px;
   }
 </style>
@@ -57,7 +57,7 @@ if ($device->Status == 1) {
         <div class="card card-primary card-outline">
           <div class="card-body box-profile">
             <div class="text-center">
-              <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/ICON/coldstorage.png') }}" alt="Device picture">
+              <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/ICON/Generic_Device.svg') }}" alt="Device picture">
             </div>
 
             <h3 class="profile-username text-center">{{ (isset($device->modem_id) && !empty($device->modem_id) ? $device->modem_id : 'N/A') }}</h3>
