@@ -145,7 +145,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-11">
+      <!-- <div class="col-md-11">
         <p class="text-center">
           <strong>Usage Counter</strong>
         </p>
@@ -159,7 +159,6 @@
             <div class="progress-bar bg-primary" style="width: {{ $var1 }}%"></div>
           </div>
         </div>
-        <!-- /.progress-group -->
         @php 
         $var1 = ( $users->report_quota > 0 && ($users->report_counter * 100) > 0 ) ? ($users->report_counter * 100) / $users->report_quota : 0;
         @endphp
@@ -173,7 +172,6 @@
         @php
         $var1 = ( $users->sms_quota > 0 && ($users->sms_counter * 100) > 0 ) ? ($users->sms_counter * 100) / $users->sms_quota : 0;
         @endphp
-        <!-- /.progress-group -->
         <div class="progress-group">
           <span class="progress-text">SMS Counter</span>
           <span class="float-right"><b>{{ $users->sms_counter}}</b>/{{ $users->sms_quota }}</span>
@@ -182,7 +180,7 @@
           </div>
         </div>
 
-        <!-- /.progress-group -->
+        
         <div class="progress-group">
           EMAIL Counter
           @php
@@ -203,8 +201,8 @@
             <div class="progress-bar bg-secondary" style="width: {{ $var1 }}%"></div>
           </div>
         </div>
-        <!-- /.progress-group -->
-      </div>
+        
+      </div> -->
     </div>
 
   </div>
