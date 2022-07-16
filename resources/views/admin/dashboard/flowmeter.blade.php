@@ -90,6 +90,66 @@ if ($device->Status == 1) {
             <input type="hidden" name="Status" class="Status" value="{{ isset($device->Status) ? $device->Status : '' }}">
             <span class="text-center">{{ (isset($device->location) && !empty($device->location) ? $device->location : 'N/A') }}</span>
           </div>
+          <div class="col-md-12">
+            <p class="text-center">
+              <strong>Usage Counter</strong>
+            </p>
+            @php
+            $var1 = ( $device['storage_quota'] > 0 && ($device['storage_usage'] * 100) > 0 ) ? ($device['storage_usage'] * 100) / $device['storage_quota'] : 0;
+            @endphp
+            <div class="progress-group">
+              Storage Usage
+              <span class="float-right"><b>{{ $device['storage_usage']}}</b>/{{ $device['storage_quota'] }}mb</span>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-primary" style="width: {{ $var1 }}%"></div>
+              </div>
+            </div>
+            <!-- /.progress-group -->
+            @php
+            $var1 = ( $device['report_quota'] > 0 && ($device['report_counter'] * 100) > 0 ) ? ($device['report_counter'] * 100) / $device['report_quota'] : 0;
+            @endphp
+            <div class="progress-group">
+              Report Counter
+              <span class="float-right">{{ $device['report_counter']}}</b>/{{ $device['report_quota'] }}</span>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-danger" style="width: {{ $var1 }}%"></div>
+              </div>
+            </div>
+            @php
+            $var1 = ( $device['sms_quota'] > 0 && ($device['sms_counter'] * 100) > 0 ) ? ($device['sms_counter'] * 100) / $device['sms_quota'] : 0;
+            @endphp
+            <!-- /.progress-group -->
+            <div class="progress-group">
+              <span class="progress-text">SMS Counter</span>
+              <span class="float-right"><b>{{ $device['sms_counter']}}</b>/{{ $device['sms_quota'] }}</span>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-success" style="width: {{ $var1 }}%"></div>
+              </div>
+            </div>
+
+            <!-- /.progress-group -->
+            <div class="progress-group">
+              EMAIL Counter
+              @php
+              $var = ( $device['email_quota'] > 0 && ($device['email_counter'] * 100) > 0 ) ? ($device['email_counter'] * 100) / $device['email_quota'] : 0;
+              @endphp
+              <span class="float-right"><b>{{ $device['email_counter']}}</b>/{{ $device['email_quota'] }}</span>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-warning" style="width: {{ $var }}%"></div>
+              </div>
+            </div>
+            @php
+            $var1 = ( $device['notification_quota'] > 0 && ($device['notification_counter'] * 100) > 0 ) ? ($device['notification_counter'] * 100) / $device['notification_quota'] : 0;
+            @endphp
+            <div class="progress-group">
+              Notification
+              <span class="float-right"><b>{{ $device['notification_counter']}}</b>/{{ $device->notification_quota }}</span>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-secondary" style="width: {{ $var1 }}%"></div>
+              </div>
+            </div>
+            <!-- /.progress-group -->
+          </div>
         </div>
 
 
@@ -102,7 +162,7 @@ if ($device->Status == 1) {
                 <li class="nav-item">
                   <a class="nav-link active" id="custom-tabs-five-overlay-tab" data-toggle="pill" href="#custom-tabs-five-overlay" role="tab" aria-controls="custom-tabs-five-overlay" aria-selected="true">Display</a>
                 </li>
-                 <li class="nav-item">
+                <li class="nav-item">
                   <a class="nav-link" id="custom-tabs-five-overlay-dark-tab" data-toggle="pill" href="#custom-tabs-five-overlay-dark" role="tab" aria-controls="custom-tabs-five-overlay-dark" aria-selected="false">Weekly Flow</a>
                 </li>
                 <li class="nav-item">
@@ -192,13 +252,13 @@ if ($device->Status == 1) {
                   </div>
                 </div>
                 <div class="tab-pane fade show" id="custom-tabs-five-overlay-dark" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-dark-tab">
-                  <div class="row">  
-                  <div id="chartdiv2" style="height: 300px; width: 100%;"></div>
+                  <div class="row">
+                    <div id="chartdiv2" style="height: 300px; width: 100%;"></div>
                   </div>
                 </div>
                 <div class="tab-pane fade show" id="custom-tabs-flow-meter-dark" role="tabpanel" aria-labelledby="custom-tabs-flow-meter-dark-tab">
                   <div class="row">
-                  <div id="chartdiv3" style="height: 300px; width: 100%;"></div>
+                    <div id="chartdiv3" style="height: 300px; width: 100%;"></div>
                   </div>
                 </div>
               </div>
@@ -219,8 +279,8 @@ if ($device->Status == 1) {
                   </div>
                   <div class="col-sm-12 col-md-3">
                     <select class="form-control select2 customSelect" id="customSelect">
-                    <option value="12Hours" selected="selected">Last 12Hours</option>
-                      <option value="Today" >Today</option>
+                      <option value="12Hours" selected="selected">Last 12Hours</option>
+                      <option value="Today">Today</option>
                       <option value="Yesterday">Yesterday</option>
                       <option value="Last 7 Days">Last 7 Days</option>
                       <option value="Last 30 Days">Last 30 Days</option>
@@ -268,11 +328,11 @@ if ($device->Status == 1) {
       </div>
     </div>
     <div class="row">
-   <div class="col-md-6">
-        
+      <div class="col-md-6">
+
       </div>
       <div class="col-md-6">
-        
+
       </div>
     </div>
   </div>

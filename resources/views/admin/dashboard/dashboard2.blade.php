@@ -43,10 +43,10 @@
   }
 </style>
 <?php
-   if($_SERVER['HTTP_HOST'] == 'localhost'){
-    $dynamicUrl =  asset('').'public/';
-}else{
-    $dynamicUrl = asset('').'public/';
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+  $dynamicUrl =  asset('') . 'public/';
+} else {
+  $dynamicUrl = asset('') . 'public/';
 }
 ?>
 <!-- Resources -->
@@ -75,7 +75,7 @@
 
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
-              	<div class="inner" align="center" padding="0">
+                <div class="inner" align="center" padding="0">
                   <h2 style="font-size: 1.5rem">{{ isset($dashboard_alias) ? $dashboard_alias['CONTROLLER1_TITLE'] : 'ZONE1' }}</h2>
                 </div>
                 <div class="inner">
@@ -252,7 +252,7 @@
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
-              	<div class="inner" align="center" padding="0">
+                <div class="inner" align="center" padding="0">
                   <h2 style="font-size: 1.5rem">{{ isset($dashboard_alias) ? $dashboard_alias['CONTROLLER3_TITLE'] : 'ZONE4' }}</h2>
                 </div>
                 <div class="inner">
@@ -344,7 +344,7 @@
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
-              	<div class="inner" align="center" padding="0">
+                <div class="inner" align="center" padding="0">
                   <h2 style="font-size: 1.5rem">{{ isset($dashboard_alias) ? $dashboard_alias['CONTROLLER4_TITLE'] : 'ZONE5' }}</h2>
                 </div>
                 <div class="inner">
@@ -435,7 +435,7 @@
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
-              	<div class="inner" align="center" padding="0">
+                <div class="inner" align="center" padding="0">
                   <h2 style="font-size: 1.5rem">{{ isset($dashboard_alias) ? $dashboard_alias['CONTROLLER5_TITLE'] : 'ZONE6' }}</h2>
                 </div>
                 <div class="inner">
@@ -528,7 +528,7 @@
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12">
               <div class="small-box bg-success">
-              	<div class="inner" align="center" padding="0">
+                <div class="inner" align="center" padding="0">
                   <h2 style="font-size: 1.5rem">{{ isset($dashboard_alias) ? $dashboard_alias['CONTROLLER6_TITLE'] : 'ZONE7' }}</h2>
                 </div>
                 <div class="inner">
@@ -622,7 +622,72 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-primary ">
+          <div class="card-header">
+            <h3 class="card-title">Quota</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+              </button>
+              <!-- <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button> -->
+            </div>
+          </div>
 
+          @php
+          $var1 = ( $device['storage_quota'] > 0 && ($device['storage_usage'] * 100) > 0 ) ? ($device['storage_usage'] * 100) / $device['storage_quota'] : 0;
+          @endphp
+          <div class="progress-group pl-3 pr-3">
+            Storage Usage
+            <span class="float-right"><b>{{ $device['storage_usage']}}</b>/{{ $device['storage_quota'] }}mb</span>
+            <div class="progress progress-sm">
+              <div class="progress-bar bg-primary" style="width: {{ $var1 }}%"></div>
+            </div>
+          </div>
+          @php
+          $var1 = ( $device['report_quota'] > 0 && ($device['report_counter'] * 100) > 0 ) ? ($device['report_counter'] * 100) / $device['report_quota'] : 0;
+          @endphp
+          <div class="progress-group pl-3 pr-3">
+            Report Counter
+            <span class="float-right">{{ $device['report_counter']}}</b>/{{ $device['report_quota'] }}</span>
+            <div class="progress progress-sm">
+              <div class="progress-bar bg-danger" style="width: {{ $var1 }}%"></div>
+            </div>
+          </div>
+          @php
+          $var1 = ( $device['sms_quota'] > 0 && ($device['sms_counter'] * 100) > 0 ) ? ($device['sms_counter'] * 100) / $device['sms_quota'] : 0;
+          @endphp
+          <div class="progress-group pl-3 pr-3">
+            <span class="progress-text">SMS Counter</span>
+            <span class="float-right"><b>{{ $device['sms_counter']}}</b>/{{ $device['sms_quota'] }}</span>
+            <div class="progress progress-sm">
+              <div class="progress-bar bg-success" style="width: {{ $var1 }}%"></div>
+            </div>
+          </div>
+
+          <div class="progress-group pl-3 pr-3">
+            EMAIL Counter
+            @php
+            $var = ( $device['email_quota'] > 0 && ($device['email_counter'] * 100) > 0 ) ? ($device['email_counter'] * 100) / $device['email_quota'] : 0;
+            @endphp
+            <span class="float-right"><b>{{ $device['email_counter']}}</b>/{{ $device['email_quota'] }}</span>
+            <div class="progress progress-sm">
+              <div class="progress-bar bg-warning" style="width: {{ $var }}%"></div>
+            </div>
+          </div>
+          @php
+          $var1 = ( $device['notification_quota'] > 0 && ($device['notification_counter'] * 100) > 0 ) ? ($device['notification_counter'] * 100) / $device['notification_quota'] : 0;
+          @endphp
+          <div class="progress-group pl-3 pr-3">
+            Notification
+            <span class="float-right"><b>{{ $device['notification_counter']}}</b>/{{ $device->notification_quota }}</span>
+            <div class="progress progress-sm">
+              <div class="progress-bar bg-secondary" style="width: {{ $var1 }}%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-12">
         <!-- AREA CHART -->
@@ -691,7 +756,7 @@
               <!-- <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button> -->
             </div>
           </div>
-        
+
           <div class="card-body mt-1">
             <form method="POST" action="{{ url('admin/update-pid/'. $deviceName) }} " accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
               {{ csrf_field() }}
@@ -717,14 +782,14 @@
               </div>
               @else
               <div class=" row">
-                 <code class="card-body text-center">Now Your device is offline.</code>
+                <code class="card-body text-center">Now Your device is offline.</code>
               </div>
               @endif
               <input type="hidden" name="modem_id" value="{{ $deviceDetail['modem_id'] }}">
               <input type="hidden" name="id" value="{{ $deviceDetail['id'] }}">
               @else
               <div class=" row">
-                 <code class="card-body text-center">No Recipe data found</code>
+                <code class="card-body text-center">No Recipe data found</code>
               </div>
               @endif
             </form>
@@ -732,6 +797,7 @@
         </div>
       </div>
     </div>
+   
 
 </section>
 

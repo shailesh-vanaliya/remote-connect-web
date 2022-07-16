@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use Auth;
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
@@ -50,6 +51,17 @@ class Device extends Model
             'device_type.chart_alias',
             'device_type.unit_alias',
             'device_type.dashboard_id',
+            // DB::raw("SUM(device_map.report_schedule_quota) as report_schedule_quota"),
+            DB::raw("SUM(device_map.storage_usage) as storage_usage"),
+            DB::raw("SUM(device_map.storage_quota) as storage_quota"),
+            DB::raw("SUM(device_map.report_counter) as report_counter"),
+            DB::raw("SUM(device_map.report_quota) as report_quota"),
+            DB::raw("SUM(device_map.sms_counter) as sms_counter"),
+            DB::raw("SUM(device_map.sms_quota) as sms_quota"),
+            DB::raw("SUM(device_map.email_counter) as email_counter"),
+            DB::raw("SUM(device_map.email_quota) as email_quota"),
+            DB::raw("SUM(device_map.notification_quota) as notification_quota"),
+            DB::raw("SUM(device_map.notification_counter) as notification_counter"),
             'devices.*',
         );
 
@@ -90,6 +102,17 @@ class Device extends Model
             'device_type.chart_alias',
             'device_type.unit_alias',
             'device_type.dashboard_id',
+            // DB::raw("SUM(device_map.report_schedule_quota) as report_schedule_quota"),
+            DB::raw("SUM(device_map.storage_usage) as storage_usage"),
+            DB::raw("SUM(device_map.storage_quota) as storage_quota"),
+            DB::raw("SUM(device_map.report_counter) as report_counter"),
+            DB::raw("SUM(device_map.report_quota) as report_quota"),
+            DB::raw("SUM(device_map.sms_counter) as sms_counter"),
+            DB::raw("SUM(device_map.sms_quota) as sms_quota"),
+            DB::raw("SUM(device_map.email_counter) as email_counter"),
+            DB::raw("SUM(device_map.email_quota) as email_quota"),
+            DB::raw("SUM(device_map.notification_quota) as notification_quota"),
+            DB::raw("SUM(device_map.notification_counter) as notification_counter"),
             'devices.*',
         );
 

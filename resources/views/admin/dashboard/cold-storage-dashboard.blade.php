@@ -85,6 +85,66 @@ if ($device->Status == 1) {
             <input type="hidden" name="Status" class="Status" value="{{ isset($device->Status) ? $device->Status : '' }}">
             <span class="text-center">{{ (isset($device->location) && !empty($device->location) ? $device->location : 'N/A') }}</span>
           </div>
+          <div class="col-md-12">
+            <p class="text-center">
+              <strong>Usage Counter</strong>
+            </p>
+            @php
+            $var1 = ( $device['storage_quota'] > 0 && ($device['storage_usage'] * 100) > 0 ) ? ($device['storage_usage'] * 100) / $device['storage_quota'] : 0;
+            @endphp
+            <div class="progress-group">
+              Storage Usage
+              <span class="float-right"><b>{{ $device['storage_usage']}}</b>/{{ $device['storage_quota'] }}mb</span>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-primary" style="width: {{ $var1 }}%"></div>
+              </div>
+            </div>
+            <!-- /.progress-group -->
+            @php
+            $var1 = ( $device['report_quota'] > 0 && ($device['report_counter'] * 100) > 0 ) ? ($device['report_counter'] * 100) / $device['report_quota'] : 0;
+            @endphp
+            <div class="progress-group">
+              Report Counter
+              <span class="float-right">{{ $device['report_counter']}}</b>/{{ $device['report_quota'] }}</span>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-danger" style="width: {{ $var1 }}%"></div>
+              </div>
+            </div>
+            @php
+            $var1 = ( $device['sms_quota'] > 0 && ($device['sms_counter'] * 100) > 0 ) ? ($device['sms_counter'] * 100) / $device['sms_quota'] : 0;
+            @endphp
+            <!-- /.progress-group -->
+            <div class="progress-group">
+              <span class="progress-text">SMS Counter</span>
+              <span class="float-right"><b>{{ $device['sms_counter']}}</b>/{{ $device['sms_quota'] }}</span>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-success" style="width: {{ $var1 }}%"></div>
+              </div>
+            </div>
+
+            <!-- /.progress-group -->
+            <div class="progress-group">
+              EMAIL Counter
+              @php
+              $var = ( $device['email_quota'] > 0 && ($device['email_counter'] * 100) > 0 ) ? ($device['email_counter'] * 100) / $device['email_quota'] : 0;
+              @endphp
+              <span class="float-right"><b>{{ $device['email_counter']}}</b>/{{ $device['email_quota'] }}</span>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-warning" style="width: {{ $var }}%"></div>
+              </div>
+            </div>
+            @php
+            $var1 = ( $device['notification_quota'] > 0 && ($device['notification_counter'] * 100) > 0 ) ? ($device['notification_counter'] * 100) / $device['notification_quota'] : 0;
+            @endphp
+            <div class="progress-group">
+              Notification
+              <span class="float-right"><b>{{ $device['notification_counter']}}</b>/{{ $device->notification_quota }}</span>
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-secondary" style="width: {{ $var1 }}%"></div>
+              </div>
+            </div>
+            <!-- /.progress-group -->
+          </div>
         </div>
 
 

@@ -58,7 +58,7 @@ class Dashboard2Controller extends Controller
         $data['result'] =  Honeywell::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
         $data['PIDAllData'] =  PIDAllData::where("modem_id", $this->deviceName)->orderBy('dtm', 'desc')->first();
         $data['jsonDecode']= (isset($data['PIDAllData']['data']) && !empty($data['PIDAllData']['data'])) ? json_decode($data['PIDAllData']['data'],TRUE) : "";
-        
+        $data['device'] =  $this->deviceDetail;
         $alias =  DeviceAliasmap::where("modem_id", $this->deviceName)->first();
         $data['dashboard_alias']= (isset($alias->dashboard_alias) && !empty($alias->dashboard_alias)) ? json_decode($alias->dashboard_alias,TRUE) : "";
         $data['parameter_alias']= (isset($alias->parameter_alias) && !empty($alias->parameter_alias)) ? json_decode($alias->parameter_alias,TRUE) : "";

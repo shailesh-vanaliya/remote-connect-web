@@ -10,6 +10,7 @@ use App\Models\Organization;
 use App\Models\DeviceType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Config;
 
 class DeviceMapController extends Controller
 {
@@ -56,6 +57,7 @@ class DeviceMapController extends Controller
                 'Device Map' => '',
             ],
         ];
+     
         return view('admin.device-map.index', $data);
     }
 
@@ -84,6 +86,13 @@ class DeviceMapController extends Controller
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
         }
         $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
+        $data['storageQuota'] =  Config::get('constants.storageQuota');
+        $data['SMSQuota'] =  Config::get('constants.SMSQuota');
+        $data['emailQuota'] =  Config::get('constants.emailQuota');
+        $data['reportQuota'] =  Config::get('constants.reportQuota');
+        $data['notificationQuota'] =  Config::get('constants.notificationQuota');
+        $data['reportScheduleQuota'] =  Config::get('constants.reportScheduleQuota');
+
         return view('admin.device-map.create', $data);
     }
 
@@ -171,6 +180,13 @@ class DeviceMapController extends Controller
             $data['organization'] = Organization::select('organization_name', 'id',)->pluck('organization_name', 'id')->toArray();
         }
         $data['deviceType'] = DeviceType::select('device_type', 'id',)->pluck('device_type', 'id')->toArray();
+        $data['storageQuota'] =  Config::get('constants.storageQuota');
+        $data['SMSQuota'] =  Config::get('constants.SMSQuota');
+        $data['emailQuota'] =  Config::get('constants.emailQuota');
+        $data['reportQuota'] =  Config::get('constants.reportQuota');
+        $data['notificationQuota'] =  Config::get('constants.notificationQuota');
+        $data['reportScheduleQuota'] =  Config::get('constants.reportScheduleQuota');
+
         return view('admin.device-map.edit', $data);
     }
 

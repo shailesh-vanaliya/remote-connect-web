@@ -48,7 +48,7 @@ class FlowmeterDashboardController extends Controller
 
         $data['device'] =  $deviceObject->deviceDetail($this->deviceDetail->id);
         $alias =  DeviceAliasmap::where("modem_id", $this->deviceName)->first();
-        // print_r($alias);
+        // print_r($data['device']);
         // exit;
         $data['dashboard_alias'] = (isset($alias->dashboard_alias) && !empty($alias->dashboard_alias)) ? json_decode($alias->dashboard_alias, TRUE) : "";
         $data['unit_alias'] = (isset($alias->unit_alias) && !empty($alias->unit_alias)) ? json_decode($alias->unit_alias, TRUE) : "";

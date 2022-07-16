@@ -1,5 +1,5 @@
 <div class="card-body">
-   
+
 
     <div class="form-group row {{ $errors->has('model_no') ? 'has-error' : ''}}">
         <label for="model_no" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Model No' }}</label>
@@ -8,7 +8,7 @@
             {!! $errors->first('model_no', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    
+
     <div class="form-group row {{ $errors->has('MODEM_ID') ? 'has-error' : ''}}">
         <label for="MODEM_ID" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Modem Id' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
@@ -116,6 +116,87 @@
             {!! $errors->first('updated_by', '<p class="help-block">:message</p>') !!}
         </div>
     </div> -->
+    @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')
+    <div class="form-group row {{ $errors->has('storage_usage') ? 'has-error' : ''}}">
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="storage_usage">{{ 'Storage usage' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            <input class="form-control" name="storage_usage" type="text" id="storage_usage" value="{{ isset($devicemap->storage_usage) ? $devicemap->storage_usage :   old('storage_usage')  }}">
+            {!! $errors->first('storage_usage', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
+    <div class="form-group row {{ $errors->has('storage_quota') ? 'has-error' : ''}}">
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="storage_quota">{{ 'Storage quota' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            {{ Form::select('storage_quota', $storageQuota , empty($devicemap->storage_quota) ?  null : $devicemap->storage_quota , array('class' => 'form-control storage_quota select2', 'id' => 'storage_quota','required')) }}
+            {!! $errors->first('storage_quota', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="form-group row {{ $errors->has('report_counter') ? 'has-error' : ''}}">
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="report_counter">{{ 'Report counter' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            <input class="form-control" name="report_counter" type="text" id="report_counter" value="{{ isset($devicemap->report_counter) ? $devicemap->report_counter :   old('report_counter')  }}">
+            {!! $errors->first('report_counter', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="form-group row {{ $errors->has('report_quota') ? 'has-error' : ''}}">
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="report_quota">{{ 'Report quota' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            {{ Form::select('report_quota', $reportQuota , empty($devicemap->report_quota) ?  null : $devicemap->report_quota , array('class' => 'form-control report_quota select2', 'id' => 'report_quota','required')) }}
+            {!! $errors->first('report_quota', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="form-group row {{ $errors->has('report_schedule_quota') ? 'has-error' : ''}}">
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="report_schedule_quota">{{ 'Report schedule quota' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            {{ Form::select('report_schedule_quota', $reportScheduleQuota , empty($devicemap->report_schedule_quota) ?  null : $devicemap->report_schedule_quota , array('class' => 'form-control report_schedule_quota select2', 'id' => 'report_schedule_quota','required')) }}
+            {!! $errors->first('report_schedule_quota', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="form-group row {{ $errors->has('sms_counter') ? 'has-error' : ''}}">
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="sms_counter">{{ 'SMS counter' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            <input class="form-control" name="sms_counter" type="text" id="sms_counter" value="{{ isset($devicemap->sms_counter) ? $devicemap->sms_counter :   old('sms_counter')  }}">
+            {!! $errors->first('sms_counter', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="form-group row {{ $errors->has('sms_quota') ? 'has-error' : ''}}">
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="sms_quota">{{ 'SMS quota' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            {{ Form::select('sms_quota', $SMSQuota , empty($devicemap->sms_quota) ?  null : $devicemap->sms_quota , array('class' => 'form-control sms_quota select2', 'id' => 'sms_quota','required')) }}
+            {!! $errors->first('sms_quota', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="form-group row {{ $errors->has('email_counter') ? 'has-error' : ''}}">
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="email_counter">{{ 'Email counter' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            <input class="form-control" name="email_counter" type="text" id="email_counter" value="{{ isset($devicemap->email_counter) ? $devicemap->email_counter :   old('email_counter')  }}">
+            {!! $errors->first('email_counter', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="form-group row {{ $errors->has('email_quota') ? 'has-error' : ''}}">
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="email_quota">{{ 'Email quota' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            {{ Form::select('email_quota', $emailQuota , empty($devicemap->email_quota) ?  null : $devicemap->email_quota , array('class' => 'form-control email_quota select2', 'id' => 'email_quota','required')) }}
+            {!! $errors->first('email_quota', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="form-group row {{ $errors->has('notification_counter') ? 'has-error' : ''}}">
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="notification_counter">{{ 'Notification Counter' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            <input class="form-control" name="notification_counter" type="text" id="notification_counter" value="{{ isset($devicemap->notification_counter) ? $devicemap->notification_counter :   old('notification_counter')  }}">
+            {!! $errors->first('notification_counter', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
+    <div class="form-group row {{ $errors->has('notification_quota') ? 'has-error' : ''}}">
+        <label class="col-form-label text-right col-lg-3 col-sm-12" for="notification_quota">{{ 'Notification Quota' }}</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            {{ Form::select('notification_quota', $notificationQuota , empty($devicemap->notification_quota) ?  null : $devicemap->notification_quota , array('class' => 'form-control notification_quota select2', 'id' => 'notification_quota','required')) }}
+            {!! $errors->first('notification_quota', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    @endif
 
     <div class="form-group row row">
         <input class="btn btn-primary col-lg-1 col-md-9 col-sm-12 pull-right" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
