@@ -1,6 +1,6 @@
-<!-- <div style="display: none;" class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{ asset('public/ICON/loader.gif') }}" alt="Device" height="150" width="150">
-  </div>  -->
+<div style="display: none;" class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="{{ asset('public/ICON/IIOTloader.gif') }}" alt="Device" height="150" width="150">
+  </div> 
 @if (session('session_error') || session('session_success') || session('session_alert'))
 <div id="errorSection" class="col-md-12 mt-2">
     <div class="col-md-12 subsection">
