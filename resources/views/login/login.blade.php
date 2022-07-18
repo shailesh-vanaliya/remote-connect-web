@@ -64,7 +64,7 @@
 
   <!-- /.login-logo -->
   <div class="card ">
-    <div class="login-logo" style="margin-top: 1.0rem; margin-bottom:0.1rem;"> <img src='{{ asset("/public/img/futuristics.png") }}' class="logo"> </div>
+    <div class="login-logo" style="margin-top: 1.0rem; margin-bottom:0.1rem;"> <img src='{{ asset("/public/img/test.gif") }}' class="logo"> </div>
     <div class="card-body login-card-body">
       <p class="login-box-msg">IIOT Connect Sign in</p>
       @include('login.layout.message')
