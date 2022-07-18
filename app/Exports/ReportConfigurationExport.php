@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\DataLog;
 use App\Models\Honeywell;
+use App\Models\DeviceMap;
 use App\Models\ReportConfiguration;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
@@ -33,8 +34,8 @@ class ReportConfigurationExport implements FromCollection, WithCustomCsvSettings
         $this->data['parameter'] = str_replace("]", "", $this->data['parameter']);
         // $this->data['parameter'] = str_replace('"',"''",$this->data['parameter']);
 
-// print_r($this->data);
-// exit;
+        // print_r($this->data);
+        // exit;
         // $string = "'modem_id','Pressure_PV'";
         $string = $this->data['parameter'];
         // $string = str_replace(",","','",$string);
@@ -46,12 +47,12 @@ class ReportConfigurationExport implements FromCollection, WithCustomCsvSettings
             $end = $this->data['end'] . ":00";
 
             $res  =  $this->data['model_name']::selectRaw("$string")
-                    ->where("modem_id", $this->data['modem_id'])
-                    ->whereRaw(
-                        "(dtm >= ? AND dtm <= ?)",
-                        [$start, $end]
-                    )
-                    ->get();
+                ->where("modem_id", $this->data['modem_id'])
+                ->whereRaw(
+                    "(dtm >= ? AND dtm <= ?)",
+                    [$start, $end]
+                )
+                ->get();
 
             // // $res  =  DataLog::select($this->data['parameter'])
             // // $res  =  DataLog::select('modem_id','slave_id')
@@ -75,6 +76,11 @@ class ReportConfigurationExport implements FromCollection, WithCustomCsvSettings
             $usr =  User::where(['id' => Auth::guard('admin')->user()->id])->first()->toArray();
             User::where(['id' => Auth::guard('admin')->user()->id])
                 ->update(['report_counter' => $usr['report_counter'] + 1]);
+
+            $usrs =  DeviceMap::where(['MODEM_ID' => $this->data['modem_id']])->first()->toArray();
+            DeviceMap::where(['MODEM_ID' => $this->data['modem_id']])
+                ->update(['report_counter' => $usrs['report_counter'] + 1]);
+
             return $res;
         } catch (Exception $e) {
             return redirect('admin/report')->with('session_error', $e->getMessage());

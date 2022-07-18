@@ -384,7 +384,6 @@ var Flowmeter = function () {
                 data: { 'action': 'getWeeklyChart' },
                 success: function (out) {
                     let res = JSON.parse(out);
-                    console.log(res?.chart, " resresresres")
                     $('.preloader').hide();
 
 
@@ -470,7 +469,6 @@ var Flowmeter = function () {
 
                     var data = res?.chart;
                     // var data = generateDatas(10);
-                    console.log(data, " datadata")
                     series.data.setAll(data);
 
 
@@ -497,7 +495,6 @@ var Flowmeter = function () {
                 data: { 'action': 'getMonthlyChart' },
                 success: function (out) {
                     let res = JSON.parse(out);
-                    console.log(res?.chart, " resresresres")
                     var data = res?.chart
                     $('.preloader').hide();
 
