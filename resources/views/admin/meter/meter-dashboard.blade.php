@@ -134,7 +134,7 @@ $sss = "opacity: 0.5;cursor: not-allowed !important;";
             @endphp
             <div class="progress-group">
               Report Counter
-              <span class="float-right">{{ $device['report_counter']}}</b>/{{ $device['report_quota'] }}</span>
+              <span class="float-right"><b>{{ $device['report_counter']}}</b>/{{ $device['report_quota'] }}</span>
               <div class="progress progress-sm">
                 <div class="progress-bar bg-danger" style="width: {{ $var1 }}%"></div>
               </div>

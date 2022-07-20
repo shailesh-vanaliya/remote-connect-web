@@ -1,5 +1,5 @@
 <div style="display: none;" class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{ asset('public/ICON/IIOTloader.gif') }}" alt="Device" height="150" width="150">
+    <img class="animation__shake" src="{{ asset('public/ICON/IIOTloader.gif') }}" alt="Device" height="45" width="40">
   </div> 
 @if (session('session_error') || session('session_success') || session('session_alert'))
 <div id="errorSection" class="col-md-12 mt-2">
