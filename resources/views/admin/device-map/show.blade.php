@@ -64,13 +64,56 @@
                                     <td> {{ $devicemap->subscription_expire_date }} </td>
                                 </tr>
                                 <tr>
-                                    <th> Subscription Tatus </th>
+                                    <th> Subscription Status </th>
                                     <td> {{ $devicemap->subscription_status }} </td>
                                 </tr>
                                 <tr>
-                                    <th> Created By </th>
-                                    <td> {{ $devicemap->created_by }} </td>
+                                    <th> Storage usage </th>
+                                    <td> {{ $devicemap->storage_usage }} </td>
                                 </tr>
+
+                                <tr>
+                                    <th> Storage quota </th>
+                                    <td> {{ $devicemap->storage_quota }} </td>
+                                </tr>
+                                <tr>
+                                    <th> Report counter </th>
+                                    <td> {{ $devicemap->report_counter }} </td>
+                                </tr>
+                                <tr>
+                                    <th> Report quota </th>
+                                    <td> {{ $devicemap->report_quota }} </td>
+                                </tr>
+                                <tr>
+                                    <th> Report schedule quota </th>
+                                    <td> {{ $devicemap->report_schedule_quota }} </td>
+                                </tr>
+                                <tr>
+                                    <th> SMS counter  </th>
+                                    <td> {{ $devicemap->sms_counter }} </td>
+                                </tr>
+                                <tr>
+                                    <th> SMS quota </th>
+                                    <td> {{ $devicemap->sms_quota }} </td>
+                                </tr>
+                                <tr>
+                                    <th> Email counter </th>
+                                    <td> {{ $devicemap->email_counter }} </td>
+                                </tr>
+                                <tr>
+                                    <th> Email quota </th>
+                                    <td> {{ $devicemap->email_quota }} </td>
+                                </tr>
+                                <tr>
+                                    <th> Notification Counter </th>
+                                    <td> {{ $devicemap->notification_counter }} </td>
+                                </tr>
+                                <tr>
+                                    <th> Notification Quota </th>
+                                    <td> {{ $devicemap->notification_quota }} </td>
+                                </tr>
+
+
                             </tbody>
                         </table>
                     </div>

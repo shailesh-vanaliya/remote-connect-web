@@ -88,7 +88,7 @@
         </div>
     </div>
     <div class="form-group row {{ $errors->has('subscription_status') ? 'has-error' : ''}}">
-        <label for="subscription_status" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Subscription Tatus' }}</label>
+        <label for="subscription_status" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Subscription Status' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
             <!-- <input class="form-control" name="subscription_status" type="text" id="subscription_status" value="{{ isset($devicemap->subscription_status) ? $devicemap->subscription_status : ''}}"> -->
             <select name="subscription_status" class="form-control" id="subscription_status">
