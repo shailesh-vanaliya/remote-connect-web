@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\{
     ReportSchedulesController,
     ColdStorageDashboardController,
     FlowmeterDashboardController,
+    DeviceTypeController,
 };
 
 /*
@@ -100,6 +101,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::post('/flowmeter/ajaxAction', [FlowmeterDashboardController::class, 'ajaxAction'])->name('flow-ajaxAction');
     Route::get('/quota', [UserController::class, 'quota'])->name('quota');
 
+    Route::resource('device-type', DeviceTypeController::class);
 });
 
 Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illuminate\Routing\Router $route) {

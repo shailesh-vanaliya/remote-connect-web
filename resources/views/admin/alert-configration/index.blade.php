@@ -37,7 +37,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->modem_id }}</td>
-                                    <td>{{ Helper::gerReportParameter(array($item->parameter), $item->modem_id) }}</td>
+                                    <td>{{ (isset($item->parameter) && !empty($item->parameter)) ? Helper::gerReportParameter(array($item->parameter), $item->modem_id) : "" }}</td>
                                     <td>{{ $condition[$item->condition] }}</td>
                                     <td>{{ $item->set_value }}</td>
                                     <td>
