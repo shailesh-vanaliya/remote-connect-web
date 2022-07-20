@@ -88,6 +88,12 @@ $imageName = asset('/public/img/futuristic.png');
             <p class="spn">Device Map</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ url('/admin/device-type')}}" class="{{ ($currRoute == 'device-type.create' || $currRoute == 'device-type.show' || $currRoute == 'device-type.edit' || $currRoute == 'device-type.index') ? 'active nav-link': 'nav-link' }}">
+            <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/Devices.svg') }}" alt="">
+            <p class="spn">Device Type</p>
+          </a>
+        </li>
         @endif
         @if(Auth::guard('admin')->user()->role !== 'USER')
         <li class="{{ ($currRoute == 'users.create' || $currRoute == 'users.show' || $currRoute == 'users.edit' || $currRoute == 'users.index') ? 'active nav-item': 'nav-item' }}">
@@ -154,7 +160,7 @@ $imageName = asset('/public/img/futuristic.png');
             <p>Report Schedules</p>
           </a>
         </li>
-        @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')
+        @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')       
         <li class="nav-item">
           <a href="{{ url('/admin/quota')}}" class="{{ ($currRoute == 'quota') ? 'active nav-link': 'nav-link' }}">
             <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/quota.svg') }}" alt="">

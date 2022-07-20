@@ -21,7 +21,7 @@ class DeviceTypeController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $devicetype = DeviceType::where('device_type', 'LIKE', "%$keyword%")
+            $data['devicetype'] = DeviceType::where('device_type', 'LIKE', "%$keyword%")
                 ->orWhere('data_source', 'LIKE', "%$keyword%")
                 ->orWhere('data_table', 'LIKE', "%$keyword%")
                 ->orWhere('dashboard_id', 'LIKE', "%$keyword%")
@@ -35,10 +35,21 @@ class DeviceTypeController extends Controller
                 ->orWhere('updated_by', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $devicetype = DeviceType::latest()->paginate($perPage);
+             $data['devicetype'] = DeviceType::latest()->paginate($perPage);
         }
 
-        return view('admin.device-type.index', compact('devicetype'));
+        $data['title']     = 'Device Type';
+        $data['pagetitle'] = 'Device Type';
+        $data['js']        = ['admin/user.js', 'jquery.validate.min.js'];
+        $data['funinit']   = ['User.init()'];
+        $data['header']    = [
+            'title'      => 'Device Type',
+            'breadcrumb' => [
+                'Device Type'     => '',
+                'List' => '',
+            ],
+        ];
+        return view('admin.device-type.index', $data);
     }
 
     /**
@@ -48,7 +59,18 @@ class DeviceTypeController extends Controller
      */
     public function create()
     {
-        return view('admin.device-type.create');
+        $data['title']     = 'Device Type';
+        $data['pagetitle'] = 'Device Type';
+        $data['js']        = ['admin/user.js', 'jquery.validate.min.js'];
+        $data['funinit']   = ['User.init()'];
+        $data['header']    = [
+            'title'      => 'Device Type',
+            'breadcrumb' => [
+                'Device Type'     => '',
+                'Create' => '',
+            ],
+        ];
+        return view('admin.device-type.create',$data);
     }
 
     /**
@@ -77,9 +99,20 @@ class DeviceTypeController extends Controller
      */
     public function show($id)
     {
-        $devicetype = DeviceType::findOrFail($id);
+        $data['devicetype'] = DeviceType::findOrFail($id);
 
-        return view('admin.device-type.show', compact('devicetype'));
+        $data['title']     = 'Device Type';
+        $data['pagetitle'] = 'Device Type';
+        $data['js']        = ['admin/user.js', 'jquery.validate.min.js'];
+        $data['funinit']   = ['User.init()'];
+        $data['header']    = [
+            'title'      => 'Device Type',
+            'breadcrumb' => [
+                'Device Type'     => '',
+                'View' => '',
+            ],
+        ];
+        return view('admin.device-type.show', $data);
     }
 
     /**
@@ -91,9 +124,19 @@ class DeviceTypeController extends Controller
      */
     public function edit($id)
     {
-        $devicetype = DeviceType::findOrFail($id);
-
-        return view('admin.device-type.edit', compact('devicetype'));
+        $data['devicetype'] = DeviceType::findOrFail($id);
+        $data['title']     = 'Device Type';
+        $data['pagetitle'] = 'Device Type';
+        $data['js']        = ['admin/user.js', 'jquery.validate.min.js'];
+        $data['funinit']   = ['User.init()'];
+        $data['header']    = [
+            'title'      => 'Device Type',
+            'breadcrumb' => [
+                'Device Type'     => '',
+                'Edit' => '',
+            ],
+        ];
+        return view('admin.device-type.edit', $data);
     }
 
     /**
