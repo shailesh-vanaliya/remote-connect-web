@@ -28,11 +28,14 @@
             </div>
             @foreach($device as $item)
             <div class="col-md-3">
+                 <!-- if (@getimagesize(asset('/public/uploads/device/' . $item->img ))){
+                    $imageName = asset('/public/uploads/device/' . $item->img ); -->
                 @php
-                if (@getimagesize(asset('/public/uploads/device/' . $item->img ))){
-                $imageName = asset('/public/uploads/device/' . $item->img );
+                $nm = str_replace("_","",$item->device_type.'.png');
+                if (@getimagesize(asset('/public/ICON/' . $nm ))){
+                    $imageName = asset('/public/ICON/' . $nm );
                 } else {
-                $imageName = asset('/public/uploads/device/no_image.svg');
+                    $imageName = asset('/public/uploads/device/no_image.svg');
                 }
                 if($item->Status == 1){
                 $sss = "box-shadow: 0 0.125rem 0.25rem #28A745 !important;";
@@ -67,10 +70,17 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="javascript:;" class="nav-link">
                                     Device Type <span class="float-right badge bg-info">{{ $item->device_type }}</span>
                                 </a>
                             </li>
+                            @if(Auth::guard('admin')->user()->role == 'SUPERADMIN')
+                            <li class="nav-item">
+                                <a href="javascript:;" class="nav-link">
+                                    User Name <span class="float-right badge bg-secondary ">{{ $item->first_name. " ".$item->last_name }}</span>
+                                </a>
+                            </li>
+                            @endif
                         @php
                             $url = url('/admin/'.$item->dashboard_id.'/' . base64_encode($item->id) );
                             $url = ($item->dashboard_id == '') ? "#" : $url;

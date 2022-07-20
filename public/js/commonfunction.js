@@ -729,7 +729,7 @@ setInterval(function () {
 
 
 function getNotification() {
-    $('.preloader').show();
+    // $('.preloader').show();
     if(window.location.href.includes('admin') == false){
         return false;
     }
