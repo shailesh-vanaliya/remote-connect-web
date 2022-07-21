@@ -90,7 +90,7 @@ $imageName = asset('/public/img/futuristic.png');
         </li>
         <li class="nav-item">
           <a href="{{ url('/admin/device-type')}}" class="{{ ($currRoute == 'device-type.create' || $currRoute == 'device-type.show' || $currRoute == 'device-type.edit' || $currRoute == 'device-type.index') ? 'active nav-link': 'nav-link' }}">
-            <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/Devices.svg') }}" alt="">
+            <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/Device_type.svg') }}" alt="">
             <p class="spn">Device Type</p>
           </a>
         </li>

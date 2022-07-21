@@ -352,3 +352,8 @@ td.actionTd {
 .login-logo {
     /* background: url(../../img/futuristics.png) !important; */
 }
+
+p.help-block {
+    color: red;
+    text-transform: capitalize;
+}

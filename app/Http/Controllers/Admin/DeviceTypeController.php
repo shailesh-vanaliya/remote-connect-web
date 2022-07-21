@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Auth;
 use App\Models\DeviceType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DeviceTypeController extends Controller
 {
@@ -35,7 +36,7 @@ class DeviceTypeController extends Controller
                 ->orWhere('updated_by', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-             $data['devicetype'] = DeviceType::latest()->paginate($perPage);
+            $data['devicetype'] = DeviceType::latest()->paginate($perPage);
         }
 
         $data['title']     = 'Device Type';
@@ -70,7 +71,7 @@ class DeviceTypeController extends Controller
                 'Create' => '',
             ],
         ];
-        return view('admin.device-type.create',$data);
+        return view('admin.device-type.create', $data);
     }
 
     /**
@@ -82,12 +83,32 @@ class DeviceTypeController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        DeviceType::create($requestData);
 
-        return redirect('admin/device-type')->with('session_success', 'DeviceType added!');
+        $rules = [
+            "data_source" => "required",
+            "data_table" => "required",
+            "dashboard_id" => "required",
+            "parameter_alias" => "required",
+            "unit_alias" => "required",
+            "chart_alias" => "required",
+            "dashboard_alias" => "required",
+            "model_name" => "required",
+        ];
+
+        try {
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect("admin/device-type/create")->withErrors($validator)->withInput();
+            }
+            $requestData = $request->all();
+            $requestData['created_by'] = Auth::guard('admin')->user()->id;
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            DeviceType::create($requestData);
+
+            return redirect('admin/device-type')->with('session_success', 'Device Type added!');
+        } catch (\Exception $e) {
+            return redirect('admin/device-type/create')->with('session_error', $e->getMessage());
+        }
     }
 
     /**
@@ -149,13 +170,32 @@ class DeviceTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $requestData = $request->all();
-        
-        $devicetype = DeviceType::findOrFail($id);
-        $devicetype->update($requestData);
+        $rules = [
+            "data_source" => "required",
+            "data_table" => "required",
+            "dashboard_id" => "required",
+            "parameter_alias" => "required",
+            "unit_alias" => "required",
+            "chart_alias" => "required",
+            "dashboard_alias" => "required",
+            "model_name" => "required",
+        ];
 
-        return redirect('admin/device-type')->with('session_success', 'DeviceType updated!');
+        try {
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect("admin/device-type/$id/edit")->withErrors($validator)->withInput();
+            }
+            $requestData = $request->all();
+
+            $devicetype = DeviceType::findOrFail($id);
+            $requestData['updated_by'] = Auth::guard('admin')->user()->id;
+            $devicetype->update($requestData);
+
+            return redirect('admin/device-type')->with('session_success', 'Device Type updated!');
+        } catch (\Exception $e) {
+            return redirect("admin/device-type/$id/edit")->with('session_error', $e->getMessage());
+        }
     }
 
     /**
@@ -167,8 +207,11 @@ class DeviceTypeController extends Controller
      */
     public function destroy($id)
     {
-        DeviceType::destroy($id);
-
-        return redirect('admin/device-type')->with('session_success', 'DeviceType deleted!');
+        try {
+            DeviceType::destroy($id);
+            return redirect('admin/device-type')->with('session_success', 'Device Type deleted!');
+        } catch (\Exception $e) {
+            return redirect("admin/device-type")->with('session_error', $e->getMessage());
+        }
     }
 }

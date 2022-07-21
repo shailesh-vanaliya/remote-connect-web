@@ -221,7 +221,7 @@ class DeviceMapController extends Controller
             return redirect('admin/device-map')->with('session_success', 'Device Map updated!');
 
         } catch (\Exception $e) {
-            return redirect('admin/device-map/$4id/edit')->with('session_error', $e->getMessage());
+            return redirect("admin/device-map/$id/edit")->with('session_error', $e->getMessage());
         }
 
     }
