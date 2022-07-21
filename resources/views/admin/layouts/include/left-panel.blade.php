@@ -94,6 +94,12 @@ $imageName = asset('/public/img/futuristic.png');
             <p class="spn">Device Type</p>
           </a>
         </li>
+        <li class="{{ ($currRoute == 'mqtt-user.create' || $currRoute == 'mqtt-user.show' || $currRoute == 'mqtt-user.edit' || $currRoute == 'mqtt-user.index') ? 'active nav-item': 'nav-item' }}">
+          <a href="{{ url('/admin/mqtt-user') }}" class="{{ ($currRoute == 'mqtt-user.create' || $currRoute == 'mqtt-user.show' || $currRoute == 'mqtt-user.edit' || $currRoute == 'mqtt-user.index') ? 'active nav-link': 'nav-link' }}">
+            <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/User.svg') }}" alt="">
+            <p class="spn"> MQTT User</p>
+          </a>
+        </li>
         @endif
         @if(Auth::guard('admin')->user()->role !== 'USER')
         <li class="{{ ($currRoute == 'users.create' || $currRoute == 'users.show' || $currRoute == 'users.edit' || $currRoute == 'users.index') ? 'active nav-item': 'nav-item' }}">
