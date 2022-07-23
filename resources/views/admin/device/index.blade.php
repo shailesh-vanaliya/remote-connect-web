@@ -32,8 +32,8 @@
                     $imageName = asset('/public/uploads/device/' . $item->img ); -->
                 @php
                 $nm = str_replace("_","",$item->device_type.'.png');
-                if (@getimagesize(asset('/public/ICON/' . $nm ))){
-                    $imageName = asset('/public/ICON/' . $nm );
+                if (@getimagesize(asset('/public/uploads/device/' . $nm ))){
+                    $imageName = asset('/public/uploads/device/' . $nm );
                 } else {
                     $imageName = asset('/public/uploads/device/no_image.svg');
                 }
