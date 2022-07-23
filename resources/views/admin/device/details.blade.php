@@ -31,7 +31,7 @@
                                 </li>
                             </p> -->
                             <div class="text-center">
-                                <img style="" class="col-md-6 col-md-12" src="{{ asset('/public/uploads/device/' . $deviceDetail->img ) }}" alt="">
+                                <img style="width:auto;" class="col-md-6 col-md-12 text-center" src="{{ asset('/public/uploads/device/' . $deviceDetail->img ) }}" alt="">
                             </div>
                             <br />
                             <input type="file" name="logo" class="btn btn-default btn-block">
