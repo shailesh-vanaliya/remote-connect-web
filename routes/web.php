@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\{
     ColdStorageDashboardController,
     FlowmeterDashboardController,
     DeviceTypeController,
+    MQTTUserController,
 };
 
 /*
@@ -102,6 +103,7 @@ Route::group(['prefix' => $adminPrefix, 'middleware' => ['admin']], function () 
     Route::get('/quota', [UserController::class, 'quota'])->name('quota');
 
     Route::resource('device-type', DeviceTypeController::class);
+    Route::resource('mqtt-user', MQTTUserController::class);
 });
 
 Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illuminate\Routing\Router $route) {
@@ -109,3 +111,4 @@ Route::group(['prefix' => 'admin',  'middleware' => ['admin']], function (\Illum
         ->name('user_edit')->where('id', '[0-9]+');
 }); 
 Route::resource('admin/honeywell-pid-aliasmap', 'Admin\HoneywellPidAliasmapController');
+
