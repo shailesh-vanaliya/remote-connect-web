@@ -73,7 +73,7 @@ class MQTTUserController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            "username" => "required",
+            "user_name" => "required",
             "password" => "required",
         ];
 
@@ -157,7 +157,7 @@ class MQTTUserController extends Controller
         try {
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
-                return redirect("admin/device-type/$id/edit")->withErrors($validator)->withInput();
+                return redirect("admin/mqtt-user/$id/edit")->withErrors($validator)->withInput();
             }
         $requestData = $request->all();
 
@@ -166,7 +166,7 @@ class MQTTUserController extends Controller
 
         return redirect('admin/mqtt-user')->with('session_success', 'MQTTUser updated!');
     } catch (\Exception $e) {
-        return redirect("admin/device-type/$id/edit")->with('session_error', $e->getMessage());
+        return redirect("admin/mqtt-user/$id/edit")->with('session_error', $e->getMessage());
     }
     }
 
