@@ -76,7 +76,7 @@ $imageName = asset('/public/img/futuristic.png');
         </li>
 
         <li class="{{ ($currRoute == 'device.create'  ||   $currRoute == 'device-detail' || $currRoute == 'device.show' || $currRoute == 'device.edit' || $currRoute == 'device.index') ? 'active nav-item': 'nav-item' }}">
-          <a href="{{ url('/admin/device') }}" class="{{ ($currRoute == 'device.create'   ||   $currRoute == 'map-alias' ||   $currRoute == 'moisture' ||  $currRoute == 'dashboard2' || $currRoute == 'device-detail' || $currRoute == 'device.show' || $currRoute == 'device.edit' || $currRoute == 'device.index') ? 'active nav-link': 'nav-link' }}">
+          <a href="{{ url('/admin/device') }}" class="{{ ($currRoute == 'device.create'   ||   $currRoute == 'map-alias' ||   $currRoute == 'moisture' ||  $currRoute == 'cold-storage' ||  $currRoute == 'dashboard2' || $currRoute == 'device-detail' || $currRoute == 'device.show' || $currRoute == 'device.edit' || $currRoute == 'device.index') ? 'active nav-link': 'nav-link' }}">
             <img class="nav-icon" style="width:28px" src="{{ asset('public/ICON/Devices.svg') }}" alt="">
             <p class="spn">Device</p>
           </a>
