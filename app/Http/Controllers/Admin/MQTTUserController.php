@@ -151,8 +151,7 @@ class MQTTUserController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            "username" => "required",
-            "password" => "required",
+            "user_name" => "required",
         ];
         try {
             $validator = Validator::make($request->all(), $rules);
@@ -160,8 +159,13 @@ class MQTTUserController extends Controller
                 return redirect("admin/mqtt-user/$id/edit")->withErrors($validator)->withInput();
             }
         $requestData = $request->all();
-
+        // $hash = hash('sha512', $requestData['password']);
+        $hash = password_hash(hash('sha512', $requestData['password']), PASSWORD_DEFAULT);
+        // $hash = password_hash($requestData['password'], PASSWORD_DEFAULT);
+        
         $mqttuser = MQTTUser::findOrFail($id);
+        $requestData['password'] = (!empty($requestData['password']) ) ?  $hash : $requestData['old_password'];
+
         $mqttuser->update($requestData);
 
         return redirect('admin/mqtt-user')->with('session_success', 'MQTTUser updated!');
