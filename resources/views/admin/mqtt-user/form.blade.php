@@ -9,8 +9,10 @@
     <div class="form-group row {{ $errors->has('password') ? 'has-error' : ''}}">
         <label for="password" class="col-form-label text-right col-lg-3 col-sm-12">{{ 'Password' }}</label>
         <div class="col-lg-4 col-md-9 col-sm-12">
-            <input class="form-control" name="password" type="password" id="password" value="{{ isset($mqttuser->password) ? $mqttuser->password : ''}}">
-            <input class="form-control" required name="old_password" type="hidden" value="{{ isset($mqttuser->password) ? $mqttuser->password : ''}}">
+            <input class="form-control password" name="password" type="password" id="password" value="{{ isset($mqttuser->password) ? $mqttuser->password : ''}}">
+            <input class="form-control" name="old_password" type="hidden" value="{{ isset($mqttuser->password) ? $mqttuser->password : ''}}">
+            <input class="form-control password_hex_sha512" name="password_hex_sha512" type="hidden" value="">
+            <input class="form-control password_b64_sha512" name="password_b64_sha512" type="hidden" value="">
             {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
         </div>
     </div>

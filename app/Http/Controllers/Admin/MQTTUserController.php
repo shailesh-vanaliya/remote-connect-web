@@ -51,8 +51,8 @@ class MQTTUserController extends Controller
     {
         $data['title']     = 'MQTT User';
         $data['pagetitle'] = 'MQTT User';
-        $data['js']        = ['admin/user.js', 'jquery.validate.min.js'];
-        $data['funinit']   = ['User.init()'];
+        $data['js']        = ['admin/mqttUser.js'];
+        $data['funinit']   = ['MqttUser.init()'];
         $data['header']    = [
             'title'      => 'MQTT User',
             'breadcrumb' => [
@@ -128,8 +128,8 @@ class MQTTUserController extends Controller
         $data['mqttuser'] = MQTTUser::findOrFail($id);
         $data['title']     = 'MQTT User';
         $data['pagetitle'] = 'MQTT User';
-        $data['js']        = ['admin/user.js', 'jquery.validate.min.js'];
-        $data['funinit']   = ['User.init()'];
+        $data['js']        = ['admin/mqttUser.js'];
+        $data['funinit']   = ['MqttUser.init()'];
         $data['header']    = [
             'title'      => 'MQTT User',
             'breadcrumb' => [
@@ -158,7 +158,23 @@ class MQTTUserController extends Controller
             if ($validator->fails()) {
                 return redirect("admin/mqtt-user/$id/edit")->withErrors($validator)->withInput();
             }
+
         $requestData = $request->all();
+        // print_r($requestData);exit;
+        
+        // $passworda = $requestData['password'];
+        // $password_hex_sha512 = $requestData['password_hex_sha512'];
+        // $password_b64_sha512 = $requestData['password_b64_sha512'];
+        // // exit;
+        // $password = password_hash($passworda, PASSWORD_BCRYPT);
+        // echo $password . " === <br/>";
+
+        // $password1 = password_hash($password_hex_sha512, PASSWORD_BCRYPT);
+        // echo $password1 . " === <br/>";
+        // $password1 = password_hash($password_b64_sha512, PASSWORD_BCRYPT);
+        // echo $password1 . " === <br/>";
+
+        // exit;
         // $hash = hash('sha512', $requestData['password']);
         $hash = password_hash(hash('sha512', $requestData['password']), PASSWORD_DEFAULT);
         // $hash = password_hash($requestData['password'], PASSWORD_DEFAULT);

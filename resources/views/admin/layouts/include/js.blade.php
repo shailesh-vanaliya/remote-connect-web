@@ -54,6 +54,7 @@
 <script src="{{ asset($dynamicUrl.'plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
  <script src="{{ URL::asset($dynamicUrl.'dist/js/adminlte.min.js') }}"></script>
  <script src="{{ URL::asset($dynamicUrl.'js/jquery.playSound.js') }}"></script>
+ <script src="{{ URL::asset($dynamicUrl.'js/sha512.js') }}"></script>
 
 @if(!empty($pluginjs))
     @foreach ($pluginjs as $pjs)
