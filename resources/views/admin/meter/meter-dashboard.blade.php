@@ -86,7 +86,11 @@ $sss = "opacity: 0.5;cursor: not-allowed !important;";
         <div class="card card-primary card-outline">
           <div class="card-body box-profile">
             <div class="text-center">
-              <img class="profile-user-img img-fluid img-circle" src="{{ asset('public/ICON/Devices.svg') }}" alt="Device picture">
+              @php
+              $nm = str_replace("_","",$device->device_type.'.png');
+              $imageName =  asset('/public/uploads/device/' . $nm );
+              @endphp
+              <img class="profile-user-img img-fluid img-circle" src="{{ $imageName }}" alt="Device picture">
             </div>
 
             <h3 class="profile-username text-center">{{ (isset($device->modem_id) && !empty($device->modem_id) ? $device->modem_id : 'N/A') }}</h3>
