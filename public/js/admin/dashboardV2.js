@@ -29,6 +29,7 @@ var DashboardV2 = function () {
         $('#dateRange').daterangepicker({
             timePicker: true,
             timePickerIncrement: 30,
+            dateLimit: { days: 14 },
             autoUpdateInput: true,
             timePicker24Hour: true,
             locale: {
