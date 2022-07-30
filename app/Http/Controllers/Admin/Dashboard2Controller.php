@@ -101,6 +101,11 @@ class Dashboard2Controller extends Controller
         try {
             $start = $data['startDate'] . ":00";
             $end = $data['endDate'] . ":00";
+
+            $date1 = new DateTime($start);
+            $date2 = new DateTime($end);
+            $interval = $date1->diff($date2);
+
             $this->deviceName = isset($data['modem_id'])  ? $data['modem_id'] : '';
             if (empty($start) && empty($end)) {
                 $start = date('Y-m-d h:i:s');
@@ -109,11 +114,28 @@ class Dashboard2Controller extends Controller
                 // $start = date('Y-m-d h:i:s', strtotime($start));
                 // $end = date('Y-m-d h:i:s', strtotime($end));
             }
-
-            $pv1 =  Honeywell::select('pv1 as 0','sp1 as 1','pv2 as 2','sp2 as 3','pv3 as 4','sp3 as 5','pv4 as 6','sp4 as 7','pv5 as 8','sp5 as 9','pv6 as 10','sp6 as 11', DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'))
+            if($interval->d < 29){
+                $pv1 =  Honeywell::select('pv1 as 0','sp1 as 1','pv2 as 2','sp2 as 3','pv3 as 4','sp3 as 5','pv4 as 6','sp4 as 7','pv5 as 8','sp5 as 9','pv6 as 10','sp6 as 11', DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'))
                 ->where("modem_id", $this->deviceName)
                 ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
-                ->orderBy('dtm', 'asc')->get()->toArray();
+                ->orderBy('dtm', 'asc')->get()->toArray(); 
+            }else{
+                // echo $start. ' ---- ' . $end;
+                // exit;
+                $pv1 =  Honeywell::select('pv1 as 0','sp1 as 1','pv2 as 2','sp2 as 3','pv3 as 4','sp3 as 5','pv4 as 6','sp4 as 7','pv5 as 8','sp5 as 9','pv6 as 10','sp6 as 11','dtm as dates', 
+                DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date',DB::raw("(DATE_FORMAT(dtm,'%Y-%m-%d %h:i'))")))
+                ->where("modem_id", $this->deviceName)
+                ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
+                ->orderBy('dtm', 'asc')
+                ->groupBy(DB::raw("(DATE_FORMAT(dtm,'%Y-%m-%d %h:%i'))"))
+                ->get()->toArray();
+            }
+            
+
+            // $pv1 =  Honeywell::select('pv1 as 0','sp1 as 1','pv2 as 2','sp2 as 3','pv3 as 4','sp3 as 5','pv4 as 6','sp4 as 7','pv5 as 8','sp5 as 9','pv6 as 10','sp6 as 11', DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'))
+            //     ->where("modem_id", $this->deviceName)
+            //     ->whereRaw("(dtm >= ? AND dtm <= ?)", [$start, $end])
+            //     ->orderBy('dtm', 'asc')->get()->toArray();
 
             // $sp1 =  Honeywell::select('sp1 as value', DB::raw('(UNIX_TIMESTAMP(dtm) * 1000) as date'))
             //     ->where("modem_id", $this->deviceName)
